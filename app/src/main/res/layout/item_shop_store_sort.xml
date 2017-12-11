@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_goods_sort"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_36dp"
+            android:layout_marginLeft="@dimen/dimen_4dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/border_bottom"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/tv_goods_sort"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="left"
+                android:padding="@dimen/dimen_4dp"
+                android:text="分类1"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@mipmap/arrow_right_n" />
+        </LinearLayout>
+
+        <com.ldnet.utility.MyGridView
+            android:id="@+id/gv_goods"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:horizontalSpacing="@dimen/dimen_6dp"
+            android:numColumns="2"
+            android:verticalSpacing="@dimen/dimen_6dp" />
+    </LinearLayout>
+    <!--<Button-->
+    <!--android:id="@+id/tv_goods_sort"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/dimen_4dp"-->
+    <!--android:padding="@dimen/dimen_4dp"-->
+    <!--android:gravity="left"-->
+    <!--android:background="@color/white"-->
+    <!--android:text="分类1" />-->
+
+
+</LinearLayout>

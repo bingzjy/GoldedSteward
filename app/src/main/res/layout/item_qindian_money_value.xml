@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_back"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/back_button_check_green"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_equipment_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/dimen_10dp"
+        android:text="New Text"
+        android:textSize="@dimen/font_size_16sp" />
+
+    <TextView
+        android:id="@+id/tv_equipment_msg1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="New Text" />
+
+    <TextView
+        android:id="@+id/tv_equipment_msg2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/dimen_10dp"
+        android:text="New Text" />
+</LinearLayout>

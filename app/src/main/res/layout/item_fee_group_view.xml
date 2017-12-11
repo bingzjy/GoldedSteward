@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen_48dp"
+              android:layout_marginBottom="1dp"
+              android:background="@drawable/border_bottom_gray"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/dimen_12dp"
+              android:paddingLeft="@dimen/dimen_8dp"
+              android:paddingRight="@dimen/dimen_8dp"
+              android:paddingTop="@dimen/dimen_12dp">
+
+    <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="@dimen/dimen_16dp"
+            android:layout_height="@dimen/dimen_16dp"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:layout_marginTop="4dp"
+            android:src="@mipmap/indicator_unexpand" />
+
+    <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="2015年01月"
+            android:textColor="@color/gray_deep"
+            android:textSize="@dimen/font_size_14sp" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:text="合计:"
+            android:textColor="@color/gray_deep"
+            android:textSize="@dimen/font_size_14sp" />
+
+    <TextView
+            android:id="@+id/tv_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥200.00"
+            android:textColor="@color/green"
+            android:textSize="@dimen/font_size_14sp" />
+
+    <TextView
+            android:id="@+id/tv_unpaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/dimen_8dp"
+            android:text="已缴清"
+            android:layout_marginRight="@dimen/dimen_12dp"
+            android:textColor="@color/red"
+            android:textSize="@dimen/font_size_14sp" />
+
+    <CheckBox
+            android:id="@+id/cb_pay"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/chk_custom"
+            android:button="@null"
+            android:focusable="false"
+            android:paddingLeft="@dimen/dimen_5dp"
+            android:paddingRight="@dimen/dimen_10dp"
+            android:checked="false"/>
+</LinearLayout>

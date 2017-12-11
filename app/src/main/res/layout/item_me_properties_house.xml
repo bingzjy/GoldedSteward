@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:descendantFocusability="afterDescendants"
+              android:orientation="vertical">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_light_3"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_8dp">
+            <ImageView
+                android:id="@+id/iv_me_house_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_8dp"
+                android:src="@mipmap/list_house_gray"/>
+            <TextView
+                android:id="@+id/tv_house_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/dimen_8dp"
+                android:text="1栋1单元123室"
+                android:textColor="@color/gray_deep"
+                android:textSize="@dimen/font_size_14sp"/>
+            <Button
+                android:id="@+id/btn_house_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_4dp"
+                android:background="@drawable/back_button_red"
+                android:padding="@dimen/dimen_4dp"
+                android:focusable="true"
+                android:text="解除绑定"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_12sp"/>
+            <Button
+                android:id="@+id/btn_house_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_button_orange"
+                android:padding="@dimen/dimen_4dp"
+                android:layout_marginRight="@dimen/dimen_4dp"
+                android:text="切换房屋"
+                android:focusable="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_12sp"/>
+            <Button
+                    android:id="@+id/btn_community_psd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/back_button_green"
+                    android:padding="@dimen/dimen_4dp"
+                    android:text="访客密码"
+                    android:focusable="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_12sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
+

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_entry_exit_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar"></include>
+
+    <LinearLayout
+        android:id="@+id/ll_entry_exit_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_14dp"
+        android:paddingTop="@dimen/dimen_14dp">
+
+        <TextView
+            android:id="@+id/tv_title_visitor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="访客记录"
+            android:textColor="@color/green_text" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/bg_gray" />
+
+        <TextView
+            android:id="@+id/tv_title_goods"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="物品出入"
+            android:textColor="@color/black_text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_20dp">
+
+        <TextView
+            android:id="@+id/tab_bar_visitor"
+            android:layout_width="22dp"
+            android:layout_height="3dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tab_bar_goods"
+            android:layout_width="22dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:background="@color/gray_back"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_entry_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

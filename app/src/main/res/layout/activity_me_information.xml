@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ll_information"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar" />
+
+    <EditText
+        android:id="@+id/et_me_information_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:background="@drawable/back_edittext_login"
+        android:gravity="center_vertical"
+        android:hint="@string/activity_me_information_name"
+        android:padding="@dimen/dimen_16dp"
+        android:singleLine="true"
+        android:textColor="@color/gray_deep"
+        android:textSize="@dimen/font_size_16sp" />
+
+    <Button
+        android:id="@+id/btn_me_information_comfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_8dp"
+        android:layout_marginRight="@dimen/dimen_8dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:background="@drawable/back_button_login"
+        android:enabled="false"
+        android:padding="@dimen/dimen_8dp"
+        android:text="@string/button_confirm"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_20sp"></Button>
+
+    <Button
+        android:id="@+id/btn_change_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dimen_12dp"
+        android:background="@null"
+        android:text="修改密码"
+        android:textColor="@color/green" />
+</LinearLayout>

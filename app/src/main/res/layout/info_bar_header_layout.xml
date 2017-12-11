@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/white"
+    >
+
+    <RadioGroup
+        android:id="@+id/radio_group_info_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_32dp"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        >
+
+        <RadioButton
+            android:id="@+id/radio_button_provide1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/info_bar_tab_left_back"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="@string/info_bar_provide"
+            android:textColor="@drawable/info_bar_text_back"
+            android:textSize="@dimen/font_size_16sp" />
+
+        <RadioButton
+            android:id="@+id/radio_button_need1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/info_bar_tab_right_back"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text= "@string/info_bar_need"
+            android:textColor="@drawable/info_bar_text_back"
+            android:textSize="@dimen/font_size_16sp" />
+
+    </RadioGroup>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:src="@drawable/green_arrow_left"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="@dimen/dimen_15dp"
+        android:paddingRight="@dimen/dimen_15dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/imageView_info_back"
+        android:visibility="visible"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_20dp"
+        android:src="@drawable/green_edit_icon"
+        android:layout_alignParentRight="true"
+        android:paddingRight="@dimen/dimen_15dp"
+        android:paddingLeft="@dimen/dimen_10dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/imageview_edit"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_20dp"
+        android:src="@drawable/green_search_icon"
+        android:layout_toLeftOf="@+id/imageview_edit"
+        android:paddingRight="@dimen/dimen_10dp"
+        android:paddingLeft="@dimen/dimen_10dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/imageview_search"
+        />
+
+</RelativeLayout>

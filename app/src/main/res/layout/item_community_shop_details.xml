@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/community_shop_goods"
+    android:layout_marginLeft="@dimen/dimen_2dp"
+    android:layout_marginRight="@dimen/dimen_2dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_shopping"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dimen_2dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/tv_community_goods_image"
+            android:layout_width="@dimen/dimen_48dp"
+            android:layout_height="@dimen/dimen_48dp"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:src="@mipmap/default_goods" />
+
+        <TextView
+            android:id="@+id/tv_community_goods_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:paddingLeft="@dimen/dimen_8dp"
+            android:paddingRight="@dimen/dimen_8dp"
+            android:paddingTop="@dimen/dimen_2dp"
+            android:gravity="center"
+            android:text="This is goods name"
+            android:lines="1"
+            android:textColor="@color/gray_deep"
+            android:textSize="@dimen/font_size_12sp" />
+
+        <TextView
+            android:id="@+id/tv_community_goods_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:paddingLeft="@dimen/dimen_8dp"
+            android:paddingRight="@dimen/dimen_8dp"
+            android:gravity="center"
+            android:text="￥00.00"
+            android:textColor="@color/red"
+            android:textSize="@dimen/font_size_12sp" />
+    </LinearLayout>
+</LinearLayout>

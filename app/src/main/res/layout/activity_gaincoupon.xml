@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar_textbutton" />
+
+    <com.third.listviewshangxia.XListView
+        android:id="@+id/lv_gain_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dimen_6dp"
+        android:divider="#00000000"
+        android:dividerHeight="18dp"
+        android:listSelector="@color/transparent"
+        android:scrollbars="none">
+
+    </com.third.listviewshangxia.XListView>
+</LinearLayout>

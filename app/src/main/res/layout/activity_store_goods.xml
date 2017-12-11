@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar_textbutton" />
+    <com.library.PullToRefreshScrollView
+            android:background="#EEEEEE"
+            android:id="@+id/main_act_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:id="@+id/tv_goods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dimen_104dp"
+                    android:drawablePadding="@dimen/dimen_24dp"
+                    android:drawableTop="@mipmap/goods_details_empty"
+                    android:padding="@dimen/dimen_24dp"
+                    android:text="空空如也！"
+                    android:textColor="@color/green_light"
+                    android:visibility="gone"/>
+            <ListView
+                    android:id="@+id/xlv_shop_store_goods"
+                    android:background="@drawable/border_top_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+            </ListView>
+        </LinearLayout>
+
+    </com.library.PullToRefreshScrollView>
+</LinearLayout>

@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/ll_property_communicate"
+              android:orientation="vertical">
+    <include layout="@layout/activity_second_titlebar_textbutton"/>
+
+    <ScrollView
+        android:id="@+id/sv_communicate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:id="@+id/ll_communicate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_communicate_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_48dp"
+        android:background="@drawable/border_top"
+        android:orientation="horizontal"
+        android:focusableInTouchMode="true"
+        android:padding="@dimen/dimen_4dp">
+        <EditText
+            android:id="@+id/et_send_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="19"
+            android:imeOptions="actionSend"
+            android:singleLine="true"/>
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="@dimen/dimen_48dp"
+            android:layout_height="@dimen/dimen_36dp"
+            android:layout_weight="1"
+            android:text="发送"/>
+    </LinearLayout>
+</LinearLayout>

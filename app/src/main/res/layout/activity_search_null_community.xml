@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_binding_community"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar" />
+
+    <LinearLayout
+        android:id="@+id/ll_address_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48dp"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:paddingLeft="@dimen/dimen_2dp"
+            android:paddingRight="@dimen/dimen_2dp">
+
+            <Spinner
+                android:id="@+id/sr_address_provinces"
+                style="@style/spinner_style"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:animationCache="true"
+                android:drawSelectorOnTop="true" />
+
+            <Spinner
+                android:id="@+id/sr_address_cities"
+                style="@style/spinner_style"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:animationCache="true"
+                android:drawSelectorOnTop="true" />
+
+            <Spinner
+                android:id="@+id/sr_address_areas"
+                style="@style/spinner_style"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:animationCache="true"
+                android:drawSelectorOnTop="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48dp">
+
+            <EditText
+                android:id="@+id/et_address_details"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="请输入提交的小区名"
+                android:textColor="@color/gray_deep"
+                android:textSize="@dimen/font_size_16sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_address_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48dp"
+            android:background="@drawable/back_button_login"
+            android:enabled="false"
+            android:text="提交地址反馈"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_16sp" />
+    </LinearLayout>
+</LinearLayout>

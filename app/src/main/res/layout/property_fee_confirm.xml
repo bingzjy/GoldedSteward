@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include android:id="@+id/ll_top"
+            layout="@layout/activity_second_titlebar"/>
+    <ExpandableListView
+            android:layout_weight="1"
+            android:id="@+id/exlv_property_fees"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:groupIndicator="@null">
+    </ExpandableListView>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:background="@drawable/border_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:id="@+id/tv_fee_sum"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text=""
+                android:gravity="center"
+                android:textColor="@color/gray_deep"
+                android:textSize="@dimen/font_size_16sp"/>
+        <TextView
+                android:id="@+id/tv_fee_pay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:background="@color/green_light1"
+                android:text="在线支付"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16sp"/>
+    </LinearLayout>
+</LinearLayout>

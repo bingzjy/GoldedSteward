@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ll_recharge_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_light_3"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar" />
+
+    <EditText
+        android:id="@+id/et_recharge_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_40dp"
+        android:background="@drawable/back_edittext"
+        android:drawableLeft="@drawable/me_purse"
+        android:drawablePadding="@dimen/dimen_16dp"
+        android:hint="请输入充值金额"
+        android:inputType="number"
+        android:padding="@dimen/dimen_8dp"
+        android:singleLine="true"
+        android:textColorHint="@color/green" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_40dp"
+        android:background="@color/gray_light_3"
+        android:gravity="center|left"
+        android:padding="@dimen/dimen_8dp"
+        android:text="请选择充值方式"
+        android:textColor="@color/gray_deep"
+        android:textSize="@dimen/font_size_16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_4dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:gravity="center|left">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_48dp"
+                android:layout_height="@dimen/dimen_48dp"
+                android:layout_marginRight="@dimen/dimen_8dp"
+                android:src="@mipmap/alipay" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:text="支付宝"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:text="在线充值"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/font_size_14sp" />
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/chk_pay_type_checked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="@dimen/dimen_8dp"
+                android:background="@drawable/chk_custom"
+                android:button="@null" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_8dp"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:gravity="center|left">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_48dp"
+                android:layout_height="@dimen/dimen_48dp"
+                android:layout_marginRight="@dimen/dimen_8dp"
+                android:src="@drawable/unionpay" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:text="银联"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:text="在线充值"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/font_size_14sp" />
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/chk_union_pay_type_checked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="@dimen/dimen_8dp"
+                android:background="@drawable/chk_custom"
+                android:button="@null" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_48dp"
+        android:layout_marginLeft="@dimen/dimen_12dp"
+        android:layout_marginRight="@dimen/dimen_12dp"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:background="@drawable/back_button_login"
+        android:enabled="false"
+        android:text="充值"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_20sp" />
+</LinearLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingTop="@dimen/dimen_15dp"
+    android:paddingBottom="@dimen/dimen_15dp"
+    >
+
+        <LinearLayout
+            android:id="@+id/ll_yellow_rental"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/iv_home_property_notification"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="@null"
+                    android:contentDescription="@null"
+                    android:src="@drawable/house_resident_home_icon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="房屋租赁"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/font_size_12sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_yellow_pages"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_home_property_thumbnail"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="6dp"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/yellow_home_icon" />
+
+            <TextView
+                android:id="@+id/aaaaaa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="生活黄页"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/font_size_12sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_yellow_service"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_home_property_notice"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="@null"
+                    android:contentDescription="@null"
+                    android:src="@drawable/activity_home_icon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="周边惠"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/font_size_12sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_yellow_infobar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_home_property_notice2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="6dp"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:src="@drawable/infobar_home_icon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邻里通"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/font_size_12sp"
+                />
+        </LinearLayout>
+</LinearLayout>

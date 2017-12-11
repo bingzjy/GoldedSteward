@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ll_visitor_valid"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include layout="@layout/activity_second_titlebar"/>
+    <TextView
+            android:id="@+id/tv_vistior_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:padding="10dp"
+            android:textColor="@color/orange_deep"
+            android:textSize="@dimen/font_size_14sp"/>
+    <View android:layout_width="match_parent"
+          android:background="@color/gray"
+          android:layout_height="1dp"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <EditText
+                android:layout_weight="1"
+                android:id="@+id/et_visitor_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:padding="@dimen/dimen_16dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_deep"
+                android:textSize="@dimen/font_size_16sp"/>
+        <Button
+                android:text="重新获取"
+                android:textColor="@color/white"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dimen_5dp"
+                android:background="@drawable/sharp_rect"
+                android:id="@+id/bt_visitor_valid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent"
+          android:background="@color/gray"
+          android:layout_height="1dp"/>
+    <TextView
+            android:visibility="invisible"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_vistior_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|top"
+            android:padding="6dp"
+            android:text="业主已更换号码，请点击联系物业"
+            android:textColor="@color/orange_deep"
+            android:textSize="@dimen/font_size_14sp"/>
+    <Button
+            android:id="@+id/bt_complete_visitor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/orange_deep"
+            android:padding="@dimen/dimen_20dp"
+            android:text="完成"
+            android:textColor="@color/white"
+    />
+</LinearLayout>

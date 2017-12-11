@@ -1,0 +1,178 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<include layout="@layout/activity_second_titlebar"></include>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dimen_15dp"
+                android:text="物品清单"
+                android:textColor="@color/gray_text" />
+
+            <EditText
+                android:id="@+id/et_add_goods_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/font_size_14sp"
+                android:background="@drawable/back_border_line_green3"
+                android:minHeight="88dp"
+                android:hint="物品经过核对后方可进出，请填写完整后提交"
+                android:paddingLeft="@dimen/dimen_10dp"
+                android:paddingRight="@dimen/dimen_10dp"
+                android:textColor="@color/gray_text"
+                android:maxLength="200"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="事项"
+                android:textColor="@color/gray_text" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                android:background="@drawable/back_border_line_green3"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                >
+                <TextView
+                    android:id="@+id/spinner_add_good_reason"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/font_size_14sp"
+                    android:minHeight="35dp"
+                    android:paddingLeft="@dimen/dimen_10dp"
+                    android:paddingRight="@dimen/dimen_10dp"
+                    android:maxLength="200"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/gray_text"
+
+                    />
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/green_arrow_bottom"
+                    android:layout_marginRight="@dimen/dimen_10dp"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="其他"
+                android:textColor="@color/gray_text"
+                android:id="@+id/tv_add_goods_access_other_title" />
+
+            <EditText
+                android:id="@+id/et_add_goods_other_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/font_size_14sp"
+                android:background="@drawable/back_border_line_green3"
+                android:minHeight="35dp"
+                android:paddingLeft="@dimen/dimen_10dp"
+                android:paddingRight="@dimen/dimen_10dp"
+                android:maxLength="200"
+                android:textColor="@color/gray_text"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="时间"
+                android:textColor="@color/gray_text" />
+
+            <TextView
+                android:id="@+id/tv_add_goods_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/back_border_line_green3"
+                android:minHeight="35dp"
+                android:paddingLeft="@dimen/dimen_10dp"
+                android:paddingRight="@dimen/dimen_10dp"
+                android:textColor="@color/gray_text"
+                android:gravity="center_vertical"
+                />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="当日24小时之内有效"
+                android:textColor="@color/orange_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="进出小区"
+                android:textColor="@color/gray_text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                android:background="@drawable/back_border_line_green3"
+                android:gravity="center_vertical"
+                >
+                <TextView
+                    android:id="@+id/spinner_add_good_community"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/font_size_14sp"
+                    android:minHeight="35dp"
+                    android:paddingLeft="@dimen/dimen_10dp"
+                    android:paddingRight="@dimen/dimen_10dp"
+                    android:maxLength="200"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/gray_text"
+                    />
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/green_arrow_bottom"
+                    android:layout_marginRight="@dimen/dimen_10dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_add_goods_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:background="@drawable/back_button_fill_green"
+        android:paddingBottom="11dp"
+        android:layout_marginBottom="@dimen/dimen_10dp"
+        android:paddingTop="11dp"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+</LinearLayout>

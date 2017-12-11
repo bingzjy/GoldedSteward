@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar"></include>
+
+    <com.library.PullToRefreshScrollView
+            android:background="#EEEEEE"
+            android:id="@+id/main_act_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white_66"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_12dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dimen_8dp"
+                    android:paddingLeft="@dimen/dimen_8dp"
+                    android:paddingTop="@dimen/dimen_8dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/ibtn_shop_store_logo"
+                        android:layout_width="62dp"
+                        android:layout_height="62dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/me_thumbnail_n"
+                        app:border_color="#00000000"
+                        app:border_width="2dp"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dimen_4dp"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:id="@+id/shop_store_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/dimen_5dp"
+                            android:text="爱马来白咖啡"
+                            android:textColor="@color/transparent_1"
+                            android:textSize="@dimen/font_size_16sp"/>
+                    <TextView
+                            android:id="@+id/shop_store_introduction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/dimen_5dp"
+                            android:text="凤城一路雅荷花园A32"
+                            android:textColor="@color/transparent_1"/>
+                    <LinearLayout
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:id="@+id/shop_store_postage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/dimen_5dp"
+                                android:text="爱马来白咖啡"
+                                android:textColor="@color/transparent_1"
+                                android:textSize="@dimen/font_size_14sp"/>
+
+                        <TextView
+                                android:padding="@dimen/dimen_5dp"
+                                android:id="@+id/shop_store_exemption_from_postage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dimen_4dp"
+                                android:text="爱马来白咖啡"
+                                android:textColor="@color/transparent_1"
+                                android:textSize="@dimen/font_size_14sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dimen_12dp">
+
+                <LinearLayout
+                        android:id="@+id/ll_address_location"
+                        android:layout_width="@dimen/dimen_0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="14dp"
+                            android:src="@drawable/locate_icon"
+                            android:visibility="visible"/>
+
+                    <TextView
+                            android:padding="@dimen/dimen_5dp"
+                            android:id="@+id/shop_store_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="凤城一路雅荷花园A32"
+                            android:textColor="@color/transparent_1"/>
+                </LinearLayout>
+
+                <Button
+                        android:id="@+id/shop_store_tel"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/back_imagebutton_telephone"
+                        android:textColor="@color/gray"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+
+                <TextView
+                        android:padding="@dimen/dimen_5dp"
+                        android:id="@+id/shop_store_address_p_c_a"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="@dimen/dimen_8dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:lines="1"
+                        android:text="陕西省西安市长安区"
+                        android:textColor="@color/transparent_1"/>
+
+            </LinearLayout>
+
+            <ListView
+                    android:id="@+id/lv_shop_store_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_0dp"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:layout_weight="1"
+                    android:scrollbars="none"></ListView>
+        </LinearLayout>
+    </com.library.PullToRefreshScrollView>
+
+</LinearLayout>

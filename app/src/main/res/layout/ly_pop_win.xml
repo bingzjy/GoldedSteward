@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@drawable/sharp_rect_green"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+            android:text="收费标准"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:padding="@dimen/dimen_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+          android:background="@color/gray_light_2"/>
+    <ListView
+            android:layout_weight="1"
+            android:id="@+id/lv_charge"
+            android:listSelector="#00000000"
+            android:background="@color/white"
+            android:padding="@dimen/dimen_8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </ListView>
+    <TextView
+            android:layout_weight="1"
+            android:id="@+id/tv_text"
+            android:background="@color/white"
+            android:text="暂时没有收费项"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:padding="@dimen/dimen_8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+          android:background="@color/gray_light_2"/>
+    <TextView
+            android:id="@+id/tv_confirm"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:padding="@dimen/dimen_8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

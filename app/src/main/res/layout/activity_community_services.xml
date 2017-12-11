@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    >
+    <com.library.PullToRefreshScrollView
+        android:id="@+id/main_act_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:id="@+id/tv_community_services"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dimen_104dp"
+                    android:drawablePadding="@dimen/dimen_24dp"
+                    android:drawableTop="@drawable/s_service"
+                    android:padding="@dimen/dimen_24dp"
+                    android:text="别着急，会有的!"
+                    android:textColor="@color/green_light"
+                    android:visibility="gone" />
+            <com.ldnet.utility.CustomListView2
+                    android:id="@+id/lv_community_services"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="#00000000"
+                    android:dividerHeight="0dip"
+                    android:listSelector="@android:color/transparent"
+                >
+            </com.ldnet.utility.CustomListView2>
+        </LinearLayout>
+
+    </com.library.PullToRefreshScrollView>
+</LinearLayout>

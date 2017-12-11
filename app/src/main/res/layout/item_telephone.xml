@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen_48dp"
+              android:layout_marginBottom="1dp"
+              android:background="@drawable/border_bottom"
+              android:gravity="center|left"
+              android:orientation="horizontal"
+              android:paddingLeft="@dimen/dimen_8dp"
+              android:paddingRight="@dimen/dimen_8dp">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:text="TITLE"
+        android:textColor="@color/gray_deep"
+        android:textSize="@dimen/font_size_16sp"/>
+
+    <TextView
+        android:id="@+id/tv_telephone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:text="PHONE"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/font_size_16sp"/>
+
+    <ImageButton
+        android:id="@+id/ibtn_telephone"
+        android:layout_width="@dimen/dimen_32dp"
+        android:layout_height="@dimen/dimen_32dp"
+        android:layout_marginLeft="@dimen/dimen_8dp"
+        android:background="@drawable/back_imagebutton_telephone"/>
+</LinearLayout>

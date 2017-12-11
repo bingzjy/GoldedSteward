@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ll_house_rent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_houserent_titlebar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/dimen_2dp"
+        android:paddingRight="@dimen/dimen_2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_32dp"
+                    android:background="@color/gray_light_3"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dimen_8dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/frea_market_pictures"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/font_size_14sp"
+                    android:id="@+id/textView15" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+            <LinearLayout
+                android:id="@+id/ll_houserent_images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dimen_8dp"
+                android:paddingTop="@dimen/dimen_8dp">
+
+                <ImageButton
+                    android:id="@+id/btn_picture_add"
+                    android:layout_width="@dimen/dimen_64dp"
+                    android:layout_height="@dimen/dimen_64dp"
+                    android:background="@null"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/picture_plus" />
+            </LinearLayout>
+            </HorizontalScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_house_rent_detail_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="标题，字数最好在50以内"
+                    android:maxLength="50"
+                    android:textSize="@dimen/font_size_16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_house_rent_detail_room"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="室"
+                    android:maxLength="3"
+                    android:numeric="integer"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_4dp"
+                    android:layout_marginRight="@dimen/dimen_4dp"
+                    android:text="-"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <EditText
+                    android:id="@+id/et_house_rent_detail_hall"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="厅"
+                    android:maxLength="3"
+                    android:numeric="integer"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_4dp"
+                    android:layout_marginRight="@dimen/dimen_4dp"
+                    android:text="-"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <EditText
+                    android:id="@+id/et_house_rent_detail_toilet"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="卫"
+                    android:maxLength="3"
+                    android:numeric="integer"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_16dp"
+                    android:layout_marginRight="@dimen/dimen_16dp"
+                    android:text="/"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <EditText
+                    android:id="@+id/et_house_rent_detail_area"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:hint="平米"
+                    android:maxLength="4"
+                    android:numeric="integer"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_4dp"
+                    android:layout_marginRight="@dimen/dimen_8dp"
+                    android:text="平米"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:minHeight="@dimen/dimen_48dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_house_rent_detail_floor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="第几层"
+                    android:maxLength="3"
+                    android:numeric="integer"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_4dp"
+                    android:layout_marginRight="@dimen/dimen_4dp"
+                    android:text="/"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <EditText
+                    android:id="@+id/et_house_rent_detail_total_floor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="总层数"
+                    android:maxLength="3"
+                    android:numeric="integer"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <CheckBox
+                    android:id="@+id/addhouserent_rdoleft"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="@dimen/dimen_16dp"
+                    android:background="@drawable/chk_custom"
+                    android:button="@null"
+                    android:textColor="@color/green" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_4dp"
+                    android:layout_marginRight="@dimen/dimen_4dp"
+                    android:layout_weight="1"
+                    android:text="是否有电梯"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shap_addhouserent_et">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/et_house_rent_detail_room_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="X号楼XX单元XXX号"
+                    android:textSize="@dimen/font_size_16sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_house_rent_detail_tel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="联系电话"
+                    android:numeric="integer"
+                    android:inputType="phone"
+                    android:textSize="@dimen/font_size_16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_56dp"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dimen_4dp"
+                android:paddingTop="@dimen/dimen_2dp">
+
+                <Spinner
+                    android:id="@+id/id_spinner_orientation"
+                    style="@style/spinner_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:animationCache="true"
+                    android:drawSelectorOnTop="true"></Spinner>
+
+                <Spinner
+                    android:id="@+id/id_spinner_fitment"
+                    style="@style/spinner_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_8dp"
+                    android:layout_weight="1"
+                    android:animationCache="true"
+                    android:drawSelectorOnTop="true"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_56dp"
+                android:paddingBottom="@dimen/dimen_4dp"
+                android:paddingTop="@dimen/dimen_2dp">
+
+                <Spinner
+                    android:id="@+id/id_spinner_roomtype"
+                    style="@style/spinner_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:animationCache="true"
+                    android:drawSelectorOnTop="true"></Spinner>
+
+                <Spinner
+                    android:id="@+id/id_spinner_renttype"
+                    style="@style/spinner_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_8dp"
+                    android:layout_weight="1"
+                    android:animationCache="true"
+                    android:drawSelectorOnTop="true"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_56dp"
+                android:paddingBottom="@dimen/dimen_4dp"
+                android:paddingTop="@dimen/dimen_2dp">
+
+                <Spinner
+                    android:id="@+id/id_spinner_room_config"
+                    style="@style/spinner_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:animationCache="true"
+                    android:drawSelectorOnTop="true"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/room_config_memo_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48dp"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/id_spinner_room_config_memo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="具体带哪些家具？"
+                    android:textSize="@dimen/font_size_16sp"></EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48dp"
+                android:gravity="center|left">
+
+                <EditText
+                    android:id="@+id/et_house_rent_detail_rent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:inputType="numberDecimal"
+                    android:numeric="integer"
+                    android:hint="租金，元/月"
+                    android:textSize="@dimen/font_size_16sp"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_house_rent_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back_button_login"
+        android:minHeight="@dimen/dimen_48dp"
+        android:text="@string/button_confirm"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_16sp" />
+</LinearLayout>

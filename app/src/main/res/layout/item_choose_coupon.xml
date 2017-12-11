@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/coupon_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_78dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="@dimen/dimen_24dp"
+            android:layout_height="@dimen/dimen_24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/dimen_12dp">
+
+
+
+            <CheckBox
+                android:id="@+id/chk_coupon_checked"
+                android:layout_width="@dimen/dimen_24dp"
+                android:layout_height="@dimen/dimen_24dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/chk_custom"
+                android:button="@null"
+                android:enabled="false"
+                android:focusable="false" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_coupon_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_12dp"
+                android:text="满7元可用（平台劵）"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <TextView
+                android:id="@+id/tv_coupon_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_12dp"
+                android:text="2016.04.12-2016.06.12"
+                android:textColor="@color/green"
+                android:textSize="@dimen/font_size_16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_coupon_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/dimen_12dp"
+            android:text="-0.5"
+            android:textSize="@dimen/font_size_20sp" />
+    </LinearLayout>
+</LinearLayout>

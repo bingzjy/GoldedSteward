@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@null"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/dimen_8dp"
+              android:paddingLeft="@dimen/dimen_8dp"
+              android:paddingRight="@dimen/dimen_4dp"
+              android:paddingTop="@dimen/dimen_8dp">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:paddingBottom="@dimen/dimen_4dp">
+        <TextView
+            android:id="@+id/tv_complain_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sharp_rect"
+            android:lines="1"
+            android:padding="5dp"
+            android:text="SUBMIT"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_14sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:padding="@dimen/dimen_4dp"
+            android:text="-"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/font_size_14sp"/>
+        <TextView
+            android:id="@+id/tv_complain_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:lines="1"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:paddingLeft="@dimen/dimen_4dp"
+            android:paddingRight="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/dimen_4dp"
+            android:text="2015-09-08 12:32:54"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/font_size_14sp"/>
+        <ImageView
+                android:visibility="gone"
+                android:id="@+id/tv_complain_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/red"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/dimen_8dp"
+        />
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="@dimen/dimen_4dp"
+                  android:orientation="horizontal">
+        <RatingBar
+            android:id="@+id/rb_complain_score"
+            style="@style/rating_small_style"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_14dp"
+            android:focusable="false"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="3.5"
+            android:stepSize="0.5"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:paddingBottom="@dimen/dimen_8dp">
+        <TextView
+            android:id="@+id/tv_complain_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:lines="1"
+            android:text="This is repair&apos;s title"
+            android:textColor="@color/gray_deep_1"
+            android:textSize="@dimen/font_size_16sp"/>
+    </LinearLayout>
+</LinearLayout>

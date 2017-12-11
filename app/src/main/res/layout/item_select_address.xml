@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/slv_front_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_64dp"
+    android:background="@drawable/border_bottom"
+    android:orientation="horizontal">
+    <LinearLayout android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:orientation="vertical"
+                  android:padding="@dimen/dimen_8dp">
+        <TextView
+            android:id="@+id/tv_me_address_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="THIS IS ADDRESS TITLE"
+            android:textColor="@color/gray_deep"
+            android:textSize="@dimen/font_size_16sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_2dp">
+            <TextView
+                android:id="@+id/tv_me_address_zipcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:text="ZIP CODE"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/font_size_14sp"/>
+            <TextView
+                android:id="@+id/tv_me_address_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_8dp"
+                android:lines="1"
+                android:text="NAME"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/font_size_14sp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <CheckBox
+        android:id="@+id/chk_address_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginRight="@dimen/dimen_8dp"
+        android:background="@drawable/chk_custom"
+        android:button="@null"/>
+</LinearLayout>
+

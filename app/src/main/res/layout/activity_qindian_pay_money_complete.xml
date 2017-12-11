@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/charge_success" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:gravity="center"
+            android:text="支付成功，正在充电"
+            android:textColor="@color/green_text"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_back_to_home"
+            android:layout_marginTop="15dp"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:textColor="@color/green_text"
+            android:background="@drawable/back_border_line_green"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:text="返回首页"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical"
+        android:background="@color/gray_back">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="温馨提示："
+            android:layout_marginLeft="@dimen/dimen_24dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="19dp"
+            android:textColor="@color/gray_text" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1.支付成功，正在进行充电； "
+            android:layout_marginLeft="@dimen/dimen_24dp"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:textColor="@color/gray_text" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2.消费记录请到“我的账户”查询；"
+            android:layout_marginLeft="@dimen/dimen_24dp"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:textColor="@color/gray_text" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3.此次电动车智能充电服务由充智安提供。"
+            android:layout_marginLeft="@dimen/dimen_24dp"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:textColor="@color/gray_text" />
+    </LinearLayout>
+</LinearLayout>

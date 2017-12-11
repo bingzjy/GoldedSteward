@@ -1,0 +1,271 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dimen_15dp"
+                android:text="姓名"
+                android:textColor="@color/gray_text" />
+
+            <EditText
+                android:id="@+id/ed_add_invite_visitor_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/back_border_line_green3"
+                android:hint="访客姓名"
+                android:minHeight="35dp"
+                android:paddingLeft="@dimen/dimen_10dp"
+                android:paddingRight="@dimen/dimen_10dp"
+                android:singleLine="true"
+                android:maxLength="20"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/font_size_14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="手机号码"
+                android:textColor="@color/gray_text" />
+
+            <EditText
+                android:id="@+id/ed_add_invite_visitor_tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/back_border_line_green3"
+                android:hint="访客手机号码"
+                android:maxLength="11"
+                android:singleLine="true"
+                android:inputType="phone"
+                android:minHeight="35dp"
+                android:paddingLeft="@dimen/dimen_10dp"
+                android:paddingRight="@dimen/dimen_10dp"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/font_size_14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="是否开车"
+                android:textColor="@color/gray_text" />
+
+            <RadioGroup
+                android:id="@+id/rg_is_driving"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginBottom="@dimen/dimen_15dp"
+                android:layout_marginTop="@dimen/dimen_5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_button_not_driving"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/back_radio_check"
+                    android:checked="false"
+                    android:text="否"
+                    android:textColor="@color/gray_text" />
+
+                <RadioButton
+                    android:id="@+id/radio_button_is_driving"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp"
+                    android:button="@drawable/back_radio_check"
+                    android:checked="true"
+                    android:text="是"
+                    android:textColor="@color/gray_text" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/ed_add_invite_visitor_car_no_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="汽车牌照"
+                android:textColor="@color/gray_text" />
+
+            <EditText
+                android:id="@+id/ed_add_invite_visitor_car_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/back_border_line_green3"
+                android:minHeight="35dp"
+                android:paddingLeft="@dimen/dimen_10dp"
+                android:paddingRight="@dimen/dimen_10dp"
+                android:textSize="@dimen/font_size_16sp"
+                android:singleLine="true"
+                android:textColor="@color/gray_text"
+                android:maxLength="20"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="来访目的"
+                android:textColor="@color/gray_text" />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                android:background="@drawable/back_border_line_green3"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                >
+                <TextView
+                    android:id="@+id/spinner_add_invite_visitor_reason"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_size_14sp"
+                    android:minHeight="35dp"
+                    android:paddingLeft="@dimen/dimen_10dp"
+                    android:paddingRight="@dimen/dimen_10dp"
+                    android:maxLength="200"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/gray_text"
+                    android:text="111"
+                    />
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/green_arrow_bottom"
+                    android:layout_marginRight="@dimen/dimen_10dp"
+                    />
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/ed_add_invite_visitor_other_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="其他来访原因"
+                android:visibility="gone"
+                android:textColor="@color/gray_text" />
+
+            <EditText
+                android:id="@+id/ed_add_invite_visitor_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/back_border_line_green3"
+                android:minHeight="35dp"
+                android:paddingLeft="@dimen/dimen_5dp"
+                android:paddingRight="@dimen/dimen_5dp"
+                android:visibility="gone"
+                android:maxLength="200"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="到访时间"
+                android:textColor="@color/gray_text" />
+
+            <TextView
+                android:id="@+id/ed_add_invite_visitor_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/back_border_line_green3"
+                android:minHeight="35dp"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/font_size_14sp"
+                android:paddingLeft="@dimen/dimen_10dp"
+                android:paddingRight="@dimen/dimen_10dp"
+                android:gravity="center_vertical"
+                android:hint="请点击选择日期"
+                />
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="当日24：00之内有效"
+                android:textColor="@color/orange_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="进出小区"
+                android:textColor="@color/gray_text" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                android:background="@drawable/back_border_line_green3"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="15dp"
+                >
+                <TextView
+                    android:id="@+id/spinner_add_invite_visitor_community"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/font_size_14sp"
+                    android:minHeight="35dp"
+                    android:paddingLeft="@dimen/dimen_10dp"
+                    android:paddingRight="@dimen/dimen_10dp"
+                    android:maxLength="200"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/gray_text"
+                    android:text="111"
+                    />
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/green_arrow_bottom"
+                    android:layout_marginRight="@dimen/dimen_10dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/ed_add_invite_visitor_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="@dimen/dimen_10dp"
+        android:background="@drawable/back_button_fill_green"
+        android:paddingBottom="11dp"
+        android:paddingTop="11dp"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+</LinearLayout>

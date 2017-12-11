@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/border_bottom"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/dimen_12dp"
+              android:paddingLeft="@dimen/dimen_32dp"
+              android:paddingRight="@dimen/dimen_32dp"
+              android:paddingTop="@dimen/dimen_12dp">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:lines="1"
+        android:text="物业费"
+        android:textColor="@color/gray_deep"
+        android:textSize="@dimen/font_size_14sp"/>
+    <TextView
+        android:id="@+id/tv_fee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="￥200.00"
+        android:textColor="@color/red"
+        android:textSize="@dimen/font_size_14sp"/>
+    <CheckBox
+            android:visibility="gone"
+            android:id="@+id/checkbox_select_child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

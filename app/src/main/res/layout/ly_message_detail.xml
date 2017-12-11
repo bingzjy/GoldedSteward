@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include layout="@layout/activity_second_titlebar"/>
+    <TextView
+            android:id="@+id/tv_message_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:padding="@dimen/dimen_5dp"
+            android:text="This is freamarket&apos;s title"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+          android:background="@color/gray_light_2"/>
+    <TextView
+            android:id="@+id/tv_message_detail_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:padding="@dimen/dimen_5dp"
+            android:text="This is freamarket&apos;s title"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp"/>
+    <TextView
+            android:id="@+id/tv_message_detail_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:padding="@dimen/dimen_5dp"
+            android:text="This is freamarket&apos;s title"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp"/>
+
+    <TextView
+        android:id="@+id/message_detail_comm_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:textColor="@color/black_text"
+        android:text="111111"
+        />
+</LinearLayout>

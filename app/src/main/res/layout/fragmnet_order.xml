@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.library.PullToRefreshScrollView
+            android:background="#EEEEEE"
+            android:id="@+id/main_act_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+        >
+            <TextView
+                    android:id="@+id/order_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dimen_104dp"
+                    android:drawablePadding="@dimen/dimen_24dp"
+                    android:drawableTop="@mipmap/order"
+                    android:padding="@dimen/dimen_24dp"
+                    android:text="您没有未支付的订单!"
+                    android:textColor="@color/green_light"
+                    android:visibility="gone" />
+            <com.ldnet.utility.CustomListView2
+                    android:id="@+id/lv_mall_orders"
+                    android:background="@drawable/border_top_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+            </com.ldnet.utility.CustomListView2>
+        </LinearLayout>
+
+    </com.library.PullToRefreshScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_goods_balance"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_48dp"
+        android:background="@color/green">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dimen_8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="金额："
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <TextView
+                android:id="@+id/tv_goods_prices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="￥0.00"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_goods_balance"
+            android:layout_width="@dimen/dimen_104dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/back_button_orange"
+            android:text="付款"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_16sp" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimen_6dp"
+    android:background="@drawable/gain_coupon_selector"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_coupon_reduceMoney"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:layout_marginLeft="@dimen/dimen_6dp"
+            android:text="10.0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_36dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_coupon_typeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_12dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:padding="@dimen/dimen_4dp"
+                android:text="满减劵"
+                android:textColor="@color/green"
+                android:background="@color/gray_light_3"/>
+
+            <TextView
+                android:id="@+id/tv_coupon_fullMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_12dp"
+                android:paddingTop="@dimen/dimen_6dp"
+                android:text="满100减免"
+                android:textSize="@dimen/font_size_16sp"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_coupon_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="剩余1"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_12dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_coupon_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_2dp"
+                android:text="6-1儿童节日大促销"
+                android:textSize="@dimen/font_size_20sp"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_coupon_beginTime_and_endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_2dp"
+                android:paddingBottom="@dimen/dimen_6dp"
+                android:text="2016.4.01-2016.6.12"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_get_coupon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/dimen_6dp"
+            android:padding="@dimen/dimen_6dp"
+            android:layout_weight="1"
+            android:background="@drawable/community_shop_goods"
+            android:text="点击领取" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="right"
+              android:orientation="horizontal"
+              android:padding="@dimen/dimen_8dp">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right">
+        <TextView
+            android:id="@+id/tv_communication_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:background="@drawable/communicate_right"
+            android:lineSpacingExtra="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/dimen_12dp"
+            android:paddingLeft="@dimen/dimen_12dp"
+            android:paddingRight="@dimen/dimen_12dp"
+            android:paddingBottom="@dimen/dimen_16dp"
+            android:text="How are you!"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_16dp"/>
+    </LinearLayout>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_communication_icon"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="@dimen/dimen_48dp"
+        android:layout_height="@dimen/dimen_48dp"
+        android:src="@mipmap/me_thumbnail_n"
+        app:border_color="#00000000"
+        app:border_width="2dp"/>
+</LinearLayout>

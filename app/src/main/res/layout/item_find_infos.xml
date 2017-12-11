@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    android:background="@drawable/border_bottom"
+    android:padding="@dimen/dimen_12dp"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/iv_infos_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dimen_8dp"
+        android:contentDescription="@null" 
+        android:src="@mipmap/default_info"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_find_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="This is information&apos;s title"
+            android:textColor="@color/gray_deep"
+            android:textSize="@dimen/font_size_16sp" />
+
+        <TextView
+            android:id="@+id/tv_find_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="This is information&apos;s Desc"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/font_size_14sp" />
+    </LinearLayout>
+
+</LinearLayout>

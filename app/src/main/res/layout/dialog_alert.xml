@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:orientation="vertical">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="@dimen/dimen_144dp"
+                  android:orientation="vertical">
+        <TextView
+            android:id="@+id/dialog_alert_message"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:text="THIS IS ALERT MESSAGE!"
+            android:textColor="@color/gray_deep"
+            android:textSize="@dimen/font_size_16sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48dp">
+            <Button
+                android:id="@+id/dialog_button_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/back_button_orange"
+                android:text="@string/action_cancel"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16sp"/>
+            <Button
+                android:id="@+id/dialog_button_comfirm"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/back_button_green"
+                android:text="@string/button_confirm"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

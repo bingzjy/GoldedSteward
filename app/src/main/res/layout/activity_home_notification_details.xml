@@ -1,0 +1,86 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/activity_browser_titlebar"/>
+
+    <ProgressBar
+            android:id="@+id/progressBar_loading"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_2dp"
+            android:layout_gravity="center"
+            android:progressDrawable="@drawable/webview_progressbar_loading"
+    />
+
+    <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+        >
+
+    </WebView>
+
+    <ScrollView
+            android:visibility="gone"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+            >
+
+            <TextView
+                    android:id="@+id/tv_notification_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/dimen_16dp"
+                    android:text="This is title!"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp"/>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+
+                          android:gravity="center"
+                          android:orientation="horizontal"
+                          android:padding="@dimen/dimen_8dp">
+                <TextView
+                        android:id="@+id/tv_notification_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimen_4dp"
+                        android:text="This is propety name!"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/font_size_14sp"/>
+                <TextView
+                        android:id="@+id/tv_notification_property"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="0dp"
+                        android:text="This is date!"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/font_size_14sp"/>
+            </LinearLayout>
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_light_1"
+                    android:layout_marginRight="@dimen/dimen_12dp"
+                    android:layout_marginLeft="@dimen/dimen_12dp"/>
+            <TextView
+                    android:id="@+id/tv_notification_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="@dimen/dimen_8dp"
+                    android:padding="@dimen/dimen_8dp"
+                    android:text="This is content!"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp"/>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

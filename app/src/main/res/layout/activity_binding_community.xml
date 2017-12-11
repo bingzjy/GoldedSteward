@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_binding_community"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_bottom"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_4dp">
+
+        <EditText
+            android:id="@+id/et_binding_community_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/back_edittext_search"
+            android:gravity="center_vertical"
+            android:hint="@string/activity_binding_community_search_text"
+            android:imeOptions="actionSearch"
+            android:padding="@dimen/dimen_8dp"
+            android:singleLine="true"
+            android:textColor="@color/gray_deep"
+            android:textSize="@dimen/font_size_16sp" />
+
+        <Button
+            android:id="@+id/btn_binding_community_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_4dp"
+            android:background="@drawable/back_button_login"
+            android:enabled="true"
+            android:minHeight="@dimen/dimen_32dp"
+            android:minWidth="@dimen/dimen_64dp"
+            android:text="@string/button_search"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_16dp" />
+    </LinearLayout>
+
+    <include layout="@layout/progressbar_loading" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+            <TextView
+                    android:id="@+id/tv_searchnull_word"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/dimen_14dp"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                android:text="@string/searchnull"
+                android:textColor="@color/orange_deep"
+                android:textSize="@dimen/font_size_16sp" />
+
+        <ListView
+            android:id="@+id/lv_binding_community"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </RelativeLayout>
+
+</LinearLayout>

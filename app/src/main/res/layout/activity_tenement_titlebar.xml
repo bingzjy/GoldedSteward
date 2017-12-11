@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_tenement_titlebar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_48dp"
+    android:background="@drawable/border_bottom_green"
+    android:paddingLeft="@dimen/dimen_8dp"
+    android:paddingRight="@dimen/dimen_8dp">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:padding="@dimen/dimen_12dp"
+        android:src="@drawable/back_button_back" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+
+        <RadioGroup
+            android:id="@+id/rdg_tenement_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_32dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdb_tenement_title1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/tenement_rabutton_titlebar"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dimen_15dp"
+                android:paddingRight="@dimen/dimen_15dp"
+                android:text="@string/home_property_notification"
+                android:textColor="@drawable/tenement_txt_titlebar"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <RadioButton
+                android:id="@+id/rdb_tenement_title2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/tenement_rabutton_titlebar2"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dimen_15dp"
+                android:paddingRight="@dimen/dimen_15dp"
+                android:text="@string/home_property_announcement"
+                android:textColor="@drawable/tenement_txt_titlebar"
+                android:textSize="@dimen/font_size_16sp"
+                android:visibility="gone"
+                />
+
+            <RadioButton
+                android:id="@+id/rdb_tenement_title3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/tenement_rabutton_titlebar1"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dimen_15dp"
+                android:paddingRight="@dimen/dimen_15dp"
+                android:text= "@string/home_property_survey"
+                android:textColor="@drawable/tenement_txt_titlebar"
+                android:textSize="@dimen/font_size_16sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btn_custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:padding="@dimen/dimen_8dp"
+        android:src="@drawable/back_button_back"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

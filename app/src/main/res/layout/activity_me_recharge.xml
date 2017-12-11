@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar_textbutton" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FEED9093"
+            android:textColor="@color/white"
+            android:text="注意：钱包零钱只能用于购买商城商品，不能抵扣物业费"
+            android:textSize="@dimen/dimen_12dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="3dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_48dp"
+            android:src="@drawable/me_wallet" />
+
+        <TextView
+            android:id="@+id/tv_me_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:text="￥0.00"
+            android:textSize="@dimen/font_size_30sp" />
+        <Button
+            android:id="@+id/btn_recharge"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48dp"
+            android:layout_marginLeft="@dimen/dimen_12dp"
+            android:layout_marginRight="@dimen/dimen_12dp"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:background="@color/yellow"
+            android:text="充值"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_20sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_balance_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_12dp">
+
+            <Button
+                android:id="@+id/btn_balance_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:background="@null"
+                android:text="查看余额详情"
+                android:textColor="@color/green_light" />
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="1dp"
+                android:layout_alignBottom="@+id/btn_balance_details"
+                android:layout_centerHorizontal="true"
+                android:background="@color/green_light"/>
+
+        </RelativeLayout>
+
+        <com.third.listviewshangxia.XListView
+            android:id="@+id/lv_consumption_information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</LinearLayout>

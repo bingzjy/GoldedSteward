@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_78dp"
+        android:layout_weight="4"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimen_8dp"
+        android:paddingRight="@dimen/dimen_8dp"
+        android:paddingTop="@dimen/dimen_8dp">
+
+        <TextView
+            android:id="@+id/tv_opersource_paytype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:paddingLeft="@dimen/dimen_12dp"
+            android:scaleType="fitXY"
+            android:text="余额支付-充值"
+            android:textColor="@color/gray_deep"
+            android:textSize="@dimen/font_size_20sp" />
+
+        <TextView
+            android:id="@+id/tv_oper_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_12dp"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:lines="1"
+            android:scaleType="fitXY"
+            android:text="2016-02-18 16:00"
+            android:textColor="@color/green"
+            android:textSize="@dimen/font_size_14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_78dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimen_8dp"
+        android:paddingTop="@dimen/dimen_8dp">
+
+        <TextView
+            android:id="@+id/tv_oper_moneys"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="￥00.00"
+            android:textColor="@color/green"
+            android:textSize="@dimen/font_size_16sp"/>
+    </LinearLayout>
+
+</LinearLayout>

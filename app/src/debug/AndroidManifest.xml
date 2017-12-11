@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ldnet.goldensteward"
+    android:installLocation="auto"
+    android:versionCode="435"
+    android:versionName="4.3.5">
+    <uses-sdk
+        android:minSdkVersion="12"
+        android:targetSdkVersion="22"/>
+
+    <uses-permission android:name="com.ldnet.goldensteward.permission.JPUSH_MESSAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <!--银联插件权限-->
+    <uses-permission android:name="android.permission.NFC"/>
+    <uses-feature android:name="android.hardware.nfc.hce"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD"/>
+    <!-- 高德地图需要的权限 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
+    <!--<uses-permission android:name="android.permission.CALL_PHONE" />-->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <!--android 6.0-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+
+
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.autofocus"/>
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+
+    <application
+        android:name="com.ldnet.utility.GSApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppBaseTheme"
+
+        >
+        <!-- 银联开始-->
+        <uses-library
+            android:name="org.simalliance.openmobileapi"
+            android:required="false"/>
+
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name="com.unionpay.UPPayWapActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+        <!--银联结束 -->
+
+        <!-- jpush -->
+
+        <!-- Required SDK核心功能 -->
+        <receiver android:name="com.ldnet.utility.NetState">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- CameraSDK相册选取 -->
+        <!--<meta-initData-->
+        <!--android:name="com.amap.api.v2.apikey"-->
+        <!--android:value="5b636c659a5b139df6c069e9a408a563" />-->
+        <!--<meta-initData-->
+        <!--android:name="com.amap.api.v2.apikey"-->
+        <!--android:value="888f9ed5496c66ad5f042b4158abfa0f"/>-->
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="84db3ca84209501f58a7934b21653a62"/>
+        <service android:name="com.amap.api.location.APSService">
+        </service>
+
+        <!--alipay sdk begin-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+
+        </activity>
+        <!--alipay sdk end-->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="com.ldnet.goldensteward"/>
+            </intent-filter>
+        </activity>
+        <!-- Required  SDK核心功能-->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false"></service>
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER"/>
+                <action android:name="cn.jpush.android.intent.REPORT"/>
+                <action android:name="cn.jpush.android.intent.PushService"/>
+                <action android:name="cn.jpush.android.intent.PUSH_TIME"/>
+            </intent-filter>
+        </service>
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService"/>
+                <category android:name="com.ldnet.goldensteward"/>
+            </intent-filter>
+
+        </service>
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY"/>
+                <!--Required  显示通知栏 -->
+                <category android:name="com.ldnet.goldensteward"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+
+                <data android:scheme="package"/>
+            </intent-filter>
+
+        </receiver>
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:exported="false"/>
+        <receiver
+            android:name="com.ldnet.utility.MyNetWorkBroadcastReceive"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION"/>
+                <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION"/>
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
+                <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
+                <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
+                <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK"/>
+                <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION"/>
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.ldnet.goldensteward"/>
+            </intent-filter>
+        </receiver>
+        <!-- Required  . Enable it you can get statistics initData with channel -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default"/>
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="21a61331846f75d81f599658"/>
+        <!-- 等待加载页面 -->
+        <activity
+            android:name="com.ldnet.activity.Splash"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 登录页面 -->
+        <activity
+            android:name="com.ldnet.activity.Login"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <!-- 主页 -->
+        <activity
+            android:name="com.ldnet.activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/fragment_home_title"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.QuickOpenDoorActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/fragment_home_title"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.ldnet.activity.adapter.ImageBucketChooseActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+        </activity>
+        <activity
+            android:name="com.ldnet.activity.adapter.ImageChooseActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+        </activity>
+        <activity
+            android:name="com.ldnet.activity.adapter.ImageZoomActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+        </activity>
+        <!-- Web Browser-->
+        <activity
+            android:name="com.ldnet.activity.Browser"
+            android:screenOrientation="portrait"></activity>
+        <!--物业通知-->
+        <activity
+            android:name="com.ldnet.activity.home.Notification"
+            android:label="@string/fragment_home_property_notification"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.home.Notification_Details"
+            android:label="@string/fragment_home_property_notification"
+            android:screenOrientation="portrait"></activity>
+        <!--版本更新-->
+        <activity
+            android:name="com.ldnet.activity.me.Check"
+            android:label="@string/fragment_me_check"
+            android:screenOrientation="portrait"></activity>
+        <!--物业服务-->
+        <activity
+            android:name="com.ldnet.activity.home.Property_Services"
+            android:label="@string/fragment_home_property_services"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Fee"
+            android:label="@string/property_services_fee"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.home.HouseRent_Create"
+            android:label="@string/fragment_home_yellow_lease"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.PropertyFeeDetail"
+            android:label="@string/fragment_home_fee_detail"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.me.AccountRecord"
+            android:label="@string/fragment_home_fee_detail"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.PropertyFeeConfirm"
+            android:label="@string/fragment_home_fee_detail"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.ldnet.activity.home.PayConfirm"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.ldnet.activity.home.HouseRentUpdate"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:label="房屋租赁更新"
+            android:theme="@style/Transparent"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Repair_Details"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:hardwareAccelerated="false"
+            android:label="报修详情"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Repair_Fee"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:hardwareAccelerated="false"
+            android:label="收费详情"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Complain_Details"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:hardwareAccelerated="false"
+            android:label="投诉详情"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.me.VisitorPsd"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:hardwareAccelerated="false"
+            android:label="验证业主"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.me.VisitorValid"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:hardwareAccelerated="false"
+            android:label="访客验证"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.me.VisitorKeyChain"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:hardwareAccelerated="false"
+            android:label="访客密码"
+            android:exported="true"
+            android:theme="@android:style/Theme.Holo.Light"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.me.VisitorValidComplete"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:hardwareAccelerated="false"
+            android:label="验证完成"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Score"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:hardwareAccelerated="false"
+            android:label="报修评分"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.HouseRent_Detail"
+            android:label="@string/fragment_home_yellow_lease_detail"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.HouseRent_List"
+            android:label="@string/fragment_home_yellow_lease_list"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.CommunityServicesDetails"
+            android:label="社区服务详情"
+            android:screenOrientation="portrait"/>
+        <!--黄页功能-->
+        <activity
+            android:name="com.ldnet.activity.home.YellowPageTabActivity"
+
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.CommunityServicesPageTabActivity"
+
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.YellowPages_Map"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.YellowPages_Navi"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Telephone"
+            android:label="@string/property_services_telephone"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Repair"
+            android:label="@string/property_services_repair"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Repair_Create"
+            android:label="@string/property_services_repair"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Repair_Communicate"
+            android:label="@string/property_services_repair"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Complain"
+            android:label="@string/property_services_complain"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Complain_Create"
+            android:label="@string/property_services_complain"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Complain_Communicate"
+            android:label="@string/property_services_complain"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.home.Property_Communicate"
+            android:label="@string/property_services_communicate"
+            android:screenOrientation="portrait"></activity>
+        <!-- 忘记密码 -->
+        <activity
+            android:name="com.ldnet.activity.Forgot"
+            android:label="@string/activity_forgot_title"
+            android:screenOrientation="portrait"></activity>
+        <!-- 修改密码 -->
+        <activity
+            android:name="com.ldnet.activity.ChangePassword"
+            android:label="@string/activity_change_password_title"
+            android:screenOrientation="portrait"></activity>
+        <!-- 注册 -->
+        <activity
+            android:name="com.ldnet.activity.Register"
+            android:label="@string/activity_register_title"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <!-- 绑定社区 -->
+        <activity
+            android:name="com.ldnet.activity.BindingCommunity"
+            android:label="@string/activity_binding_community_title"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <!-- 绑定房屋 -->
+        <activity
+            android:name="com.ldnet.activity.BindingHouse"
+            android:label="@string/activity_binding_community_title"
+            android:screenOrientation="portrait"></activity>
+        <!--我-->
+        <activity
+            android:name="com.ldnet.activity.me.Information"
+            android:label="@string/fragment_me_information"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.Integral"
+            android:label="@string/fragment_me_integral"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.mall.Orders"
+            android:label="@string/fragment_me_orders"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.Community"
+            android:label="@string/fragment_me_community"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.Coupon"
+            android:hardwareAccelerated="false"
+            android:label="@string/fragment_me_coupon"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.ChooseCoupon"
+
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ldnet.activity.me.Address"
+            android:label="@string/fragment_me_address"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name="com.ldnet.activity.me.AddressEdit"
+            android:label="@string/fragment_me_address_edit"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name="com.ldnet.activity.me.Invite"
+            android:label="@string/fragment_me_invite"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.Message"
+            android:label="@string/fragment_me_message"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.MessageList"
+            android:label="@string/fragment_me_message_list"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.MessageDetail"
+            android:label="@string/fragment_me_message_detail"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.Publish"
+            android:label="@string/fragment_me_publish"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.Feedback"
+            android:label="@string/fragment_me_feedback"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.About"
+            android:label="@string/fragment_me_about"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.Recharge"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.Recharge_Details"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.Consumption"
+            android:label="消费"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name="com.ldnet.activity.me.ConsumptionDetails"
+            android:label="消费细节"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name="com.ldnet.activity.find.FreaMarket"
+            android:label="@string/frea_market_title"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.find.FreaMarket_Details"
+            android:label="@string/frea_market_title"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.find.Weekend"
+            android:label="@string/fragment_find_weekend"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.find.Weekend_Create"
+            android:label="@string/fragment_find_weekend"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.find.FreaMarket_Create"
+            android:label="@string/fragment_find_weekend"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.find.Weekend_Details"
+            android:label="@string/fragment_find_weekend"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.find.InforDetailActivity"
+            android:label="@string/fragment_find_info"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.find.InforTabActivity"
+            android:label="@string/fragment_find_info"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"></activity>
+        <!--亮点商城-->
+        <activity
+            android:name="com.ldnet.activity.mall.Goods_Details"
+            android:label="@string/mall_ldnet"
+
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.mall.Shopping_Carts"
+            android:label="@string/fragment_me_shopping_cart"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.mall.Order_Details"
+            android:label="@string/fragment_me_shopping_cart"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.mall.Pay"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.mall.Order_Confirm"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.mall.GoodsList"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.home.CommunityShops"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.GainCoupon"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.ldnet.activity.me.OrdersTabActivity"></activity>
+        <activity
+            android:name="com.ldnet.activity.me.Complain"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.mall.ShopStore"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.ldnet.activity.mall.StoreGoods"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name="com.ldnet.activity.me.SubmitSearchNullCommunity"/>
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <!--<meta-initData-->
+        <!--android:name="com.google.android.gms.version"-->
+        <!--android:value="@integer/google_play_services_version" />-->
+
+        <service
+            android:name="com.dh.bluelock.service.BluetoothBoardService"
+            android:enabled="true"/>
+
+        <activity android:name="com.ldnet.activity.EntranceGuardSplash"
+            android:theme="@style/EntranceGuaraSplash">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.ldnet.activity.qindian.QinDianMain"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.ldnet.activity.qindian.ChargeMoneyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ldnet.activity.qindian.ChargeBatteryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ldnet.activity.qindian.ChargeMoneyComplete"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ldnet.activity.qindian.QinDianAccount"/>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/border_bottom"
+              android:orientation="horizontal"
+              android:descendantFocusability="blocksDescendants"
+            >
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dimen_15dp"
+            android:paddingRight="@dimen/dimen_15dp"
+        >
+        <TextView
+                android:id="@+id/tv_training_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="THIS IS INFOMATION TITLE"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/font_size_16sp"/>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:paddingTop="@dimen/dimen_5dp">
+            <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="3dp"
+                    android:src="@mipmap/locate_icon"/>
+            <TextView
+                    android:id="@+id/tv_training_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_4dp"
+                    android:textColor="@color/gray_light_4"
+                    android:text="THIS IS ADDRESS"
+                    android:textSize="@dimen/font_size_14sp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="70dp">
+        <ImageButton
+                android:id="@+id/tel_training"
+                android:layout_width="@dimen/dimen_36dp"
+                android:layout_height="@dimen/dimen_36dp"
+                android:layout_gravity="center"
+                android:background="@drawable/imagebutton_telephone_icon"
+                android:layout_marginRight="@dimen/dimen_15dp"/>
+    </LinearLayout>
+</LinearLayout>

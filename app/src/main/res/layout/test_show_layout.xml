@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_property_notification"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dimen_32dp"
+            android:paddingTop="@dimen/dimen_16dp">
+
+            <RelativeLayout
+                android:id="@+id/rl_home_property_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp">
+
+                <ImageView
+                    android:id="@+id/iv_home_property_notification"
+                    android:layout_width="@dimen/dimen_48dp"
+                    android:layout_height="@dimen/dimen_48dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@null"
+                    android:contentDescription="@null"
+                    android:src="@mipmap/home_notification_n"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/unread_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@id/iv_home_property_notification"
+                    android:background="@mipmap/red"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_home_property_notification"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_property_services"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dimen_32dp"
+            android:paddingTop="@dimen/dimen_16dp">
+
+            <RelativeLayout
+                android:id="@+id/rl_home_property_thumbnail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp">
+
+                <ImageView
+                    android:id="@+id/iv_home_property_thumbnail"
+                    android:layout_width="@dimen/dimen_48dp"
+                    android:layout_height="@dimen/dimen_48dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@null"
+                    android:contentDescription="@null"
+                    android:maxHeight="@dimen/dimen_48dp"
+                    android:maxWidth="@dimen/dimen_48dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/home_services_n"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/unread_fuwu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@id/iv_home_property_thumbnail"
+                    android:background="@mipmap/red"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/aaaaaa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_home_property_services"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_property_notice"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dimen_32dp"
+            android:paddingTop="@dimen/dimen_16dp">
+
+            <RelativeLayout
+                android:id="@+id/rl_home_property_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp">
+
+                <ImageView
+                    android:id="@+id/iv_home_property_notice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:background="@null"
+                    android:contentDescription="@null"
+                    android:src="@mipmap/fee"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/unread_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@id/iv_home_property_notice"
+                    android:background="@mipmap/red"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/property_services_fee"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16sp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 物业服务结束 -->
+
+    <include layout="@layout/home_yellow_page_layout"/>
+    <!-- 黄页结束 -->
+    <ImageView
+        android:id="@+id/iv_home_ads"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"/>
+</LinearLayout>

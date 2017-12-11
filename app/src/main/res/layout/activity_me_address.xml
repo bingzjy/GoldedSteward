@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar"/>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:id="@+id/address_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_104dp"
+                android:layout_centerHorizontal="true"
+                android:drawableTop="@drawable/shipping_address_empty"
+                android:padding="@dimen/dimen_24dp"
+                android:drawablePadding="@dimen/dimen_24dp"
+                android:visibility="gone"
+                android:textColor="@color/green_light"
+                android:text="您还没有收货地址哦"/>
+        <com.third.SwipeListView.SwipeListView
+                xmlns:swipe="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/slv_me_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                swipe:swipeActionLeft="reveal"
+                swipe:swipeActionRight="dismiss"
+                swipe:swipeBackView="@+id/slv_back_view"
+                swipe:swipeCloseAllItemsWhenMoveList="true"
+                swipe:swipeFrontView="@+id/slv_front_view"
+                swipe:swipeMode="left"
+                swipe:swipeOffsetLeft="200dp"
+                swipe:swipeOffsetRight="0dp"
+        />
+    </RelativeLayout>
+</LinearLayout>

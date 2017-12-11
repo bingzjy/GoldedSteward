@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ll_feedback"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_second_titlebar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_me_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/back_edittext_login"
+            android:layout_marginLeft="@dimen/dimen_4dp"
+            android:layout_marginRight="@dimen/dimen_4dp"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:padding="@dimen/dimen_8dp"
+            android:textColor="@color/black_text"
+            android:textColorHint="@color/gray_text"
+            android:hint="@string/activity_me_feedback_edittext"
+            android:textSize="@dimen/font_size_14sp"
+            android:gravity="top"
+            android:singleLine="false"
+            android:layout_weight="1"
+            android:maxLength="500" />
+
+        <Button
+        android:id="@+id/btn_me_feedback"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_4dp"
+        android:layout_marginLeft="@dimen/dimen_4dp"
+        android:layout_marginRight="@dimen/dimen_4dp"
+        android:layout_marginBottom="@dimen/dimen_4dp"
+        android:background="@drawable/back_button_login"
+        android:layout_height="@dimen/dimen_48dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_16sp"
+        android:text="@string/activity_me_feedback_button"/>
+    </LinearLayout>
+</LinearLayout>

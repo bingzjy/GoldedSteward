@@ -1,0 +1,156 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_forgot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar"/>
+
+    <LinearLayout
+        android:id="@+id/ll_forgot_valid_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:background="@drawable/border_top_bottom"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_forgot_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_edittext_login"
+                android:gravity="center_vertical"
+                android:hint="@string/activity_forgot_phone"
+                android:inputType="phone"
+                android:padding="@dimen/dimen_16dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_deep"
+                android:textSize="@dimen/font_size_16sp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light"
+                android:contentDescription="@null"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+              <EditText
+                android:id="@+id/et_forgot_valid"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_edittext_login"
+                android:gravity="center_vertical"
+                android:hint="@string/activity_forgot_valid"
+                android:inputType="phone"
+                android:padding="@dimen/dimen_16dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_deep"
+                android:textSize="@dimen/font_size_16sp"/>
+
+                <Button
+                    android:id="@+id/btn_forgot_validCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/back_button_valid_code"
+                    android:minWidth="@dimen/dimen_64dp"
+                    android:minHeight="@dimen/dimen_32dp"
+                    android:text="@string/get_valid_code"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="@dimen/dimen_4dp"
+                    android:textSize="@dimen/font_size_16sp">
+                </Button>
+            </LinearLayout>
+        
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_forgot_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:background="@drawable/back_button_login"
+            android:padding="@dimen/dimen_8dp"
+            android:text="@string/button_next"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_20sp">
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_forgot_change_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:background="@drawable/border_top_bottom"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_forgot_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_edittext_login"
+                android:gravity="center_vertical"
+                android:hint="@string/activity_forgot_password"
+                android:inputType="textPassword"
+                android:padding="@dimen/dimen_16dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_deep"
+                android:textSize="@dimen/font_size_16sp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light"
+                android:contentDescription="@null"/>
+
+            <EditText
+                android:id="@+id/et_forgot_password_valid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_edittext_login"
+                android:gravity="center_vertical"
+                android:hint="@string/activity_forgot_password_valid"
+                android:inputType="textPassword"
+                android:padding="@dimen/dimen_16dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_deep"
+                android:textSize="@dimen/font_size_16sp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_forgot_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:background="@drawable/back_button_login"
+            android:padding="@dimen/dimen_8dp"
+            android:text="@string/button_confirm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_20sp">
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

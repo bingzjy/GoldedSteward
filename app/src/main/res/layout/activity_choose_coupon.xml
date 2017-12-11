@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar_textbutton" />
+
+    <LinearLayout
+        android:id="@+id/ll_un_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_78dp"
+        android:orientation="horizontal"
+
+        >
+
+        <CheckBox
+            android:id="@+id/chk_un_coupon_checked"
+            android:layout_width="@dimen/dimen_24dp"
+            android:layout_height="@dimen/dimen_24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/dimen_12dp"
+            android:background="@drawable/chk_custom"
+            android:button="@null" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/dimen_2dp"
+            android:text="不使用优惠劵"
+            android:textSize="@dimen/font_size_16sp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/xlv_choose_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"></ListView>
+</LinearLayout>

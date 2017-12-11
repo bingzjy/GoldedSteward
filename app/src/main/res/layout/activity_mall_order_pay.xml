@@ -1,0 +1,261 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar"/>
+
+    <LinearLayout
+            android:id="@+id/param_float_goods_amount"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48dp"
+            android:background="@color/white">
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dimen_8dp">
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="数量："-->
+
+            <!--android:textSize="@dimen/font_size_16sp" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_goods_numbers"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="5"-->
+
+            <!--android:textSize="@dimen/font_size_16sp" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginLeft="@dimen/dimen_16dp"-->
+            <!--android:text="金额："-->
+            <!--android:textSize="@dimen/font_size_16sp" />-->
+
+            <TextView
+                    android:id="@+id/tv_goods_prices"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="￥0.00"
+                    android:textSize="@dimen/font_size_16sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_bottom"
+            android:orientation="vertical">
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_8dp">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:gravity="center|left">
+                <!--<ImageView-->
+                <!--android:layout_width="@dimen/dimen_48dp"-->
+                <!--android:layout_height="@dimen/dimen_48dp"-->
+                <!--android:layout_marginRight="@dimen/dimen_8dp"-->
+                <!--android:src="@mipmap/unionpay"/>-->
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="余额支付"
+                            android:textColor="@color/gray_deep"
+                            android:textSize="@dimen/font_size_16sp"/>
+
+                    <TextView
+                            android:id="@+id/text_use_balance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="￥0.00"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/font_size_14sp"/>
+                </LinearLayout>
+
+                <com.ldnet.utility.UISwitchButton
+                        xmlns:switch="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/chk_balance_pay_type_checked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        switch:bmHeight="3000dp"
+                        switch:bmWidth="50dp"
+                        android:background="@drawable/chk_custom"
+                        android:button="@null"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_light_3"
+                    android:gravity="center|left"
+                    android:padding="@dimen/dimen_8dp"
+                    android:text="请选择支付方式"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_14dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_8dp">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:gravity="center|left">
+
+                <ImageView
+                        android:layout_width="@dimen/dimen_48dp"
+                        android:layout_height="@dimen/dimen_48dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:src="@mipmap/alipay"/>
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="支付宝"
+                            android:textColor="@color/gray_deep"
+                            android:textSize="@dimen/font_size_16sp"/>
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="在线支付"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/font_size_14sp"/>
+                </LinearLayout>
+
+                <CheckBox
+                        android:id="@+id/chk_pay_type_checked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:background="@drawable/chk_custom"
+                        android:button="@null"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_8dp"
+                android:visibility="gone"
+            >
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:gravity="center|left">
+
+                <ImageView
+                        android:layout_width="@dimen/dimen_48dp"
+                        android:layout_height="@dimen/dimen_48dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:src="@drawable/unionpay"/>
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="银联"
+                            android:textColor="@color/gray_deep"
+                            android:textSize="@dimen/font_size_16sp"/>
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="在线支付"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/font_size_14sp"/>
+                </LinearLayout>
+
+                <CheckBox
+                        android:id="@+id/chk_union_pay_type_checked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:background="@drawable/chk_custom"
+                        android:button="@null"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <!--提交订单-->
+    <LinearLayout
+            android:id="@+id/ll_goods_balance"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48dp"
+            android:layout_marginLeft="@dimen/dimen_12dp"
+            android:layout_marginRight="@dimen/dimen_12dp"
+            android:background="@drawable/sharp_rect"
+            android:gravity="center"
+            >
+        <TextView
+                android:id="@+id/text_pay_surplus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="确认付款"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16sp"/>
+    </LinearLayout>
+</LinearLayout>

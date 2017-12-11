@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@null"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/dimen_4dp"
+              android:paddingTop="@dimen/dimen_4dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/iv_notification_icon"
+        android:layout_width="@dimen/dimen_48dp"
+        android:layout_marginLeft="@dimen/dimen_4dp"
+        android:layout_marginRight="@dimen/dimen_4dp"
+        android:layout_height="@dimen/dimen_48dp"
+        android:src="@mipmap/me_thumbnail_n"
+        app:border_width="2dp"
+        app:border_color="#00000000"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_notification_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:paddingLeft="@dimen/dimen_4dp"
+            android:paddingRight="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/dimen_4dp"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:duplicateParentState="true"
+            android:text="This is information&apos;s title"
+            android:textColor="@color/gray_deep"
+            android:textSize="@dimen/font_size_14sp"/>
+
+        <TextView
+            android:id="@+id/tv_notification_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="2015-09-08 12:32:54"
+            android:paddingLeft="@dimen/dimen_4dp"
+            android:paddingRight="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/dimen_4dp"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:textColor="@color/gray_light_1"
+            android:textSize="@dimen/font_size_12sp"/>
+    </LinearLayout>
+
+</LinearLayout>

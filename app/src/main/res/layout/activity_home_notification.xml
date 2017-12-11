@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+    >
+
+    <include layout="@layout/activity_tenement_titlebar" />
+
+
+    <com.library.PullToRefreshScrollView
+            android:background="@color/gray_light_3"
+            android:id="@+id/main_act_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <com.ldnet.utility.CustomListView2
+                    android:id="@+id/lv_property_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+            </com.ldnet.utility.CustomListView2>
+            <TextView
+                    android:id="@+id/notification_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/dimen_104dp"
+                    android:drawablePadding="@dimen/dimen_24dp"
+                    android:drawableTop="@drawable/notice_and_announcement_empty"
+                    android:padding="@dimen/dimen_24dp"
+                    android:text="别着急，会有的！"
+                    android:textColor="@color/green_light"
+                    android:visibility="gone"/>
+        </LinearLayout>
+    </com.library.PullToRefreshScrollView>
+</LinearLayout>

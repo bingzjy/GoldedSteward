@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_10dp"
+            android:src="@drawable/other_icon" />
+
+        <TextView
+            android:id="@+id/tv_item_access_goods_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="其他原因"
+            android:textColor="@color/gray_text" />
+
+        <TextView
+            android:id="@+id/tv_item_access_goods_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:text="2018-0-0"
+            android:textColor="@color/gray_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_10dp"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_10dp"
+            android:src="@drawable/build_icon" />
+
+        <TextView
+            android:id="@+id/tv_item_access_goods_room"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="2020文明家属院2202"
+            android:textColor="@color/gray_text" />
+
+        <TextView
+            android:id="@+id/tv_item_access_goods_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="已到访"
+            android:textColor="@color/gray_text" />
+    </LinearLayout>
+</LinearLayout>

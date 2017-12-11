@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+
+>
+
+    <include layout="@layout/activity_second_titlebar"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="物业费：1333.5元"
+            android:paddingTop="@dimen/dimen_20dp"
+            android:paddingBottom="@dimen/dimen_10dp"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_14dp"
+            android:id="@+id/tv_fee_title"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="202文明家属院-1栋3单元-502室"
+            android:paddingTop="@dimen/dimen_5dp"
+            android:paddingBottom="@dimen/dimen_10dp"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_14dp"
+            android:id="@+id/tv_fee_house"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="交易时间：2017-7-27 12:34:12"
+            android:paddingBottom="@dimen/dimen_10dp"
+            android:paddingRight="@dimen/dimen_10dp"
+            android:textSize="12sp"
+            android:textColor="@color/gray_light_4"
+            android:layout_gravity="right"
+            android:id="@+id/tv_pay_date"/>
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen_20dp"
+              android:background="@color/gray_holo_light"
+    />
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimen_20dp"
+    >
+        <ImageView android:layout_width="174dp"
+                   android:layout_height="174dp"
+                   android:id="@+id/img_code"
+        />
+        />
+    </LinearLayout>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/weixin_title0"
+            android:textSize="10sp"
+            android:paddingLeft="@dimen/dimen_8dp"
+            android:id="@+id/textView5" android:layout_gravity="center_horizontal"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/weixin_title1"
+            android:textSize="@dimen/font_size_12sp"
+            android:paddingLeft="@dimen/dimen_8dp"
+            android:id="@+id/textView51"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:textColor="@color/orange_deep"
+            android:layout_gravity="left"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/font_size_12sp"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:id="@+id/textView52"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="@string/weixin_title2"
+            android:layout_gravity="left"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/weixin_title3"
+            android:textSize="@dimen/font_size_12sp"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:id="@+id/textView53"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_gravity="left"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/weixin_title4"
+        android:textSize="@dimen/font_size_12sp"
+        android:paddingLeft="@dimen/dimen_20dp"
+        android:id="@+id/textView54"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:layout_gravity="left"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/weixin_title5"
+            android:textSize="@dimen/font_size_12sp"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:id="@+id/textView55"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_gravity="left"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付完成"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:paddingBottom="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:background="@drawable/back_border_line_green"
+            android:textColor="@color/green"
+            android:id="@+id/btn_pay_complete"
+            android:layout_gravity="center_horizontal"/>
+</LinearLayout>

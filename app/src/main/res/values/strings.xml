@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 公共 -->
+    <string name="app_id">564c3d3e</string>
+    <string name="app_name">金牌管家</string>
+    <string name="company_name">西安亮点网络科技有限公司</string>
+    <string name="action_settings">设置</string>
+    <string name="button_update">修改</string>
+    <string name="button_add">添加</string>
+    <string name="button_release">发布</string>
+    <string name="write_info">填写信息</string>
+    <string name="update_info">修改信息</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_pick">从手机相册选择</string>
+    <string name="action_capture">拍照</string>
+    <string name="action_picture_select">拍照</string>
+    <string name="module_title_home">首页</string>
+    <string name="module_title_find">发现</string>
+    <string name="module_title_me">我</string>
+    <string name="button_search">搜索</string>
+    <string name="button_confirm">确定</string>
+    <string name="button_delete">删除</string>
+    <string name="button_next">下一步</string>
+    <string name="progressbar_title">加载中&#8230;</string>
+    <string name="get_valid_code">获取</string>
+    <string name="get_valid_desc">验证码已发送，请注意查收！没有收到？1分钟可重新获取！</string>
+    <string name="get_valid_error">验证码错误，请重新输入！</string>
+    <string name="login_error">手机号或密码错误！</string>
+    <string name="not_exist_property">该小区物业还没有入驻！</string>
+    <string name="not_exist_house">未绑定房屋,请先绑定房屋再试</string>
+    <string name="call_property">致电物业</string>
+    <string name="property_phone_none">物业没有留电话！</string>
+    <string name="network_none_tip">暂时无网络,请检查网络链接&#8230;</string>
+    <string name="network_error">请求服务器错误，请稍后再试</string>
+    <string name="network_request_fail">请求服务器失败，请稍后再试</string>
+    <string name="response_data_isNull">暂时没有数据</string>
+    <string name="share">分享</string>
+    <string name="refuse">拒绝</string>
+    <string name="refuse_detail">服务器拒绝访问</string>
+    <string name="repeat">重复</string>
+    <string name="select_time">请选择时间</string>
+
+
+    <!--注册-->
+    <string name="phone_is_null">手机号不能为空</string>
+    <string name="phone_error">手机号输入有误</string>
+    <string name="check_accepted">请勾选同意用户服务协议</string>
+    <string name="valid_is_null">验证码不能为空</string>
+    <string name="password_is_null">密码不能为空</string>
+    <string name="welcome_owner">欢迎业主回家</string>
+
+
+    <!-- 登录 -->
+    <string name="activity_login_title">用户登录</string>
+    <string name="activity_login_phone">手机号码</string>
+    <string name="activity_login_password">用户密码</string>
+    <string name="activity_login_lgoin">登录</string>
+    <string name="activity_login_forgot">忘记密码？</string>
+    <string name="activity_login_register">注册新用户</string>
+    <string name="activity_register_phone_exist">手机号码已存在</string>
+    <!-- 首页 -->
+    <string name="fragment_home_title">忆江南</string>
+    <string name="fragment_home_property_notification">通知公告</string>
+    <!--物业通知-->
+    <string name="fragment_home_property_houseinfo">房屋信息</string>
+    <string name="fragment_home_property_notice">联系物业</string>
+    <string name="fragment_home_property_services">物业服务</string>
+    <string name="home_property_notification">通知</string>
+    <string name="home_property_announcement">公告</string>
+    <string name="home_property_survey">调研</string>
+
+    <!--物业服务-->
+    <string name="property_services_area">建筑面积:</string>
+    <string name="property_services_gas">燃气</string>
+    <string name="property_services_water">水表</string>
+    <string name="property_services_electric">电表</string>
+    <string name="property_services_fee">物业交费</string>
+    <string name="fee">交费</string>
+    <string name="have_fee">已交费</string>
+    <string name="no_fee">未交费</string>
+    <string name="fee_detail">交费详细信息</string>
+    <string name="button_go_paid">去交费</string>
+    <string name="go_paid_none">请选择费用项！</string>
+    <string name="property_services_repair">报修</string>
+    <string name="property_services_repair_create">报修</string>
+    <string name="repair_confirm">提交报修</string>
+    <string name="repair_personal">个人报修</string>
+    <string name="repair_public">公共报修</string>
+    <string name="repair_close">关闭报修</string>
+    <string name="repair_house_info">房屋信息:</string>
+    <string name="repair_content_type">报修类型</string>
+    <string name="repair_content_tip">报修内容</string>
+    <string name="repair_content">请在此处输入您的报修内容，字数限制在1000以内</string>
+    <string name="property_services_complain">投诉</string>
+    <string name="property_services_complain_create">投诉</string>
+    <string name="complain_close">关闭投诉</string>
+    <string name="complain_confirm">提交投诉</string>
+    <string name="complain_tip">投诉内容</string>
+    <string name="complain_content">请在此处输入您的投诉内容，字数限制在1000以内</string>
+    <string name="property_services_communicate">沟通</string>
+    <string name="property_services_regulations">物业服务条例</string>
+    <string name="property_services_telephone">物业电话</string>
+
+
+    <string name="fragment_home_yellow_housekeeping">社区服务</string>
+    <string name="fragment_home_yellow_housekeeping_desc">家政|保洁|保姆 生活服务</string>
+    <string name="fragment_home_yellow_pages">生活黄页</string>
+    <string name="fragment_home_yellow_pages_desc">网罗周边信息</string>
+    <string name="fragment_home_yellow_education">教育培训</string>
+    <string name="fragment_home_yellow_education_desc">提升自我</string>
+    <string name="fragment_home_yellow_lease">房屋租赁</string>
+    <string name="fragment_home_fee_detail">交费详情</string>
+    <string name="fragment_home_fee_confirm">确定交费</string>
+    <string name="fragment_home_yellow_lease_detail">房屋租赁详情</string>
+    <string name="fragment_home_yellow_lease_list">房屋租赁列表</string>
+    <string name="fragment_home_yellow_training">教育培训</string>
+    <string name="fragment_home_yellow_map">黄页地图</string>
+    <string name="fragment_home_yellow_update_houserent">更新房屋租赁</string>
+    <!--<string name="fragment_home_yellow_housekeeping">家政服务</string>-->
+    <string name="fragment_home_yellow_lease_desc">物业验证</string>
+
+    <!-- 发现 -->
+    <string name="fragment_find_market">跳蚤市场</string>
+    <string name="fragment_find_market_desc">闲置物品能换钱</string>
+    <string name="fragment_find_info">生活资讯</string>
+    <string name="fragment_find_info_detail">资讯详情</string>
+    <string name="fragment_find_info_desc">打造品质生活</string>
+    <string name="fragment_find_weekend">周边游</string>
+    <string name="fragment_find_weekend_desc">世界那么大？</string>
+
+    <!-- 我 -->
+    <string name="fragment_me_phone">暂无帐号</string>
+    <string name="fragment_me_thumbnail">更新头像</string>
+    <string name="fragment_me_information">我的信息</string>
+    <string name="community_mobilization">社区总动员，好礼送不停</string>
+    <!--我的信息-->
+    <string name="activity_me_information_name">姓名</string>
+    <string name="activity_me_information_success">修改成功！</string>
+    <string name="fragment_me_integral">我的积分</string>
+    <string name="fragment_me_wallet">我的钱包</string>
+    <string name="fragment_me_orders">我的订单</string>
+    <string name="fragment_me_address">收货地址</string>
+    <string name="fragment_me_address_edit">收货地址的编辑</string>
+    <string name="fragment_me_coupons">我的优惠劵</string>
+    <string name="fragment_me_shopping_cart">我的购物车</string>
+    <string name="fragment_me_change_password">修改密码</string>
+    <string name="fragment_me_community">我的小区</string>
+    <string name="fragment_me_entry_exit_manage">出入管理</string>
+    <string name="fragment_me_coupon">优惠劵</string>
+    <!--我的小区-->
+    <string name="fragment_me_community_plus">绑定社区</string>
+    <string name="fragment_me_community_btn_delete">解除绑定</string>
+    <string name="fragment_me_community_btn_plus">绑定房屋</string>
+    <string name="fragment_me_community_build">请选择楼栋</string>
+    <string name="fragment_me_community_unit">请选择单元</string>
+    <string name="fragment_me_community_house">请选择房屋</string>
+    <string name="fragment_me_invite">邀请好友</string>
+    <string name="fragment_me_invite_gift">邀请有礼</string>
+    <string name="fragment_me_message">消息中心</string>
+    <string name="fragment_me_message_detail">消息详情</string>
+    <string name="fragment_me_message_list">消息列表</string>
+    <string name="fragment_me_publish">我的发布</string>
+    <string name="fragment_me_feedback">意见反馈</string>
+    <!--意见反馈-->
+    <string name="activity_me_feedback_success">反馈成功！</string>
+    <string name="activity_me_feedback_edittext">如果您在使用金牌管家的过程发现问题，请及时反馈，谢谢。</string>
+    <string name="activity_me_feedback_button">提交意见</string>
+    <string name="fragment_me_about">关于</string>
+    <string name="fragment_me_check">版本更新</string>
+    <!--关于-->
+    <string name="common_me_team">研发团队</string>
+    <string name="common_me_contract">联系我们</string>
+    <string name="common_me_company">西安亮点网络科技有限公司</string>
+    <string name="common_me_telephone">029-89322635</string>
+    <string name="common_me_business">商家加盟</string>
+    <string name="common_me_property">物业合作</string>
+    <string name="common_me_broker">全民经纪人</string>
+
+    <string name="fragment_me_logout">退出登录</string>
+
+    <!-- 忘记密码 -->
+    <string name="activity_forgot_title">忘记密码</string>
+    <string name="activity_forgot_phone">手机号码</string>
+    <string name="activity_forgot_valid">验证码</string>
+    <string name="activity_forgot_valid_desc">该手机号码未注册，请先注册！</string>
+    <string name="activity_forgot_password">输入密码</string>
+    <string name="activity_forgot_password_valid">确认密码</string>
+
+    <!-- 修改密码 -->
+    <string name="activity_change_password_title">修改密码</string>
+    <string name="activity_change_password">输入新密码</string>
+    <string name="activity_old_password">旧密码</string>
+    <string name="activity_new_password">新密码</string>
+    <string name="activity_change_password_valid">确认密码</string>
+    <string name="activity_change_password_valid_error">两次输入的密码不相同，请确认！</string>
+    <string name="activity_change_password_error">密码修改失败，请稍后重试！</string>
+
+    <!-- 注册 -->
+    <string name="activity_register_title">用户注册</string>
+    <string name="activity_register_phone">手机号码</string>
+    <string name="activity_register_password">登录密码</string>
+    <string name="activity_register_password_valid">密码由字母或数字组成，长度在6&#8211;22位！</string>
+    <string name="activity_register_valid">验证码</string>
+    <string name="activity_register_referrer">邀请码（选填）</string>
+    <string name="activity_register_agree">我已阅读并同意</string>
+    <string name="activity_register_agreement">《使用条款和隐私政策》</string>
+    <string name="activity_register_register">完成注册</string>
+    <string name="activity_register_error">注册失败，请稍后重试！</string>
+
+    <!-- 绑定社区 -->
+    <string name="search_community_keywords">小区</string>
+    <string name="activity_binding_community_title">绑定社区</string>
+    <string name="activity_binding_community_search_text">请输入小区名称</string>
+    <string name="correct_input_area">请正确输入小区名称</string>
+    <string name="manually_entered_village">请手动输入小区</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="nofind_men_jin">未找到门禁，请靠近设备后再试</string>
+    <string name="noopen_bulebooth">请打开蓝牙后再试</string>
+    <string name="noPrpperty">房屋无业主认证，请联系物业</string>
+    <string name="nobind_room">请绑定房屋后再试</string>
+    <string name="bind_ok">绑定成功</string>
+    <string name="welcome_home">欢迎回家</string>
+    <string name="have_open">已开门</string>
+    <string name="warm_prompt">**温馨提示**</string>
+    <string name="please_closedoor">请随手关门</string>
+    <string name="no_entrance">该小区未开通门禁，联系物业启用门禁吧</string>
+    <string name="use_entrance">启用</string>
+    <string name="nouse_entrance">未启用</string>
+    <string name="searchnull">未找到您的小区，请点击提交您的小区信息</string>
+    <string name="havebind">您已添加该房屋</string>
+    <string name="long_distance">开门失败，请靠近设备再试</string>
+
+
+    <!--验证-->
+    <string name="input_error">输入有误，请确认后再输</string>
+    <string name="phone_input_empty">请输入业主号码后四位</string>
+    <string name="verification_code_input_empty">请输入验证码</string>
+    <string name="verification_code_send_over">短信验证已达5次，请明天再试</string>
+    <string name="vertification_code_send_ok">验证码发送成功</string>
+    <!-- 家政服务 -->
+
+
+    <!-- 生活黄页 -->
+    <string name="position_on">商家未提供地理位置信息!</string>
+    <string name="yellow_pages_life">生活黄页</string>
+    <string name="path_rogramming">路径规划</string>
+    <string name="path_rogramming_failure">路径规划失败，可能是由于距离太近了！</string>
+    <string name="first_path_rogramming_second_navigation">请先进行相对应的路径规划，再进行导航</string>
+    <string name="navigation">导航</string>
+    <!-- 房屋租赁 -->
+    <string name="houserent_detail_address">地址</string>
+    <string name="tenement_review_has_been_submitted">已提交，等待物业审核！</string>
+    <string name="save_failure">保存失败，稍后重试！</string>
+    <string name="perfecting_housing_information">请完善房屋信息！</string>
+    <!-- 教育培训 -->
+    <string name="educational_training">教育培训</string>
+    <!--跳蚤市场-->
+    <string name="frea_market_title">闲置物品</string>
+    <string name="frea_market_desc">闲置物品能换钱</string>
+    <string name="frea_market_publish">发布闲置物品</string>
+    <string name="frea_market_pictures">图片最多可以添加5张，可长按删除</string>
+    <string name="frea_market_goods_title">标题</string>
+    <string name="frea_market_goods_content">介绍</string>
+    <string name="frea_market_goods_price">价格</string>
+    <string name="frea_market_goods_new_price">原价</string>
+    <string name="frea_market_goods_think_price">一口价</string>
+    <string name="frea_market_publish_comfirm">发布闲置</string>
+    <string name="frea_market_contract">联系物主</string>
+    <string name="frea_market_cancel_publish">确定要取消发布吗?</string>
+    <!--周末去哪儿-->
+    <string name="weekend_title">标题</string>
+    <string name="weekend_address">活动地点</string>
+    <string name="weekend_cost">活动费用，如不输入则默认为：免费</string>
+    <string name="weekend_sdate">开始日期/时间</string>
+    <string name="weekend_stime">开始时间</string>
+    <string name="weekend_edate">结束日期/时间</string>
+    <string name="weekend_etime">结束时间</string>
+    <string name="weekend_memo">活动介绍，字符限制为500字以内</string>
+    <string name="weekend_images">宣传图片（图片最多可以添加5张，可长按删除）</string>
+    <string name="weekend_publish">发布活动</string>
+    <string name="weekend_signup_information">查看报名</string>
+    <string name="weekend_call">致电组织者</string>
+    <string name="weekend_signup">我要报名</string>
+    <string name="weekend_signup_tip">请在“我”中输入您的姓名后再报名！</string>
+    <string name="weekend_signup_success">报名成功提交！</string>
+    <string name="weekend_signup_none">暂时还没有人报名！</string>
+    <string name="apply_information">报名信息</string>
+    <string name="sure_information">确定</string>
+    <!--资讯详情-->
+    <string name="information_details">资讯详情</string>
+    <!--收货地址-->
+    <string name="address_default">默认</string>
+    <string name="address_contract">联系人:</string>
+    <string name="address_areacode">区号</string>
+    <string name="address_telephone">固定电话</string>
+    <string name="address_mobile">联系电话:</string>
+    <string name="address_zipcode">邮政编码:</string>
+    <string name="address_province">省</string>
+    <string name="address_city">市</string>
+    <string name="address_area">区</string>
+    <string name="address_details">详细地址:</string>
+
+    <!--亮点商城-->
+    <string name="mall_ldnet">亮点商城</string>
+    <string name="mall_goods_shopping_cart_add">加入购物车</string>
+    <string name="mall_goods_buy">立即购买</string>
+    <string name="mall_goods_shooping_cart_success">商品添加成功！</string>
+    <string name="mall_goods_shooping_cart_error">商品添加失败，请稍后再试！</string>
+    <string name="mall_goods_not">暂无此商品，请选择其他商品</string>
+    <string name="mall_order_details">订单详情</string>
+    <string name="goods_details">商品详情</string>
+    <string name="mall_order_sure">订单确认</string>
+    <string name="mall_not_goods_address">无收货地址，请完善后再下订单！</string>
+    <string name="free_shipping">免运费</string>
+    <string name="you_submit">提交失败，稍后重试！</string>
+    <string name="mall_pay_submit_failure">提交支付失败，请重试！</string>
+    <string name="mall_pay_succeed">支付成功!</string>
+    <string name="mall_pay_failure">支付取消!</string>
+    <string name="mall_deleted_succeed">删除成功！</string>
+    <string name="mall_deleted_failure">删除失败，请稍后重试！</string>
+    <!---->
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载&#8230;</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_header_last_time">更新时间：</string>
+    <string name="houserent_detail_title">详细信息</string>
+
+    <!--应用版本更新-->
+    <string name="soft_update_title">应用更新至:</string>
+    <string name="soft_update_info">更新信息</string>
+    <string name="soft_update_updatebtn">更新</string>
+    <string name="soft_update_later">下次更新</string>
+    <string name="soft_updating">下载应用中</string>
+    <string name="soft_update_cancel">取消更新</string>
+
+    <string name="preference_default_tts_role">xiaoyan</string>
+    <string name="preference_key_tts_speed">60</string>
+    <string name="preference_title_tts_speed">语速</string>
+    <string name="preference_default_tts_speed">50</string>
+    <string name="preference_dialog_title_tts_speed">选择语速</string>
+    <string name="preference_key_tts_volume">100</string>
+    <string name="preference_title_tts_volume">音量</string>
+    <string name="preference_default_tts_volume">100</string>
+    <string name="preference_dialog_title_tts_volume">选择音量</string>
+    <string name="preference_key_tts_pitch">tts_pitch</string>
+    <string name="preference_title_tts_pitch">语调</string>
+    <string name="preference_default_tts_pitch">50</string>
+    <string name="intell_bd_title">智能播报</string>
+
+
+    <string name="tag_hint">Tag为大小写字母，数字，下划线,中文， 多个用以逗号分隔</string>
+    <string name="alias_hint">Alias为大小写字母，数字，下划线</string>
+    <string name="style_hint">style为数字</string>
+    <string name="error_style_empty">style不能为空</string>
+    <string name="error_alias_empty">alias不能为空</string>
+    <string name="error_tag_empty">tag不能为空</string>
+    <string name="error_tag_gs_empty">格式不对</string>
+    <string name="error_network">网络连接异常,初始化失败 请检查网络！</string>
+    <string name="logining">程序在后台执行, 请查看日志！</string>
+    <string name="setting_su">设置成功</string>
+    <string name="exit_app">再按一次退出程序</string>
+    <string name="perfect_property_information">物业没完善楼栋信息，可联系物业让其完善！</string>
+    <string name="just_now">刚刚</string>
+    <string name="not_find_phone_sd">没找到手机SD卡，图像无法上传！</string>
+    <string name="appraise_please">请评价</string>
+    <string name="Property_does_not_provide_phone_call">亲，物业尚未提供电话</string>
+    <string name="loading">正在加载&#8230;</string>
+    <string name="refresh_down_text">下拉可刷新</string>
+    <string name="refresh_release_text">松开可刷新</string>
+    <string name="toast_text">商品刷新完毕</string>
+
+
+    <!--物业费支付-->
+    <string name="weixin_title0">该二维码有效期5分钟</string>
+    <string name="weixin_title1">微信支付说明</string>
+    <string name="weixin_title2">由于微信接口问题，不能直接打开微信付款,请按如下方式支付：</string>
+    <string name="weixin_title3">1.请长按二维码选择分享给微信好友</string>
+    <string name="weixin_title4">2.在微信会话列表中搜索文件传输助手并发送</string>
+    <string name="weixin_title5">3.在微信里打开图片并长按识别二维码，即可进行付款</string>
+
+
+    <string name="qindian_main_title">充电服务</string>
+    <string name="qindian_battery_charge">立即充电</string>
+    <string name="qindian_money_charge">充值</string>
+    <string name="qindian_account">账户</string>
+    <string name="charge_flow_path">充电流程</string>
+    <string name="app_tip">提示</string>
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+    <string name="qindian_wifi_name">Qindian</string>
+    <string name="qindian_wifi_null">无线网络已断开，请连接Qindian WIFI</string>
+    <string name="qindian_wifi_erroe">WLAN连接错误，请连接Qindian WIFI</string>
+    <string name="get_order_fail">获取订单失败，请稍后再试</string>
+    <string name="pay_ok">支付成功，充电已开始</string>
+    <string name="pay_fail">支付失败，请稍后再试</string>
+    <string name="search_fail">搜索设备失败，请稍后再试</string>
+    <string name="qindian_service_tag">本服务由充智安提供</string>
+    <string name="qindian_charge_title1">1.手机连接WIFI:Qindian</string>
+    <string name="qindian_charge_title2">2.将电瓶插入插板中</string>
+    <string name="qindian_charge_title3">3.点击"立即充电",开始充电</string>
+    <string name="qindian_wifi_password">Q88888888</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <array name="invite_visitor_reason">
+        <item>中介看房</item>
+        <item>搬家放行</item>
+        <item>送货上门</item>
+        <item>朋友来访</item>
+        <item>其他</item>
+    </array>
+
+    <array name="goods_access_reason">
+        <item>搬家</item>
+        <item>维修</item>
+        <item>其他</item>
+    </array>
+
+
+    <!--小区信息栏-->
+    <string name="info_bar_provide">供应</string>
+    <string name="info_bar_need">需求</string>
+
+
+
+
+    <string name="errcode_success">分享成功</string>
+    <string name="errcode_cancel">分享取消</string>
+    <string name="errcode_deny">分享被拒绝</string>
+    <string name="errcode_unknown">分享返回</string>
+</resources>

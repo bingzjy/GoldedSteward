@@ -1,0 +1,175 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_second_titlebar" />
+
+    <LinearLayout
+        android:id="@+id/ll_register_valid_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:background="@drawable/border_top_bottom"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_register_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_edittext_login"
+                android:gravity="center_vertical"
+                android:hint="@string/activity_register_phone"
+                android:inputType="phone"
+                android:padding="@dimen/dimen_16dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_deep"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light"
+                android:contentDescription="@null" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_register_valid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/back_edittext_login"
+                    android:gravity="center_vertical"
+                    android:hint="@string/activity_register_valid"
+                    android:inputType="number"
+                    android:padding="@dimen/dimen_16dp"
+                    android:singleLine="true"
+                    android:textColor="@color/gray_deep"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <Button
+                    android:id="@+id/btn_register_validCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_4dp"
+                    android:background="@drawable/back_button_valid_code"
+                    android:minHeight="@dimen/dimen_32dp"
+                    android:minWidth="@dimen/dimen_64dp"
+                    android:text="@string/get_valid_code"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/ckb_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_12dp"
+                android:checked="true"
+                android:scaleX="0.5"
+                android:scaleY="0.5" />
+            <TextView
+                android:id="@+id/tv_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_8dp"
+                android:text="  同意《金牌管家用户服务协议》"
+                android:textSize="@dimen/font_size_16sp"
+                android:textColor="@color/green" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_register_valid_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:background="@drawable/back_button_login"
+            android:padding="@dimen/dimen_8dp"
+            android:text="@string/button_next"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_register_password_referrer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:background="@drawable/border_top_bottom"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_edittext_login"
+                android:gravity="center_vertical"
+                android:hint="@string/activity_register_password"
+                android:inputType="textPassword"
+                android:padding="@dimen/dimen_16dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_deep"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light"
+                android:contentDescription="@null" />
+
+            <EditText
+                android:id="@+id/et_register_referrer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_edittext_login"
+                android:gravity="center_vertical"
+                android:hint="@string/activity_register_referrer"
+                android:inputType="text"
+                android:padding="@dimen/dimen_16dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_deep"
+                android:textSize="@dimen/font_size_16sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_register_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:background="@drawable/back_button_login"
+            android:padding="@dimen/dimen_8dp"
+            android:text="@string/activity_register_register"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_20sp"></Button>
+    </LinearLayout>
+
+</LinearLayout>

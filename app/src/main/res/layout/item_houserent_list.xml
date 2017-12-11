@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/border_bottom"
+              android:orientation="horizontal"
+              android:padding="@dimen/dimen_10dp">
+
+    <ImageView
+        android:id="@+id/houserent_item_img"
+        android:layout_width="98dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="@dimen/dimen_4dp"
+        android:layout_marginLeft="@dimen/dimen_4dp"
+        android:layout_marginRight="@dimen/dimen_8dp"
+        android:layout_marginTop="@dimen/dimen_4dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/default_info"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/houserent_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="标题"
+            android:textColor="@color/gray_deep"
+            android:textSize="@dimen/font_size_16sp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp">
+            <TextView
+                android:id="@+id/houserent_item_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:singleLine="true"
+                android:text="地址"
+                android:textColor="@color/gray_deep_1"
+                android:textSize="@dimen/font_size_14sp"/>
+
+            <TextView
+                android:id="@+id/houserent_item_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="状态"
+                android:textColor="@color/gray_deep_1"
+                android:textSize="@dimen/font_size_14sp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp">
+
+            <TextView
+                android:id="@+id/houserent_item_housetype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="房屋类型"
+                android:textColor="@color/gray_deep_1"
+                android:textSize="@dimen/font_size_14sp"/>
+
+            <TextView
+                android:id="@+id/houserent_item_acreage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/houserent_item_housetype"
+                android:text="面积"
+                android:textColor="@color/gray_deep_1"
+                android:textSize="@dimen/font_size_14sp"/>
+
+            <TextView
+                android:id="@+id/houserent_item_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="租金"
+                android:textColor="@color/red"
+                android:textSize="@dimen/font_size_14sp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

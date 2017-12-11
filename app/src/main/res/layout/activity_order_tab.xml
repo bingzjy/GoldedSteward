@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    >
+
+    <include layout="@layout/activity_second_titlebar" />
+
+    <com.ldnet.utility.PagerSlidingTabStrip
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textColor="@color/green"
+        android:textSize="16sp"
+        app:pstsDividerColor="@android:color/transparent"
+        app:pstsIndicatorColor="@color/green_light"
+        app:pstsIndicatorHeight="4dp"
+        app:pstsScaleZoomMax="0.2"
+        app:pstsShouldExpand="true"
+        app:pstsTabPaddingLeftRight="12dp"
+        app:pstsTextSelectedColor="@color/gray_deep"
+        app:pstsUnderlineColor="@color/gray_light" />
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

@@ -12,5 +12,5 @@ package com.ldnet.activity;
  */
 
 public class MyTestActivity {
-
+    int indext;
 }

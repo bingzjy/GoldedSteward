@@ -189,6 +189,7 @@ public class Login extends BaseActionBarActivity {
         }
     };
 
+
     Handler handlerGetPush=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -206,14 +207,16 @@ public class Login extends BaseActionBarActivity {
                     tagSet.add(UserInformation.getUserInfo().HouseId);
                     JPushInterface.setAliasAndTags(Login.this, pushId, tagSet, null);
 
+                    //积分设置
+                    acountService.setIntegralTip(handlerIntegralTip,url);
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
                     showToast(msg.obj.toString());
+                    //积分设置
+                    acountService.setIntegralTip(handlerIntegralTip,url);
                     break;
             }
-            //积分设置
-            acountService.setIntegralTip(handlerIntegralTip,url);
         }
     };
 

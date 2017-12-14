@@ -2,6 +2,7 @@ package com.ldnet.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,7 +31,7 @@ import java.util.List;
 /******************************************************
  * 主框架
  ****************************************************/
-public class MainActivity extends BaseActionBarFragmentActivity implements View.OnClickListener {
+public class MainActivity extends BaseActionBarFragmentActivity implements View.OnClickListener ,MyNetWorkBroadcastReceive.onNewMessageListener{
 
     // ViewPager
     private ViewPager m_viewPager;
@@ -43,7 +44,6 @@ public class MainActivity extends BaseActionBarFragmentActivity implements View.
     private Fragment m_fragment_me;
     // RadioGroup
     private RadioGroup rdg_m_bottom;
-
     //两次Back退出
     private long exitTime = 0;
 
@@ -99,7 +99,12 @@ public class MainActivity extends BaseActionBarFragmentActivity implements View.
             }
         }, 1000);
 
+        //注册广播
+        MyNetWorkBroadcastReceive.msgListeners.add(this);
     }
+
+    @Override
+    public void onNewMessage(String message) {}
 
     private void checkPermission(){
         //权限申请
@@ -325,14 +330,5 @@ public class MainActivity extends BaseActionBarFragmentActivity implements View.
         Services.notification = false;
         Services.fee = false;
     }
-
-
-
-
-
-
-
-
-
 
 }

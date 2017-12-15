@@ -259,12 +259,13 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
     //显示小红点
     private void showRed(){
 
-        //意见反馈推送是否显示小红点
+        //意见反馈、物业消息 是否显示消息中心小红点
         if (PushMessage.getPushInfo().isFEEDBACK()||PushMessage.getPushInfo().PROPERTY_MSG) {
             iv_msg_center.setVisibility(View.VISIBLE);
         } else {
             iv_msg_center.setVisibility(View.GONE);
         }
+
 
         //订单推送是否显示小红点
         if (PushMessage.getPushInfo().isORDER()) {
@@ -273,7 +274,8 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
             iv_msg_order.setVisibility(View.GONE);
         }
 
-        //设置我的模块是否显示小红点
+
+        //设置底部我的模块是否显示小红点
         if (PushMessage.getPushInfo().isFEEDBACK() || PushMessage.getPushInfo().isORDER()||PushMessage.getPushInfo().PROPERTY_MSG) {
             getActivity().findViewById(R.id.iv_dc1).setVisibility(View.VISIBLE);
         } else {

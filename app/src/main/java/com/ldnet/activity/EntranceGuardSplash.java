@@ -111,7 +111,7 @@ public class EntranceGuardSplash extends Activity {
             @Override
             public void run() {
                 mBlueLockPub.setLockMode(Constants.LOCK_MODE_MANUL, null, false);
-                mBlueLockPub.scanDevice(3000);
+                mBlueLockPub.scanDevice(2000);
             }
         }).start();
     }
@@ -258,10 +258,6 @@ public class EntranceGuardSplash extends Activity {
 
             Log.e(TAG,"bluetooth 广播接收了");
             int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,BluetoothAdapter.STATE_OFF);
-//            int STATE_OFF = 10; //蓝牙关闭
-//            int STATE_ON = 12; //蓝牙打开
-//            int STATE_TURNING_OFF = 13; //蓝牙正在关闭
-//            int STATE_TURNING_ON = 11; //蓝牙正在打开
             switch (state){
                 case 10:
                     mTvOpenDoorTip.setText("请打开蓝牙");

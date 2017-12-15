@@ -7,16 +7,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.MessageData;
-import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.Services;
+
+import static com.ldnet.goldensteward.R.id.tv_main_title;
 
 /**
  * Created by lee on 2016/11/23.
  */
 public class MessageDetail extends BaseActionBarActivity {
 
-    private TextView tv_message_detail_title,tv_message_detail_time,tv_message_detail_content,tv_main_title,tvCommName;
+    private TextView tv_message_detail_title,tv_message_detail_time,
+            tv_message_detail_content,tv_main_title,tvCommName;
     private ImageButton btn_back;
     private MessageData messageData;
 
@@ -24,11 +25,11 @@ public class MessageDetail extends BaseActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ly_message_detail);
-        findView();
+        initView();
     }
 
 
-    public void findView(){
+    public void initView(){
         Intent intent = this.getIntent();
         messageData =(MessageData)intent.getSerializableExtra("messageData");
         tv_message_detail_title = (TextView)findViewById(R.id.tv_message_detail_title);
@@ -44,6 +45,7 @@ public class MessageDetail extends BaseActionBarActivity {
         tvCommName.setText(messageData.CommunityName);
         btn_back.setOnClickListener(this);
     }
+
 
     @Override
     public void onClick(View view) {

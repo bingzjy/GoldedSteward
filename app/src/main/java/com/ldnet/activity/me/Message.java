@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.attr.type;
+import static com.ldnet.goldensteward.R.id.init;
 import static com.unionpay.mobile.android.global.a.I;
 
 public class Message extends BaseActionBarActivity {
@@ -42,17 +43,29 @@ public class Message extends BaseActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_me_message);
-
-        //初始化服务
-        services = new Services();
-        messageService=new MessageService(this);
-        homeService=new HomeService(this);
+        //初始化操作
+        initService();
         initView();
         initEvent();
-        initEvents();
-
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showProgressDialog();
+        messageType.clear();
+        //获取消息数据
+        messageService.getMsgTypes(handler);
+    }
+
+    //初始化服务
+    private void initService() {
+        services = new Services();
+        messageService = new MessageService(this);
+        homeService = new HomeService(this);
+    }
+
+    //初始化View
     private void initView(){
         // 标题
         tv_main_title = (TextView) findViewById(R.id.tv_page_title);
@@ -64,6 +77,7 @@ public class Message extends BaseActionBarActivity {
         lv_message = (MyListView) findViewById(R.id.lv_message);
         lv_message.setFocusable(false);
 
+        //列表item点击事件
         lv_message.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -93,9 +107,19 @@ public class Message extends BaseActionBarActivity {
 
         Services.setListViewHeightBasedOnChildren(lv_message);
     }
+
     //初始化事件
     public void initEvent() {
         btn_back.setOnClickListener(this);
+
+        //刷新
+        mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                messageType.clear();
+                messageService.getMsgTypes(handler);
+            }
+        });
     }
 
     //点击事件
@@ -110,38 +134,31 @@ public class Message extends BaseActionBarActivity {
         }
     }
 
-    private void initEvents() {
-        mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+    //初始化适配器
+    private void initAdapter() {
+        mAdapter = new ListViewAdapter<MessageType>(Message.this, R.layout.item_message, messageType) {
             @Override
-            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                messageType.clear();
-                messageService.getMsgTypes(handler);
+            public void convert(ViewHolder holder, MessageType messageType) {
+                //设置图片
+                if (!TextUtils.isEmpty(messageType.getImage())) {
+                    ImageLoader.getInstance().displayImage(Services.mHost + messageType.getImage(), (ImageView) holder.getView(R.id.iv_message_image), imageOptions);
+                }
+                //标题、价格、时间、地址
+                holder.setText(R.id.tv_message_title, messageType.getPushTypeName())
+                        .setText(R.id.tv_message_content, messageType.getContent())
+                        .setText(R.id.tv_message_time, messageType.getCreated());
+                ImageView iv_message = holder.getView(R.id.iv_message);
+                if (messageType.Pushing) {
+                    iv_message.setVisibility(View.VISIBLE);
+                } else {
+                    iv_message.setVisibility(View.GONE);
+                }
             }
-        });
+        };
+        lv_message.setAdapter(mAdapter);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        showProgressDialog();
-        messageType.clear();
-        messageService.getMsgTypes(handler);
-    }
-
-
-    private void hideRed(){
-        //消除小红点
-        Msg msg = PushMessage.getPushInfo();
-        msg.REPAIRS = false;
-        PushMessage.setPushInformation(msg);
-        homeService.deleteRedPoint(type, handlerDeleteRed);
-    }
-
+    //设置数据属性-Pushing-状态
     private void setData(){
         //pushType 0:物业消息  1：意见反馈
         for (MessageType type : messageType) {
@@ -154,7 +171,7 @@ public class Message extends BaseActionBarActivity {
         }
     }
 
-
+    //推送返回设置红点显示
     Handler handlerGetRedPointPush=new Handler(){
         @Override
         public void handleMessage(android.os.Message msg) {
@@ -172,27 +189,8 @@ public class Message extends BaseActionBarActivity {
                     PushMessage.setPushInformation(push2);
                     break;
             }
-
-            mAdapter = new ListViewAdapter<MessageType>(Message.this, R.layout.item_message, messageType) {
-                @Override
-                public void convert(ViewHolder holder, MessageType messageType) {
-                    //设置图片
-                    if (!TextUtils.isEmpty(messageType.getImage())) {
-                        ImageLoader.getInstance().displayImage( Services.mHost+ messageType.getImage(), (ImageView) holder.getView(R.id.iv_message_image), imageOptions);
-                    }
-                    //标题、价格、时间、地址
-                    holder.setText(R.id.tv_message_title, messageType.getPushTypeName())
-                            .setText(R.id.tv_message_content, messageType.getContent())
-                            .setText(R.id.tv_message_time, messageType.getCreated());
-                    ImageView iv_message = holder.getView(R.id.iv_message);
-                    if (messageType.Pushing) {
-                        iv_message.setVisibility(View.VISIBLE);
-                    } else {
-                        iv_message.setVisibility(View.GONE);
-                    }
-                }
-            };
-            lv_message.setAdapter(mAdapter);
+            //初始化适配器
+            initAdapter();
         }
     };
 
@@ -207,26 +205,6 @@ public class Message extends BaseActionBarActivity {
                 case BaseService.DATA_SUCCESS:
                     messageType = (List<MessageType>) msg.obj;
                     homeService.getAppRedPoint(handlerGetRedPointPush);
-//                    mAdapter = new ListViewAdapter<MessageType>(Message.this, R.layout.item_message, messageType) {
-//                        @Override
-//                        public void convert(ViewHolder holder, MessageType messageType) {
-//                            //设置图片
-//                            if (!TextUtils.isEmpty(messageType.getImage())) {
-//                                ImageLoader.getInstance().displayImage( Services.mHost+ messageType.getImage(), (ImageView) holder.getView(R.id.iv_message_image), imageOptions);
-//                            }
-//                            //标题、价格、时间、地址
-//                            holder.setText(R.id.tv_message_title, messageType.getPushTypeName())
-//                                    .setText(R.id.tv_message_content, messageType.getContent())
-//                                    .setText(R.id.tv_message_time, messageType.getCreated());
-//                            ImageView iv_message = holder.getView(R.id.iv_message);
-//                            if (messageType.Pushing) {
-//                                iv_message.setVisibility(View.VISIBLE);
-//                            } else {
-//                                iv_message.setVisibility(View.GONE);
-//                            }
-//                        }
-//                    };
-//                    lv_message.setAdapter(mAdapter);
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:
                     showToast("暂时没有数据");
@@ -238,5 +216,11 @@ public class Message extends BaseActionBarActivity {
             }
         }
     };
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
 }

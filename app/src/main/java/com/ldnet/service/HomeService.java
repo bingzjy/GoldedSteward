@@ -84,7 +84,13 @@ public class HomeService extends BaseService {
     }
 
     //获取小红点推送
-    //（0 通知公告,1 投诉,2 报修,3 沟通,4 缴费,5 网页,6 意见反馈,7 订单,8 其他,9消息中心）
+    //（0 通知公告,1 投诉,2 报修,3 沟通,4 缴费,5 网页,6 意见反馈,7 订单,8 其他,9消息中心（指物业消息））
+
+    /**
+     * 通知公告：如果推送范围是包含了业主当前房屋，那么会收到通知公告以及推送，如果不包含当前房屋，但是业主拥有推送的房屋，那么会在接受到消息中心以及推送
+     *
+     */
+
     public void getAppRedPoint(final Handler handler) {
         String url = Services.mHost + "API/AppPush/GetAppRedPoint/%s?communityId=%s&roomId=%s";
         url = String.format(url, UserInformation.getUserInfo().UserId, UserInformation.getUserInfo().CommunityId,

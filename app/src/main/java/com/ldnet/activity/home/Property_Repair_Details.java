@@ -33,6 +33,8 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.*;
 
+import static com.ldnet.goldensteward.R.id.tv_share;
+
 /**
  * Created by lee on 2016/7/29.
  */
@@ -45,6 +47,7 @@ public class Property_Repair_Details extends BaseActionBarActivity {
     private TextView tv_property_details_type;
     private TextView tv_property_details_house;
     private TextView tv_property_details_time;
+    private TextView tv_property_details_appraisal_content;
     private MyListView lv_list;
     private GridView gv_list;
     private GridViewAdapter gridViewAdapter;
@@ -73,6 +76,7 @@ public class Property_Repair_Details extends BaseActionBarActivity {
     private float s;
     private boolean aaa = false;
     private float currentRate;
+    private String appraiseContent;
     private PropertyServeService propertyService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +95,7 @@ public class Property_Repair_Details extends BaseActionBarActivity {
     public void findView() {
         btn_back = (ImageButton) findViewById(R.id.btn_back);
         tv_main_title = (TextView) findViewById(R.id.tv_page_title);
-        btn_score = (TextView) findViewById(R.id.tv_share);
+        btn_score = (TextView) findViewById(tv_share);
         btn_score.setVisibility(View.GONE);
         if (flag.equals("COMPLAIN")) {
             tv_main_title.setText("投诉详情");
@@ -111,6 +115,7 @@ public class Property_Repair_Details extends BaseActionBarActivity {
         tv_property_details_type = (TextView) findViewById(R.id.tv_property_details_type);
         tv_property_details_time = (TextView) findViewById(R.id.tv_property_details_time);
         tv_property_details_house = (TextView) findViewById(R.id.tv_property_details_house);
+        tv_property_details_appraisal_content = (TextView) findViewById(R.id.tv_appraisal_content);
         rb_score = (RatingBar) findViewById(R.id.rb_score);
         tv_property_details_title.setText(repair_complain.getContent());
         tv_property_details_status.setText(repair_complain.getNodesName());
@@ -123,8 +128,11 @@ public class Property_Repair_Details extends BaseActionBarActivity {
         mDatas = new ArrayList<Property>();
         mDatas1 = new ArrayList<String>();
 
+        //获取报修各阶段信息
         propertyService.getRepaireCommunicate(mRepairId,handlerGetCommunicate);
+        //获取报修评价
         propertyService.getRepireScoreInfo(mRepairId,handlerGetScore);
+
         AnimationSet set = new AnimationSet(false);
         Animation animation = new AlphaAnimation(0, 1);   //AlphaAnimation 控制渐变透明的动画效果
         animation.setDuration(500);     //动画时间毫秒数
@@ -165,7 +173,7 @@ public class Property_Repair_Details extends BaseActionBarActivity {
             if (aaa) {
                 Services.comment = mRepairId;
             }
-        } else if (view.getId() == R.id.tv_share) {
+        } else if (view.getId() == tv_share) {
             ScoreDialog();
 
         }
@@ -208,7 +216,8 @@ public class Property_Repair_Details extends BaseActionBarActivity {
             public void onClick(View v) {
                 if ((int) s != 0) {
                     currentRate=Math.abs(6 - s);
-                    propertyService.createRepireScore(mRepairId,currentRate, et_say.getText().toString().trim(),handlerCreateScore);
+                    appraiseContent=et_say.getText().toString().trim();
+                    propertyService.createRepireScore(mRepairId,currentRate, appraiseContent,handlerCreateScore);
                 } else {
                     showToast("请先评分");
                     return;
@@ -244,7 +253,6 @@ public class Property_Repair_Details extends BaseActionBarActivity {
                 tv_socre.setText("非常满意");
             }
         }
-
     }
 
     public class PopupWindows extends PopupWindow {
@@ -340,8 +348,10 @@ public class Property_Repair_Details extends BaseActionBarActivity {
                 case BaseService.DATA_SUCCESS:
                     showToast("评价成功");
                     hintKbTwo(et_say);
+                    btn_score.setVisibility(View.GONE);
                     rb_score.setVisibility(View.VISIBLE);
                     rb_score.setRating(Math.abs(6 - currentRate));
+                    tv_property_details_appraisal_content.setText(appraiseContent);
                     aaa = true;
                     break;
                 case BaseService.DATA_FAILURE:
@@ -363,6 +373,7 @@ public class Property_Repair_Details extends BaseActionBarActivity {
                     rb_score.setVisibility(View.VISIBLE);
                     btn_score.setVisibility(View.GONE);
                     rb_score.setRating(Math.abs(6 - Float.parseFloat(score.getSocreCnt())));
+                    tv_property_details_appraisal_content.setText(score.getOrtherContent());
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:
                     rb_score.setVisibility(View.GONE);
@@ -375,6 +386,7 @@ public class Property_Repair_Details extends BaseActionBarActivity {
             }
         }
     };
+
 
     //报修&投诉沟通信息
     Handler handlerGetCommunicate=new Handler(){

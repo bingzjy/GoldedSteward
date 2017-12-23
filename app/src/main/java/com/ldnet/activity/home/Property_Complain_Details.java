@@ -51,6 +51,7 @@ public class Property_Complain_Details extends BaseActionBarActivity {
     private TextView tv_property_details_type;
     private TextView tv_property_details_house;
     private TextView tv_property_details_time;
+    private TextView tv_property_details_appraisal_content;
     private MyListView lv_list;
     private GridView gv_list;
     private GridViewAdapter gridViewAdapter;
@@ -81,6 +82,7 @@ public class Property_Complain_Details extends BaseActionBarActivity {
     private boolean aaa = false;
     private AcountService acountService;
     private float currentRate;
+    private String appraiseContent;
     private PropertyServeService propertyService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +123,7 @@ public class Property_Complain_Details extends BaseActionBarActivity {
         tv_property_details_type = (TextView) findViewById(R.id.tv_property_details_type);
         tv_property_details_time = (TextView) findViewById(R.id.tv_property_details_time);
         tv_property_details_house = (TextView) findViewById(R.id.tv_property_details_house);
+        tv_property_details_appraisal_content = (TextView) findViewById(R.id.tv_appraisal_content);
         rb_score = (RatingBar) findViewById(R.id.rb_score);
         tv_property_details_type.setVisibility(View.GONE);
         tv_property_details_title.setText(repair_complain.getContent());
@@ -193,7 +196,6 @@ public class Property_Complain_Details extends BaseActionBarActivity {
         }else {
             return super.onKeyDown(keyCode, event);
         }
-
     }
 
     public void ScoreDialog() {
@@ -222,7 +224,8 @@ public class Property_Complain_Details extends BaseActionBarActivity {
             public void onClick(View v) {
                 if ((int)s != 0) {
                     currentRate=Math.abs(6 - s);
-                    propertyService.createComplainScore(mRepairId,currentRate,et_say.getText().toString().trim(),handlerCreateScore);
+                    appraiseContent = et_say.getText().toString().trim();
+                    propertyService.createComplainScore(mRepairId, currentRate, appraiseContent, handlerCreateScore);
                 } else {
                     showToast("请先评分");
                     return;
@@ -357,8 +360,10 @@ public class Property_Complain_Details extends BaseActionBarActivity {
                 case BaseService.DATA_SUCCESS:
                     showToast("评价成功");
                     hintKbTwo(et_say);
+                    tv_share.setVisibility(View.GONE);
                     rb_score.setVisibility(View.VISIBLE);
                     rb_score.setRating(Math.abs(6 -currentRate));
+                    tv_property_details_appraisal_content.setText(appraiseContent);
                     aaa = true;
                     break;
                 case BaseService.DATA_FAILURE:
@@ -381,6 +386,7 @@ public class Property_Complain_Details extends BaseActionBarActivity {
                     rb_score.setVisibility(View.VISIBLE);
                     tv_share.setVisibility(View.GONE);
                     rb_score.setRating(Math.abs(6 - Float.parseFloat(score.getSocreCnt())));
+                    tv_property_details_appraisal_content.setText(score.getOrtherContent());
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:
                     rb_score.setVisibility(View.GONE);

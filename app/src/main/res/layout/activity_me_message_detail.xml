@@ -14,27 +14,28 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
             <TextView
-                    android:id="@+id/tv_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dimen_104dp"
-                    android:drawablePadding="@dimen/dimen_24dp"
-                    android:drawableTop="@drawable/msg"
-                    android:padding="@dimen/dimen_24dp"
-                    android:text="空空如也!"
-                    android:textColor="@color/green_light"
-                    android:visibility="gone"/>
+                android:id="@+id/tv_message"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_104dp"
+                android:drawablePadding="@dimen/dimen_24dp"
+                android:drawableTop="@drawable/msg"
+                android:gravity="center"
+                android:padding="@dimen/dimen_24dp"
+                android:text="空空如也!"
+                android:textColor="@color/green_light"
+                android:visibility="gone" />
+
             <com.ldnet.utility.CustomListView2
-                    android:id="@+id/lv_message_detail"
-                    android:background="@drawable/border_top_bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="#00000000"
-                >
-            </com.ldnet.utility.CustomListView2>
+                android:id="@+id/lv_message_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_top_bottom"
+                android:divider="#00000000"
+                android:listSelector="#00000000"></com.ldnet.utility.CustomListView2>
         </LinearLayout>
 
     </com.library.PullToRefreshScrollView>

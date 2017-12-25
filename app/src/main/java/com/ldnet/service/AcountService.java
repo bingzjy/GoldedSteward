@@ -434,7 +434,7 @@ public class AcountService extends BaseService {
 
             @Override
             public void onResponse(String s, int i) {
-                Log.e(tag, "获取数据getData--" + s + "type-------" + type);
+                Log.e(tag, "获取数据getData--" + s + "type-------" + type+"---Services.TOKEN---------"+Services.TOKEN);
                 try {
                     JSONObject json = new JSONObject(s);
                     if (s.contains(mContext.getString(R.string.refuse))) {

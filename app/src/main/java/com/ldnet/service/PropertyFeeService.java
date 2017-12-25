@@ -47,19 +47,22 @@ public class PropertyFeeService extends BaseService {
     }
 
 
-    //查询物业费
-    public void getPropertyFee( String year,  String month, String status, final Handler handlerGetFee) {
+    //查询物业费 (年份全部：year\month=0, 费用全部 status=2   0未交费  1已缴费)
+    public void getPropertyFee( String year, String month, String status, final Handler handlerGetFee) {
         if (TextUtils.isEmpty(year)) {
             year = "0";
         }
         if (TextUtils.isEmpty(month)) {
             month = "0";
         }
+
         if (TextUtils.isEmpty(status)) {
             status = "2";
         }
+
         String url = Services.mHost + "API/Fee/GetFeeByRoomID/%s?year=%s&month=%s&status=%s";
         url = String.format(url, UserInformation.getUserInfo().HouseId, year, month, status);
+        Log.e(Tag, "getPropertyFee:-----url:"+url);
         OkHttpService.get(url).execute(new DataCallBack(mContext, handlerGetFee) {
                                            @Override
                                            public void onBefore(Request request, int id) {
@@ -76,7 +79,7 @@ public class PropertyFeeService extends BaseService {
                                            @Override
                                            public void onResponse(String s, int i) {
                                                super.onResponse(s, i);
-
+                                               Log.e(Tag, "getPropertyFee:" + s);
                                                try {
                                                    JSONObject json = new JSONObject(s);
                                                    if (checkJsonData(s, handlerGetFee)) {

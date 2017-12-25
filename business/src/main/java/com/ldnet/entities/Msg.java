@@ -15,11 +15,11 @@ public class Msg implements Serializable {
     public boolean COMMUNICATION;
     public boolean FEE;
     public boolean PAGE;
-    public boolean FEEDBACK;
+    public boolean FEEDBACK;  //意见反馈 6
     public boolean ORDER;
     public boolean OTHER;
     public boolean MESSAGE;
-    public boolean PROPERTY_MSG;
+    public boolean PROPERTY_MSG;//消息中心的物业消息 9
     public int callbackId;
 
     public static long getSerialVersionUID() {

@@ -157,6 +157,7 @@ public class EntranceGuardSplash extends Activity {
         @Override
         public void scanDeviceCallBack(LEDevice leDevice, int i1, int i2) {
             if (leDevice != null) {
+                Log.e("blue",leDevice.getDeviceName());
                 mDeviceId = leDevice.getDeviceId();
                 mScanDeviceResult.put(mDeviceId, leDevice);
             } else {

@@ -8,7 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by lee on 2017/11/22
+ * Created by zhangjinye on 2017/11/22
+ *
+ * set EditText inputFilter about money
  */
 
 public class CashierInputFilter implements InputFilter {

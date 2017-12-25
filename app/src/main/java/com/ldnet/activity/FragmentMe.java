@@ -9,13 +9,10 @@ import android.net.Uri;
 import android.os.*;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.*;
-import com.google.gson.Gson;
 import com.ldnet.activity.base.BaseFragment;
-import com.ldnet.activity.home.Property_Repair_Create;
 import com.ldnet.activity.mall.Shopping_Carts;
 import com.ldnet.activity.me.*;
 import com.ldnet.activity.me.Address;
@@ -35,21 +32,11 @@ import com.ldnet.utility.*;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zhy.http.okhttp.OkHttpUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.Call;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -555,5 +542,40 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
          }
      }
  };
+
+
+//
+//    private void testRetrofit(){
+//        Retrofit retrofit=new Retrofit.Builder()
+//                .baseUrl(Services.mHost)
+//                .build();
+//        RetrofitService service=retrofit.create(RetrofitService.class);
+//
+//        String aa = Services.timeFormat();
+//        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+//        HashMap<String, String> extras = new HashMap<>();
+//        User user=UserInformation.getUserInfo();
+//        extras.put("UserName", user.getUserPhone());
+//        extras.put("Password", user.getUserPassword());
+//        extras.put("PlatForm", "Android");
+//        String md5 = user.getUserPhone() + aa + aa1 + Services.json(extras) + Services.TOKEN;
+//        retrofit2.Call<ResponseBody> call=service.getUserInfo(user.getUserPhone(), aa,aa1,Services.textToMD5L32(md5),
+//                user.getUserPhone(),
+//                user.getUserPassword(),
+//                "Android");
+//
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
+//                Log.e("TEST RETROFIT","response:"+response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
+//                Log.e("TEST RETROFIT","ERROR:"+t.toString());
+//            }
+//        });
+//
+//    }
 
 }

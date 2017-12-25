@@ -17,8 +17,6 @@ import java.util.HashMap;
  */
 public class OkHttpService {
 
-
-
     public static RequestCall get(String url){
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";

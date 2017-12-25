@@ -16,7 +16,6 @@
             <com.ldnet.utility.MyListView
                     android:id="@+id/lv_message"
                     android:background="@drawable/border_top_bottom"
-                    android:divider="@null"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
             </com.ldnet.utility.MyListView>

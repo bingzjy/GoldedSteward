@@ -819,6 +819,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         public void scanDeviceEndCallBack(int i) {
             openDoor();
         }
+
+
     }
 
     //重力感应监听

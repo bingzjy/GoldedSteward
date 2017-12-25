@@ -29,22 +29,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
-
 import okhttp3.Call;
-import okhttp3.Request;
-
-import static com.ldnet.goldensteward.R.id.et_address_area_code;
-import static com.ldnet.goldensteward.R.id.et_address_contract;
-import static com.ldnet.goldensteward.R.id.et_address_details;
-import static com.ldnet.goldensteward.R.id.et_address_mobile;
-import static com.ldnet.goldensteward.R.id.et_address_telephone;
-import static com.ldnet.goldensteward.R.id.et_address_zipcode;
-import static com.ldnet.goldensteward.R.id.slv_me_address;
-import static com.ldnet.goldensteward.R.id.sr_address_areas;
-import static com.ldnet.goldensteward.R.id.sr_address_cities;
-import static com.ldnet.map.ChString.address;
-import static com.unionpay.mobile.android.global.a.s;
-
 /**
  * Created by lee on 2017/11/8
  */

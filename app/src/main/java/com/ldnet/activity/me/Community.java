@@ -219,7 +219,6 @@ public class Community extends BaseActionBarActivity {
                                     MyDialog2 dialog2 = new MyDialog2(Community.this, "PASS");
                                     dialog2.show();
                                     dialog2.setDialogCallback(dialogcallback);
-                                    Log.e("asdsdasd", "未审核");
                                 }
                             } else {
                                 showToast("审核未通过");
@@ -238,8 +237,7 @@ public class Community extends BaseActionBarActivity {
             HashMap<String, String> extras = new HashMap<String, String>();
             extras.put("APPLY", type);
             extras.put("ROOM_ID", room_Id);
-            extras.put("phone", UserInformation.getUserInfo().getPropertyPhone());
-            extras.put("CLASS_FROM", VisitorPsd.class.getName());
+            extras.put("CLASS_FROM", Community.class.getName());
             extras.put("COMMUNITY_ID", community_Id);
             try {
                 gotoActivityAndFinish(VisitorPsd.class.getName(), extras);

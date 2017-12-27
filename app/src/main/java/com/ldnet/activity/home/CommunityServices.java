@@ -40,8 +40,6 @@ public class CommunityServices extends BaseFragment implements View.OnClickListe
     private CustomListView2 mLvCommunityServices;
     private ListViewAdapter<com.ldnet.entities.CommunityServices> mAdapter;
     private List<com.ldnet.entities.CommunityServices> mDatas=new ArrayList<com.ldnet.entities.CommunityServices>();;
-    private List<com.ldnet.entities.CommunityServices> datas;
-
     private String mSortId;
     private String mSortKeywords;
     private String mSortTypes;
@@ -52,10 +50,11 @@ public class CommunityServices extends BaseFragment implements View.OnClickListe
     private CommunityService communityService;
 
     private DisplayImageOptions imageOptions;
-    String aa = Services.timeFormat();
-    String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+    private String aa = Services.timeFormat();
+    private String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+
+
     public static Fragment getInstance(Bundle bundle) {
-        Log.i("Fragment", "");
         CommunityServices fragment = new CommunityServices();
         fragment.setArguments(bundle);
         return fragment;
@@ -93,7 +92,7 @@ public class CommunityServices extends BaseFragment implements View.OnClickListe
         mSortKeywords = getArguments().getString("Name");
         communityId = UserInformation.getUserInfo().CommunityId;
         mCityCode = UserInformation.getUserInfo().CommuntiyCityId;
-        tv_community_services = (TextView)view.findViewById(R.id.tv_community_services);
+        tv_community_services = (TextView) view.findViewById(R.id.tv_community_services);
         mPullToRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.main_act_scrollview);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setHeaderLayout(new HeaderLayout(getActivity()));
@@ -126,33 +125,33 @@ public class CommunityServices extends BaseFragment implements View.OnClickListe
 
                     //标题、地址
                     holder.setText(R.id.tv_training_title, communityServices.Title)
-                        .setText(R.id.tv_training_address, communityServices.Address);
+                            .setText(R.id.tv_training_address, communityServices.Address);
                     //点击电话，拨打电话给商家
                     holder.getView(R.id.tel_training).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + communityServices.Phone));
-                        mContext.startActivity(intent);
-                    }
-                });
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + communityServices.Phone));
+                            mContext.startActivity(intent);
+                        }
+                    });
                 } else {   //有商家活动展示
                     holder.getView(R.id.ll_activity_detail_content).setVisibility(View.VISIBLE);
                     holder.getView(R.id.ll_no_activity_detail_content).setVisibility(View.GONE);
 
-                    ImageView imageView=holder.getView(R.id.iv_detail_activity_image);
+                    ImageView imageView = holder.getView(R.id.iv_detail_activity_image);
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    LinearLayout.LayoutParams layoutParams=(LinearLayout.LayoutParams) imageView.getLayoutParams();
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
 
-                    int screenrHeight=Utility.getScreenHeightforDIP(getActivity());
-                    layoutParams.height=Utility.dip2px(getActivity(),Float.parseFloat(String.valueOf(screenrHeight/3)));
+                    int screenrHeight = Utility.getScreenHeightforDIP(getActivity());
+                    layoutParams.height = Utility.dip2px(getActivity(), Float.parseFloat(String.valueOf(screenrHeight / 3)));
 
-                    if (communityServices.ActivityImages.contains(",")){
-                        String[] images=communityServices.ActivityImages.split(",");
-                        ImageLoader.getInstance().displayImage(Services.getImageUrl(images[0]),imageView, imageOptions);
-                    }else{
-                        ImageLoader.getInstance().displayImage(Services.getImageUrl(communityServices.ActivityImages),imageView, imageOptions);
+                    if (communityServices.ActivityImages.contains(",")) {
+                        String[] images = communityServices.ActivityImages.split(",");
+                        ImageLoader.getInstance().displayImage(Services.getImageUrl(images[0]), imageView, imageOptions);
+                    } else {
+                        ImageLoader.getInstance().displayImage(Services.getImageUrl(communityServices.ActivityImages), imageView, imageOptions);
                     }
-                    holder.setText(R.id.tv_detail_activity_title,communityServices.ActivityTitle.toString());
+                    holder.setText(R.id.tv_detail_activity_title, communityServices.ActivityTitle.toString());
                 }
             }
         };
@@ -160,13 +159,27 @@ public class CommunityServices extends BaseFragment implements View.OnClickListe
 
         //初始化服务
         services = new Services();
-        communityService=new CommunityService(getActivity());
-        mDatas.clear();
+        communityService = new CommunityService(getActivity());
 
-        if (mSortId.equals("200")){ //获取优惠接口
-            communityService.getYellowPageActivity("",handler);
-        }else{
-            communityService.getCommunityService(mSortId,"",handler);
+        //获取数据
+        loadData(true);
+    }
+
+    //加载数据
+    private void loadData(boolean refresh) {
+        if (refresh) {
+            mDatas.clear();
+            if (mSortId.equals("200")) { //获取优惠商家数据
+                communityService.getYellowPageActivity("", handler);
+            } else {
+                communityService.getCommunityService(mSortId, "", handler);
+            }
+        } else {
+            if (mSortId.equals("200")) { //获取优惠接口
+                communityService.getYellowPageActivity(mDatas.get(mDatas.size() - 1).Id, handler);
+            } else {
+                communityService.getCommunityService(mSortId, mDatas.get(mDatas.size() - 1).Id, handler);
+            }
         }
     }
 
@@ -181,9 +194,6 @@ public class CommunityServices extends BaseFragment implements View.OnClickListe
                     e.printStackTrace();
                 }
                 break;
-            case R.id.btn_custom://跳转到
-
-                break;
             default:
                 break;
         }
@@ -194,23 +204,13 @@ public class CommunityServices extends BaseFragment implements View.OnClickListe
 
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                mDatas.clear();
-                if (mSortId.equals("200")){ //获取优惠接口
-                    communityService.getYellowPageActivity("",handler);
-                }else{
-                    communityService.getCommunityService(mSortId,"",handler);
-                }
-
+                loadData(true);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 if (mDatas != null && mDatas.size() > 0) {
-                    if (mSortId.equals("200")){ //获取优惠接口
-                        communityService.getYellowPageActivity(mDatas.get(mDatas.size() - 1).Id,handler);
-                    }else{
-                        communityService.getCommunityService(mSortId,mDatas.get(mDatas.size() - 1).Id,handler);
-                    }
+                    loadData(false);
                 } else {
                     mPullToRefreshScrollView.onRefreshComplete();
                 }

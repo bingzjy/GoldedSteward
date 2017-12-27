@@ -10,33 +10,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import com.ldnet.activity.BindingHouse;
-import com.ldnet.activity.MainActivity;
-import com.ldnet.activity.Register;
+
 import com.ldnet.activity.base.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.home.HouseRent_List;
-import com.ldnet.entities.MyProperties;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.DataCallBack;
+import com.ldnet.service.BaseService;
+import com.ldnet.service.BindingService;
 import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
-import com.zhy.http.okhttp.OkHttpUtils;
-import okhttp3.Call;
-import okhttp3.Request;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.unionpay.mobile.android.global.a.s;
+
 /**
  * Created by lee on 2017/4/24.
- * 访客认证
+ * 请求服务器发送短信验证码，用户手动输入验证码，身份认证
  */
 public class VisitorValid extends BaseActionBarActivity {
 
@@ -48,9 +39,9 @@ public class VisitorValid extends BaseActionBarActivity {
     private ImageButton mBtnBack;
     private EditText et_visitor_phone;
     private Services mServices;
-    private String romm_id = "";
-    private String phone = "";
-    private String id = "";
+    private String room_id = "";
+    private String room_owner_phone = "";
+    private String room_owner_id = "";
     private String flag = "";
     private String class_from = "";
     private String COMMUNITY_ID, mCOMMUNITY_NAME = "";
@@ -58,11 +49,14 @@ public class VisitorValid extends BaseActionBarActivity {
     private Timer timer;
     private String applyType = "";
     private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static final String TAG = "VisitorValid";
+    private BindingService bindService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mServices = new Services();
+        bindService = new BindingService(this);
         // 设置布局
         setContentView(R.layout.activity_visitor_valid);
         AppUtils.setupUI(findViewById(R.id.ll_visitor_valid), this);
@@ -82,175 +76,45 @@ public class VisitorValid extends BaseActionBarActivity {
         bt_visitor_valid = (Button) findViewById(R.id.bt_visitor_valid);
         et_visitor_phone = (EditText) findViewById(R.id.et_visitor_phone);
 
+        //获取传递参数
+        getExtra();
+        tv_vistior_send.setText("短信已发送至:" + room_owner_phone);
 
-        phone = getIntent().getStringExtra("Value");
-        id = getIntent().getStringExtra("Id");
-        flag = getIntent().getStringExtra("Flag");
-        romm_id = getIntent().getStringExtra("ROOM_ID");
+        RunTimer();
+        if (notNull()) {
+            bindService.getValid(room_id, room_owner_phone, flag, handlerSendSms);
+        }
+    }
+
+    //获取传递参数
+    private void getExtra() {
+        room_owner_phone = getIntent().getStringExtra("ROOM_OWNER_TEL");   //房屋业主电话
+        room_owner_id = getIntent().getStringExtra("ROOM_OWNER_ID"); //房屋业主ID
+        flag = getIntent().getStringExtra("ROOM_OWNER_FLAG");
+        room_id = getIntent().getStringExtra("ROOM_ID");
         class_from = getIntent().getStringExtra("CLASS_FROM");
         COMMUNITY_ID = getIntent().getStringExtra("COMMUNITY_ID");
-
-        Log.e("asd", "----------VistorValid" + COMMUNITY_ID);
-
         mCOMMUNITY_NAME = getIntent().getStringExtra("COMMUNITY_NAME");
         applyType = getIntent().getStringExtra("APPLY");
-        tv_vistior_send.setText("短信已发送至:" + phone);
-        RunTimer();
-        getValid();
     }
 
+    private boolean notNull() {
+        if (TextUtils.isEmpty(room_id)) {
+            showToast("房间无效");
+            return false;
+        }
+        if (TextUtils.isEmpty(room_owner_phone)) {
+            showToast("手机号无效");
+            return false;
+        }
 
-    //获取短信验证码
-    public void getValid() {
-        String url = Services.mHost + "API/EntranceGuard/SendCode";
-        String aa = Services.timeFormat();
-        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        HashMap<String, String> extras = new HashMap<>();
-        extras.put("Id", romm_id);
-        extras.put("Value", phone);
-        extras.put("Flag", flag);
-        Services.json(extras);
-        String md5 = UserInformation.getUserInfo().getUserPhone() +
-                aa + aa1 + Services.json(extras) + Services.TOKEN;
-        Log.e("asdsdasd", "短信验证--" + Services.json(extras));
-        OkHttpUtils.post().url(url)
-                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
-                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-                .addHeader("timestamp", aa)
-                .addHeader("nonce", aa1)
-                .addHeader("signature", Services.textToMD5L32(md5))
-                .addParams("Id", romm_id)
-                .addParams("Value", phone)
-                .addParams("Flag", flag)
-                .build()
-                .execute(new DataCallBack(this) {
-
-                    @Override
-                    public void onBefore(Request request, int id) {
-                        super.onBefore(request, id);
-                        showProgressDialog();
-                    }
-
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        super.onError(call, e, i);
-                        closeProgressDialog();
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
-                        Log.e("asdsdasd", "发送短信结果" + s);
-                        closeProgressDialog();
-                        try {
-                            JSONObject json = new JSONObject(s);
-                            JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                            if (jsonObject.getBoolean("Valid")) {
-                                showToast("发送验证码成功");
-                            } else {
-                                tv_vistior_send.setText("短信发送失败");
-                                if (jsonObject.getString("Message").contains(getString(R.string.repeat))) {
-                                    showToast("发送验证码失败,十分钟之内" + jsonObject.getString("Message"));
-                                } else {
-                                    showToast("发送验证码失败," + jsonObject.getString("Message"));
-                                }
-                                //  VisitorValid.this.finish();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            try {
-                                gotoActivityAndFinish(MainActivity.class.getName(), null);
-                            } catch (ClassNotFoundException e1) {
-                                e1.printStackTrace();
-                            }
-                        }
-                    }
-                });
+        if (TextUtils.isEmpty(flag)) {
+            showToast("标志无效");
+            return false;
+        }
+        return true;
     }
 
-
-    //验证短信验证码 API/EntranceGuard/ValidCode
-    public void postValid() {
-        Log.d("asdsdasd", " .-------3........" + id);
-        String url = Services.mHost + "API/EntranceGuard/ValidCode";
-        String aa = Services.timeFormat();
-        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        HashMap<String, String> extras = new HashMap<>();
-        extras.put("Id", et_visitor_phone.getText().toString().trim());
-        extras.put("Value", phone);
-        extras.put("Flag", flag);
-        Services.json(extras);
-        String md5 = UserInformation.getUserInfo().getUserPhone() +
-                aa + aa1 + Services.json(extras) + Services.TOKEN;
-        Log.d("asdsdasd", "--" + Services.json(extras));
-        OkHttpUtils.post().url(url)
-                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
-                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-                .addHeader("timestamp", aa)
-                .addHeader("nonce", aa1)
-                .addHeader("signature", Services.textToMD5L32(md5))
-                .addParams("Id", et_visitor_phone.getText().toString().trim())
-                .addParams("Value", phone)
-                .addParams("Flag", flag)
-                .build()
-                .execute(new DataCallBack(this) {
-                    @Override
-                    public void onBefore(Request request, int id) {
-                        super.onBefore(request, id);
-                        showProgressDialog();
-                    }
-
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        super.onError(call, e, i);
-                        closeProgressDialog();
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
-
-                        closeProgressDialog();
-                        try {
-                            JSONObject json = new JSONObject(s);
-                            JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                            if (json.getBoolean("Status")) {
-                                if (jsonObject.getBoolean("Valid")) {
-                                    HashMap<String, String> extras1 = new HashMap<String, String>();
-                                    extras1.put("Value", phone);
-                                    extras1.put("ROOM_ID", romm_id);
-                                    extras1.put("Flag", flag);
-                                    extras1.put("Id", id);
-
-                                    if (class_from != null && !class_from.equals("")) {
-
-                                        extras1.put("COMMUNITY_ID", COMMUNITY_ID);
-                                        extras1.put("CLASS_FROM", "BindingHouse");
-                                        extras1.put("APPLY", applyType == null ? "" : applyType);
-                                        extras1.put("COMMUNITY_NAME", mCOMMUNITY_NAME == null ? "" : mCOMMUNITY_NAME);
-
-                                        Log.e("asd", "gotoActivityAndFinish(VisitorValidComplete" + COMMUNITY_ID + "----" + mCOMMUNITY_NAME);
-                                    }
-                                    try {
-                                        Log.e("asdsdasd", "验证通过----认证关系" + s);
-                                        gotoActivityAndFinish(VisitorValidComplete.class.getName(), extras1);
-                                    } catch (ClassNotFoundException e) {
-                                        e.printStackTrace();
-                                    }
-                                } else {
-                                    if (TextUtils.isEmpty(jsonObject.getString("Message"))) {
-                                        showToast("验证码输入有误");
-                                    } else {
-                                        showToast(jsonObject.getString("Message"));
-                                    }
-                                }
-                            } else {
-                                showToast("验证码输入有误");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
 
     public void initEvent() {
         mBtnBack.setOnClickListener(this);
@@ -262,18 +126,9 @@ public class VisitorValid extends BaseActionBarActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back:
-//                HashMap<String, String> extras1 = new HashMap<String, String>();
-//                extras1.put("phone", phone);
-//                extras1.put("ROOM_ID", romm_id);
-//                try {
-//                    gotoActivityAndFinish(VisitorPsd.class.getName(), extras1);
-//                } catch (ClassNotFoundException e) {
-//                    e.printStackTrace();
-//                }
                 if (class_from != null && !class_from.equals("")) {
                     HashMap<String, String> extras1 = new HashMap<String, String>();
-                    //extras1.put("phone", phone);
-                    extras1.put("ROOM_ID", romm_id);
+                    extras1.put("ROOM_ID", room_id);
                     extras1.put("COMMUNITY_ID", COMMUNITY_ID);
                     extras1.put("CLASS_FROM", class_from == null ? "" : class_from);
                     extras1.put("IsFromRegister", "false");
@@ -284,8 +139,7 @@ public class VisitorValid extends BaseActionBarActivity {
                     }
                 } else {
                     HashMap<String, String> extras1 = new HashMap<String, String>();
-                    //  extras1.put("phone", phone);
-                    extras1.put("ROOM_ID", romm_id);
+                    extras1.put("ROOM_ID", room_id);
                     try {
                         gotoActivityAndFinish(VisitorPsd.class.getName(), extras1);
                     } catch (ClassNotFoundException e) {
@@ -295,7 +149,7 @@ public class VisitorValid extends BaseActionBarActivity {
                 break;
             case R.id.bt_complete_visitor:
                 if (!TextUtils.isEmpty(et_visitor_phone.getText().toString().trim())) {
-                    postValid();
+                    bindService.postValid(et_visitor_phone.getText().toString().trim(), room_owner_phone, flag, handlerCheckVlaidCode);
                 } else {
                     showToast(getString(R.string.valid_is_null));
                 }
@@ -349,6 +203,65 @@ public class VisitorValid extends BaseActionBarActivity {
         ;
     };
 
+    //发送短信验证码
+    Handler handlerSendSms = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            closeProgressDialog();
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    showToast(getString(R.string.vertification_code_send_ok));
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:
+                    tv_vistior_send.setText(getString(R.string.vertification_code_send_fail));
+                    if (msg.obj.toString().contains(getString(R.string.repeat))) {
+                        showToast(getString(R.string.vertification_code_resend_fail) + msg.obj.toString());
+                    } else {
+                        showToast(getString(R.string.vertification_code_send_fail) + msg.toString());
+                    }
+                    break;
+            }
+        }
+    };
+
+    //验证短信验证码
+    Handler handlerCheckVlaidCode = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    HashMap<String, String> extras1 = new HashMap<String, String>();
+                    extras1.put("Value", room_owner_phone);
+                    extras1.put("ROOM_ID", room_id);
+                    extras1.put("Flag", flag);
+                    extras1.put("Id", room_owner_id);
+
+                    if (class_from != null && !class_from.equals("")) {
+
+                        extras1.put("COMMUNITY_ID", COMMUNITY_ID);
+                        extras1.put("CLASS_FROM", "BindingHouse");
+                        extras1.put("APPLY", applyType == null ? "" : applyType);
+                        extras1.put("COMMUNITY_NAME", mCOMMUNITY_NAME == null ? "" : mCOMMUNITY_NAME);
+
+                        Log.e(TAG, "gotoActivityAndFinish(VisitorValidComplete" + COMMUNITY_ID + "----" + mCOMMUNITY_NAME);
+                    }
+                    try {
+                        Log.e(TAG, "验证通过----认证关系" + s);
+                        gotoActivityAndFinish(VisitorValidComplete.class.getName(), extras1);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:
+                    showToast(msg.obj.toString());
+                    break;
+            }
+        }
+    };
 
     // 监听返回按键
     @Override
@@ -356,29 +269,10 @@ public class VisitorValid extends BaseActionBarActivity {
         if (event.getAction() == KeyEvent.ACTION_DOWN
                 && event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
 
-            //本页getIntent
-//            phone = getIntent().getStringExtra("Value");
-//            id = getIntent().getStringExtra("Id");
-//            flag = getIntent().getStringExtra("Flag");
-//            romm_id = getIntent().getStringExtra("ROOM_ID");
-//            class_from = getIntent().getStringExtra("CLASS_FROM");
-//            COMMUNITY_ID = getIntent().getStringExtra("COMMUNITY_ID");
-//
-//
-
-//            VisitorPsd需要getIntent
-//            romm_id = getIntent().getStringExtra("ROOM_ID");
-//            phoneWY = getIntent().getStringExtra("phone"); //物业电话
-//            class_from = getIntent().getStringExtra("CLASS_FROM");
-//            COMMUNITY_ID = getIntent().getStringExtra("COMMUNITY_ID");
-//            mCOMMUNITY_NAME=getIntent().getStringExtra("COMMUNITY_NAME");
-//            applyType=getIntent().getStringExtra("APPLY");
-
-
             if (class_from != null && !class_from.equals("")) {
                 HashMap<String, String> extras1 = new HashMap<String, String>();
-                //   extras1.put("phone", phone);
-                extras1.put("ROOM_ID", romm_id);
+                //   extras1.put("room_owner_phone", room_owner_phone);
+                extras1.put("ROOM_ID", room_id);
                 extras1.put("COMMUNITY_ID", COMMUNITY_ID);
                 extras1.put("CLASS_FROM", class_from == null ? "" : class_from);
                 extras1.put("IsFromRegister", "false");
@@ -389,8 +283,8 @@ public class VisitorValid extends BaseActionBarActivity {
                 }
             } else {
                 HashMap<String, String> extras1 = new HashMap<String, String>();
-                //   extras1.put("phone", phone);
-                extras1.put("ROOM_ID", romm_id);
+                //   extras1.put("room_owner_phone", room_owner_phone);
+                extras1.put("ROOM_ID", room_id);
                 try {
                     gotoActivityAndFinish(VisitorPsd.class.getName(), extras1);
                 } catch (ClassNotFoundException e) {

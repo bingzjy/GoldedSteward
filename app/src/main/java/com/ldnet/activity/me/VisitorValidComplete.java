@@ -37,6 +37,8 @@ import java.util.HashMap;
 
 /**
  * Created by lee on 2017/4/25.
+ *
+ * 亲属、租户关系选择
  */
 public class VisitorValidComplete extends BaseActionBarFragmentActivity implements View.OnClickListener {
 
@@ -93,7 +95,6 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
         //默认设置(关系默认家属)
         qinshuRadioButton.setChecked(true);
         residentType = 1;
-        Log.d("asdsdasd", residentType + "");
         ll_date.setVisibility(View.GONE);
         //设置监听
         radioGroup.setOnCheckedChangeListener(new RadioGroupListener());
@@ -106,9 +107,6 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
         mCOMMUNITY_NAME = getIntent().getStringExtra("COMMUNITY_NAME");
         applyType = getIntent().getStringExtra("APPLY");
         tv_cname.setText(mCOMMUNITY_NAME);
-
-
-        Log.e("asd", "----------VistorValidComplete" + COMMUNITY_ID + "--" + mCOMMUNITY_NAME);
     }
 
     public void intiEvent() {
@@ -176,11 +174,6 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
                                 JSONObject jsonObject = new JSONObject(json.getString("Data"));
                                 if (jsonObject.getBoolean("Valid")) {
                                     showToast("修改绑定状态成功");
-//                                     if(applyType!=null&&applyType.equals("PASS")){
-//
-//                                     }else{
-//
-//                                     }
                                     HashMap<String, String> extras1 = new HashMap<String, String>();
                                     extras1.put("LEFT", "LEFT");
                                     try {
@@ -256,7 +249,6 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
                                         showToast(jsonObject.getString("Message"));
                                         HashMap<String, String> extras = new HashMap<String, String>();
                                         extras.put("LEFT", "LEFT");
-                                        //gotoActivityAndFinish(Community.class.getName(), extras);
                                         SetCurrentInforamtion(communityId, roomId);
                                         IntegralTip(url);
 
@@ -549,7 +541,6 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
             }
         }
     }
-
 
     // 监听返回按键
     @Override

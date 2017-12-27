@@ -696,7 +696,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         log_off_confirm.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPropertyTelphone();
+                Utility.showCallPop(getActivity(),false);
                 alertDialog.dismiss();
             }
         });
@@ -707,61 +707,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             }
         });
         alertDialog.show();
-
-
-    }
-
-    //获取物业联系电话
-    private void getPropertyTelphone() {
-        propertyFeeService.getPropertyTelphone(handlerGetPropertyTel);
-    }
-
-    //弹出物业电话
-    private void showCallPop(List<PPhones> phonesList) {
-        ListViewAdapter<PPhones> mAdapter;
-        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-        View popupView = layoutInflater.inflate(R.layout.pop_property_telphone, null);
-        final PopupWindow mPopWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        mPopWindow.setContentView(popupView);
-        View rootview = layoutInflater.inflate(R.layout.main, null);
-        mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
-        mPopWindow.setAnimationStyle(R.anim.slide_in_from_bottom);
-
-        TextView title = (TextView) popupView.findViewById(R.id.poptitle);
-        title.setVisibility(View.GONE);
-        ListView listTelPhone = (ListView) popupView.findViewById(R.id.list_propert_telphone);
-        mAdapter = new ListViewAdapter<PPhones>(getActivity(), R.layout.item_telephone, phonesList) {
-            @Override
-            public void convert(ViewHolder holder, final PPhones phones) {
-                holder.setText(R.id.tv_title, phones.Title).setText(R.id.tv_telephone, phones.Tel);
-                ImageButton telephone = holder.getView(R.id.ibtn_telephone);
-                telephone.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phones.Tel));
-                        startActivity(intent);
-                        getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
-                    }
-                });
-            }
-        };
-        listTelPhone.setAdapter(mAdapter);
-        popupView.findViewById(R.id.cancel_call).getBackground().setAlpha(200);
-        popupView.findViewById(R.id.cancel_call).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPopWindow.setAnimationStyle(R.anim.slide_out_to_bottom);
-                mPopWindow.dismiss();
-            }
-        });
-
-        mPopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                Utility.backgroundAlpaha(getActivity(), 1f);
-            }
-        });
-        Utility.backgroundAlpaha(getActivity(), 0.5f);
     }
 
     //身份未通过认证时弹出对话框
@@ -771,8 +716,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             HashMap<String, String> extras = new HashMap<String, String>();
             extras.put("APPLY", type);
             extras.put("ROOM_ID", UserInformation.getUserInfo().getHouseId());
-            extras.put("phone", UserInformation.getUserInfo().getPropertyPhone());
-            extras.put("CLASS_FROM", VisitorPsd.class.getName());
+            extras.put("CLASS_FROM",getActivity().getClass().getName());
             extras.put("COMMUNITY_ID", UserInformation.getUserInfo().getCommunityId());
             try {
                 gotoActivityAndFinish(VisitorPsd.class.getName(), extras);
@@ -1115,8 +1059,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         }
     }
 
-
-
     //摇摇动作
     Handler handler = new Handler() {
         @Override
@@ -1205,28 +1147,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         }
     };
 
-
-    //获取物业联系电话返回
-    Handler handlerGetPropertyTel = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case BaseService.DATA_SUCCESS:
-                    if (msg.obj != null) {
-                        List<PPhones> phonesList = (List<PPhones>) msg.obj;
-                        if (phonesList != null && phonesList.size() > 0) {
-                            showCallPop(phonesList);
-                        }
-                    }
-                    break;
-                case BaseService.DATA_FAILURE:
-                case BaseService.DATA_REQUEST_ERROR:
-                    showToast(msg.obj.toString());
-                    break;
-            }
-        }
-    };
 
     //是否开通门禁返回
     Handler handlerCheckOpenEntrance = new Handler() {

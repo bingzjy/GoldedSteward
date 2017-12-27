@@ -27,8 +27,6 @@ public class MyDialog2 {
         this.context = con;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.show();
-      //  alertDialog.setCanceledOnTouchOutside(false);
-       // alertDialog.setCancelable(false);
 
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.ly_off);

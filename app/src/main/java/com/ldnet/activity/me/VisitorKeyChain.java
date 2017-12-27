@@ -35,6 +35,8 @@ import java.util.*;
 
 /**
  * Created by lee on 2017/4/26.
+ *
+ * 获取到访客密码
  */
 public class VisitorKeyChain extends BaseActionBarActivity {
 

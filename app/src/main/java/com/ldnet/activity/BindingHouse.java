@@ -1,24 +1,12 @@
 package com.ldnet.activity;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.base.LoadingDialog;
-import com.ldnet.activity.commen.GetData;
 import com.ldnet.activity.me.Community;
 import com.ldnet.activity.me.VisitorPsd;
 import com.ldnet.entities.*;
@@ -27,32 +15,9 @@ import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.BindingService;
 import com.ldnet.utility.*;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import okhttp3.Call;
-import okhttp3.Request;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static com.ldnet.goldensteward.R.id.aaa;
-import static com.ldnet.utility.Services.IntegralTip;
-import static com.ldnet.utility.Utility.backgroundAlpaha;
 
 /**
  * ***************************************************
@@ -237,7 +202,7 @@ public class BindingHouse extends BaseActionBarActivity {
                     if (msg.obj != null && ((List<MyProperties>) msg.obj).size() > 0) {
                         boolean havebind = false;
                         List<MyProperties> myProperties = (List<MyProperties>) msg.obj;
-
+                        //遍历所有房产，判断是否已经绑定该小区
                         for (MyProperties data : myProperties) {
                             if (data.getCommunityId().equals(mCommunityId)) {
                                 if (data.getRooms() != null && data.getRooms().size() > 0) {
@@ -310,7 +275,7 @@ public class BindingHouse extends BaseActionBarActivity {
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:
                     closeProgressDialog();
-                    service.getPropertyTelphone(mCommunityId,handlerGetPropertyPhone);
+                    Utility.showCallPop(BindingHouse.this,true);
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
@@ -358,39 +323,6 @@ public class BindingHouse extends BaseActionBarActivity {
         }
     };
 
-    //获取物业管理处电话
-    Handler handlerGetPropertyPhone=new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            closeProgressDialog();
-            switch (msg.what){
-                case BaseService.DATA_SUCCESS:
-                    List<PPhones> allDatas=(List<PPhones>)msg.obj;
-                    List<PPhones> newDatas=new ArrayList<>();
-                    //筛选出管理处电话
-                    for (PPhones phone:allDatas){
-                        if (phone.getTitle().equals("物业管理处电话")){
-                            newDatas.add(phone);
-                        }
-                    }
-                    //弹出提示
-                    if (newDatas.size()==0){
-                        showCallPop(allDatas);
-                    }else{
-                        showCallPop(newDatas);
-                    }
-                    break;
-                case BaseService.DATA_SUCCESS_OTHER:
-                    showToast(R.string.Property_does_not_provide_phone_call);
-                    break;
-                case BaseService.DATA_FAILURE:
-                case BaseService.DATA_REQUEST_ERROR:
-                    showToast(msg.obj.toString());
-                    break;
-            }
-        }
-    };
 
     //解除房子绑定
     Handler handlerRemoveHouse = new Handler() {
@@ -483,7 +415,6 @@ public class BindingHouse extends BaseActionBarActivity {
 
                     }
                 }
-
         );
     }
 
@@ -539,47 +470,6 @@ public class BindingHouse extends BaseActionBarActivity {
 
             }
         });
-    }
-
-    private void showCallPop(List<PPhones> phonesList) {
-        ListViewAdapter<PPhones> mAdapter;
-        LayoutInflater layoutInflater = LayoutInflater.from(BindingHouse.this);
-        View popupView = layoutInflater.inflate(R.layout.pop_property_telphone, null);
-        final PopupWindow mPopWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        mPopWindow.setContentView(popupView);
-        View rootview = layoutInflater.inflate(R.layout.main, null);
-        mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
-        mPopWindow.setAnimationStyle(R.anim.slide_in_from_bottom);
-
-        TextView title = (TextView) popupView.findViewById(R.id.poptitle);
-        title.setText(getResources().getText(R.string.noPrpperty));
-        ListView listTelPhone = (ListView) popupView.findViewById(R.id.list_propert_telphone);
-        mAdapter = new ListViewAdapter<PPhones>(BindingHouse.this, R.layout.item_telephone, phonesList) {
-            @Override
-            public void convert(ViewHolder holder, final PPhones phones) {
-                holder.setText(R.id.tv_title, phones.Title).setText(R.id.tv_telephone, phones.Tel);
-                ImageButton telephone = holder.getView(R.id.ibtn_telephone);
-                telephone.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phones.Tel));
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
-                    }
-                });
-            }
-        };
-        listTelPhone.setAdapter(mAdapter);
-        popupView.findViewById(R.id.cancel_call).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPopWindow.setAnimationStyle(R.anim.slide_out_to_bottom);
-                mPopWindow.dismiss();
-                backgroundAlpaha(BindingHouse.this, 1.0f);
-            }
-        });
-        backgroundAlpaha(BindingHouse.this, 0.5f);
     }
 
     @Override

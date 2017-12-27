@@ -51,12 +51,11 @@ public class CommunityServicesDetails extends BaseActionBarActivity {
     //社区服务的图片
     private ImageCycleView mImgHousekeeping;
     private TextView mTvHousekeepingTitle, mTvHousekeepingAddress, mTvHousekeepingMemo,mTvHousekeepingActivityTitle;
-    private List<Item> itemList;
+    private List<Item> itemList= new ArrayList<Item>();
     private CustomListView2 mLvcommunityServices;
     private ListViewAdapter mAdapter;
     private ArrayList<String> mImageUrl = null;
     private ArrayList<String> mActivityImageUrl = new ArrayList<String>();
-    private String activityTitle,activityImages;
     private CommunityService communityService;
     private ImageView ivShare;
     private LinearLayout llActivityContent;
@@ -71,9 +70,13 @@ public class CommunityServicesDetails extends BaseActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community_services_details);
+        //初始化View、事件
+        initView();
+        initEvent();
+        //初始化服务
         services = new Services();
         communityService=new CommunityService(this);
-
+        //图片加载配置
         imageOptions = new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.drawable.default_info)     //url爲空會显示该图片，自己放在drawable里面的
                 .showImageOnFail(R.drawable.default_info)                //加载图片出现问题，会显示该图片
@@ -85,14 +88,9 @@ public class CommunityServicesDetails extends BaseActionBarActivity {
 
         //传递的参数
         mCommunityServicesId = getIntent().getStringExtra("COMMUNITY_SERVICES_ID");
-
+        //加载数据
         showProgressDialog();
         communityService.getCommunityServiceDetail(mCommunityServicesId,handler);
-
-        itemList = new ArrayList<Item>();
-
-        initView();
-        initEvent();
     }
 
     private void initView() {
@@ -216,7 +214,7 @@ public class CommunityServicesDetails extends BaseActionBarActivity {
         }
     };
 
-    //填充数据
+    //数据展示
     private void showData(){
         //设置电话可否拨打
         if (TextUtils.isEmpty(communityServicesDetails.Phone)){

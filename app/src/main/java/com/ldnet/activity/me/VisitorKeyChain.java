@@ -33,6 +33,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.ldnet.utility.Services.COMMUNITY_ID;
+import static com.ldnet.utility.Services.ROOM_ID;
+
 /**
  * Created by lee on 2017/4/26.
  *
@@ -93,8 +96,8 @@ public class VisitorKeyChain extends BaseActionBarActivity {
 
     public void initView() {
         mServices = new Services();
-        cid = getIntent().getStringExtra("cid");
-        room_id = getIntent().getStringExtra("ROOM_ID");
+        cid = getIntent().getStringExtra(COMMUNITY_ID);
+        room_id = getIntent().getStringExtra(ROOM_ID);
         // 标题
         mTvPageTitle = (TextView) findViewById(R.id.tv_page_title);
         tv_keychain_date = (TextView) findViewById(R.id.tv_keychain_date);

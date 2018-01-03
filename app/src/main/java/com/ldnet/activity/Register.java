@@ -213,8 +213,6 @@ public class Register extends BaseActionBarActivity {
                             .toString().trim())) {
                         if (mCkbAgreement.isChecked()) {
 
-//                            ll_register_valid_phone.setVisibility(View.GONE);
-//                            ll_register_password_referrer.setVisibility(View.VISIBLE);
                             showProgressDialog();
                             service.VaildCode(et_register_phone.getText()
                                     .toString().trim(), et_register_valid.getText()

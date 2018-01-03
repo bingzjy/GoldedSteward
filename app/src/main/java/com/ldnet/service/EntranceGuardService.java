@@ -87,9 +87,9 @@ public class EntranceGuardService extends BaseService {
     }
 
 
-    public void checkOpenEntrance(final Handler handlerCheckEntrance) {
+    public void checkOpenEntrance(final String community_id,final Handler handlerCheckEntrance) {
         //true 表示未开通门禁；false表示开通门禁
-        String url = Services.mHost + "API/EntranceGuard/Unused?communityid=" + UserInformation.getUserInfo().getCommunityId();
+        String url = Services.mHost + "API/EntranceGuard/Unused?communityid=" + community_id;
         url = String.format(url);
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";

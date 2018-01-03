@@ -7,6 +7,9 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.*;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.ldnet.activity.BindingCommunity;
 import com.ldnet.activity.MainActivity;
@@ -577,55 +580,6 @@ public class AcountService extends BaseService {
                 });
     }
 
-    //获取用户最新数据
-    public void SetCurrentInforamtion(final Handler handlerSetCurrentInforamtion) {
-        String aa = Services.timeFormat();
-        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        // 请求的URL
-        String url = Services.mHost + "API/Account/SetResidentLogonInfo";
-        HashMap<String, String> extras = new HashMap<>();
-        extras.put("CommunityId", UserInformation.getUserInfo().getCommunityId());
-        extras.put("HouseId", UserInformation.getUserInfo().getHouseId());
-        extras.put("ResidentId", UserInformation.getUserInfo
-                ().getUserId());
-        Services.json(extras);
-        String md5 = UserInformation.getUserInfo().getUserPhone() +
-                aa + aa1 + Services.json(extras) + Services.TOKEN;
-        OkHttpUtils.post().url(url)
-                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
-                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-                .addHeader("timestamp", aa)
-                .addHeader("nonce", aa1)
-                .addHeader("signature", Services.textToMD5L32
-                        (md5))
-                .addParams("ResidentId", UserInformation.getUserInfo().getUserId())
-                .addParams("HouseId", UserInformation.getUserInfo().getHouseId())
-                .addParams("CommunityId", UserInformation.getUserInfo().getCommunityId())
-                .build()
-                .execute(new DataCallBack(mContext,handlerSetCurrentInforamtion) {
-
-                    @Override
-                    public void onResponse(String s, int i) {
-                        Log.d(tag, "SetCurrentInforamtion:" + s);
-                        try {
-                            JSONObject json = new JSONObject(s);
-                            if (checkJsonData(s,handlerSetCurrentInforamtion)){
-                                JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                                if (jsonObject.getBoolean("Valid")) {
-                                    Gson gson = new Gson();
-                                    User user = gson.fromJson(jsonObject.getString("Obj"), User.class);
-                                    UserInformation.setUserInfo(user);
-                                }else{
-                                    sendErrorMessage(handlerSetCurrentInforamtion,jsonObject);
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
     //修改用户头像
     public void changeInformation(String name, String image,final Handler handler) {
         String aa = Services.timeFormat();
@@ -693,9 +647,6 @@ public class AcountService extends BaseService {
                     .addHeader("signature", Services.textToMD5L32(md5))
                     .build()
                     .execute(new DataCallBack(mContext,handler) {
-        //    OkHttpService.get(url)
-        //            .execute(new DataCallBack(mContext,handler) {
-
                         @Override
                         public void onResponse(String s, int i) {
                             Log.e(tag, "setIntegralTip:" + s);
@@ -711,6 +662,8 @@ public class AcountService extends BaseService {
                                             JSONObject jsonObject1 = new JSONObject(jsonObject.getString("Obj"));
                                             msg.obj = jsonObject1.getString("Show");
                                             handler.sendMessage(msg);
+
+                                            android.widget.Toast.makeText(mContext, jsonObject1.getString("Show"), Toast.LENGTH_SHORT).show();
                                         } else {
                                             handler.sendEmptyMessage(DATA_SUCCESS);
                                         }

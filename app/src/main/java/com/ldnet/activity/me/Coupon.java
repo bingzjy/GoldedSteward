@@ -3,6 +3,7 @@ package com.ldnet.activity.me;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -69,10 +70,7 @@ public class Coupon extends BaseActionBarActivity implements XListView.IXListVie
                 holder.setText(R.id.tv_me_reduceMoney, String.valueOf(coupon.ReduceMoney));
                 holder.setText(R.id.tv_me_fullMoney, "满" + coupon.FullMoney + "元可用");
                 holder.setText(R.id.tv_me_mainTypeName, coupon.MainTypeName);
-//                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-//                String beginDateString = dateFormat.format(coupon.BeginTime);
-//                SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy.MM.dd");
-//                String endDateString = dateFormat1.format(coupon.EndTime);
+
                 String[] str1 = coupon.BeginTime.split("T");
                 String[] str2 = coupon.EndTime.split("T");
                 //显示开始时间和结束时间
@@ -94,12 +92,7 @@ public class Coupon extends BaseActionBarActivity implements XListView.IXListVie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_back://返回主页
-//                finish();
-                try {
-                    gotoActivityAndFinish(MainActivity.class.getName(), null);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                finish();
                 break;
             case R.id.bt_go_gain_coupon://去领劵
                 try {
@@ -204,5 +197,15 @@ public class Coupon extends BaseActionBarActivity implements XListView.IXListVie
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 }

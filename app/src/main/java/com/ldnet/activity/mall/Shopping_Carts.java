@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,7 +21,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.me.Recharge;
 import com.ldnet.entities.SD;
 import com.ldnet.entities.ShoppingCart;
 import com.ldnet.entities.Stock;
@@ -72,14 +75,11 @@ public class Shopping_Carts extends BaseActionBarActivity {
     private ImageButton btn_back;
     //服务
     private Services services;
-    private Handler mHandler;
     private Integer mPageIndex = 1;
-
     //购物车数据
-    private List<ShoppingCart> mDatas;
+    private List<ShoppingCart> mDatas = new ArrayList<ShoppingCart>();
     private ListViewAdapter<ShoppingCart> mAdapter;
     private MyListView lv_shopping_carts;
-
     private LinearLayout ll_goods_balance;
     //选择的商品数量
     private TextView tv_goods_numbers;
@@ -89,9 +89,7 @@ public class Shopping_Carts extends BaseActionBarActivity {
     private Button btn_goods_balance;
     private TextView mShoppingCartEmpty;
     //上次下拉刷新的时间
-    private String dataString;
     private List<SubOrders> orderses;
-    private List<ShoppingCart> datas;
     private PullToRefreshScrollView mPullToRefreshScrollView;
     private OrderService orderService;
     private ShoppingCart currentShoppingCart;
@@ -103,9 +101,20 @@ public class Shopping_Carts extends BaseActionBarActivity {
         super.onCreate(savedInstanceState);
         // 设置布局
         setContentView(R.layout.activity_mall_shopping_carts);
-
+        //初始化服务
+        services = new Services();
         orderService=new OrderService(this);
 
+        //获取购物车列表
+        mPageIndex = 1;
+        orderService.getShoppingCar(mPageIndex,handlerGetShoppingList);
+        mPageIndex++;
+
+        initView();
+        initEvent();
+    }
+
+    private void initView() {
         // 标题
         tv_page_title = (TextView) findViewById(R.id.tv_page_title);
         tv_page_title.setText(R.string.fragment_me_shopping_cart);
@@ -115,13 +124,12 @@ public class Shopping_Carts extends BaseActionBarActivity {
         mShoppingCartEmpty = (TextView) findViewById(R.id.shopping_cart_empty);
 
         mPullToRefreshScrollView = (PullToRefreshScrollView) findViewById(R.id.main_act_scrollview);
-        mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
+       // mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setHeaderLayout(new HeaderLayout(this));
         mPullToRefreshScrollView.setFooterLayout(new FooterLayout(this));
         //购物车，列表
         lv_shopping_carts = (MyListView) findViewById(R.id.lv_shopping_carts);
         lv_shopping_carts.setFocusable(false);
-        mDatas = new ArrayList<ShoppingCart>();
 
         ll_goods_balance = (LinearLayout) findViewById(R.id.ll_goods_balance);
         //选择的商品数量
@@ -130,14 +138,6 @@ public class Shopping_Carts extends BaseActionBarActivity {
         tv_goods_prices = (TextView) findViewById(R.id.tv_goods_prices);
         //去结算
         btn_goods_balance = (Button) findViewById(R.id.btn_goods_balance);
-
-
-        mPageIndex = 1;
-
-        //获取购物车列表
-        orderService.getShoppingCar(mPageIndex,handlerGetShoppingList);
-
-        mPageIndex++;
 
         mAdapter = new ListViewAdapter<ShoppingCart>(Shopping_Carts.this, R.layout.item_shopping_carts, mDatas) {
             @Override
@@ -198,16 +198,16 @@ public class Shopping_Carts extends BaseActionBarActivity {
                         holder.getView(R.id.btn_goods_delete).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                currentSD=sd;
-                                currentShoppingCart=shoppingCart;
-                               orderService.deleteShopping(sd.ID,handlerDelete);
-                             //   ShoppingCartsDelete(sd.ID, shoppingCart, sd);
+                                currentSD = sd;
+                                currentShoppingCart = shoppingCart;
+                                orderService.deleteShopping(sd.ID, handlerDelete);
+                                //   ShoppingCartsDelete(sd.ID, shoppingCart, sd);
                             }
                         });
                         //商品图片
                         ImageView image = holder.getView(R.id.iv_goods_image);
                         if (!TextUtils.isEmpty(sd.GI)) {
-                            ImageLoader.getInstance().displayImage(services.getImageUrl(sd.GI), image,imageOptions);
+                            ImageLoader.getInstance().displayImage(services.getImageUrl(sd.GI), image, imageOptions);
                         } else {
                             image.setImageResource(R.drawable.default_goods);
                         }
@@ -244,18 +244,32 @@ public class Shopping_Carts extends BaseActionBarActivity {
             }
         };
         lv_shopping_carts.setAdapter(mAdapter);
-        Utility.setListViewHeightBasedOnChildren(lv_shopping_carts);
-
-        initEvent();
-        initEvents();
-        //初始化服务
-        services = new Services();
-        mHandler = new Handler();
     }
 
     public void initEvent() {
         btn_back.setOnClickListener(this);
         btn_goods_balance.setOnClickListener(this);
+
+        mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
+
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                mDatas.clear();
+                mPageIndex = 1;
+                orderService.getShoppingCar(mPageIndex, handlerGetShoppingList);
+                mPageIndex++;
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                if (mDatas != null && mDatas.size() > 0) {
+                    orderService.getShoppingCar(mPageIndex, handlerGetShoppingList);
+                    mPageIndex++;
+                } else {
+                    mPullToRefreshScrollView.onRefreshComplete();
+                }
+            }
+        });
     }
 
     // 点击事件处理
@@ -265,7 +279,6 @@ public class Shopping_Carts extends BaseActionBarActivity {
             switch (v.getId()) {
                 case R.id.btn_back:
                     finish();
-                    overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                     break;
                 case R.id.btn_goods_balance:
                     Iterator<ShoppingCart> iterSC = mDatas.iterator();
@@ -311,7 +324,6 @@ public class Shopping_Carts extends BaseActionBarActivity {
             orderService.updateShopping(1,currentSD.ID,1,handlerUpdateShopping);
         }
     }
-
     //设置列表状态
     private void updateListStatus() {
         mAdapter.notifyDataSetChanged();
@@ -332,31 +344,6 @@ public class Shopping_Carts extends BaseActionBarActivity {
         }
     }
 
-    private void initEvents() {
-        mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
-
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                mDatas.clear();
-                mPageIndex = 1;
-             //   ShoppingCarts(mPageIndex);
-                orderService.getShoppingCar(mPageIndex,handlerGetShoppingList);
-                mPageIndex++;
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                if (mDatas != null && mDatas.size() > 0) {
-                  //  ShoppingCarts(mPageIndex);
-                    orderService.getShoppingCar(mPageIndex,handlerGetShoppingList);
-                    mPageIndex++;
-                } else {
-                    mPullToRefreshScrollView.onRefreshComplete();
-                }
-            }
-        });
-    }
-
     Handler handlerSubmit=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -369,7 +356,6 @@ public class Shopping_Carts extends BaseActionBarActivity {
                     intent.putExtra("FROM_CLASS_NAME", this.getClass().getName());
                     intent.putExtra("IS_FROM_GOODSDETAILS", "false");
                     startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                     finish();
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:
@@ -383,29 +369,7 @@ public class Shopping_Carts extends BaseActionBarActivity {
         }
     };
 
-
-    Handler handlerStock=new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case BaseService.DATA_SUCCESS:
-                    List<Stock> mStocks=(List<Stock>)msg.obj;
-
-                    break;
-                case BaseService.DATA_SUCCESS_OTHER:
-
-                    break;
-                case BaseService.DATA_FAILURE:
-                case BaseService.DATA_REQUEST_ERROR:
-                    showToast(msg.obj.toString());
-                    break;
-            }
-        }
-    };
-
-
-
+    //获取购物车商品列表
     Handler handlerGetShoppingList=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -433,6 +397,7 @@ public class Shopping_Carts extends BaseActionBarActivity {
         }
     };
 
+    //更新购物车商品数据
     Handler handlerUpdateShopping=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -455,7 +420,7 @@ public class Shopping_Carts extends BaseActionBarActivity {
         }
     };
 
-
+    //删除购物车某商品
     Handler handlerDelete=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -477,4 +442,14 @@ public class Shopping_Carts extends BaseActionBarActivity {
         }
     };
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
 }

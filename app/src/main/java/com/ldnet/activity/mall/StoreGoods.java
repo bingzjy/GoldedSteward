@@ -74,6 +74,7 @@ public class StoreGoods extends BaseActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_store_goods);
         services = new Services();
         mHandler = new Handler();
         //得到参数
@@ -81,7 +82,7 @@ public class StoreGoods extends BaseActionBarActivity {
         mTitle = getIntent().getStringExtra("PAGE_TITLE");
         mRetailerId = getIntent().getStringExtra("RETAILERID");
         mCID = getIntent().getStringExtra("CID");
-        setContentView(R.layout.activity_store_goods);
+
         btn_back = (ImageButton) findViewById(R.id.btn_back);
         tv_page_title = (TextView) findViewById(R.id.tv_page_title);
         tv_goods = (TextView) findViewById(R.id.tv_goods);

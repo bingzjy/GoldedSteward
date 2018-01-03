@@ -2,6 +2,7 @@ package com.ldnet.activity.me;
 
 import android.os.*;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.*;
 import android.widget.*;
 import com.ldnet.activity.BindingHouse;
@@ -13,6 +14,18 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.BindingService;
 import com.ldnet.utility.*;
 import java.util.*;
+
+import static com.ldnet.utility.Services.CLASS_FROM;
+import static com.ldnet.utility.Services.COMMUNITY_ID;
+import static com.ldnet.utility.Services.COMMUNITY_NAME;
+import static com.ldnet.utility.Services.OWNER_FLAG;
+import static com.ldnet.utility.Services.OWNER_ID;
+import static com.ldnet.utility.Services.OWNER_TEL;
+import static com.ldnet.utility.Services.RESIDENT_DATE_END;
+import static com.ldnet.utility.Services.RESIDENT_DATE_START;
+import static com.ldnet.utility.Services.RESIDENT_TYPE;
+import static com.ldnet.utility.Services.ROOM_ID;
+import static com.ldnet.utility.Services.TO_APPLY;
 
 /**
  * Created by lee on 2017/4/24.
@@ -31,11 +44,12 @@ public class VisitorPsd extends BaseActionBarActivity {
     private EditText et_visitor_phone;
     private Services mServices;
     private String room_id = "";
+    private String resident_type, resident_sdate, resident_edate;
     private String roomOwnerId, roomOwnerPhone = "";
     private String flag = "";
     private List<EntranceGuard> entranceGuards;
     private String class_from = "";
-    private String COMMUNITY_ID,mCOMMUNITY_NAME = "";
+    private String community_id, community_name = "";
     private String applyType="";
     private BindingService bindingService;
     private static final String TAG = "VisitorPsd";
@@ -66,17 +80,20 @@ public class VisitorPsd extends BaseActionBarActivity {
         imgTel=(ImageButton)findViewById(R.id.img_tel);
         tvNoOwner=(TextView)findViewById(R.id.tv_no_owner);
 
-        room_id = getIntent().getStringExtra("ROOM_ID");
-        class_from = getIntent().getStringExtra("CLASS_FROM");
-        COMMUNITY_ID = getIntent().getStringExtra("COMMUNITY_ID");
-        mCOMMUNITY_NAME=getIntent().getStringExtra("COMMUNITY_NAME");
-        applyType=getIntent().getStringExtra("APPLY");
+        room_id = getIntent().getStringExtra(ROOM_ID);
+        class_from = getIntent().getStringExtra(CLASS_FROM);
+        community_id = getIntent().getStringExtra(COMMUNITY_ID);
+        community_name = getIntent().getStringExtra(COMMUNITY_NAME);
+        resident_type = getIntent().getStringExtra(RESIDENT_TYPE);
+        resident_sdate = getIntent().getStringExtra(RESIDENT_DATE_START);
+        resident_edate = getIntent().getStringExtra(RESIDENT_DATE_END);
+
+        applyType = getIntent().getStringExtra(TO_APPLY);
         ll_noOwner.setVisibility(View.VISIBLE);
         ll_haveOwner.setVisibility(View.VISIBLE);
 
         showProgressDialog();
         bindingService.getEntranceGuard(room_id, handlerEntrance);
-
     }
 
     // 初始化事件
@@ -94,36 +111,23 @@ public class VisitorPsd extends BaseActionBarActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.btn_back:
-                try {
-                    HashMap<String, String> extras = new HashMap<String, String>();
-
-                    if (class_from != null && !class_from.equals("") && !("").equals(applyType)) {   //用于验证身份
-                        gotoActivityAndFinish(Community.class.getName(), extras);
-
-                    } else if (class_from != null && !class_from.equals("") && ("").equals(applyType)) { //用于绑定房屋
-                        extras.put("COMMUNITY_ID", COMMUNITY_ID);
-                        extras.put("IsFromRegister", "false");
-                        gotoActivityAndFinish(BindingHouse.class.getName(), extras);
-
-                    } else {
-                        gotoActivityAndFinish(Community.class.getName(), extras);
-                    }
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                finish();
                 break;
             case R.id.bt_next_visitor:
                 if (checkInputPhoneValid()) {
                     HashMap<String, String> extras1 = new HashMap<String, String>();
-                    extras1.put("ROOM_OWNER_ID", roomOwnerId);
-                    extras1.put("ROOM_OWNER_TEL", roomOwnerPhone);
-                    extras1.put("ROOM_OWNER_FLAG", flag);
-                    extras1.put("ROOM_ID", room_id);
-                    extras1.put("APPLY", applyType == null ? "" : applyType);
-                    if (class_from != null && !class_from.equals("")) {
-                        extras1.put("COMMUNITY_ID", COMMUNITY_ID);
-                        extras1.put("CLASS_FROM", "BindingHouse");
-                        extras1.put("COMMUNITY_NAME", mCOMMUNITY_NAME == null ? "" : mCOMMUNITY_NAME);
+                    extras1.put(OWNER_ID, roomOwnerId);
+                    extras1.put(OWNER_TEL, roomOwnerPhone);
+                    extras1.put(OWNER_FLAG, flag);
+                    extras1.put(ROOM_ID, room_id);
+                    extras1.put(TO_APPLY, applyType == null ? "" : applyType);
+                    if (!TextUtils.isEmpty(class_from)) {
+                        extras1.put(COMMUNITY_ID, community_id);
+                        extras1.put(CLASS_FROM, class_from);
+                        extras1.put(COMMUNITY_NAME, community_name == null ? "" : community_name);
+                        extras1.put(RESIDENT_TYPE, resident_type);
+                        extras1.put(RESIDENT_DATE_START, resident_sdate);
+                        extras1.put(RESIDENT_DATE_END, resident_edate);
                     }
                     try {
                         gotoActivity(VisitorValid.class.getName(), extras1);
@@ -177,25 +181,8 @@ public class VisitorPsd extends BaseActionBarActivity {
     // 监听返回按键
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN
-                && event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            try {
-                HashMap<String, String> extras = new HashMap<String, String>();
-
-                if (class_from != null && !class_from.equals("") && !("").equals(applyType)) {   //用于验证身份
-                    gotoActivityAndFinish(Community.class.getName(), extras);
-
-                } else if (class_from != null && !class_from.equals("") && ("").equals(applyType)) { //用于绑定房屋
-                    extras.put("COMMUNITY_ID", COMMUNITY_ID);
-                    extras.put("IsFromRegister", "false");
-                    gotoActivityAndFinish(BindingHouse.class.getName(), extras);
-
-                } else {
-                    gotoActivityAndFinish(Community.class.getName(), extras);
-                }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+        if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            finish();
         }
         return super.dispatchKeyEvent(event);
     }
@@ -225,5 +212,6 @@ public class VisitorPsd extends BaseActionBarActivity {
             }
         }
     };
+
 
 }

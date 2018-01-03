@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 import com.google.gson.Gson;
@@ -113,11 +114,7 @@ public class Recharge extends BaseActionBarActivity implements XListView.IXListV
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_back://返回
-                try {
-                    gotoActivityAndFinish(MainActivity.class.getName(), null);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                finish();
                 break;
             case R.id.btn_custom://账户明细
                 try {
@@ -293,5 +290,13 @@ public class Recharge extends BaseActionBarActivity implements XListView.IXListV
                     }
                 });
     }
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
 }

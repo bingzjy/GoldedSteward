@@ -12,23 +12,51 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.*;
-import android.widget.*;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ExpandableListView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+
 import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.adapter.FeeListViewAdapter;
 import com.ldnet.activity.adapter.PayTypeAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.entities.*;
+import com.ldnet.entities.Fees;
+import com.ldnet.entities.User;
+import com.ldnet.entities.lstAPPFees;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.PropertyFeeService;
-import com.ldnet.utility.*;
+import com.ldnet.utility.Arith;
+import com.ldnet.utility.Services;
+import com.ldnet.utility.UserInformation;
 import com.unionpay.UPPayAssistEx;
+
 import net.tsz.afinal.FinalDb;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class Property_Fee extends BaseActionBarActivity {
+    @BindView(R.id.tv_property_fee_empty)
+    TextView tvPropertyFeeEmpty;
     private TextView tv_main_title;
     private ImageButton btn_back;
     private TextView tv_fee_houseinfo;
@@ -40,14 +68,14 @@ public class Property_Fee extends BaseActionBarActivity {
     private List<Fees> showFeeList = new ArrayList<Fees>();
     private FeeListViewAdapter mAdapter;
     private Button btn_go_paid;
-    private List<Fees> totalFeeList=new ArrayList<>();
+    private List<Fees> totalFeeList = new ArrayList<>();
 
     private AddPopWindow addPopWindow;
     private List<String> yearList = new ArrayList<String>();
     private FinalDb fd;//定义finaldb
     private boolean flag;
     private String currentFeeType = "0";
-    private String currentYearType="0";
+    private String currentYearType = "0";
     private PropertyFeeService service;
     // WXPAY微信  ALIPAY支付宝
     private final String alPay = "ALIPAY";
@@ -59,6 +87,7 @@ public class Property_Fee extends BaseActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_property_fee);
+        ButterKnife.bind(this);
         fd = FinalDb.create(this);//创建数据库  后面参数为自定义库名 否则为FinalDb
         fd.dropDb();
         //初始化View、事件
@@ -121,11 +150,14 @@ public class Property_Fee extends BaseActionBarActivity {
                     yearList.clear();
 
                     if (msg.obj == null) {
-                        showToast("暂时没有数据");
+                        tvPropertyFeeEmpty.setVisibility(View.VISIBLE);
+                        exlv_property_fees.setVisibility(View.GONE);
                         yearList.add("全部");
                     } else {
+                        tvPropertyFeeEmpty.setVisibility(View.GONE);
+                        exlv_property_fees.setVisibility(View.VISIBLE);
                         totalFeeList.clear();
-                        totalFeeList.addAll((List<Fees>)msg.obj);
+                        totalFeeList.addAll((List<Fees>) msg.obj);
                         showFee();
                     }
                     break;
@@ -199,7 +231,7 @@ public class Property_Fee extends BaseActionBarActivity {
             yearList.add(aa[0]);
         }
         //去重数据
-        yearList=removeDuplicate(yearList);
+        yearList = removeDuplicate(yearList);
 
         //根据年份类型过滤出对应的费用数据
         if (tv_year.getText().toString().equals("全部")) {   //取全部
@@ -212,7 +244,7 @@ public class Property_Fee extends BaseActionBarActivity {
             }
         }
         //去重复数据
-        showFeeList=removeDuplicate1(showFeeList);
+        showFeeList = removeDuplicate1(showFeeList);
 
         //设置未交费用默认选中状态
         if (currentFeeType.equals("0")) {    //未交费用
@@ -231,7 +263,7 @@ public class Property_Fee extends BaseActionBarActivity {
     }
 
 
-    private void initAdapter(){
+    private void initAdapter() {
         //初始化适配器
         mAdapter = new FeeListViewAdapter(Property_Fee.this, showFeeList, tv_fee_sum, totalAmount);
         exlv_property_fees.setAdapter(mAdapter);
@@ -447,7 +479,7 @@ public class Property_Fee extends BaseActionBarActivity {
         } else if (str.equalsIgnoreCase("cancel")) {
             msg = "用户取消了支付";
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         builder.setTitle("支付结果通知");
         builder.setMessage(msg);
         builder.setInverseBackgroundForced(true);
@@ -493,7 +525,7 @@ public class Property_Fee extends BaseActionBarActivity {
 
 
     //支付方式选择
-    public void showPayTypeSelect( final String feeId,  final String payerId) {
+    public void showPayTypeSelect(final String feeId, final String payerId) {
         LayoutInflater layoutInflater = LayoutInflater.from(Property_Fee.this);
         View popupView = layoutInflater.inflate(R.layout.pop_pay_type, null);
         final PopupWindow mPopWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT,

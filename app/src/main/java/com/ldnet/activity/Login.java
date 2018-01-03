@@ -64,26 +64,19 @@ public class Login extends BaseActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        AppUtils.setupUI(findViewById(R.id.rl_login), this);
+        // 去掉信息栏
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         acountService=new AcountService(Login.this);
 
         initView();
-        // 控件事件绑定
-        findViewById(R.id.ll_button_forgot).setOnClickListener(this);
-        findViewById(R.id.ll_button_register).setOnClickListener(this);
-        findViewById(R.id.btn_login_login).setOnClickListener(this);
     }
 
 
     // 初始化控件
     public void initView() {
-        // 设置布局
-        setContentView(R.layout.activity_login);
-        AppUtils.setupUI(findViewById(R.id.rl_login), this);
-
-        // 去掉信息栏
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         phone = getIntent().getStringExtra("phone");
         password = getIntent().getStringExtra("password");
         // 登录按钮
@@ -97,6 +90,11 @@ public class Login extends BaseActionBarActivity {
             et_login_phone.setText(phone);
             et_login_phone.setSelection(phone.length());
         }
+
+        // 控件事件绑定
+        findViewById(R.id.ll_button_forgot).setOnClickListener(this);
+        findViewById(R.id.ll_button_register).setOnClickListener(this);
+        findViewById(R.id.btn_login_login).setOnClickListener(this);
     }
 
     public boolean isNUll() {

@@ -13,6 +13,7 @@ import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.*;
 import com.ldnet.activity.base.BaseFragment;
+import com.ldnet.activity.bindmanage.MyRelationActivity;
 import com.ldnet.activity.mall.Shopping_Carts;
 import com.ldnet.activity.me.*;
 import com.ldnet.activity.me.Address;
@@ -63,6 +64,7 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
     private LinearLayout ll_me_orders;
     //我的小区
     private LinearLayout ll_me_community;
+    private LinearLayout ll_me_community_relation;
     //邀请好友
     private LinearLayout ll_me_invite;
     //我的消息
@@ -153,6 +155,8 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
         ll_me_orders = (LinearLayout) view.findViewById(R.id.ll_me_orders);
         //我的小区
         ll_me_community = (LinearLayout) view.findViewById(R.id.ll_me_community);
+        //我的家属
+        ll_me_community_relation=(LinearLayout)view.findViewById(R.id.ll_me_community_relation);
         //我的地址（收货地址）
         ll_me_address = (LinearLayout) view.findViewById(R.id.ll_me_address);
         //邀请好友
@@ -197,6 +201,8 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
         ll_me_orders.setOnClickListener(this);
         //我的小区
         ll_me_community.setOnClickListener(this);
+        //我的家属
+        ll_me_community_relation.setOnClickListener(this);
         //我的地址（收货地址）
         ll_me_address.setOnClickListener(this);
         //邀请好友
@@ -245,7 +251,6 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
 
     //显示小红点
     private void showRed(){
-
         //意见反馈、物业消息 是否显示消息中心小红点
         if (PushMessage.getPushInfo().isFEEDBACK()||PushMessage.getPushInfo().PROPERTY_MSG) {
             iv_msg_center.setVisibility(View.VISIBLE);
@@ -289,49 +294,44 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
             case R.id.ll_me_Information: // 我的信息
                 Intent intent_information = new Intent(getActivity(), Information.class);
                 startActivity(intent_information);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_integral://我的积分
                 Intent intent_integral = new Intent(getActivity(), Integral.class);
                 startActivity(intent_integral);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_wallet://我的钱包
                 Intent intent_wallet = new Intent(getActivity(), Recharge.class);
                 startActivity(intent_wallet);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_shopping_cart://我的购物车
                 Intent intent_shopping = new Intent(getActivity(), Shopping_Carts.class);
                 startActivity(intent_shopping);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_coupon://我的优惠劵
                 Intent intent_coupon = new Intent(getActivity(), Coupon.class);
                 startActivity(intent_coupon);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_orders://我的订单
                //消除小红点
                 hintRed(7);
                 Intent intent_orders = new Intent(getActivity(), OrdersTabActivity.class);
                 startActivity(intent_orders);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_community: //我的小区
                 Intent intent_community = new Intent(getActivity(), Community.class);
                 startActivity(intent_community);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+                break;
+            case R.id.ll_me_community_relation: //我的家属
+                Intent intent_relation=new Intent(getActivity(), MyRelationActivity.class);
+                startActivity(intent_relation);
                 break;
             case R.id.ll_me_address://我的地址、收货地址
                 Intent intent_address = new Intent(getActivity(), Address.class);
                 startActivity(intent_address);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_invite://邀请好友
                 Intent intent_invite = new Intent(getActivity(), Invite.class);
                 startActivity(intent_invite);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_message: //我的消息
                 Msg msg = MsgInformation.getMsg();
@@ -359,24 +359,20 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
                 MsgInformation.setMsgInfo(msg);
                 Intent intent_message = new Intent(getActivity(), Message.class);
                 startActivity(intent_message);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_publish://我的发布
                 Intent intent_publish = new Intent(getActivity(), Publish.class);
                 startActivity(intent_publish);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_about: //关于
                 Intent intent_about = new Intent(getActivity(), About.class);
                 startActivity(intent_about);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_feedback:// 意见反馈
                 //消除小红点
                 hintRed(6);
                 Intent intent_feedback = new Intent(getActivity(), Feedback.class);
                 startActivity(intent_feedback);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_logout: // 退出登录
                 quitPopupWindow(ll_me_logout);
@@ -384,18 +380,17 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
             case R.id.ll_me_check: // 版本检测
                 Intent intent_check = new Intent(getActivity(), Check.class);
                 startActivity(intent_check);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.ll_me_entry_exit_manage: //出入管理
                 Intent intent_pass = new Intent(getActivity(), AccessControlMain.class);
                 startActivity(intent_pass);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             default:
                 break;
         }
     }
 
+    //退出登录弹框
     public void quitPopupWindow(View parent) {
         if (popWindow1 == null) {
             View view = layoutInflater.inflate(R.layout.quit_pop, null);
@@ -410,6 +405,7 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
         popWindow1.showAtLocation(parent, Gravity.CENTER, 0, 0);
     }
 
+    //退出登录弹框View
     public void quitPop(View view) {
         TextView quit = (TextView) view.findViewById(R.id.quit);//tuichu
         LinearLayout cancel1 = (LinearLayout) view.findViewById(R.id.cancel);//取消
@@ -543,39 +539,5 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
      }
  };
 
-
-//
-//    private void testRetrofit(){
-//        Retrofit retrofit=new Retrofit.Builder()
-//                .baseUrl(Services.mHost)
-//                .build();
-//        RetrofitService service=retrofit.create(RetrofitService.class);
-//
-//        String aa = Services.timeFormat();
-//        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-//        HashMap<String, String> extras = new HashMap<>();
-//        User user=UserInformation.getUserInfo();
-//        extras.put("UserName", user.getUserPhone());
-//        extras.put("Password", user.getUserPassword());
-//        extras.put("PlatForm", "Android");
-//        String md5 = user.getUserPhone() + aa + aa1 + Services.json(extras) + Services.TOKEN;
-//        retrofit2.Call<ResponseBody> call=service.getUserInfo(user.getUserPhone(), aa,aa1,Services.textToMD5L32(md5),
-//                user.getUserPhone(),
-//                user.getUserPassword(),
-//                "Android");
-//
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
-//                Log.e("TEST RETROFIT","response:"+response.body());
-//            }
-//
-//            @Override
-//            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
-//                Log.e("TEST RETROFIT","ERROR:"+t.toString());
-//            }
-//        });
-//
-//    }
 
 }

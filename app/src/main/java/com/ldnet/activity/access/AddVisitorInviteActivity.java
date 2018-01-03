@@ -94,6 +94,7 @@ public class AddVisitorInviteActivity extends BaseActionBarActivity implements R
         communityService.getMyCommunity(getCommunityHandler);
     }
 
+    //初始化布局
     private void initView() {
         getActionBar().hide();
 
@@ -305,7 +306,7 @@ public class AddVisitorInviteActivity extends BaseActionBarActivity implements R
         }
     };
 
-
+    //过滤出当前用户所有的房子信息
     public static List<CommunityRoomInfo> getNewCommunity(List<MyProperties> list) {
         List<CommunityRoomInfo> communityList = new ArrayList<>();
 
@@ -321,12 +322,10 @@ public class AddVisitorInviteActivity extends BaseActionBarActivity implements R
                 }
             }
         }
-
         return communityList;
     }
 
-
-
+    //房间选择弹出框
     private void showCommunityPop(){
         LayoutInflater layoutInflater = LayoutInflater.from(AddVisitorInviteActivity.this);
         View popupView = layoutInflater.inflate(R.layout.pop_property_telphone, null);
@@ -377,8 +376,7 @@ public class AddVisitorInviteActivity extends BaseActionBarActivity implements R
         backgroundAlpaha(AddVisitorInviteActivity.this, 0.5f);
     }
 
-
-
+    //原因弹出框
     private void showReasonPop(){
         final List<String> data=Arrays.asList(getResources().getStringArray(R.array.invite_visitor_reason));
 

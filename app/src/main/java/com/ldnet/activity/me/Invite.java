@@ -2,6 +2,7 @@ package com.ldnet.activity.me;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -76,11 +77,7 @@ public class Invite extends BaseActionBarActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_back:
-                try {
-                    gotoActivityAndFinish(MainActivity.class.getName(), null);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                finish();
                 break;
             case R.id.tv_share:
                 BottomDialog dialog = new BottomDialog(this, new Services().getInvitation(false), mTitle);
@@ -90,4 +87,15 @@ public class Invite extends BaseActionBarActivity {
                 break;
         }
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
 }

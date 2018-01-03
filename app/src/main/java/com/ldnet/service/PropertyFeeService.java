@@ -1,21 +1,12 @@
 package com.ldnet.service;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import com.autonavi.rtbt.IFrameForRTBT;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.adapter.FeeListViewAdapter;
-import com.ldnet.activity.home.PropertyFeeDetail;
-import com.ldnet.activity.home.Property_Fee;
-import com.ldnet.activity.me.Message;
 import com.ldnet.entities.Fees;
 import com.ldnet.entities.PPhones;
 import com.ldnet.goldensteward.R;
@@ -28,9 +19,7 @@ import okhttp3.Call;
 import okhttp3.Request;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,57 +51,44 @@ public class PropertyFeeService extends BaseService {
 
         String url = Services.mHost + "API/Fee/GetFeeByRoomID/%s?year=%s&month=%s&status=%s";
         url = String.format(url, UserInformation.getUserInfo().HouseId, year, month, status);
-        Log.e(Tag, "getPropertyFee:-----url:"+url);
+        Log.e(Tag, "getPropertyFee:-----url:" + url);
         OkHttpService.get(url).execute(new DataCallBack(mContext, handlerGetFee) {
-                                           @Override
-                                           public void onBefore(Request request, int id) {
-                                               Log.e(Tag, "getPropertyFee:-----onBefore:");
-                                               super.onBefore(request, id);
-                                           }
+            @Override
+            public void onResponse(String s, int i) {
+                super.onResponse(s, i);
+                Log.e(Tag, "getPropertyFee:" + s);
+                try {
+                    JSONObject json = new JSONObject(s);
+                    if (checkJsonData(s, handlerGetFee)) {
+                        JSONObject jsonObject = new JSONObject(json.getString("Data"));
+                        if (jsonObject.optBoolean("Valid")) {
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<List<Fees>>() {
+                            }.getType();
+                            if (jsonObject.getString("Obj").equals("[]") || TextUtils.isEmpty(jsonObject.getString("Obj"))) {
+                                //无数据
+                                android.os.Message msg = handlerGetFee.obtainMessage();
+                                msg.what = DATA_SUCCESS;
+                                msg.obj = null;
+                                handlerGetFee.sendMessage(msg);
+                            } else {
+                                List<Fees> feesList = gson.fromJson(jsonObject.getString("Obj"), type);
+                                android.os.Message msg = handlerGetFee.obtainMessage();
+                                msg.what = DATA_SUCCESS;
+                                msg.obj = feesList;
+                                handlerGetFee.sendMessage(msg);
+                            }
+                        } else {
+                            sendErrorMessage(handlerGetFee, jsonObject);
+                        }
+                    }
 
-                                           @Override
-                                           public void onError(Call call, Exception e, int i) {
-                                               Log.e(Tag, "getPropertyFee:-----onError:" + e.toString());
-                                               super.onError(call, e, i);
-                                           }
-
-                                           @Override
-                                           public void onResponse(String s, int i) {
-                                               super.onResponse(s, i);
-                                               Log.e(Tag, "getPropertyFee:" + s);
-                                               try {
-                                                   JSONObject json = new JSONObject(s);
-                                                   if (checkJsonData(s, handlerGetFee)) {
-                                                       JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                                                       if (jsonObject.optBoolean("Valid")) {
-                                                           Gson gson = new Gson();
-                                                           Type type = new TypeToken<List<Fees>>() {
-                                                           }.getType();
-                                                           if (jsonObject.getString("Obj").equals("[]") || TextUtils.isEmpty(jsonObject.getString("Obj"))) {
-                                                               //无数据
-                                                               android.os.Message msg = handlerGetFee.obtainMessage();
-                                                               msg.what = DATA_SUCCESS;
-                                                               msg.obj = null;
-                                                               handlerGetFee.sendMessage(msg);
-                                                           } else {
-                                                               List<Fees> feesList = gson.fromJson(jsonObject.getString("Obj"), type);
-                                                               android.os.Message msg = handlerGetFee.obtainMessage();
-                                                               msg.what = DATA_SUCCESS;
-                                                               msg.obj = feesList;
-                                                               handlerGetFee.sendMessage(msg);
-                                                           }
-                                                       } else {
-                                                           sendErrorMessage(handlerGetFee, jsonObject);
-                                                       }
-                                                   }
-
-                                               } catch (JSONException e) {
-                                                   e.printStackTrace();
-                                               }
-                                           }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
                                        }
         );
-
     }
 
 
@@ -364,23 +340,11 @@ public class PropertyFeeService extends BaseService {
                 .addHeader("nonce", aa1)
                 .addHeader("signature", Services.textToMD5L32(md5))
                 .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo()).build()
-                .execute(new DataCallBack(mContext) {
-                    @Override
-                    public void onBefore(Request request, int id) {
-                        super.onBefore(request, id);
-                        //  showProgressDialog();
-                    }
-
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        super.onError(call, e, i);
-                        //closeProgressDialog();
-                    }
+                .execute(new DataCallBack(mContext,handlerGetPropertyTel) {
 
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
-                        //  closeProgressDialog();
                         Log.e(Tag, "getPropertyTelphone:" + s);
                         try {
                             JSONObject json = new JSONObject(s);
@@ -399,7 +363,7 @@ public class PropertyFeeService extends BaseService {
                                             }
                                         }
                                         if (newDatas.size() == 0) {
-                                            android.os.Message msg = handlerGetPropertyTel.obtainMessage(DATA_SUCCESS, mDatas);
+                                            Message msg = handlerGetPropertyTel.obtainMessage(DATA_SUCCESS, mDatas);
                                             handlerGetPropertyTel.sendMessage(msg);
                                         } else {
                                             android.os.Message msg = handlerGetPropertyTel.obtainMessage(DATA_SUCCESS, newDatas);

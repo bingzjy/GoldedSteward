@@ -12,17 +12,9 @@ import java.util.Map;
  */
 public class Constant {
     public static final int SetCurrentInforamtionOK=111;
-    public static final int GetCurrentInforamtionOK=112;
-    public static final int GetScanResult=113;
     public static final int GetKeyChainOK=113;
     public static final int GetKeyChainNull=114;
 
-
-    public static final int GetLocationSuss=115;
-    public static final int GetLocationFail=116;
-
-
     public static List<KeyChain> keyChainPublic=new ArrayList<>();
-    public  static Map<String,List<String>> sendSmsCount=new HashMap<String,List<String>>();
-    public static List<String> timeCount=new ArrayList<String>();
+
 }

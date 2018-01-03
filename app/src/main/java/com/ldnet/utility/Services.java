@@ -56,22 +56,22 @@ public class Services {
 
     // 服务器主机地址及端口
     // 测试环境
-    public final static String mHost1 = "http://192.168.0.105:8080/";
-    public final static String mHost = "http://192.168.0.105:8042/";
-    public final static String mImageHost = "http://192.168.0.105:8042/api/file/images/%s";
-    public final static String mCommunicationUrl = "http://192.168.0.105:8080";
-    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
-    public final static String mInvitationUrl = "http://192.168.0.105:8082/Invitation?UserID=%s";
-    public final static String mPayCallBackTaoBao = "http://192.168.0.105:8042/BOrder/PayCallBack";
+//    public final static String mHost1 = "http://192.168.0.105:8080/";
+//    public final static String mHost = "http://192.168.0.105:8042/";
+//    public final static String mImageHost = "http://192.168.0.105:8042/api/file/images/%s";
+//    public final static String mCommunicationUrl = "http://192.168.0.105:8080";
+//    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
+//    public final static String mInvitationUrl = "http://192.168.0.105:8082/Invitation?UserID=%s";
+//    public final static String mPayCallBackTaoBao = "http://192.168.0.105:8042/BOrder/PayCallBack";
 
     // 正式环境
-//    public final static String mHost1 = "http://p.goldwg.com/";
-//    public final static String mHost = "http://apifive.goldwg.com/";
-//    public final static String mImageHost = "http://apifive.goldwg.com/api/file/images/%s";
-//    public final static String mCommunicationUrl = "http://p.goldwg.com";
-//    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
-//    public final static String mInvitationUrl = "http://www.goldwg.com:85/Invitation?UserID=%s";
-//    public final static String mPayCallBackTaoBao = "http://apifive.goldwg.com/BOrder/PayCallBack";
+    public final static String mHost1 = "http://p.goldwg.com/";
+    public final static String mHost = "http://apifive.goldwg.com/";
+    public final static String mImageHost = "http://apifive.goldwg.com/api/file/images/%s";
+    public final static String mCommunicationUrl = "http://p.goldwg.com";
+    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
+    public final static String mInvitationUrl = "http://www.goldwg.com:85/Invitation?UserID=%s";
+    public final static String mPayCallBackTaoBao = "http://apifive.goldwg.com/BOrder/PayCallBack";
 
     // 分享好友页面
     public final static String mSharePageUrl = "http://www.goldwg.com:85/Invitation?UserID=%s";
@@ -90,8 +90,23 @@ public class Services {
     public static String comment = "";
     public static String visionCode = "";
     public static String visionName = "";
-
     public static LoadingDialog dialog;
+
+
+    //绑定房子，传递参数名
+    public final static String COMMUNITY_ID="COMMUNITY_ID";
+    public final static String COMMUNITY_NAME="COMMUNITY_NAME";
+    public final static String ROOM_ID="ROOM_ID";
+    public final static String ROOM_NAME="ROOM_NAME";
+    public final static String CLASS_FROM="CLASS_FROM";
+    public final static String OWNER_TEL="OWNER_TEL";
+    public final static String OWNER_ID="OWNER_ID";
+    public final static String OWNER_FLAG="OWNER_FLAG";
+    public final static String TO_APPLY="APPLY";
+    public final static String RESIDENT_TYPE="RESIDENT_TYPE";
+    public final static String RESIDENT_DATE_START="RESIDENT_DATE_START";
+    public final static String RESIDENT_DATE_END="RESIDENT_DATE_END";
+
 
     public void showProgressDialog(String str, Context context) {
         if (dialog == null) {

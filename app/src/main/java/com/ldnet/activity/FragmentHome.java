@@ -3,9 +3,13 @@ package com.ldnet.activity;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.*;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.net.Uri;
 import android.os.*;
 import android.os.Message;
@@ -52,6 +56,12 @@ import java.util.*;
 import static com.ldnet.goldensteward.R.color.blue;
 import static com.ldnet.goldensteward.R.id.init;
 import static com.ldnet.goldensteward.R.id.ll_yellow_service;
+import static com.ldnet.utility.Services.CLASS_FROM;
+import static com.ldnet.utility.Services.COMMUNITY_ID;
+import static com.ldnet.utility.Services.COMMUNITY_NAME;
+import static com.ldnet.utility.Services.ROOM_ID;
+import static com.ldnet.utility.Services.ROOM_NAME;
+import static com.ldnet.utility.Services.TO_APPLY;
 import static com.ldnet.utility.Utility.getScreenWidthforPX;
 
 /**
@@ -100,6 +110,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private Vibrator vibrator;
     private boolean approvePass;
     private AcountService acountService;
+    private BindingService bindingService;
     private PropertyFeeService propertyFeeService;
     private EntranceGuardService entranceGuardService;
     private HomeService homeService;
@@ -115,6 +126,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private DisplayImageOptions imageOptions;
     private String aa = Services.timeFormat();
     private String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -138,12 +150,15 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         //初始化传感器
         sensorManager = (SensorManager) getActivity().getSystemService(getActivity().SENSOR_SERVICE);
         vibrator = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+
+
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
         //获取小红点
         homeService.getAppRedPoint(handlerGetRedPointPush);
 
@@ -233,6 +248,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private void initService() {
         services = new Services();
         acountService = new AcountService(getActivity());
+        bindingService=new BindingService(getActivity());
         propertyFeeService = new PropertyFeeService(getActivity());
         entranceGuardService = new EntranceGuardService(getActivity());
         homeService = new HomeService(getActivity());
@@ -573,7 +589,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     //获取用户最新信息
     public void SetCurrentInforamtion() {
         showProgressDialog();
-        acountService.SetCurrentInforamtion(handlerSetCurrentInforamtion);
+        bindingService.SetCurrentInforamtion(UserInformation.getUserInfo().getCommunityId(),UserInformation.getUserInfo().HouseId,handlerSetCurrentInforamtion);
     }
 
     //判断是否验证
@@ -628,6 +644,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         }
         return true;
     }
+
     //开门点击事件
     private void openClick() {
         scanDeviceResult.clear();
@@ -639,6 +656,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             }
         }
     }
+
     //开门动作：当前设备和钥匙串匹配成功，即可开门
     private void openDoor() {
         boolean ifOpen = false;
@@ -660,6 +678,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             blueStartScan();
         }
     }
+
     //开启蓝牙扫描
     private void blueStartScan() {
         ((BlueLockPub) blueLockPub).setLockMode(Constants.LOCK_MODE_MANUL, null, false);
@@ -670,7 +689,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private void checkOpenEntrance() {
         //true 表示未开通门禁；false表示开通门禁
         openEntranceState = false;
-        entranceGuardService.checkOpenEntrance(handlerCheckOpenEntrance);
+        entranceGuardService.checkOpenEntrance(UserInformation.getUserInfo().getCommunityId(),handlerCheckOpenEntrance);
     }
 
     //未开通门禁提示对话框
@@ -714,12 +733,14 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         @Override
         public void dialogdo(String type) {
             HashMap<String, String> extras = new HashMap<String, String>();
-            extras.put("APPLY", type);
-            extras.put("ROOM_ID", UserInformation.getUserInfo().getHouseId());
-            extras.put("CLASS_FROM",getActivity().getClass().getName());
-            extras.put("COMMUNITY_ID", UserInformation.getUserInfo().getCommunityId());
+            extras.put(TO_APPLY, type);
+            extras.put(ROOM_ID, UserInformation.getUserInfo().getHouseId());
+            extras.put(ROOM_NAME,UserInformation.getUserInfo().getHouseName());
+            extras.put(CLASS_FROM,getActivity().getClass().getName());
+            extras.put(COMMUNITY_ID, UserInformation.getUserInfo().getCommunityId());
+            extras.put(COMMUNITY_NAME,UserInformation.getUserInfo().getCommuntiyName());
             try {
-                gotoActivityAndFinish(VisitorPsd.class.getName(), extras);
+                gotoActivityAndFinish(VisitorValidComplete.class.getName(), extras);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -786,6 +807,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                 Message msg = new Message();
                 msg.what = 123;
                 handler.sendMessage(msg);
+
+                playSound(R.raw.open,getActivity());
             }
         }
 
@@ -842,8 +865,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         public void GotoActivity() {
             HashMap<String, String> extras = new HashMap<String, String>();
             extras.put("IsFromRegister", "false");
-            extras.put("COMMUNITY_ID", UserInformation.getUserInfo().getCommunityId());
-            extras.put("COMMUNITY_NAME", UserInformation.getUserInfo().CommuntiyName);
+            extras.put(COMMUNITY_ID, UserInformation.getUserInfo().getCommunityId());
+            extras.put(COMMUNITY_NAME, UserInformation.getUserInfo().CommuntiyName);
             try {
                 gotoActivityAndFinish(BindingHouse.class.getName(), extras);
             } catch (ClassNotFoundException e) {
@@ -1321,6 +1344,39 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         super.onPause();
         approvePass = false;
         sensorManager.unregisterListener(sensorEventListener);
+    }
+
+    //播放开门音效
+    public static void playSound(int rawId, Context context) {
+        SoundPool soundPool;
+        if (Build.VERSION.SDK_INT >= 21) {
+            SoundPool.Builder builder = new SoundPool.Builder();
+            //传入音频的数量
+            builder.setMaxStreams(1);
+            //AudioAttributes是一个封装音频各种属性的类
+            AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
+            //设置音频流的合适属性
+            attrBuilder.setLegacyStreamType(AudioManager.STREAM_MUSIC);
+            builder.setAudioAttributes(attrBuilder.build());
+            soundPool = builder.build();
+        } else {
+            //第一个参数是可以支持的声音数量，第二个是声音类型，第三个是声音品质
+            soundPool = new SoundPool(1, AudioManager.STREAM_SYSTEM, 5);
+        }
+        //第一个参数Context,第二个参数资源Id，第三个参数优先级
+        soundPool.load(context, rawId, 1);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                soundPool.play(1, 1, 1, 0, 0, 1);
+            }
+        });
+        //第一个参数id，即传入池中的顺序，第二个和第三个参数为左右声道，第四个参数为优先级，第五个是否循环播放，0不循环，-1循环
+        //最后一个参数播放比率，范围0.5到2，通常为1表示正常播放
+//        soundPool.play(1, 1, 1, 0, 0, 1);
+        //回收Pool中的资源
+        //soundPool.release();
+
     }
 
 }

@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -91,7 +92,7 @@ public class About extends BaseActionBarActivity {
             HashMap<String, String> extras = new HashMap<String, String>();
             switch (v.getId()) {
                 case R.id.btn_back:
-                    gotoActivityAndFinish(MainActivity.class.getName(), null);
+                    finish();
                     break;
                 case R.id.call_me:
                     String number = "02989322635";
@@ -169,6 +170,17 @@ public class About extends BaseActionBarActivity {
             // 开始动画
             tv.startAnimation(rotation);
             tv.setText("aaaaaaaa");
+        }
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
         }
     }
 }

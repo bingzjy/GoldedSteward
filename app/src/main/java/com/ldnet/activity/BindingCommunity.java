@@ -88,7 +88,6 @@ public class BindingCommunity extends BaseActionBarActivity implements
     // 搜索结果
     private List<Community> communities;
     // 高德地图
-    // private LocationManagerProxy mAMapLocationManager;
     private PoiSearch poiSearch;
     private String mCityCode;
     // 服务接口
@@ -702,19 +701,7 @@ public class BindingCommunity extends BaseActionBarActivity implements
                 .trim();
 
         poiSearchByLocation = true;
-       // mlocationClient.startLocation();
-//        // 第一次周边搜索 //------调用服务器拿到小区数据
-//        PoiSearch.Query query = new PoiSearch.Query(keywords, "120302",
-//                mCityCode);
-//        query.setPageSize(15);
-//        poiSearch = new PoiSearch(this, query);
-//        poiSearch.setOnPoiSearchListener(this);
-//        poiSearch.searchPOIAsyn();
-        //实例化定位客户端
-//        AMapLocation amapLocation = new AMapLocation(String.valueOf(getApplicationContext()));
-//        Double latitude = amapLocation.getLatitude();
-//        Double longitude = amapLocation.getLongitude();
-//        Log.e("amapLocation", "----" + latitude + "----" + longitude);
+
         if (longitude != null && latitude != null) {
             searchCommunities(keywords, String.valueOf(latitude), String.valueOf(longitude), true, true);
         } else {
@@ -797,7 +784,6 @@ public class BindingCommunity extends BaseActionBarActivity implements
         // 分别处理按钮点击事件
         switch (v.getId()) {
             case R.id.btn_binding_community_search:
-                Log.e("amapLocation", "----------------btn_binding_community_search---");
                 poiSearch();
                 break;
             case R.id.btn_back:
@@ -852,18 +838,6 @@ public class BindingCommunity extends BaseActionBarActivity implements
     // 定位成功后的回调函数
     @Override
     public void onLocationChanged(AMapLocation amapLocation) {
-        Log.e("amapLocation", "onLocationChanged---------------" + String.valueOf(amapLocation.getLatitude()) + "---" + String.valueOf(amapLocation.getLongitude()));
-
-//        // 第一次周边搜索//-------调用服务器拿到小区数据
-//        mCityCode = amapLocation.getCityCode();
-//        PoiSearch.Query query = new PoiSearch.Query("", "120302", mCityCode);
-//        query.setPageSize(50);
-//        poiSearch = new PoiSearch(this, query);
-//        poiSearch.setBound(new SearchBound(new LatLonPoint(amapLocation
-//                .getLatitude(), amapLocation.getLongitude()), 2000));
-//        poiSearch.setOnPoiSearchListener(this);
-//        poiSearch.searchPOIAsyn();
-
 
         if (amapLocation != null) {
             if (amapLocation.getErrorCode() == 0) {
@@ -879,8 +853,6 @@ public class BindingCommunity extends BaseActionBarActivity implements
                         + amapLocation.getErrorInfo());
             }
         }
-
-
     }
 
     /*

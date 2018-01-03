@@ -190,7 +190,7 @@ public class Publish extends BaseActionBarActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             finish();
-            return false;
+            return true;
         } else {
             return super.onKeyDown(keyCode, event);
         }
@@ -275,11 +275,7 @@ public class Publish extends BaseActionBarActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_back:
-                try {
-                    gotoActivityAndFinish(MainActivity.class.getName(), null);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                finish();
                 break;
             default:
                 break;

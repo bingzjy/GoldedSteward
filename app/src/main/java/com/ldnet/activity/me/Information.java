@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 import com.ldnet.activity.ChangePassword;
@@ -107,11 +108,7 @@ public class Information extends BaseActionBarActivity {
                 overridePendingTransition(R.anim.slide_in_from_left,R.anim.slide_out_to_right);
                 break;
             case R.id.btn_back:
-                try {
-                    gotoActivityAndFinish(MainActivity.class.getName(), null);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                finish();
                 break;
             default:
                 break;
@@ -215,6 +212,16 @@ public class Information extends BaseActionBarActivity {
                     });
         } catch (MalformedURLException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
         }
     }
 }

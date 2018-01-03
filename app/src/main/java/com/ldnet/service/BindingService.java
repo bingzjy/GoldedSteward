@@ -3,10 +3,15 @@ package com.ldnet.service;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.me.Community;
+import com.ldnet.activity.me.VisitorValidComplete;
 import com.ldnet.entities.Building;
 import com.ldnet.entities.EntranceGuard;
 import com.ldnet.entities.MyProperties;
@@ -28,7 +33,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.R.attr.id;
+import static com.ldnet.goldensteward.R.id.et_visitor_phone;
+import static com.ldnet.goldensteward.R.id.tv_vistior_send;
 import static com.unionpay.mobile.android.global.a.C;
+import static com.unionpay.mobile.android.global.a.t;
 
 /**
  * Created by lee on 2017/6/25.
@@ -39,7 +48,6 @@ public class BindingService extends BaseService {
     public BindingService(Context context) {
         this.mContext = context;
     }
-
 
     //获取楼栋信息
     public void Buildings(final String communityId,final Handler handlerBuilding) {
@@ -86,7 +94,6 @@ public class BindingService extends BaseService {
         });
     }
 
-
     //获取单元信息
     public void Units(final String buildingId, final Handler handlerUnits) {
         // 请求的URL
@@ -126,7 +133,6 @@ public class BindingService extends BaseService {
             }
         });
     }
-
 
     //获取房子列表信息
     public void Houses(final String unitId,final Handler handlerHouses) {
@@ -177,7 +183,7 @@ public class BindingService extends BaseService {
             @Override
             public void onResponse(String s, int i) {
                 super.onResponse(s, i);
-                Log.e("asdsdasd", "getEntranceGuard=" + s);
+                Log.e(tag, "getEntranceGuard=" + s);
                 try {
                     if (checkJsonData(s, handlerGetEntranceGuard)) {
                         JSONObject json = new JSONObject(s);
@@ -197,13 +203,11 @@ public class BindingService extends BaseService {
                                 } else {
                                     msg.what = DATA_SUCCESS_OTHER;
                                     handlerGetEntranceGuard.sendMessage(msg);
-                                    //  getPropertyTelphone();
                                 }
                             } else {
                                 Message msg = new Message();
                                 msg.what = DATA_SUCCESS_OTHER;
                                 handlerGetEntranceGuard.sendMessage(msg);
-                                // getPropertyTelphone();
                             }
                         } else {
                             sendErrorMessage(handlerGetEntranceGuard, jsonObject);
@@ -243,7 +247,7 @@ public class BindingService extends BaseService {
 
                     @Override
                     public void onResponse(String s, int i) {
-                        Log.e("asdsdasd", "绑定房子结果" + s);
+                        Log.e(tag, "绑定房子结果" + s);
                         try {
                             if (checkJsonData(s, handlerBindingHouse)) {
                                 {
@@ -267,7 +271,7 @@ public class BindingService extends BaseService {
     }
 
     //获取我的小区和房产,判断用户是否绑定该房屋
-    public void MyProperties(final String communityID, final String houseID, final Handler handerMyProperties) {
+    public void MyProperties(final Handler handerMyProperties) {
         // 请求的URL
         String url = Services.mHost + "API/Resident/GetResidentBindInfo/%s";
         url = String.format(url, UserInformation.getUserInfo().getUserId());
@@ -371,27 +375,72 @@ public class BindingService extends BaseService {
                         Log.e(tag, "RemoveHouse:" + s);
                         if (checkJsonDataSuccess(s, handler)) {
                             handler.sendEmptyMessage(DATA_SUCCESS);
-                            }
+                            Toast.makeText(mContext, mContext.getString(R.string.cancel_bind_success), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
 
-    //修改用户与房屋绑定关系中的门禁信息状态
-    public void postEGBind(final String sDate,final String eDate,final String mHouseId,final Handler handler) {
+    //解除社区绑定
+    public void RemoveCommunity(final String communityId,final Handler handler) {
+        String aa = Services.timeFormat();
+        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+        // 请求的URL
+        String url = Services.mHost + "API/Resident/RemoveBindCommunity";
+        HashMap<String, String> extras = new HashMap<>();
+        extras.put("RoomId", "");
+        extras.put("CommunityId", communityId);
+        extras.put("ResidentId", UserInformation.getUserInfo
+                ().getUserId());
+        Services.json(extras);
+        String md5 = UserInformation.getUserInfo().getUserPhone() +
+                aa + aa1 + Services.json(extras) + Services.TOKEN;
+        OkHttpUtils.post().url(url)
+                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
+                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
+                .addHeader("timestamp", aa)
+                .addHeader("nonce", aa1)
+                .addHeader("signature", Services.textToMD5L32
+                        (md5))
+                .addParams("ResidentId", UserInformation.getUserInfo().getUserId())
+                .addParams("RoomId", "")
+                .addParams("CommunityId", communityId)
+                .build()
+                .execute(new DataCallBack(mContext,handler) {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        super.onError(call, e, i);
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        super.onResponse(s, i);
+                        Log.e(tag,"RemoveCommunity:"+s);
+                        if (checkJsonDataSuccess(s, handler)) {
+                            handler.sendEmptyMessage(DATA_SUCCESS);
+                            Toast.makeText(mContext, mContext.getString(R.string.cancel_bind_success), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+
+    //修改用户与房屋绑定关系中的门禁信息状态(residentType 0业主 1家属 2租户)
+    public void postEGBind(final String residentType,final String ownerId,final String sDate,final String eDate,final String mHouseId,final Handler handler) {
         String url = Services.mHost + "API/EntranceGuard/EGBind";
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
         HashMap<String, String> extras = new HashMap<>();
         extras.put("residentId", UserInformation.getUserInfo().getUserId());
         extras.put("roomId", mHouseId);
-        extras.put("ownerid", UserInformation.getUserInfo().getUserId());
+        extras.put("ownerid", ownerId);
         extras.put("leaseDateS", sDate);
         extras.put("leaseDateE", eDate);
-        extras.put("residentType", 0 + "");
+        extras.put("residentType",residentType);
         Services.json(extras);
         String md5 = UserInformation.getUserInfo().getUserPhone() +
                 aa + aa1 + Services.json(extras) + Services.TOKEN;
-        Log.d("asdsdasd", "--" + Services.json(extras));
+        Log.e(tag, "postEGBind-parmas:  " + Services.json(extras));
         OkHttpUtils.post().url(url)
                 .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
                 .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
@@ -400,10 +449,10 @@ public class BindingService extends BaseService {
                 .addHeader("signature", Services.textToMD5L32(md5))
                 .addParams("residentId", UserInformation.getUserInfo().getUserId())
                 .addParams("roomId", mHouseId)
-                .addParams("ownerid", UserInformation.getUserInfo().getUserId())
+                .addParams("ownerid", ownerId)
                 .addParams("leaseDateS", sDate)
                 .addParams("leaseDateE", eDate)
-                .addParams("residentType", 0 + "")
+                .addParams("residentType", residentType)
                 .build()
                 .execute(new DataCallBack(mContext,handler) {
                     @Override
@@ -454,6 +503,7 @@ public class BindingService extends BaseService {
                                 Gson gson = new Gson();
                                 User user = gson.fromJson(jsonObject.getString("Obj"), User.class);
                                 UserInformation.setUserInfo(user);
+                                handler.sendEmptyMessage(DATA_SUCCESS);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -461,5 +511,98 @@ public class BindingService extends BaseService {
                     }
                 });
     }
+
+    //获取短信验证码
+    public void getValid(final String room_id, final String phone, final String flag, final Handler handler) {
+        String url = Services.mHost + "API/EntranceGuard/SendCode";
+        String aa = Services.timeFormat();
+        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+        HashMap<String, String> extras = new HashMap<>();
+        extras.put("Id", room_id);
+        extras.put("Value", phone);
+        extras.put("Flag", flag);
+        Services.json(extras);
+        String md5 = UserInformation.getUserInfo().getUserPhone() +
+                aa + aa1 + Services.json(extras) + Services.TOKEN;
+
+        OkHttpUtils.post().url(url)
+                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
+                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
+                .addHeader("timestamp", aa)
+                .addHeader("nonce", aa1)
+                .addHeader("signature", Services.textToMD5L32(md5))
+                .addParams("Id", room_id)
+                .addParams("Value", phone)
+                .addParams("Flag", flag)
+                .build()
+                .execute(new DataCallBack(mContext, handler) {
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Log.e(tag, "发送短信结果" + s);
+                        if (checkJsonDataSuccess(s, handler)) {
+                            handler.sendEmptyMessage(DATA_SUCCESS);
+                        }
+                    }
+                });
+    }
+
+    //验证短信验证码是否有效
+    public void postValid(final String editCode, final String phone, final String flag, final Handler handler) {
+
+        String url = Services.mHost + "API/EntranceGuard/ValidCode";
+        String aa = Services.timeFormat();
+        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+        HashMap<String, String> extras = new HashMap<>();
+        extras.put("Id", editCode);
+        extras.put("Value", phone);
+        extras.put("Flag", flag);
+        Services.json(extras);
+        String md5 = UserInformation.getUserInfo().getUserPhone() +
+                aa + aa1 + Services.json(extras) + Services.TOKEN;
+
+        OkHttpUtils.post().url(url)
+                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
+                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
+                .addHeader("timestamp", aa)
+                .addHeader("nonce", aa1)
+                .addHeader("signature", Services.textToMD5L32(md5))
+                .addParams("Id", editCode)
+                .addParams("Value", phone)
+                .addParams("Flag", flag)
+                .build()
+                .execute(new DataCallBack(mContext, handler) {
+
+                    @Override
+                    public void onResponse(String s, int i) {
+
+                        try {
+                            JSONObject json = new JSONObject(s);
+                            JSONObject jsonObject = new JSONObject(json.getString("Data"));
+                            Message msg = handler.obtainMessage();
+                            if (json.getBoolean("Status")) {
+                                if (jsonObject.getBoolean("Valid")) {
+                                    handler.sendEmptyMessage(DATA_SUCCESS);
+                                } else {
+                                    if (TextUtils.isEmpty(jsonObject.getString("Message"))) {
+                                        msg.obj = mContext.getString(R.string.vertification_code_input_error);
+                                    } else {
+                                        msg.obj = jsonObject.getString("Message");
+                                    }
+                                    msg.what = DATA_FAILURE;
+                                    handler.sendMessage(msg);
+                                }
+                            } else {
+                                msg.obj = mContext.getString(R.string.vertification_code_input_error);
+                                msg.what = DATA_FAILURE;
+                                handler.sendMessage(msg);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
 
 }

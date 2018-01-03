@@ -3,6 +3,7 @@ package com.ldnet.activity.me;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -113,11 +114,7 @@ public class Integral extends BaseActionBarActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_back:
-                try {
-                    gotoActivityAndFinish(MainActivity.class.getName(), null);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                finish();
                 break;
             default:
                 break;
@@ -241,4 +238,15 @@ public class Integral extends BaseActionBarActivity {
                     }
                 });
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
 }

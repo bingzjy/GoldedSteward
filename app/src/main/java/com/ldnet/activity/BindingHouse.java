@@ -8,7 +8,7 @@ import android.view.*;
 import android.widget.*;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.me.Community;
-import com.ldnet.activity.me.VisitorPsd;
+import com.ldnet.activity.me.VisitorValidComplete;
 import com.ldnet.entities.*;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AcountService;
@@ -19,12 +19,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.ldnet.utility.Services.CLASS_FROM;
+import static com.ldnet.utility.Services.COMMUNITY_ID;
+import static com.ldnet.utility.Services.COMMUNITY_NAME;
+import static com.ldnet.utility.Services.ROOM_ID;
+import static com.ldnet.utility.Services.ROOM_NAME;
+
 /**
  * ***************************************************
  * 绑定房产，绑定用户的房屋信息
  * **************************************************
  * 逻辑：判断条件：是否已经绑定过（从当前用户的房产信息检索当前即将绑定的房屋）、是否是业主（从业主电话列表检索当前用户电话）
- * 执行：绑定、设置门禁关系、设置当前房屋、设置积分
+ * 非业主：关系选择、手机验证、通过后才执行绑定
+ * 执行绑定：绑定、设置门禁关系、设置当前房屋、设置积分
  *
  */
 public class BindingHouse extends BaseActionBarActivity {
@@ -40,14 +47,14 @@ public class BindingHouse extends BaseActionBarActivity {
     private ArrayAdapter<Building> adapter_room;
     private String mCommunityId;
     private Boolean IsFromRegister;
-    private String mHouseId;
+    private String mHouseId,mHouseName;
     // 标题
     private TextView tv_page_title;
     // 返回
     private ImageButton btn_back;
     // 确定
     private Button btn_binding_house;
-    private String mCOMMUNITY_NAME;
+    private String mCommunity_name;
     private List<Building> buildings;
     private List<EntranceGuard> entranceGuards;
     private BindingService service;
@@ -63,8 +70,8 @@ public class BindingHouse extends BaseActionBarActivity {
         acountService=new AcountService(this);
         //得到传递的小区ID
         IsFromRegister = Boolean.valueOf(getIntent().getStringExtra("IsFromRegister"));
-        mCommunityId = getIntent().getStringExtra("COMMUNITY_ID");
-        mCOMMUNITY_NAME = getIntent().getStringExtra("COMMUNITY_NAME");
+        mCommunityId = getIntent().getStringExtra(COMMUNITY_ID);
+        mCommunity_name = getIntent().getStringExtra(COMMUNITY_NAME);
 
         initView();
         initEvent();
@@ -106,10 +113,10 @@ public class BindingHouse extends BaseActionBarActivity {
                 break;
             case R.id.btn_binding_house:
                 if (mHouseId != null && mHouseId.equals("0")) {
-                    service.RemoveHouse(mCommunityId, "0", handlerRemoveHouse);
+                    service.RemoveHouse(mCommunityId, "0",new Handler());
                 }
                 showProgressDialog();
-                service.MyProperties(mCommunityId, mHouseId, handlerMyProperties);
+                service.MyProperties(handlerMyProperties);
                 break;
             default:
                 break;
@@ -181,6 +188,7 @@ public class BindingHouse extends BaseActionBarActivity {
                     buildings.clear();
                     if (mRoom_datas.get(0) != null && !TextUtils.isEmpty(mRoom_datas.get(0).Id)) {
                         mHouseId = mRoom_datas.get(0).Id;
+                        mHouseName=mRoom_datas.get(0).Name;
                     }
                     break;
                 case BaseService.DATA_FAILURE:
@@ -260,13 +268,14 @@ public class BindingHouse extends BaseActionBarActivity {
                         } else {
                             closeProgressDialog();
                             HashMap<String, String> extras = new HashMap<String, String>();
-                            extras.put("ROOM_ID", mHouseId);
-                            extras.put("CLASS_FROM", "BindingHouse");
-                            extras.put("COMMUNITY_ID", mCommunityId);
-                            extras.put("COMMUNITY_NAME", mCOMMUNITY_NAME);
+                            extras.put(ROOM_ID, mHouseId);
+                            extras.put(ROOM_NAME,mHouseName==null?"":mHouseName);
+                            extras.put(CLASS_FROM, BindingHouse.class.getName());
+                            extras.put(COMMUNITY_ID, mCommunityId);
+                            extras.put(COMMUNITY_NAME, mCommunity_name==null?"":mCommunity_name);
                             try {
                                 //非业主的话先验证（申请访客密码是也需要验证）
-                                gotoActivityAndFinish(VisitorPsd.class.getName(), extras);
+                                gotoActivityAndFinish(VisitorValidComplete.class.getName(), extras);
                             } catch (ClassNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -297,7 +306,7 @@ public class BindingHouse extends BaseActionBarActivity {
                 case BaseService.DATA_SUCCESS:
                     if (msg.obj != null) {
                         showToast(msg.obj.toString());
-                        service.postEGBind("","",mHouseId,handlerEGBind);
+                        service.postEGBind("0",UserInformation.getUserInfo().UserId,"","",mHouseId,handlerEGBind);
                         service.SetCurrentInforamtion(mCommunityId, mHouseId,new Handler());
                         acountService.setIntegralTip(new Handler(),Services.mHost + "API/Resident/ResidentBindRoom");
                         try {
@@ -323,23 +332,6 @@ public class BindingHouse extends BaseActionBarActivity {
         }
     };
 
-
-    //解除房子绑定
-    Handler handlerRemoveHouse = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case BaseService.DATA_SUCCESS:
-                    showToast("解除成功");
-                    break;
-                case BaseService.DATA_FAILURE:
-                case BaseService.DATA_REQUEST_ERROR:
-                    showToast(msg.obj.toString());
-                    break;
-            }
-        }
-    };
 
     //修改用户与房屋绑定关系中的门禁信息状态
     Handler handlerEGBind=new Handler(){
@@ -463,6 +455,7 @@ public class BindingHouse extends BaseActionBarActivity {
 
                 Building building = mRoom_datas.get(i);
                 mHouseId = building.Id;
+                mHouseName=building.Name;
             }
 
             @Override

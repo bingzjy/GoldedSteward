@@ -13,6 +13,7 @@ public class MyProperties implements Serializable {
     public String Address;
     public String Name;
     public List<com.ldnet.entities.Rooms> Rooms;
+    public boolean Default;
 
     public Boolean IsDefalut() {
         if (UserInformation.getUserInfo().CommunityId.equals(CommunityId)) {

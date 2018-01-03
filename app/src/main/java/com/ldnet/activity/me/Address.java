@@ -3,6 +3,7 @@ package com.ldnet.activity.me;
 import android.os.*;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -153,7 +154,7 @@ public class Address extends BaseActionBarActivity {
         try {
             switch (v.getId()) {
                 case R.id.btn_back://判断是否返回主页
-                    gotoActivityAndFinish(MainActivity.class.getName(), null);
+                    finish();
                     break;
                 case R.id.btn_custom://编辑地址
                     gotoActivityAndFinish(AddressEdit.class.getName(), null);
@@ -225,4 +226,13 @@ public class Address extends BaseActionBarActivity {
         }
     };
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
 }

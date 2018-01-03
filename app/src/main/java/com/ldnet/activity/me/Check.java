@@ -106,9 +106,7 @@ public class Check extends BaseActionBarActivity {
                     public void onClick(View v) {
                         cancelUpdate = false;
                         showDownloadDialog();
-//                        Uri uri = Uri.parse("http://apifive.goldwg.com/API/File/GetMobileAppByAppName/jpgjyzAPP");
-//                        Intent it = new Intent(Intent.ACTION_VIEW, uri);
-//                        startActivity(it);
+
                     }
                 });
             } else {
@@ -122,22 +120,14 @@ public class Check extends BaseActionBarActivity {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_back) {
-            try {
-                gotoActivityAndFinish(MainActivity.class.getName(), null);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            finish();
         }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            try {
-                gotoActivityAndFinish(MainActivity.class.getName(), null);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            finish();
             return true;
         }
         return super.dispatchKeyEvent(event);

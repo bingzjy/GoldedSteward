@@ -9,9 +9,9 @@ import com.ldnet.utility.UserInformation;
 public class Rooms {
     public String RoomId;
     public String Abbreviation;
+    public boolean Default;
 
     public Boolean IsDefalut() {
-        Log.d("asdsdasd",UserInformation.getUserInfo().getHouseId()+"---");
         if (UserInformation.getUserInfo().getHouseId().equals(getRoomId())) {
             return true;
         }

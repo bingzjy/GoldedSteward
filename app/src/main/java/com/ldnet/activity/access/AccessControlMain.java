@@ -163,7 +163,6 @@ public class AccessControlMain extends FragmentActivity implements View.OnClickL
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-
             Intent intent1 = new Intent(AccessControlMain.this, MainActivity.class);
             intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent1);

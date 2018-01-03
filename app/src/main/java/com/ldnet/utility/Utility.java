@@ -2,19 +2,27 @@ package com.ldnet.utility;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.*;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.ldnet.activity.access.VisitorCardActivity;
 import com.ldnet.entities.CommunityServicesModel;
+import com.ldnet.entities.PPhones;
 import com.ldnet.entities.Type;
 import com.ldnet.goldensteward.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -257,7 +265,6 @@ public class Utility {
     }
 
 
-
     //为弹出层设置遮罩层
     public static void backgroundAlpaha(Activity context, float bgAlpha) {
         WindowManager.LayoutParams lp = context.getWindow().getAttributes();
@@ -377,5 +384,63 @@ public class Utility {
             .resetViewBeforeLoading(true)
             .extraForDownloader(UserInformation.getUserInfo().UserPhone + "," + aa + "," + aa1)
             .build();
+
+    //弹出物业联系电话
+    public static void showCallPop(final Activity context,boolean showTitle) {
+        List<PPhones> phonesList=new ArrayList<>();
+        PPhones tel=new PPhones();
+        tel.setTitle("物业管理处");
+        tel.setTel(UserInformation.getUserInfo().getPropertyPhone());
+        phonesList.add(tel);
+        ListViewAdapter<PPhones> mAdapter;
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        View popupView = layoutInflater.inflate(R.layout.pop_property_telphone, null);
+        final PopupWindow mPopWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        mPopWindow.setContentView(popupView);
+        View rootview = layoutInflater.inflate(R.layout.main, null);
+        mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
+        mPopWindow.setAnimationStyle(R.anim.slide_in_from_bottom);
+
+        TextView title = (TextView) popupView.findViewById(R.id.poptitle);
+        if (showTitle){
+            title.setVisibility(View.VISIBLE);
+            title.setText(context.getString(R.string.noPrpperty));
+        }else{
+            title.setVisibility(View.GONE);
+        }
+        ListView listTelPhone = (ListView) popupView.findViewById(R.id.list_propert_telphone);
+        mAdapter = new ListViewAdapter<PPhones>(context, R.layout.item_telephone, phonesList) {
+            @Override
+            public void convert(ViewHolder holder, final PPhones phones) {
+                holder.setText(R.id.tv_title, phones.Title).setText(R.id.tv_telephone, phones.Tel);
+                ImageButton telephone = holder.getView(R.id.ibtn_telephone);
+                telephone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phones.Tel));
+                        context.startActivity(intent);
+                        context.overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+                    }
+                });
+            }
+        };
+        listTelPhone.setAdapter(mAdapter);
+        popupView.findViewById(R.id.cancel_call).getBackground().setAlpha(200);
+        popupView.findViewById(R.id.cancel_call).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPopWindow.setAnimationStyle(R.anim.slide_out_to_bottom);
+                mPopWindow.dismiss();
+            }
+        });
+
+        mPopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                Utility.backgroundAlpaha(context, 1f);
+            }
+        });
+        Utility.backgroundAlpaha(context, 0.5f);
+    }
 
 }

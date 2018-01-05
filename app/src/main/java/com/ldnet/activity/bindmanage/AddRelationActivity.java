@@ -2,7 +2,10 @@ package com.ldnet.activity.bindmanage;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +22,19 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.autonavi.rtbt.IFrameForRTBT;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.CommunityRoomInfo;
+import com.ldnet.entities.OwnerRoom;
+import com.ldnet.entities.OwnerRoomRelation;
 import com.ldnet.goldensteward.R;
+import com.ldnet.service.BaseService;
+import com.ldnet.service.HouseRelationService;
 import com.ldnet.utility.ListViewAdapter;
+import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,6 +45,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.ldnet.utility.Utility.backgroundAlpaha;
+import static com.ldnet.utility.Utility.isNull;
 
 public class AddRelationActivity extends BaseActionBarActivity {
 
@@ -64,16 +76,20 @@ public class AddRelationActivity extends BaseActionBarActivity {
     @BindView(R.id.ll_add_relation_check_date)
     LinearLayout llAddRelationCheckDate;
 
-    private ListViewAdapter<CommunityRoomInfo> communityAdapter;
-    private List<CommunityRoomInfo> communityList = new ArrayList<>();
-    private String paramsCommunityId, paramsRoomId, paramsRoomName;
-
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-DD");
+    private ListViewAdapter<OwnerRoom> communityAdapter;
+    private String paramsRoomId, paramsRoomName, paramsResiType = "2", paramsName, paramsTel, paramsDates = "", paramsDatee ="";
+    private List<OwnerRoom> roomList = new ArrayList<>();
+    private HouseRelationService relationService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_relation);
+        getActionBar().hide();
         ButterKnife.bind(this);
-
+        relationService = new HouseRelationService(this);
+        relationService.getOwnerRooms(handlerGetOwnerRoom);
+        showProgressDialog();
         initView();
     }
 
@@ -85,13 +101,19 @@ public class AddRelationActivity extends BaseActionBarActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId==R.id.radio_button_resident){   //租户
                     llAddRelationCheckDate.setVisibility(View.VISIBLE);
+                    paramsResiType = "2";
                 }else{                                        //亲属
                     llAddRelationCheckDate.setVisibility(View.GONE);
+                    paramsResiType = "1";
                 }
             }
         });
 
+        paramsDates = mFormat.format(new Date());
+        paramsDatee = mFormat.format(new Date());
+
     }
+
 
     @OnClick({R.id.btn_back, R.id.et_add_resident_date_start, R.id.et_add_resident_date_end, R.id.btn_add_relation_submit, R.id.tv_add_relation_comunity})
     public void onViewClicked(View view) {
@@ -118,7 +140,11 @@ public class AddRelationActivity extends BaseActionBarActivity {
                 dialog2.show();
                 break;
             case R.id.btn_add_relation_submit:
-                addRelation();
+                if (isNotNull()) {
+                    paramsName = etAddRelationName.getText().toString().trim();
+                    paramsTel = etAddRelationTel.getText().toString().trim();
+                    addRelation();
+                }
                 break;
             case R.id.tv_add_relation_comunity:
                 showRoomPop();
@@ -126,19 +152,83 @@ public class AddRelationActivity extends BaseActionBarActivity {
         }
     }
 
+    private boolean isNotNull() {
+        if (Utility.editIsNull(etAddRelationName)) {
+            showToast("请输入姓名");
+            return false;
+        }
+        if (Utility.editIsNull(etAddRelationTel)) {
+            showToast("请输入电话");
+            return false;
+        }
+
+        if (!Utility.isPhone(etAddRelationTel.getText().toString().trim())) {
+            showToast("请输入有效电话");
+            return false;
+        }
+
+        if (paramsResiType.equals("2") && (TextUtils.isEmpty(etAddResidentDateStart.getText()) || TextUtils.isEmpty(etAddResidentDateEnd.getText()))) {
+            showToast("请选择日期");
+            return false;
+        }
+
+        return true;
+    }
 
     //添加关系
     private void addRelation() {
-
+        relationService.addMyRoomBindRelation(paramsName, paramsTel, paramsResiType, paramsRoomId, paramsDates, paramsDatee, handlerAdd);
     }
 
+
+    Handler handlerAdd = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    showToast("添加成功");
+                    finish();
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:
+                    showToast(msg.obj.toString());
+                    break;
+            }
+        }
+    };
+
+
+    //获取户主身份的所有房子
+    Handler handlerGetOwnerRoom = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            closeProgressDialog();
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    roomList = (List<OwnerRoom>) msg.obj;
+                    paramsRoomName=roomList.get(0).Abbreviation;
+                    paramsRoomId=roomList.get(0).Id;
+                    tvAddRelationComunity.setText(paramsRoomName);
+                    break;
+                case BaseService.DATA_SUCCESS_OTHER:
+                    showToast("暂无业主身份的房子，请绑定房间后再添加");
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:
+                    showToast(msg.obj.toString());
+                    break;
+            }
+        }
+    };
 
 
     //显示房屋选择
     private void showRoomPop() {
         LayoutInflater layoutInflater = LayoutInflater.from(AddRelationActivity.this);
         View popupView = layoutInflater.inflate(R.layout.pop_property_telphone, null);
-        final PopupWindow mPopWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        final PopupWindow mPopWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
         mPopWindow.setContentView(popupView);
         View rootview = layoutInflater.inflate(R.layout.main, null);
         mPopWindow.showAtLocation(rootview, Gravity.CENTER, 0, 0);
@@ -151,10 +241,10 @@ public class AddRelationActivity extends BaseActionBarActivity {
 
         ListView listView = (ListView) popupView.findViewById(R.id.list_propert_telphone);
         //进出小区选择
-        communityAdapter = new ListViewAdapter<CommunityRoomInfo>(AddRelationActivity.this, R.layout.item_drop_down, communityList) {
+        communityAdapter = new ListViewAdapter<OwnerRoom>(AddRelationActivity.this, R.layout.item_drop_down, roomList) {
             @Override
-            public void convert(ViewHolder holder, CommunityRoomInfo communityRoomInfo) {
-                holder.setText(R.id.tv_community_room, communityRoomInfo.getCommunityName() + " " + communityRoomInfo.getRoomName());
+            public void convert(ViewHolder holder, OwnerRoom roomRelation) {
+                holder.setText(R.id.tv_community_room, roomRelation.Abbreviation);
             }
         };
 
@@ -164,18 +254,14 @@ public class AddRelationActivity extends BaseActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CommunityRoomInfo selectRoom = communityList.get(position);
-                if (selectRoom != null) {
-                    paramsCommunityId = selectRoom.getCommunityID();
-                    paramsRoomId = selectRoom.getRoomID();
-                    paramsRoomName = selectRoom.getRoomName();
-
-                    tvAddRelationComunity.setText(paramsRoomName);
-                }
+                paramsRoomId = roomList.get(position).Id;
+                paramsRoomName = roomList.get(position).Abbreviation;
+                tvAddRelationComunity.setText(paramsRoomName);
 
                 mPopWindow.dismiss();
             }
         });
+
         mPopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -196,7 +282,8 @@ public class AddRelationActivity extends BaseActionBarActivity {
             } else {
                 date = ar + "-" + month + "-" + dayOfMonth;
             }
-            etAddResidentDateStart.setText(date);
+            paramsDates = date;
+            etAddResidentDateStart.setText(paramsDates);
         }
     };
 
@@ -211,7 +298,9 @@ public class AddRelationActivity extends BaseActionBarActivity {
             } else {
                 date = ar + "-" + month + "-" + dayOfMonth;
             }
-            etAddResidentDateEnd.setText(date);
+
+            paramsDatee = date;
+            etAddResidentDateEnd.setText(paramsDatee);
         }
     };
 }

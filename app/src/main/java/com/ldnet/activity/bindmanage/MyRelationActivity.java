@@ -1,20 +1,55 @@
 package com.ldnet.activity.bindmanage;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.entities.OwnerRoomRelation;
 import com.ldnet.goldensteward.R;
+import com.ldnet.service.BaseService;
+import com.ldnet.service.BindingService;
+import com.ldnet.service.HouseRelationService;
+import com.ldnet.utility.CustomListView;
+import com.ldnet.utility.ListViewAdapter;
+import com.ldnet.utility.Services;
+import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.Utility;
+import com.ldnet.utility.ViewHolder;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.third.SwipeListView.SwipeListView;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.ldnet.goldensteward.R.id.init;
+import static com.ldnet.goldensteward.R.id.ll_relation_cancel;
+import static com.ldnet.goldensteward.R.id.ll_relation_contract;
+import static com.ldnet.goldensteward.R.id.lv_relation_detail;
 
 
 public class MyRelationActivity extends BaseActionBarActivity {
@@ -29,30 +64,121 @@ public class MyRelationActivity extends BaseActionBarActivity {
     @BindView(R.id.tv_null_data_title)
     TextView tvNullDataTitle;
 
+
+    private HouseRelationService relationService;
+    private BindingService bindingService;
+    private ArrayList<OwnerRoomRelation> relationsList = new ArrayList<>();
+    private ArrayList<OwnerRoomRelation.ResidentBean> itemList = new ArrayList<>();
+    private ListViewAdapter<OwnerRoomRelation> mAdapter;
+    private ListViewAdapter<OwnerRoomRelation.ResidentBean> itemAdapter;
     private Unbinder unbinder;
     private static final String TAG = "MyRelationActivity";
+    private String aa = Services.timeFormat();
+    private String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+
+    public DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
+            .showImageForEmptyUri(R.drawable.me_thumbnail_n)     //url爲空會显示该图片，自己放在drawable里面的
+            .showImageOnFail(R.drawable.me_thumbnail_n)                //加载图片出现问题，会显示该图片
+            .cacheInMemory(true)
+            .cacheOnDisk(true)
+            .resetViewBeforeLoading(true)
+            .extraForDownloader(UserInformation.getUserInfo().UserPhone + "," + aa + "," + aa1)
+            .build();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_relation);
         unbinder = ButterKnife.bind(this);
-
         initView();
+        relationService = new HouseRelationService(this);
+        bindingService = new BindingService(this);
+
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
+    }
 
     private void initView() {
         tvPageTitle.setText(getString(R.string.bind_relation_main_title));
         ivAdd.setImageResource(R.drawable.green_add_icon);
         ivAdd.setVisibility(View.VISIBLE);
+        slvRealtion.setAdapter(mAdapter);
+
+        int deviceWidth = Utility.getScreenWidthforPX(this);
+        slvRealtion.setOffsetLeft(deviceWidth * 2 / 3);
+        slvRealtion.setOffsetRight(deviceWidth * 2 / 3);
+        initAdapter();
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
+    private void initAdapter() {
+        mAdapter = new ListViewAdapter<OwnerRoomRelation>(MyRelationActivity.this, R.layout.item_my_relation_content, relationsList) {
+            @Override
+            public void convert(ViewHolder holder, OwnerRoomRelation ownerRoomRelation) {
+
+                holder.setText(R.id.tv_realtion_community_name, ownerRoomRelation.Abbreviation);
+
+                if (ownerRoomRelation.Resident != null && ownerRoomRelation.Resident.size() > 0) {
+                    CustomListView listView = holder.getView(lv_relation_detail);
+                    listView.setAdapter(getItemAdapter(ownerRoomRelation.Resident, ownerRoomRelation));
+                    Log.e(TAG, "item adapter set");
+                }
+            }
+        };
+        slvRealtion.setAdapter(mAdapter);
+    }
+
+
+    private ListViewAdapter<OwnerRoomRelation.ResidentBean> getItemAdapter(List<OwnerRoomRelation.ResidentBean> list, final OwnerRoomRelation ownerRoomRelation) {
+        itemAdapter = new ListViewAdapter<OwnerRoomRelation.ResidentBean>(this, R.layout.item_my_realtion_detail_content, list) {
+            @Override
+            public void convert(ViewHolder holder, final OwnerRoomRelation.ResidentBean residentBean) {
+                CircleImageView ivHead = holder.getView(R.id.iv_item_relation_head_icon);
+                ImageLoader.getInstance().displayImage(Services.getImageUrl(residentBean.Image), ivHead, imageOptions);
+                holder.setText(R.id.tv_item_relation_name, residentBean.Name);
+                holder.setText(R.id.tv_item_relation_date, residentBean.bindTime);
+
+                if (residentBean.ResidentType == 1) {
+                    holder.setImage(R.id.iv_item_relation_type, R.drawable.relation_family);
+                } else {
+                    holder.setImage(R.id.iv_item_relation_type, R.drawable.relation_resident);
+                }
+
+                ImageView ivMore = holder.getView(R.id.iv_item_relation_more);
+                ivMore.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (residentBean.ResidentType == 1) {
+                            showMorePop(residentBean, ownerRoomRelation);
+                        } else {
+                            showMorePop(residentBean, ownerRoomRelation);
+                        }
+                    }
+                });
+
+                Button btnDel = holder.getView(R.id.slv_btn_delete);
+                btnDel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {    //解除绑定
+                        bindingService.RemoveHouse(ownerRoomRelation.CommunityID, ownerRoomRelation.RoomID, residentBean.Id, handlerDel);
+                    }
+                });
+            }
+        };
+
+        return itemAdapter;
+    }
+
+
+    private void getData() {
+        showProgressDialog();
+        relationService.getMyRoomBindRelation(handlerGetData);
     }
 
 
@@ -69,6 +195,119 @@ public class MyRelationActivity extends BaseActionBarActivity {
         }
     }
 
+    Handler handlerGetData = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            closeProgressDialog();
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    tvNullDataTitle.setVisibility(View.GONE);
+                    slvRealtion.setVisibility(View.VISIBLE);
+                    relationsList.clear();
+                    relationsList.addAll((ArrayList<OwnerRoomRelation>) msg.obj);
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                case BaseService.DATA_SUCCESS_OTHER:
+                    tvNullDataTitle.setVisibility(View.VISIBLE);
+                    slvRealtion.setVisibility(View.GONE);
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:
+                    showToast(msg.obj.toString());
+                    break;
+            }
+        }
+    };
+
+
+    Handler handlerDel = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    getData();
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:
+                    showToast(msg.obj.toString());
+                    break;
+            }
+        }
+    };
+
+
+    //弹出框
+    private void showMorePop(final OwnerRoomRelation.ResidentBean resident, final OwnerRoomRelation ownerRoomRelation) {
+        final LayoutInflater inflater = LayoutInflater.from(MyRelationActivity.this);
+        View popView = inflater.inflate(R.layout.pop_bind_realtion, null);
+        final PopupWindow popupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT, true);
+        View root = inflater.inflate(R.layout.main, null);
+        popupWindow.showAtLocation(root, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popupWindow.setAnimationStyle(android.R.style.Animation_InputMethod);
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        LinearLayout llRelationContract = (LinearLayout) popView.findViewById(R.id.ll_relation_contract);
+        TextView tvRelationCall = (TextView) popView.findViewById(R.id.tv_relation_call);
+        TextView tvRelationDelete = (TextView) popView.findViewById(R.id.tv_relation_delete);
+        LinearLayout llRelationCancel = (LinearLayout) popView.findViewById(R.id.ll_relation_cancel);
+
+        if (resident.ResidentType == 2) {
+            llRelationContract.setVisibility(View.VISIBLE);
+        } else {
+            llRelationContract.setVisibility(View.GONE);
+        }
+
+        tvRelationCall.setText("呼叫 " + resident.Tel);
+
+        tvRelationDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //解除绑定
+                bindingService.RemoveHouse(ownerRoomRelation.CommunityID, ownerRoomRelation.RoomID,
+                        resident.Id, handlerDel);
+                popupWindow.dismiss();
+            }
+        });
+
+        tvRelationCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //拨打电话
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + resident.Tel));
+                startActivity(intent);
+                popupWindow.dismiss();
+            }
+        });
+
+        llRelationContract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //续约
+                Intent intent = new Intent(MyRelationActivity.this, ContractExtensionActivity.class);
+                intent.putExtra("ROOM_ID", ownerRoomRelation.RoomID);
+                intent.putExtra("RESIDENT_ID", resident.Id);
+                intent.putExtra("SDATE", resident.Leasedates);
+                intent.putExtra("EDATE", resident.Leasedatee);
+                startActivity(intent);
+                popupWindow.dismiss();
+            }
+        });
+
+        llRelationCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //关闭
+                popupWindow.dismiss();
+            }
+        });
+    }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -79,4 +318,12 @@ public class MyRelationActivity extends BaseActionBarActivity {
             return super.onKeyDown(keyCode, event);
         }
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
 }

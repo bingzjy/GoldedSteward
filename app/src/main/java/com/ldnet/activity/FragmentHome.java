@@ -1215,6 +1215,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         }
     };
 
+
     //判断当前用户和当前房屋是否通过验证
     Handler handlerGetApprove = new Handler() {
         @Override

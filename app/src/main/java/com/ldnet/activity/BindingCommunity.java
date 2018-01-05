@@ -1,23 +1,17 @@
 package com.ldnet.activity;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TextView.OnEditorActionListener;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -34,16 +28,15 @@ import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.me.SubmitSearchNullCommunity;
 import com.ldnet.entities.Areas;
 import com.ldnet.entities.Community;
-import com.ldnet.entities.HouseRent;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AcountService;
+import com.ldnet.service.BaseService;
+import com.ldnet.service.BindingService;
+import com.ldnet.service.PropertyServeService;
 import com.ldnet.utility.*;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
+
 import okhttp3.Call;
 import okhttp3.Headers;
 import okhttp3.Request;
@@ -52,12 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -118,7 +106,9 @@ public class BindingCommunity extends BaseActionBarActivity implements
     public Double latitude, longitude;
     public boolean poiSearchByLocation;
     private AcountService acountService;
-    // 初始化事件
+    private PropertyServeService propertyService;
+    private BindingService bindingService;
+    private boolean keyWordsSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +116,8 @@ public class BindingCommunity extends BaseActionBarActivity implements
         initView();
         initLocation();
         acountService=new AcountService(this);
+        propertyService = new PropertyServeService(this);
+        bindingService = new BindingService(this);
     }
 
     @Override
@@ -133,24 +125,26 @@ public class BindingCommunity extends BaseActionBarActivity implements
         super.onResume();
     }
 
-    public void initLocation(){
+    //初始化定位
+    public void initLocation() {
         mlocationClient = new AMapLocationClient(BindingCommunity.this);
-//初始化定位参数
+        //初始化定位参数
         mLocationOption = new AMapLocationClientOption();
-//设置定位监听
+        //设置定位监听
         mlocationClient.setLocationListener(BindingCommunity.this);
-//设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-//设置定位间隔,单位毫秒,默认为2000ms
+        //设置定位间隔,单位毫秒,默认为2000ms
         mLocationOption.setInterval(-1);
         mlocationClient.setLocationOption(mLocationOption);
-//设置定位参数
-// 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
-// 注意设置合适的定位时间的间隔（最小间隔支持为1000ms），并且在合适时间调用stopLocation()方法来取消定位请求
-// 在定位结束后，在合适的生命周期调用onDestroy()方法
-// 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
+        //设置定位参数
+        // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
+        // 注意设置合适的定位时间的间隔（最小间隔支持为1000ms），并且在合适时间调用stopLocation()方法来取消定位请求
+        // 在定位结束后，在合适的生命周期调用onDestroy()方法
+        // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
         mlocationClient.startLocation();
     }
+
     // 初始化视图
     public void initView() {
         // 初始化布局文件
@@ -211,478 +205,15 @@ public class BindingCommunity extends BaseActionBarActivity implements
                                     int position, long id) {
                 // 获取绑定的数据
                 Community community = communities.get(position);
-                // 当前保存的用户数据
-                User user = UserInformation.getUserInfo();
-                bindCommunity(community.ID);
-
+                showProgressDialog();
+                bindingService.bindCommunity(community.ID, handlerBindCommunity);
             }
         });
-    }
-
-    //获取省
-    public void Provinces() {
-        // 请求的URL
-        String url = Services.mHost + "API/Common/GetProvince";
-        String aa = Services.timeFormat();
-        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        String aa2 = url;
-        String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + aa2 + Services.TOKEN;
-        OkHttpUtils.get().url(url)
-                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
-                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-                .addHeader("timestamp", aa)
-                .addHeader("nonce", aa1)
-                .addHeader("signature", Services.textToMD5L32(md5))
-                .build()
-                .execute(new DataCallBack(this) {
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        super.onError(call, e, i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
-                        super.onResponse(s, i);
-                        Log.e("asdsdasd", "获取省" + s);
-                        try {
-                            JSONObject json = new JSONObject(s);
-                            JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                            if (json.getBoolean("Status")) {
-                                if (jsonObject.getBoolean("Valid")) {
-                                    Gson gson = new Gson();
-                                    Type listType = new TypeToken<List<Areas>>() {
-                                    }.getType();
-                                    mProvinces = gson.fromJson(jsonObject.getString("Obj"), listType);
-
-                                  //  mllAddressFeedback.setVisibility(View.VISIBLE);
-                                    initProvinces();
-                                    mAdapter_Provinces.notifyDataSetChanged();
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-    //绑定小区
-    public void bindCommunity(final String communityId) {
-        String aa = Services.timeFormat();
-        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        HashMap<String, String> extras = new HashMap<>();
-        extras.put("CommunityId", communityId);
-        extras.put("ResidentId", UserInformation.getUserInfo().getUserId());
-        Services.json(extras);
-        String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + Services.json(extras) + Services.TOKEN;
-        // 请求的URL
-        final String url = Services.mHost + "API/Resident/SetBingCommunity";
-        OkHttpUtils.post().url(url)
-                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
-                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-                .addHeader("timestamp", aa)
-                .addHeader("nonce", aa1)
-                .addHeader("signature", Services.textToMD5L32(md5))
-                .addParams("CommunityId", communityId)
-                .addParams("ResidentId", UserInformation.getUserInfo().getUserId())
-                .build()
-                .execute(new DataCallBack(this) {
-
-                    @Override
-                    public void onBefore(Request request, int id) {
-                        super.onBefore(request, id);
-                        showProgressDialog();
-                    }
-
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        super.onError(call, e, i);
-                        closeProgressDialog();
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
-                        Log.e("asdsdasd", "绑定小区" + s);
-                        closeProgressDialog();
-                        try {
-                            JSONObject json = new JSONObject(s);
-                            JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                            if (json.getBoolean("Status")) {
-                                if (jsonObject.getBoolean("Valid")) {
-                                    try {
-                                        if (!mFromCommunity) {
-                                            //重新登录获取登录信息
-                                            getData(UserInformation.getUserInfo().getUserPhone(), UserInformation.getUserInfo().getUserPassword());
-                                        } else {
-                                            HashMap<String, String> extras = new HashMap<String, String>();
-                                            extras.put("LEFT", "LEFT");
-                                            gotoActivityAndFinish(com.ldnet.activity.me.Community.class.getName(), extras);
-                                        }
-                                        acountService.setIntegralTip(new Handler(),url);
-                                    } catch (ClassNotFoundException e) {
-                                        e.printStackTrace();
-                                    }
-                                }else{
-                                    //绑定失败
-                                    HashMap<String, String> extras = null;
-                                    try {
-                                        extras = new HashMap<String, String>();
-                                        extras.put("LEFT", "LEFT");
-                                        gotoActivityAndFinish(com.ldnet.activity.me.Community.class.getName(), extras);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                  showToast(jsonObject.getString("Message"));
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-    public void getData(final String phone,final  String psd) {
-        String aa = Services.timeFormat();
-        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        final String url = Services.mHost + "API/Account/Logon";
-        HashMap<String, String> extras = new HashMap<>();
-        extras.put("UserName", phone);
-        extras.put("Password", psd);
-        extras.put("PlatForm", "Android");
-        Services.json(extras);
-        String md5 = phone + aa + aa1 + Services.json(extras) + Services.TOKEN;
-        OkHttpUtils.post().url(url)
-                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-                .addHeader("timestamp", aa)
-                .addHeader("nonce", aa1)
-                .addHeader("signature", Services.textToMD5L32(md5))
-                .addParams("UserName", phone)
-                .addParams("Password", psd)
-                .addParams("PlatForm", "Android")
-                .build().execute(new DataCallBack(this) {
-
-            @Override
-            public String parseNetworkResponse(Response response, int id) throws IOException {
-                if (response.isSuccessful()) {
-                    Headers headers = response.headers();
-                    List<String> cookies = headers.values("Set-Cookie");
-                    Log.d("aaaaaaaaa", "onResponse: " + cookies.get(0));
-                    CookieInformation.setCookieInfo("cookies", cookies.get(0));
-                }
-                return super.parseNetworkResponse(response, id);
-            }
-
-            @Override
-            public void onBefore(Request request, int id) {
-                super.onBefore(request, id);
-            }
-
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                super.onError(call, e, id);
-            }
-
-            @Override
-            public void onResponse(String s, int i) {
-                Log.d("asdsdasd", "--" + s);
-                try {
-                    JSONObject json = new JSONObject(s);
-                    JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                    if (json.getBoolean("Status")) {
-                        if (jsonObject.getBoolean("Valid")) {
-                            //判断是否存在物业
-                            Gson gson = new Gson();
-                            User user = gson.fromJson(jsonObject.getString("Obj"), User.class);
-                            UserInformation.setUserInfo(user);
-                            User newUser = UserInformation.getUserInfo();
-                            if (!TextUtils.isEmpty(newUser.PropertyId)) {
-                                HashMap<String, String> extras = new HashMap<String, String>();
-                                extras.put("IsFromRegister", "true");
-                                extras.put("COMMUNITY_ID", newUser.CommunityId);
-                                extras.put("LEFT", "LEFT");
-                                gotoActivityAndFinish(BindingHouse.class.getName(), extras);
-                            } else {
-                                HashMap<String, String> extras = new HashMap<String, String>();
-                                extras.put("LEFT", "LEFT");
-                                gotoActivityAndFinish(MainActivity.class.getName(), extras);
-                            }
-                            acountService.setIntegralTip(new Handler(),url);
-                        } else {
-                            showToast(jsonObject.getString("Message"));
-                        }
-                    } else {
-                        showToast(jsonObject.getString("Message"));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    //获取小区数据
-    public void searchCommunities(final String name,final  String lat,final  String lng,final  boolean searchType, final boolean type) {
-        // 请求的URL
-        String url = Services.mHost + "API/Property/GetAllCommunityUid";
-        String aa = Services.timeFormat();
-        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        HashMap<String, String> extras = new HashMap<>();
-        extras.put("Name", name);
-        extras.put("Lat", lat);
-        extras.put("Lng", lng);
-        extras.put("SearchType", String.valueOf(searchType));
-        String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + Services.json(extras) + Services.TOKEN;
-        OkHttpUtils.post().url(url)
-                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
-                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-                .addHeader("timestamp", aa)
-                .addHeader("nonce", aa1)
-                .addHeader("signature", Services.textToMD5L32(md5))
-                .addParams("Name", name)
-                .addParams("Lat", lat)
-                .addParams("Lng", lng)
-                .addParams("SearchType", String.valueOf(searchType))
-                .build()
-                .execute(new DataCallBack(this) {
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        super.onError(call, e, i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
-                        super.onResponse(s, i);
-                        Log.e("amapLocation", "获取小区信息参数" + lat + "---" + lng);
-                        Log.e("amapLocation", "获取小区信息" + s);
-                        try {
-                            JSONObject json = new JSONObject(s);
-                            JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                            if (json.getBoolean("Status")) {
-                                if (jsonObject.getBoolean("Valid")) {
-                                    showToast(jsonObject.getString("Message"));
-                                    Gson gson = new Gson();
-                                    Type listType = new TypeToken<List<Community>>() {
-                                    }.getType();
-                                    datas = gson.fromJson(jsonObject.getString("Obj"), listType);
-                                    if (type) {//关键字搜索
-                                        Log.e("amapLocation", "关键字搜索" + s);
-                                        if (datas != null && datas.size() != 0) {
-                                            communities.clear();
-                                            communities.addAll(datas);
-                                            lv_binding_community.setVisibility(View.VISIBLE);
-                                            progressbar_loading.setVisibility(View.GONE);
-                                            tv_search_null_word.setVisibility(View.GONE);
-                                            mAdapter.notifyDataSetChanged();
-                                        } else {
-                                            Log.e("amapLocation", "关键字搜索空");
-                                            tv_search_null_word.setVisibility(View.VISIBLE);
-                                            lv_binding_community.setVisibility(View.GONE);
-                                            progressbar_loading.setVisibility(View.GONE);
-                                        }
-                                    } else {   //定位自动搜索
-                                        Log.e("amapLocation", "定位自动搜索" + s);
-                                        if (datas != null) {
-                                            communities.clear();
-                                            communities.addAll(datas);
-                                            progressbar_loading.setVisibility(View.GONE);
-                                            mAdapter.notifyDataSetChanged();
-                                        } else {
-                                            showToast(R.string.manually_entered_village);
-                                        }
-                                    }
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-    //获取市根据省、直辖市的ID
-    public void Cities(final Integer provinceId) {
-        // 请求的URL
-        String url = Services.mHost + "API/Common/GetCity/%s";
-        url = String.format(url, provinceId);
-        String aa = Services.timeFormat();
-        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        String aa2 = url;
-        String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + aa2 + Services.TOKEN;
-        OkHttpUtils.get().url(url)
-                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
-                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-                .addHeader("timestamp", aa)
-                .addHeader("nonce", aa1)
-                .addHeader("signature", Services.textToMD5L32(md5))
-                .build()
-                .execute(new DataCallBack(this) {
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        super.onError(call, e, i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
-                        super.onResponse(s, i);
-                        Log.d("asdsdasd", "111111111" + s);
-                        try {
-                            JSONObject json = new JSONObject(s);
-                            JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                            if (json.getBoolean("Status")) {
-                                if (jsonObject.getBoolean("Valid")) {
-                                    showToast(jsonObject.getString("Message"));
-                                    Gson gson = new Gson();
-                                    Type listType = new TypeToken<List<Areas>>() {
-                                    }.getType();
-                                    Areas = gson.fromJson(jsonObject.getString("Obj"), listType);
-                                    if (Areas != null) {
-                                        mCities.clear();
-                                        mCities.addAll(Areas);
-                                        mAdapter_Cities.notifyDataSetChanged();
-                                        if (mCities.size() > 0 && mCities != null) {
-                                            //改变区
-                                            Areas areas1 = mCities.get(0);
-                                            if (areas1 != null) {
-                                                Areas(areas1.Id);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-    //获取区域根据城市ID
-    public void Areas(final Integer cityId) {
-        // 请求的URL
-        String url = Services.mHost + "API/Common/GetArea/%s";
-        url = String.format(url, cityId);
-        String aa = Services.timeFormat();
-        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        String aa2 = url;
-        String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + aa2 + Services.TOKEN;
-        OkHttpUtils.get().url(url)
-                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
-                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-                .addHeader("timestamp", aa)
-                .addHeader("nonce", aa1)
-                .addHeader("signature", Services.textToMD5L32(md5))
-                .build()
-                .execute(new DataCallBack(this) {
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        super.onError(call, e, i);
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
-                        super.onResponse(s, i);
-                        Log.d("asdsdasd", "2222222222" + s);
-                        try {
-                            JSONObject json = new JSONObject(s);
-                            JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                            if (json.getBoolean("Status")) {
-                                if (jsonObject.getBoolean("Valid")) {
-                                    showToast(jsonObject.getString("Message"));
-                                    Gson gson = new Gson();
-                                    Type listType = new TypeToken<List<Areas>>() {
-                                    }.getType();
-                                    Areas1 = gson.fromJson(jsonObject.getString("Obj"), listType);
-                                    if (Areas1 != null) {
-                                        mAreas.clear();
-                                        mAreas.addAll(Areas1);
-                                        mAdapter_Areas.notifyDataSetChanged();
-                                    }
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-    //意见反馈
-    public void Feedback(final String content) {
-        String aa = Services.timeFormat();
-        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        try {
-            // 请求的URL
-            String url = Services.mHost + "API/File/AppFeedback";
-            //获取当前应用的版本号
-            GSApplication application = GSApplication.getInstance();
-            String appVersion = null;
-            appVersion = application.getPackageManager().getPackageInfo(application.getPackageName(), 0).versionName;
-            HashMap<String, String> extras = new HashMap<>();
-            extras.put("Content", content);
-            extras.put("AppVersion", appVersion);
-            extras.put("AppSystem", "android");
-            extras.put("AppSystemVersion", Build.MODEL + " - Android " + Build.VERSION.RELEASE);
-            extras.put("AppType", "业主App");
-            extras.put("UserId", UserInformation.getUserInfo().getUserId());
-            extras.put("UserName", UserInformation.getUserInfo().getUserName() + "[" + UserInformation.getUserInfo().getUserPhone() + "]");
-            Services.json(extras);
-            String md5 = UserInformation.getUserInfo().getUserPhone() +
-                    aa + aa1 + Services.json(extras) + Services.TOKEN;
-            OkHttpUtils.post().url(url)
-                    .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
-                    .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-                    .addHeader("timestamp", aa)
-                    .addHeader("nonce", aa1)
-                    .addHeader("signature", Services.textToMD5L32(md5))
-                    .addParams("Content", content)
-                    .addParams("AppVersion", appVersion)
-                    .addParams("AppSystem", "android")
-                    .addParams("AppSystemVersion", Build.MODEL + " - Android " + Build.VERSION.RELEASE)
-                    .addParams("AppType", "业主App")
-                    .addParams("UserId", UserInformation.getUserInfo().getUserId())
-                    .addParams("UserName", UserInformation.getUserInfo().getUserName() + "[" + UserInformation.getUserInfo().getUserPhone() + "]")
-                    .build()
-                    .execute(new DataCallBack(this) {
-                        @Override
-                        public void onError(Call call, Exception e, int i) {
-                            super.onError(call, e, i);
-                        }
-
-                        @Override
-                        public void onResponse(String s, int i) {
-                            Log.d("asdsdasd", "111111111" + s);
-                            try {
-                                JSONObject json = new JSONObject(s);
-                                JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                                if (json.getBoolean("Status")) {
-                                    if (jsonObject.getBoolean("Valid")) {
-                                        showToast(getResources().getString(R.string.activity_me_feedback_success));
-                                        try {
-                                            HashMap<String, String> extras = new HashMap<String, String>();
-                                            extras.put("LEFT", "LEFT");
-                                            gotoActivityAndFinish(com.ldnet.activity.me.Community.class.getName(), null);
-                                        } catch (ClassNotFoundException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
 
     // POI搜索
     private void poiSearch() {
-
         /* 隐藏软键盘 */
         InputMethodManager imm = (InputMethodManager) et_binding_community_search
                 .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -697,84 +228,17 @@ public class BindingCommunity extends BaseActionBarActivity implements
         mAdapter.notifyDataSetChanged();
 
         // 整理关键字
-        String keywords = et_binding_community_search.getText().toString()
-                .trim();
+        String keywords = et_binding_community_search.getText().toString().trim();
 
         poiSearchByLocation = true;
-
+        keyWordsSearch = true;
         if (longitude != null && latitude != null) {
-            searchCommunities(keywords, String.valueOf(latitude), String.valueOf(longitude), true, true);
+            bindingService.searchCommunities(keywords, String.valueOf(latitude), String.valueOf(longitude), true, handlerSearchCommunity);
         } else {
-            searchCommunities(keywords, "0.0", "0.0", true, true);
+            bindingService.searchCommunities(keywords, "0.0", "0.0", true, handlerSearchCommunity);
         }
     }
 
-    //        ----------------------------提交地址反馈-----------------
-    //初始化省、直辖市信息
-    private void initProvinces() {
-
-        //将可选内容与ArrayAdapter连接起来
-        mAdapter_Provinces = new ArrayAdapter(this, R.layout.dropdown_check_item, mProvinces);
-        //设置下拉列表的风格
-        mAdapter_Provinces.setDropDownViewResource(R.layout.dropdown_item);
-        //将adapter 添加到spinner中
-        sr_address_provinces.setAdapter(mAdapter_Provinces);
-        //设置选择事件
-        sr_address_provinces.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //改变城市
-                Areas areas = mProvinces.get(i);
-                if (areas.Id != null) {
-                    Cities(areas.Id);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-    }
-
-    //初始化城市信息
-    private void initCities() {
-        mCities = new ArrayList<Areas>();
-        //将可选内容与ArrayAdapter连接起来
-        mAdapter_Cities = new ArrayAdapter(this, R.layout.dropdown_check_item, mCities);
-        //设置下拉列表的风格
-        mAdapter_Cities.setDropDownViewResource(R.layout.dropdown_item);
-        //将adapter 添加到spinner中
-        sr_address_cities.setAdapter(mAdapter_Cities);
-        //设置选择事件
-        sr_address_cities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //改变区
-                Areas areas = mCities.get(i);
-                if (areas != null) {
-                    Areas(areas.Id);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-    }
-
-    //初始化区域信息
-    private void initAreas() {
-        mAreas = new ArrayList<Areas>();
-        //将可选内容与ArrayAdapter连接起来
-        mAdapter_Areas = new ArrayAdapter(this, R.layout.dropdown_check_item, mAreas);
-        //设置下拉列表的风格
-        mAdapter_Areas.setDropDownViewResource(R.layout.dropdown_item);
-        //将adapter 添加到spinner中
-        sr_address_areas.setAdapter(mAdapter_Areas);
-    }
-    //        ----------------------------提交地址反馈-----------------
 
     // 点击事件处理
     @Override
@@ -801,8 +265,7 @@ public class BindingCommunity extends BaseActionBarActivity implements
                 String cId = ((Areas) sr_address_cities.getSelectedItem()).Name;
                 String aId = ((Areas) sr_address_areas.getSelectedItem()).Name;
                 String community = mEtAddressDetails.getText().toString().trim();
-                Feedback(pId + "-" + cId + "-" + aId + "-" + community);
-
+                propertyService.feedback(pId + "-" + cId + "-" + aId + "-" + community, handlerFeedback);
                 break;
             case R.id.tv_searchnull_word:
                 try {
@@ -816,23 +279,6 @@ public class BindingCommunity extends BaseActionBarActivity implements
         }
     }
 
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            if (mFromCommunity) {
-                try {
-                    gotoActivityAndFinish(com.ldnet.activity.me.Community.class.getName(), null);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            return false;
-        } else {
-            return super.onKeyDown(keyCode, event);
-        }
-
-    }
 
 
     // 定位成功后的回调函数
@@ -858,7 +304,6 @@ public class BindingCommunity extends BaseActionBarActivity implements
     /*
      * 高德地图，POI搜索事件监听
      */
-
     @Override
     public void onPoiSearched(PoiResult result, int rCode) {
         if (rCode == 0) {
@@ -903,32 +348,187 @@ public class BindingCommunity extends BaseActionBarActivity implements
     }
 
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+    //重置用户信息
+    Handler handlerGetData = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    try {
+                        if (TextUtils.isEmpty(UserInformation.getUserInfo().PropertyId)) {
+                            HashMap<String, String> extras = new HashMap<String, String>();
+                            extras.put("LEFT", "LEFT");
+                            gotoActivityAndFinish(MainActivity.class.getName(), extras);
+                        } else {
+                            HashMap<String, String> extras = new HashMap<String, String>();
+                            extras.put("IsFromRegister", "true");
+                            extras.put("COMMUNITY_ID", UserInformation.getUserInfo().CommunityId);
+                            extras.put("LEFT", "LEFT");
+                            gotoActivityAndFinish(BindingHouse.class.getName(), extras);
+                        }
+                        acountService.setIntegralTip(new Handler(), Services.mHost + "API/Account/Logon");
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:
+                    showToast(msg.obj.toString());
+                    break;
+            }
+        }
+    };
 
-    }
+
+    //意见反馈
+    Handler handlerFeedback = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    showToast(getResources().getString(R.string.activity_me_feedback_success));
+                    try {
+                        HashMap<String, String> extras = new HashMap<String, String>();
+                        extras.put("LEFT", "LEFT");
+                        gotoActivityAndFinish(com.ldnet.activity.me.Community.class.getName(), null);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:
+                    showToast(msg.obj.toString());
+                    break;
+            }
+        }
+    };
 
 
-    public void stopLocation(){
-        mlocationClient.stopLocation();
-        mlocationClient=null;
-        mLocationOption=null;
-    }
-
-
-
+    //定位回调处理
     Handler handlerLocal=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if(msg.what==111){
                 AMapLocation aMapLocation=(AMapLocation) msg.obj;
-                searchCommunities("1", String.valueOf(aMapLocation.getLatitude()),
-                        String.valueOf(aMapLocation.getLongitude()), false, false);
+                keyWordsSearch = false;
+                bindingService.searchCommunities("1", String.valueOf(aMapLocation.getLatitude()),
+                        String.valueOf(aMapLocation.getLongitude()), false, handlerSearchCommunity);
                 latitude = aMapLocation.getLatitude();
                 longitude = aMapLocation.getLongitude();
             }
         }
     };
+
+
+    //绑定小区
+    Handler handlerBindCommunity = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            closeProgressDialog();
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    try {
+                        if (!mFromCommunity) {
+                            //重新获取用户信息
+                            acountService.getData(UserInformation.getUserInfo().getUserPhone(), UserInformation.getUserInfo().getUserPassword(), 0, handlerGetData);
+                        } else {
+                            HashMap<String, String> extras = new HashMap<String, String>();
+                            extras.put("LEFT", "LEFT");
+                            gotoActivityAndFinish(com.ldnet.activity.me.Community.class.getName(), extras);
+                        }
+                        acountService.setIntegralTip(new Handler(), Services.mHost + "API/Resident/SetBingCommunity");
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:  //绑定失败
+                    showToast(msg.obj.toString());
+                    HashMap<String, String> extras = null;
+                    try {
+                        extras = new HashMap<String, String>();
+                        extras.put("LEFT", "LEFT");
+                        gotoActivityAndFinish(com.ldnet.activity.me.Community.class.getName(), extras);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+            }
+        }
+    };
+
+
+    //搜索小区
+    Handler handlerSearchCommunity = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    datas = (List<Community>) msg.obj;
+                    if (keyWordsSearch) {   //通过关键词搜索
+                        communities.clear();
+                        communities.addAll(datas);
+                        lv_binding_community.setVisibility(View.VISIBLE);
+                        progressbar_loading.setVisibility(View.GONE);
+                        tv_search_null_word.setVisibility(View.GONE);
+                        mAdapter.notifyDataSetChanged();
+                    } else {            //地理位置自动搜索
+                        communities.clear();
+                        communities.addAll(datas);
+                        progressbar_loading.setVisibility(View.GONE);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                    break;
+                case BaseService.DATA_SUCCESS_OTHER:
+                    if (keyWordsSearch) {
+                        tv_search_null_word.setVisibility(View.VISIBLE);
+                        lv_binding_community.setVisibility(View.GONE);
+                        progressbar_loading.setVisibility(View.GONE);
+                    } else {
+                        showToast(R.string.manually_entered_village);
+                    }
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:
+                    showToast(msg.obj.toString());
+                    break;
+            }
+        }
+    };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            if (mFromCommunity) {
+                try {
+                    gotoActivityAndFinish(com.ldnet.activity.me.Community.class.getName(), null);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            return false;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+
+    public void stopLocation() {
+        mlocationClient.stopLocation();
+        mlocationClient = null;
+        mLocationOption = null;
+    }
 }

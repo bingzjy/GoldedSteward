@@ -236,7 +236,8 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
         tv_me_phone.setText(userName);
         //设置用户头像
         if (!TextUtils.isEmpty(user.UserThumbnail)) {
-            ImageLoader.getInstance().displayImage(Services.getImageUrl(user.UserThumbnail), ibtn_me_thumbnail, imageOptions);
+            ImageLoader.getInstance().displayImage(Services.getImageUrl(user.UserThumbnail),
+                    ibtn_me_thumbnail, imageOptions);
         }
     }
 

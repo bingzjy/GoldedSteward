@@ -113,7 +113,7 @@ public class BindingHouse extends BaseActionBarActivity {
                 break;
             case R.id.btn_binding_house:
                 if (mHouseId != null && mHouseId.equals("0")) {
-                    service.RemoveHouse(mCommunityId, "0",new Handler());
+                    service.RemoveHouse(mCommunityId, "0",UserInformation.getUserInfo().UserId,new Handler());
                 }
                 showProgressDialog();
                 service.MyProperties(handlerMyProperties);

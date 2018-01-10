@@ -16,6 +16,7 @@ import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.find.FreaMarket;
 import com.ldnet.activity.find.FreaMarket_Details;
 import com.ldnet.activity.me.Publish;
+import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.HouseProperties;
 import com.ldnet.entities.HouseRent;
 import com.ldnet.entities.KValues;
@@ -297,7 +298,7 @@ public class HouseRent_Detail extends BaseActionBarActivity {
                     showToast("删除成功");
                     if (mFromPublish){
                         //返回我的发布
-                        Intent intent=new Intent(HouseRent_Detail.this, Publish.class);
+                        Intent intent=new Intent(HouseRent_Detail.this, PublishActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }else{

@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
-import com.autonavi.rtbt.IFrameForRTBT;
 import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.adapter.InfoBarPagerAdapter;
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
@@ -27,7 +25,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ldnet.goldensteward.R.id.radio_button_need;
 
 //小区信息栏
 public class CommunityInfoBarMainActivity extends BaseActionBarFragmentActivity implements View.OnClickListener {
@@ -42,6 +39,7 @@ public class CommunityInfoBarMainActivity extends BaseActionBarFragmentActivity 
     private Integer currentIndex = 0;
     public static String currentBigType="0";
     private Bundle bundle;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

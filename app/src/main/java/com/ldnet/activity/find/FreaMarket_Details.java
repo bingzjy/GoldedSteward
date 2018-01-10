@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.me.Publish;
+import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.FreaMarketDetails;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
@@ -175,6 +176,9 @@ public class FreaMarket_Details extends BaseActionBarActivity {
                     Intent intent = new Intent(this, FreaMarket_Create.class);
                     intent.putExtra("FREA_MARKET_ID", mFreamarketId);
                     intent.putExtra("FROM_FREAMARKET_DETAILS", "true");
+                    if (mFromPublish){
+                        intent.putExtra("FROM_PUBLISH","true");
+                    }
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 }else{  //分享
@@ -263,7 +267,7 @@ public class FreaMarket_Details extends BaseActionBarActivity {
                     showToast("删除成功");
                     if (mFromPublish){
                         //返回我的发布
-                        Intent intent=new Intent(FreaMarket_Details.this, Publish.class);
+                        Intent intent=new Intent(FreaMarket_Details.this, PublishActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }else{

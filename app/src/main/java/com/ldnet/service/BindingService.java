@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -270,6 +271,40 @@ public class BindingService extends BaseService {
                 });
     }
 
+
+    //绑定小区
+    public void bindCommunity(final String communityId, final Handler handler) {
+        String aa = Services.timeFormat();
+        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+        HashMap<String, String> extras = new HashMap<>();
+        extras.put("CommunityId", communityId);
+        extras.put("ResidentId", UserInformation.getUserInfo().getUserId());
+        Services.json(extras);
+        String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + Services.json(extras) + Services.TOKEN;
+        // 请求的URL
+        final String url = Services.mHost + "API/Resident/SetBingCommunity";
+        OkHttpUtils.post().url(url)
+                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
+                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
+                .addHeader("timestamp", aa)
+                .addHeader("nonce", aa1)
+                .addHeader("signature", Services.textToMD5L32(md5))
+                .addParams("CommunityId", communityId)
+                .addParams("ResidentId", UserInformation.getUserInfo().getUserId())
+                .build()
+                .execute(new DataCallBack(mContext, handler) {
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        Log.e(tag, "绑定小区bindCommunity:" + s);
+                        if (checkJsonDataSuccess(s, handler)) {
+                            handler.sendEmptyMessage(DATA_SUCCESS);
+                        }
+                    }
+                });
+    }
+
+
     //获取我的小区和房产,判断用户是否绑定该房屋
     public void MyProperties(final Handler handerMyProperties) {
         // 请求的URL
@@ -345,7 +380,7 @@ public class BindingService extends BaseService {
     }
 
     //解除房子绑定
-    public void RemoveHouse(final String communityId,final String roomId,final Handler handler) {
+    public void RemoveHouse(final String communityId, final String roomId, final String residentId, final Handler handler) {
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
         // 请求的URL
@@ -353,7 +388,7 @@ public class BindingService extends BaseService {
         HashMap<String, String> extras = new HashMap<>();
         extras.put("CommunityId", communityId);
         extras.put("RoomId", roomId);
-        extras.put("ResidentId", UserInformation.getUserInfo().getUserId());
+        extras.put("ResidentId", residentId);
         Services.json(extras);
         String md5 = UserInformation.getUserInfo().getUserPhone() +
                 aa + aa1 + Services.json(extras) + Services.TOKEN;
@@ -364,7 +399,7 @@ public class BindingService extends BaseService {
                 .addHeader("nonce", aa1)
                 .addHeader("signature", Services.textToMD5L32
                         (md5))
-                .addParams("ResidentId", UserInformation.getUserInfo().getUserId())
+                .addParams("ResidentId", residentId)
                 .addParams("RoomId", roomId)
                 .addParams("CommunityId", communityId)
                 .build()
@@ -381,7 +416,7 @@ public class BindingService extends BaseService {
                 });
     }
 
-    //解除社区绑定
+    //解除小区绑定
     public void RemoveCommunity(final String communityId,final Handler handler) {
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
@@ -575,7 +610,7 @@ public class BindingService extends BaseService {
 
                     @Override
                     public void onResponse(String s, int i) {
-
+                        Log.e(tag,"postValid:"+s);
                         try {
                             JSONObject json = new JSONObject(s);
                             JSONObject jsonObject = new JSONObject(json.getString("Data"));
@@ -604,5 +639,58 @@ public class BindingService extends BaseService {
                 });
     }
 
+    //获取小区数据
+    public void searchCommunities(final String name, final String lat, final String lng, final boolean searchType, final Handler handler) {
+        // 请求的URL
+        String url = Services.mHost + "API/Property/GetAllCommunityUid";
+        String aa = Services.timeFormat();
+        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+        HashMap<String, String> extras = new HashMap<>();
+        extras.put("Name", name);
+        extras.put("Lat", lat);
+        extras.put("Lng", lng);
+        extras.put("SearchType", String.valueOf(searchType));
+        String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + Services.json(extras) + Services.TOKEN;
+        OkHttpUtils.post().url(url)
+                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
+                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
+                .addHeader("timestamp", aa)
+                .addHeader("nonce", aa1)
+                .addHeader("signature", Services.textToMD5L32(md5))
+                .addParams("Name", name)
+                .addParams("Lat", lat)
+                .addParams("Lng", lng)
+                .addParams("SearchType", String.valueOf(searchType))
+                .build()
+                .execute(new DataCallBack(mContext, handler) {
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        super.onResponse(s, i);
+                        Log.e(tag, "获取小区信息参数searchCommunities--params" + lat + "---" + lng);
+                        Log.e(tag, "获取小区信息searchCommunities" + s);
+                        try {
+                            JSONObject json = new JSONObject(s);
+                            JSONObject jsonObject = new JSONObject(json.getString("Data"));
+                            if (checkJsonDataSuccess(s, handler)) {
+                                Gson gson = new Gson();
+                                Type listType = new TypeToken<List<com.ldnet.entities.Community>>() {
+                                }.getType();
+                                List<com.ldnet.entities.Community> datas = gson.fromJson(jsonObject.getString("Obj"), listType);
+                                if (datas != null && datas.size() > 0) {
+                                    Message msg = handler.obtainMessage();
+                                    msg.obj = datas;
+                                    msg.what = DATA_SUCCESS;
+                                    handler.sendMessage(msg);
+                                } else {
+                                    handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
 
 }

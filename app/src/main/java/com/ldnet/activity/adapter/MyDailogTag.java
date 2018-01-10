@@ -2,14 +2,12 @@ package com.ldnet.activity.adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ldnet.activity.home.Property_Fee;
 import com.ldnet.goldensteward.R;
@@ -19,7 +17,7 @@ import com.ldnet.goldensteward.R;
  */
 public class MyDailogTag {
     Activity activity;
-    MyDialog2.Dialogcallback dialogcallback;
+    CustomAlertDialog.Dialogcallback dialogcallback;
     AlertDialog alertDialog;
     TextView close_dialog,warmPrompty;
     Button checkBtn;

@@ -13,6 +13,7 @@ import com.ldnet.activity.adapter.*;
 import com.ldnet.activity.base.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.me.Publish;
+import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.*;
 import com.ldnet.goldensteward.R;
 import com.ldnet.interfaze.PictureChoseListener;
@@ -328,7 +329,7 @@ public class HouseRentUpdate extends BaseActionBarActivity {
     MyDialog.Dialogcallback dialogcallback1 = new MyDialog.Dialogcallback() {
         @Override
         public void dialogdo() {
-                Intent intent1 = new Intent(HouseRentUpdate.this, Publish.class);
+                Intent intent1 = new Intent(HouseRentUpdate.this, PublishActivity.class);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent1);
         }
@@ -604,7 +605,7 @@ public class HouseRentUpdate extends BaseActionBarActivity {
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     showToast("修改成功");
-                    Intent intent = new Intent(HouseRentUpdate.this, Publish.class);
+                    Intent intent = new Intent(HouseRentUpdate.this, PublishActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                     break;

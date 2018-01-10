@@ -19,19 +19,10 @@ import java.util.List;
 public class InfoBarPagerAdapter extends FragmentPagerAdapter {
 
     private List<InfoBarType> list;
-    private String bigType;
-
 
     public InfoBarPagerAdapter(FragmentManager fm, List<InfoBarType> list) {
         super(fm);
         this.list = list;
-    }
-
-
-    public InfoBarPagerAdapter(FragmentManager fm, List<InfoBarType> list, String bigType) {
-        super(fm);
-        this.list = list;
-        this.bigType = bigType;
     }
 
     @Override
@@ -55,6 +46,5 @@ public class InfoBarPagerAdapter extends FragmentPagerAdapter {
         b.putInt("value", list.get(position).value);
         return InfoShowContentFragment.getInstance(b);
     }
-
 
 }

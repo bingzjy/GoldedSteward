@@ -182,6 +182,7 @@ public class QinDianService extends BaseService {
     }
 
 
+
     //查看账户余额
     public void getRemind(final Handler handler) {
         String url = "http://139.196.105.221/qindian/user/remain";
@@ -332,8 +333,8 @@ public class QinDianService extends BaseService {
         });
     }
 
+
     //获取订单信息QR	String	桩ID
-    // proNo
     public void getOrderInfo(final String stateModelID, final String stateModelPort, final Handler handler) {
         String url = ipAddress + "user/prentOrder?QR=" + stateModelID + "&proNo=" + stateModelPort;
         OkHttpUtils.get().url(url)

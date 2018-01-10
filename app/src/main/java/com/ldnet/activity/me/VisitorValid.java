@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.ldnet.activity.BindingHouse;
 import com.ldnet.activity.FragmentHome;
 import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.base.AppUtils;
@@ -237,6 +238,7 @@ public class VisitorValid extends BaseActionBarActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            closeProgressDialog();
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     validSuccess();
@@ -314,7 +316,7 @@ public class VisitorValid extends BaseActionBarActivity {
 
             bindService.postEGBind(resident_type, room_owner_id, resident_sdate, resident_edate, room_id, handlerEGBind);
 
-        } else if (TextUtils.isEmpty(applyType) && !TextUtils.isEmpty(class_from) && class_from.equals("BindingHouse")) {
+        } else if (TextUtils.isEmpty(applyType) && !TextUtils.isEmpty(class_from) && class_from.equals(BindingHouse.class.getName())) {
 
             bindService.BindingHouse(community_id, room_id, handlerBindingHouse);
 

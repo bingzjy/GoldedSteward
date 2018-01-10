@@ -1,6 +1,7 @@
 package com.ldnet.activity.me;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,12 +15,14 @@ import com.ldnet.activity.BindingHouse;
 import com.ldnet.activity.FragmentHome;
 import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
+import com.ldnet.activity.bindmanage.AddRelationActivity;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.CookieInformation;
 import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.Utility;
 import com.ldnet.view.SlideDateTimeListener;
 import com.ldnet.view.SlideDateTimePicker;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -32,6 +35,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,7 +78,7 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
     private RadioButton qinshuRadioButton;
     private RadioButton zuhuRadioButton;
     private LinearLayout ll_date;
-    private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy-MM-dd");
     private Calendar calendar = Calendar.getInstance();
     private String room_id, room_name = "";
     private String owner_phone = "";
@@ -84,7 +88,7 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
     private String community_id, community_name = "";
     private String applyType = "";
     private int residentType;
-    private Date endDateClick, startDateClick;
+    private Date endDateClick, startDateClick=new Date();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +98,7 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
     }
 
     public void initView() {
+        getActionBar().hide();
         // 标题
         mTvPageTitle = (TextView) findViewById(R.id.tv_page_title);
         tv_cname = (TextView) findViewById(R.id.tv_cname);
@@ -145,43 +150,22 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
                 backEvent();
                 break;
             case R.id.et_valid_start_date:
-                new SlideDateTimePicker.Builder(getSupportFragmentManager())
-                        .setListener(listener)
-                        .setInitialDate(new Date())
-                        .setIs24HourTime(true)
-                        .setMinDate(new Date())
-                        .build()
-                        .show();
-                break;
-            case R.id.et_weekend_start_time:
-                new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hour, int minute) {
-                        //更新EditText控件时间 小于10加0
-                        et_weekend_start_time.setText(new StringBuilder().append(hour < 10 ? "0" + hour : hour)
-                                .append(":").append(minute < 10 ? "0" + minute : minute).append(":00"));
-                    }
-                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+                Calendar calendar = Calendar.getInstance();
+                DatePickerDialog dialog = new DatePickerDialog(VisitorValidComplete.this, listener1,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                dialog.getDatePicker().setMinDate(new Date().getTime() - 1000);
+                dialog.show();
                 break;
             case R.id.et_valid_end_date:
-                new SlideDateTimePicker.Builder(getSupportFragmentManager())
-                        .setListener(listener1)
-                        .setInitialDate(new Date())
-                        .setIs24HourTime(true)
-                        .setMinDate(new Date())
-                        .build()
-                        .show();
-                break;
-            case R.id.et_weekend_end_time:
-                //更新EditText控件时间 小于10加0
-                new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hour, int minute) {
-
-                        et_weekend_end_time.setText(new StringBuilder().append(hour < 10 ? "0" + hour : hour)
-                                .append(":").append(minute < 10 ? "0" + minute : minute).append(":00"));
-                    }
-                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+                Calendar calendar2 = Calendar.getInstance();
+                DatePickerDialog dialog2 = new DatePickerDialog(VisitorValidComplete.this, listener2,
+                        calendar2.get(Calendar.YEAR),
+                        calendar2.get(Calendar.MONTH),
+                        calendar2.get(Calendar.DAY_OF_MONTH));
+                dialog2.getDatePicker().setMinDate(new Date().getTime() - 1000);
+                dialog2.show();
                 break;
             case R.id.bt_valid_complete_visitor:
                 //如果是租户身份，则必选日期
@@ -207,21 +191,43 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
         }
     }
 
-    private SlideDateTimeListener listener = new SlideDateTimeListener() {
-
+    private DatePickerDialog.OnDateSetListener listener1 = new DatePickerDialog.OnDateSetListener() {
         @Override
-        public void onDateTimeSet(Date date) {
-            startDateClick = date;
-            et_valid_start_date.setText(mFormatter.format(date));
+        public void onDateSet(DatePicker view, int ar, int month, int dayOfMonth) {
+            String date;
+            month += 1;
+            if (month < 10) {
+                date = ar + "-0" + month + "-" + dayOfMonth;
+            } else {
+                date = ar + "-" + month + "-" + dayOfMonth;
+            }
+            et_valid_start_date.setText(date);
+            try {
+                startDateClick = mFormatter.parse(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     };
 
-    private SlideDateTimeListener listener1 = new SlideDateTimeListener() {
 
+    private DatePickerDialog.OnDateSetListener listener2 = new DatePickerDialog.OnDateSetListener() {
         @Override
-        public void onDateTimeSet(Date date) {
-            endDateClick = date;
-            et_valid_end_date.setText(mFormatter.format(date));
+        public void onDateSet(DatePicker view, int ar, int month, int dayOfMonth) {
+            String date;
+            month += 1;
+            if (month < 10) {
+                date = ar + "-0" + month + "-" + dayOfMonth;
+            } else {
+                date = ar + "-" + month + "-" + dayOfMonth;
+            }
+
+            et_valid_end_date.setText(date);
+            try {
+                endDateClick = mFormatter.parse(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     };
 
@@ -230,11 +236,9 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             if (checkedId == qinshuRadioButton.getId()) {
                 residentType = 1;
-                Log.d("asdsdasd", residentType + "");
                 ll_date.setVisibility(View.GONE);
             } else if (checkedId == zuhuRadioButton.getId()) {
                 residentType = 2;
-                Log.d("asdsdasd", residentType + "");
                 ll_date.setVisibility(View.VISIBLE);
             }
         }
@@ -254,29 +258,26 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
     @Override
     protected void onResume() {
         super.onResume();
-        endDateClick = null;
-        startDateClick = null;
-        et_valid_start_date.setText("");
-        et_valid_end_date.setText("");
+//        endDateClick = null;
+//        startDateClick = null;
+//        et_valid_start_date.setText("");
+//        et_valid_end_date.setText("");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        endDateClick = null;
-        startDateClick = null;
+//        endDateClick = null;
+//        startDateClick = null;
     }
 
     //判断用户输入
     private boolean notNull() {
-        if (startDateClick == null || endDateClick == null ||
-                TextUtils.isEmpty(et_valid_start_date.getText().toString()) ||
-                TextUtils.isEmpty(et_valid_end_date.getText().toString())) {
-
+        if (Utility.editIsNull(et_valid_start_date) || Utility.editIsNull(et_valid_start_date)) {
             showToast(getString(R.string.select_bind_date));
             return false;
 
-        } else if (startDateClick != null && endDateClick != null && startDateClick.getTime() > endDateClick.getTime()) {
+        } else if (startDateClick.getTime() >=endDateClick.getTime()) {
             showToast(getString(R.string.start_date_invalid));
             return false;
         }

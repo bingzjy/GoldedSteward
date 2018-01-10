@@ -97,10 +97,6 @@ public class InfoShowContentFragment extends BaseFragment {
         loading(false);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
     public void initView(View view){
         tvNull=(TextView)view.findViewById(R.id.tv_find_informations);
@@ -168,16 +164,6 @@ public class InfoShowContentFragment extends BaseFragment {
                 }
             }
         });
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
 
@@ -258,4 +244,11 @@ public class InfoShowContentFragment extends BaseFragment {
             service.getInfoList(CommunityInfoBarMainActivity.currentBigType, littleType, "", "", handler);
         }
     }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
 }

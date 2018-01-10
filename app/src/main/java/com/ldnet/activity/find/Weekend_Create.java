@@ -35,6 +35,7 @@ import com.ldnet.activity.adapter.MyDialog;
 import com.ldnet.activity.base.AppUtils;
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
 import com.ldnet.activity.me.Publish;
+import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.User;
 import com.ldnet.entities.WeekendDetails;
 import com.ldnet.goldensteward.R;
@@ -304,7 +305,7 @@ public class Weekend_Create extends BaseActionBarFragmentActivity implements Vie
         @Override
         public void dialogdo() {
             if (mFromPublish) {
-                Intent intent1 = new Intent(Weekend_Create.this, Publish.class);
+                Intent intent1 = new Intent(Weekend_Create.this, PublishActivity.class);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent1);
             } else {
@@ -494,7 +495,7 @@ public class Weekend_Create extends BaseActionBarFragmentActivity implements Vie
             switch (msg.what){
                 case BaseService.DATA_SUCCESS:
                     try {
-                        gotoActivityAndFinish(Publish.class.getName(), null);
+                        gotoActivityAndFinish(PublishActivity.class.getName(), null);
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }

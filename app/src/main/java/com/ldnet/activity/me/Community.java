@@ -2,29 +2,22 @@ package com.ldnet.activity.me;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.*;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.ldnet.activity.BindingCommunity;
 import com.ldnet.activity.BindingHouse;
 import com.ldnet.activity.MainActivity;
-import com.ldnet.activity.adapter.MyDialog;
-import com.ldnet.activity.adapter.MyDialog2;
+import com.ldnet.activity.adapter.CustomAlertDialog;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.home.*;
 import com.ldnet.entities.*;
@@ -34,28 +27,18 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.BindingService;
 import com.ldnet.service.EntranceGuardService;
 import com.ldnet.utility.*;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
-import okhttp3.Call;
-import okhttp3.Request;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.*;
 
-import static com.ldnet.goldensteward.R.id.btn_house_default;
-import static com.ldnet.goldensteward.R.id.btn_house_delete;
-import static com.ldnet.goldensteward.R.id.iv_me_house_icon;
 import static com.ldnet.goldensteward.R.id.tv_house_name;
+import static com.ldnet.map.ChString.type;
 import static com.ldnet.utility.Services.CLASS_FROM;
 import static com.ldnet.utility.Services.COMMUNITY_ID;
 import static com.ldnet.utility.Services.COMMUNITY_NAME;
 import static com.ldnet.utility.Services.ROOM_ID;
 import static com.ldnet.utility.Services.ROOM_NAME;
 import static com.ldnet.utility.Services.TO_APPLY;
+import static com.unionpay.mobile.android.pboctransaction.samsung.f.f;
 
 public class Community extends BaseActionBarActivity {
     private TextView tv_main_title;
@@ -73,7 +56,7 @@ public class Community extends BaseActionBarActivity {
     private String OpenEntranceState = new String("");
     private HashMap<String, String> currentExtras = new HashMap<String, String>();
     private String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
-    private MyProperties currentMyProperty;
+    //    private MyProperties currentMyProperty;
     private BindingService bindingService;
     private AcountService acountService;
     private EntranceGuardService entranceGuardService;
@@ -121,7 +104,6 @@ public class Community extends BaseActionBarActivity {
         mAdapter = new ListViewAdapter<MyProperties>(Community.this, R.layout.item_me_properties_community, myProperties) {
             @Override
             public void convert(final ViewHolder holder, final MyProperties properties) {
-                currentMyProperty = properties;
 
                 //设置小区名称和地址
                 holder.setText(R.id.tv_community_name, properties.Name)
@@ -157,11 +139,12 @@ public class Community extends BaseActionBarActivity {
 
                 //设置小区为默认
                 final Button btn_community_default = holder.getView(R.id.btn_community_default);
+
                 if (properties.Rooms != null && properties.Rooms.size() > 0) {
                     btn_community_default.setVisibility(View.GONE);
                     //设置房间ListView
                     CustomListView lv_house_information = holder.getView(R.id.lv_house_information);
-                    lv_house_information.setAdapter(getHouseAdapter(properties.Rooms));
+                    lv_house_information.setAdapter(getHouseAdapter(properties.Rooms, properties));
 
                 } else {
                     btn_community_default.setVisibility(View.VISIBLE);
@@ -169,7 +152,7 @@ public class Community extends BaseActionBarActivity {
                         @Override
                         public void onClick(View view) {
                             btn_community_default.setEnabled(false);
-                            bindingService.SetCurrentInforamtion(mCommunityId, "", handlerSetUserInfo);
+                            bindingService.SetCurrentInforamtion(properties.CommunityId, "", handlerSetUserInfo);
                         }
                     });
                 }
@@ -196,7 +179,7 @@ public class Community extends BaseActionBarActivity {
 
 
     //得到房屋信息的绑定
-    private ListViewAdapter<Rooms> getHouseAdapter(List<Rooms> roomses) {
+    private ListViewAdapter<Rooms> getHouseAdapter(List<Rooms> roomses, final MyProperties properties) {
 
         mHouseAdapter = new ListViewAdapter<Rooms>(this, R.layout.item_me_properties_house, roomses) {
             @Override
@@ -212,13 +195,8 @@ public class Community extends BaseActionBarActivity {
                 btn_house_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (rooms != null) {
-                            currentMyProperty = getProperty(rooms.RoomId);
-                            if (currentMyProperty != null) {
-                                showProgressDialog();
-                                bindingService.RemoveHouse(currentMyProperty.CommunityId, rooms.RoomId, handlerRemove);
-                            }
-                        }
+                        showProgressDialog();
+                        bindingService.RemoveHouse(properties.CommunityId, rooms.RoomId, UserInformation.getUserInfo().UserId, handlerRemove);
                     }
                 });
                 //设置为默认房屋
@@ -226,16 +204,14 @@ public class Community extends BaseActionBarActivity {
                 btn_house_default.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        currentMyProperty = getProperty(rooms.RoomId);
-                        if (rooms.RoomId != null && UserInformation.getUserInfo().UserId != null) {
-                            showProgressDialog();
-                            getApproveType = 1;//1，设置默认房屋  2,获取访客密码
-                            room_Id = rooms.getRoomId();
-                            community_Id = currentMyProperty.CommunityId;
-                            room_name = rooms.Abbreviation;
-                            community_name = currentMyProperty.Name;
-                            acountService.getApprove(room_Id, UserInformation.getUserInfo().UserId, handlerGetApprove);
-                        }
+
+                        showProgressDialog();
+                        getApproveType = 1;//1，设置默认房屋  2,获取访客密码
+                        room_Id = rooms.getRoomId();
+                        community_Id = properties.CommunityId;
+                        room_name = rooms.Abbreviation;
+                        community_name = properties.Name;
+                        acountService.getApprove(room_Id, UserInformation.getUserInfo().UserId, handlerGetApprove);
                     }
                 });
                 //访客密码
@@ -243,11 +219,11 @@ public class Community extends BaseActionBarActivity {
                 btn_community_psd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        currentMyProperty = getProperty(rooms.RoomId);
+
                         room_Id = rooms.getRoomId();
-                        community_Id = currentMyProperty.CommunityId;
+                        community_Id = properties.CommunityId;
                         room_name = rooms.Abbreviation;
-                        community_name = currentMyProperty.Name;
+                        community_name = properties.Name;
                         entranceGuardService.checkOpenEntrance(community_Id, handlerCheckOpenEntrance);
                     }
                 });
@@ -272,11 +248,11 @@ public class Community extends BaseActionBarActivity {
     }
 
 
-    MyDialog2.Dialogcallback dialogcallback = new MyDialog2.Dialogcallback() {
+    CustomAlertDialog.Dialogcallback dialogcallback = new CustomAlertDialog.Dialogcallback() {
         @Override
-        public void dialogdo(String type) {
+        public void dialogdo() {
             HashMap<String, String> extras = new HashMap<String, String>();
-            extras.put(TO_APPLY, type);
+            extras.put(TO_APPLY, "PASS");
             extras.put(ROOM_ID, room_Id);
             extras.put(ROOM_NAME, room_name == null ? "" : room_name);
             extras.put(CLASS_FROM, Community.class.getName());
@@ -483,6 +459,7 @@ public class Community extends BaseActionBarActivity {
             closeProgressDialog();
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS: //通过审核
+
                     if (getApproveType == 1) {   //设置当前房产
 
                         bindingService.SetCurrentInforamtion(community_Id, room_Id, handlerSetUserInfo);
@@ -500,7 +477,7 @@ public class Community extends BaseActionBarActivity {
                     }
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:  //未通过审核
-                    MyDialog2 dialog2 = new MyDialog2(Community.this, "PASS");
+                   CustomAlertDialog dialog2 = new CustomAlertDialog(Community.this,false,getString(R.string.dialog_title),getString(R.string.dialog_verify));
                     dialog2.show();
                     dialog2.setDialogCallback(dialogcallback);
                     break;

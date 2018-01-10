@@ -1,6 +1,5 @@
 package com.ldnet.activity;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.hardware.*;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.net.Uri;
 import android.os.*;
 import android.os.Message;
 import android.text.TextUtils;
@@ -22,7 +20,6 @@ import android.widget.*;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
-import com.autonavi.rtbt.IFrameForRTBT;
 import com.dh.bluelock.imp.BlueLockPubCallBackBase;
 import com.dh.bluelock.imp.OneKeyInterface;
 import com.dh.bluelock.object.LEDevice;
@@ -37,7 +34,6 @@ import com.ldnet.activity.mall.Goods_Details;
 import com.ldnet.activity.me.*;
 import com.ldnet.entities.*;
 import com.ldnet.goldensteward.R;
-import com.ldnet.interfaze.PermissionListener;
 import com.ldnet.service.*;
 import com.ldnet.utility.*;
 import com.ldnet.utility.ListViewAdapter;
@@ -46,15 +42,9 @@ import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
-import com.yanzhenjie.permission.PermissionNo;
-import com.yanzhenjie.permission.PermissionYes;
 
 import java.util.*;
 
-import static com.ldnet.goldensteward.R.color.blue;
-import static com.ldnet.goldensteward.R.id.init;
 import static com.ldnet.goldensteward.R.id.ll_yellow_service;
 import static com.ldnet.utility.Services.CLASS_FROM;
 import static com.ldnet.utility.Services.COMMUNITY_ID;
@@ -210,29 +200,31 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         ll_yellow_pages.setOnClickListener(this);
         tv_main_title.setOnClickListener(this);
         bt_open_door.setOnClickListener(this);
-        bt_open_door.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                //创建一个添加快捷方式的Intent
-                Intent addSC = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-                //快捷键的标题
-                String title = "金牌门禁";
-                //快捷键的图标
-                Parcelable icon = Intent.ShortcutIconResource.fromContext(getActivity(), R.drawable.home_entrance_guard);
-                //创建单击快捷键启动本程序的Intent
-                Intent launcherIntent = new Intent(getActivity(), EntranceGuardSplash.class);
-                //设置快捷键的标题
-                addSC.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
-                //设置快捷键的图标
-                addSC.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-                //设置单击此快捷键启动的程序
-                addSC.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launcherIntent);
-                addSC.putExtra("duplicate", false);
-                //向系统发送添加快捷键的广播
-                getActivity().sendBroadcast(addSC);
-                return true;
-            }
-        });
+//        bt_open_door.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                //创建一个添加快捷方式的Intent
+//                Intent addSC = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+//                //快捷键的标题
+//                String title = "金牌门禁";
+//                //快捷键的图标
+//                Parcelable icon = Intent.ShortcutIconResource.fromContext(getActivity(), R.drawable.home_entrance_guard);
+//                //创建单击快捷键启动本程序的Intent
+//                Intent launcherIntent = new Intent(getActivity(), EntranceGuardSplash.class);
+//                //设置快捷键的标题
+//                addSC.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
+//                //设置快捷键的图标
+//                addSC.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
+//                //设置单击此快捷键启动的程序
+//                addSC.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launcherIntent);
+//                //不允许重复创建
+//                addSC.putExtra("duplicate", false);
+//                //向系统发送添加快捷键的广播
+//                getActivity().sendBroadcast(addSC);
+//                return true;
+//            }
+//        });
+
         //刷新
         mRefreshableView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
@@ -635,7 +627,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
 
         //房屋未验证
         if (!approvePass){
-            MyDialog2 dialog2 = new MyDialog2(getActivity(), "PASS");
+            CustomAlertDialog dialog2 = new CustomAlertDialog(getActivity(), false,getResources().getString(R.string.dialog_title), getResources().getString(R.string.dialog_verify));
             dialog2.show();
             dialog2.setDialogCallback(dialogcallback);
 
@@ -728,12 +720,13 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         alertDialog.show();
     }
 
+
     //身份未通过认证时弹出对话框
-    MyDialog2.Dialogcallback dialogcallback = new MyDialog2.Dialogcallback() {
+    CustomAlertDialog.Dialogcallback dialogcallback = new CustomAlertDialog.Dialogcallback() {
         @Override
-        public void dialogdo(String type) {
+        public void dialogdo() {
             HashMap<String, String> extras = new HashMap<String, String>();
-            extras.put(TO_APPLY, type);
+            extras.put(TO_APPLY, "PASS");
             extras.put(ROOM_ID, UserInformation.getUserInfo().getHouseId());
             extras.put(ROOM_NAME,UserInformation.getUserInfo().getHouseName());
             extras.put(CLASS_FROM,getActivity().getClass().getName());
@@ -974,8 +967,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         Integer screenWidth = getScreenWidthforPX(getActivity());
         Integer rowHeight = Float.valueOf(screenWidth * heightBI / 100.00F).intValue();
         LinearLayout ll_row = new LinearLayout(getActivity());
-        LayoutParams row_lp = new LayoutParams(
-                screenWidth, rowHeight);
+        LayoutParams row_lp = new LayoutParams(screenWidth, rowHeight);
         row_lp.setMargins(0, 0, 0, Utility.dip2px(getActivity(), 1.0f));
         ll_row.setLayoutParams(row_lp);
         if (columnCount.equals(1)) {
@@ -985,6 +977,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         }
         return ll_row;
     }
+
 
     //首页区域，初始化列
     private LinearLayout initColumn(Integer columnCount, APPHomePage_Column column) {
@@ -1227,7 +1220,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                     approvePass = true;
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:  //审核未通过
-                    MyDialog2 dialog2 = new MyDialog2(getActivity(), "PASS");
+                    CustomAlertDialog dialog2 = new CustomAlertDialog(getActivity(),false,getResources().getString(R.string.dialog_title), getResources().getString(R.string.dialog_verify));
                     dialog2.show();
                     dialog2.setDialogCallback(dialogcallback);
 
@@ -1242,6 +1235,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             }
         }
     };
+
 
     //获取用户最新信息返回
     Handler handlerSetCurrentInforamtion = new Handler() {

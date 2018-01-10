@@ -11,19 +11,19 @@ import com.ldnet.goldensteward.R;
 
 /**
  * Created by lee on 2016/8/3.
+ * init the dialog
  */
-public class MyDialog2 {
+
+public class CustomAlertDialog {
     Context context;
     Dialogcallback dialogcallback;
     AlertDialog alertDialog;
     TextView log_off_cancel;
     TextView log_off_confirm;
     TextView tv_dialog_title;
-    /**
-     * init the dialog
-     * @return
-     */
-    public MyDialog2(final Context con,final String type) {
+
+
+    public CustomAlertDialog(final Context con, boolean showCancel, final String strTitle, final String strConfirm) {
         this.context = con;
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.show();
@@ -32,11 +32,17 @@ public class MyDialog2 {
         window.setContentView(R.layout.ly_off);
         alertDialog.findViewById(R.id.line).setVisibility(View.GONE);
         tv_dialog_title =(TextView)alertDialog.findViewById(R.id.tv_dialog_title);
-        tv_dialog_title.setText("为保证小区安全，请验证后进行其他操作");
+        tv_dialog_title.setText(strTitle);
         log_off_cancel =(TextView)alertDialog.findViewById(R.id.log_off_cancel);
-        log_off_cancel.setVisibility(View.GONE);
+        //showCancel，则是用于用户身份认证的,强制验证
+        if (!showCancel) {
+            log_off_cancel.setVisibility(View.GONE);
+        } else {
+            log_off_cancel.setVisibility(View.VISIBLE);
+        }
+
         log_off_confirm =(TextView)alertDialog.findViewById(R.id.log_off_confirm);
-        log_off_confirm.setText("验证");
+        log_off_confirm.setText(strConfirm);
         WindowManager.LayoutParams lp = window.getAttributes();
         window.setGravity(Gravity.CENTER);
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -44,28 +50,31 @@ public class MyDialog2 {
         log_off_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogcallback.dialogdo(type);
+                dialogcallback.dialogdo();
                 dismiss();
             }
         });
 
-//        log_off_cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialogcallback.dialogDismiss();
-//                dismiss();
-//            }
-//        });
+        log_off_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogcallback.dialogDismiss();
+                dismiss();
+            }
+        });
     }
+
+
     /**
      * 设定一个interfack接口,使mydialog可以處理activity定義的事情
      * @author sfshine
      *
      */
     public interface Dialogcallback {
-        public void dialogdo(String type);
+        public void dialogdo();
         public void dialogDismiss();
     }
+
     public void setDialogCallback(Dialogcallback dialogcallback) {
         this.dialogcallback = dialogcallback;
     }

@@ -12,6 +12,8 @@ import android.text.TextUtils;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.*;
+
+import com.ldnet.activity.adapter.CustomAlertDialog;
 import com.ldnet.activity.base.BaseFragment;
 import com.ldnet.activity.bindmanage.MyRelationActivity;
 import com.ldnet.activity.mall.Shopping_Carts;
@@ -64,7 +66,10 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
     private LinearLayout ll_me_orders;
     //我的小区
     private LinearLayout ll_me_community;
+    //我的家属
     private LinearLayout ll_me_community_relation;
+    //门禁快捷
+    private LinearLayout ll_me_create_shortcut;
     //邀请好友
     private LinearLayout ll_me_invite;
     //我的消息
@@ -157,6 +162,13 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
         ll_me_community = (LinearLayout) view.findViewById(R.id.ll_me_community);
         //我的家属
         ll_me_community_relation=(LinearLayout)view.findViewById(R.id.ll_me_community_relation);
+        if (UserInformation.getUserInfo().HasRoom == 1) {
+            ll_me_community_relation.setVisibility(View.VISIBLE);
+        } else {
+            ll_me_community_relation.setVisibility(View.GONE);
+        }
+
+        ll_me_create_shortcut=(LinearLayout)view.findViewById(R.id.ll_me_create_shortcut) ;
         //我的地址（收货地址）
         ll_me_address = (LinearLayout) view.findViewById(R.id.ll_me_address);
         //邀请好友
@@ -203,6 +215,8 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
         ll_me_community.setOnClickListener(this);
         //我的家属
         ll_me_community_relation.setOnClickListener(this);
+        //开启快捷
+        ll_me_create_shortcut.setOnClickListener(this);
         //我的地址（收货地址）
         ll_me_address.setOnClickListener(this);
         //邀请好友
@@ -362,7 +376,7 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
                 startActivity(intent_message);
                 break;
             case R.id.ll_me_publish://我的发布
-                Intent intent_publish = new Intent(getActivity(), Publish.class);
+                Intent intent_publish = new Intent(getActivity(), PublishActivity.class);
                 startActivity(intent_publish);
                 break;
             case R.id.ll_me_about: //关于
@@ -385,6 +399,13 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
             case R.id.ll_me_entry_exit_manage: //出入管理
                 Intent intent_pass = new Intent(getActivity(), AccessControlMain.class);
                 startActivity(intent_pass);
+                break;
+            case R.id.ll_me_create_shortcut: //创建门禁快捷方式
+                createShortcut();
+
+                CustomAlertDialog dialog=new CustomAlertDialog(getActivity(),false,getResources().getString(R.string.dialog_shortcut_title),getString(R.string.dialog_confirm));
+                dialog.show();
+                dialog.setDialogCallback(dialogcallback);
                 break;
             default:
                 break;
@@ -539,6 +560,41 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
          }
      }
  };
+
+
+
+    private void createShortcut(){
+        //创建一个添加快捷方式的Intent
+        Intent addSC = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+        //快捷键的标题
+        String title = "金牌门禁";
+        //快捷键的图标
+        Parcelable icon = Intent.ShortcutIconResource.fromContext(getActivity(), R.drawable.home_entrance_guard);
+        //创建单击快捷键启动本程序的Intent
+        Intent launcherIntent = new Intent(getActivity(), EntranceGuardSplash.class);
+        //设置快捷键的标题
+        addSC.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
+        //设置快捷键的图标
+        addSC.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
+        //设置单击此快捷键启动的程序
+        addSC.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launcherIntent);
+        addSC.putExtra("duplicate", false);
+        //向系统发送添加快捷键的广播
+        getActivity().sendBroadcast(addSC);
+    }
+
+    //创建快捷方式弹出对话框
+    CustomAlertDialog.Dialogcallback dialogcallback = new CustomAlertDialog.Dialogcallback() {
+        @Override
+        public void dialogdo() {
+           //
+        }
+
+        @Override
+        public void dialogDismiss() {
+
+        }
+    };
 
 
 }

@@ -793,4 +793,45 @@ public class FindService extends BaseService  {
     }
 
 
+    //按分类获取我的发布  0房屋租赁，1邻里通，2闲置物品，3周边游
+    public void getMyPublishByType(final int type, final String lastId, final Handler handler) {
+        // 请求的URL
+        String url = Services.mHost + "API/Resident/GetMyPublish2/%s?lastId=%s&type=%s";
+        url = String.format(url, UserInformation.getUserInfo().UserId, lastId, type);
+        Log.e(tag,"getMyPublish2_url:"+url);
+        OkHttpService.get(url).execute(new DataCallBack(mContext, handler) {
+
+            @Override
+            public void onResponse(String s, int i) {
+                super.onResponse(s, i);
+
+                Log.e(tag, "getMyPublish2:" + s);
+                try {
+                    JSONObject json = new JSONObject(s);
+                    if (checkJsonData(s, handler)) {
+                        JSONObject jsonObject = new JSONObject(json.getString("Data"));
+                        if (jsonObject.getBoolean("Valid")) {
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<List<com.ldnet.entities.PublishEntity>>() {
+                            }.getType();
+                            List<com.ldnet.entities.PublishEntity> datas = gson.fromJson(jsonObject.getString("Obj"), type);
+                            if (datas != null && datas.size() > 0) {
+                                Message msg = handler.obtainMessage();
+                                msg.what = DATA_SUCCESS;
+                                msg.obj = datas;
+                                handler.sendMessage(msg);
+                            } else {
+                                handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
+                            }
+                        } else {
+                            sendErrorMessage(handler, jsonObject);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 }

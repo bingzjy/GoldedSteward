@@ -2,6 +2,8 @@ package com.ldnet.utility;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import com.ldnet.entities.InfoBarDetail;
 import com.ldnet.entities.User;
 import com.ldnet.utility.GSApplication;
 
@@ -48,6 +50,9 @@ public class UserInformation {
         userInfo.CommuntiyCityId = (String) objects.get("CommuntiyCityId");
         userInfo.CZAUserId=(String)objects.get("CZAUserId");
         userInfo.CZAID=(String)objects.get("CZAID");
+        if (objects.get("HasRoom")!=null){
+            userInfo.HasRoom=Integer.parseInt(objects.get("HasRoom").toString());
+        }
         return userInfo;
     }
 
@@ -75,6 +80,7 @@ public class UserInformation {
         editor.putString("CommuntiyCityId", user.CommuntiyCityId);
         editor.putString("CZAUserId",user.CZAUserId);
         editor.putString("CZAID",user.CZAID);
+        editor.putInt("HasRoom",user.HasRoom);
         editor.commit();
     }
 

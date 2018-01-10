@@ -66,6 +66,7 @@ public class Publish extends BaseActionBarActivity {
         initEvent();
         initService();
     }
+
     //初始化服务
     private void initService() {
         houseRentService = new HouseRentService(this);
@@ -195,6 +196,7 @@ public class Publish extends BaseActionBarActivity {
             return super.onKeyDown(keyCode, event);
         }
     }
+
 
     public void initEvent() {
         btn_back.setOnClickListener(this);

@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.me.Publish;
+import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.WeekendDetails;
 import com.ldnet.entities.WeekendSignUp;
 import com.ldnet.goldensteward.R;
@@ -384,7 +385,7 @@ public class Weekend_Details extends BaseActionBarActivity {
                     showToast("删除成功");
                     if (mFromPublish){
                         //返回我的发布
-                        Intent intent=new Intent(Weekend_Details.this, Publish.class);
+                        Intent intent=new Intent(Weekend_Details.this, PublishActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }else{

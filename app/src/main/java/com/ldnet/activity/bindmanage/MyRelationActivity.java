@@ -1,11 +1,16 @@
 package com.ldnet.activity.bindmanage;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -37,7 +42,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.third.SwipeListView.SwipeListView;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -75,6 +83,8 @@ public class MyRelationActivity extends BaseActionBarActivity {
     private static final String TAG = "MyRelationActivity";
     private String aa = Services.timeFormat();
     private String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-DD");
+
 
     public DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
             .showImageForEmptyUri(R.drawable.me_thumbnail_n)     //url爲空會显示该图片，自己放在drawable里面的
@@ -111,8 +121,7 @@ public class MyRelationActivity extends BaseActionBarActivity {
         slvRealtion.setAdapter(mAdapter);
 
         int deviceWidth = Utility.getScreenWidthforPX(this);
-        slvRealtion.setOffsetLeft(deviceWidth * 2 / 3);
-        slvRealtion.setOffsetRight(deviceWidth * 2 / 3);
+        slvRealtion.setOffsetLeft(deviceWidth * 4 / 5);
         initAdapter();
     }
 
@@ -142,12 +151,48 @@ public class MyRelationActivity extends BaseActionBarActivity {
                 CircleImageView ivHead = holder.getView(R.id.iv_item_relation_head_icon);
                 ImageLoader.getInstance().displayImage(Services.getImageUrl(residentBean.Image), ivHead, imageOptions);
                 holder.setText(R.id.tv_item_relation_name, residentBean.Name);
-                holder.setText(R.id.tv_item_relation_date, residentBean.bindTime);
+
+                holder.getView(R.id.tv_item_relation_date_title).setVisibility(View.VISIBLE);
+                TextView tvDate = holder.getView(R.id.tv_item_relation_date);
 
                 if (residentBean.ResidentType == 1) {
+                    holder.setText(R.id.tv_item_relation_date, residentBean.bindTime);
                     holder.setImage(R.id.iv_item_relation_type, R.drawable.relation_family);
+                    tvDate.setVisibility(View.VISIBLE);
+                    tvDate.setCompoundDrawables(null, null, null, null);
                 } else {
                     holder.setImage(R.id.iv_item_relation_type, R.drawable.relation_resident);
+                    if (!TextUtils.isEmpty(residentBean.Leasedatee)) {
+                        try {
+                            Date endDate = mFormat.parse(residentBean.Leasedatee);
+                            Date currentDate = mFormat.parse(mFormat.format(new Date()));
+
+                            if (endDate.compareTo(currentDate) == 0) {   //当天显示预警
+                                holder.getView(R.id.tv_item_relation_date_title).setVisibility(View.GONE);
+                                tvDate.setVisibility(View.VISIBLE);
+
+                                tvDate.setText(residentBean.Leasedatee + " 失效");
+                                tvDate.setTextColor(Color.RED);
+
+                                Drawable drawable = getResources().getDrawable(R.drawable.ic_error);
+                                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                                tvDate.setCompoundDrawables(drawable, null, null, null);
+                            } else if (endDate.compareTo(currentDate) < 0) {    //已失效
+                                holder.setText(R.id.tv_item_relation_date_title, "已失效");
+                                tvDate.setCompoundDrawables(null, null, null, null);
+                                tvDate.setVisibility(View.GONE);
+                                holder.getView(R.id.tv_item_relation_date_title).setVisibility(View.VISIBLE);
+                            } else {
+                                holder.setText(R.id.tv_item_relation_date_title, "绑定日期：");   //有效期内
+                                tvDate.setText(residentBean.bindTime);
+                                tvDate.setCompoundDrawables(null, null, null, null);
+                                tvDate.setVisibility(View.VISIBLE);
+                                holder.getView(R.id.tv_item_relation_date_title).setVisibility(View.VISIBLE);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
                 ImageView ivMore = holder.getView(R.id.iv_item_relation_more);

@@ -228,7 +228,7 @@ public class AddRelationActivity extends BaseActionBarActivity {
     private void showRoomPop() {
         LayoutInflater layoutInflater = LayoutInflater.from(AddRelationActivity.this);
         View popupView = layoutInflater.inflate(R.layout.pop_property_telphone, null);
-        final PopupWindow mPopWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        final PopupWindow mPopWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mPopWindow.setContentView(popupView);
         View rootview = layoutInflater.inflate(R.layout.main, null);
         mPopWindow.showAtLocation(rootview, Gravity.CENTER, 0, 0);

@@ -97,10 +97,14 @@
     <color name="gray_text_light7">#F8F8F8</color>
     <color name="gray_text_light8">#C3C3C3</color>
     <color name="gray_text_light9">#D8D8D8</color>
+    <color name="gray_text_light10">#FCFCFC</color>
+    <color name="gray_text_light11">#F2F2F2 </color>
+    <color name="gray_text_light12">#CCCCCC </color>
     <color name="orange_text">#FF6E21</color>
     <color name="orange_text2">#FDB33A </color>
     <color name="pink_text">#E93169 </color>
     <color name="black2_text">#39393A</color>
     <color name="red_text">#FF0C2A</color>
-
+    <color name="blue_text">#0076FF</color>
+    <color name="red_back">#FE3824</color>
 </resources>

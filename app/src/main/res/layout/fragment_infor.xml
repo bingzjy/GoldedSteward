@@ -20,10 +20,10 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dimen_104dp"
                     android:drawablePadding="@dimen/dimen_24dp"
-                    android:drawableTop="@drawable/zixun"
+                    android:drawableTop="@drawable/default_null_data"
                     android:padding="@dimen/dimen_24dp"
-                    android:text="空空如也!"
-                    android:textColor="@color/green_light"
+                    android:text="@string/response_data_isNull"
+                    android:textColor="@color/gray_text"
                     android:visibility="gone" />
 
             <com.ldnet.utility.CustomListView2

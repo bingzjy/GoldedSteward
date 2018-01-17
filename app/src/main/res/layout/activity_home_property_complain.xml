@@ -42,12 +42,7 @@
                 android:src="@mipmap/arrow_right_n"/>
         </LinearLayout>
     </LinearLayout>
-    <!--<com.third.listviewshangxia.XListView-->
-        <!--android:id="@+id/lv_home_complains"-->
-        <!--android:background="@drawable/border_top_bottom"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-    <!--</com.third.listviewshangxia.XListView>-->
+
     <include
             android:id="@+id/top2"
             layout="@layout/top2"/>

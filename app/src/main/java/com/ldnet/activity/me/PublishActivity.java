@@ -73,6 +73,8 @@ public class PublishActivity extends BaseActionBarFragmentActivity {
         allType.add(new InfoBarType(3, "周边游"));
 
         Utility.setTabsValue(pstPublish, this);
+        pstPublish.setUnderlineColor(getResources().getColor(R.color.gray_back));
+
         vpPublish.setAdapter(new PublishPagerAdapter(getSupportFragmentManager(), allType));
         pstPublish.setViewPager(vpPublish);
         vpPublish.setCurrentItem(currentIndex);

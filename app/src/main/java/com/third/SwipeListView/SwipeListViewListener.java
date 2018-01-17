@@ -24,7 +24,7 @@ package com.third.SwipeListView;
 public interface SwipeListViewListener {
 
     /**
-     * Called when open animation finishes
+     * Called when open_door_action animation finishes
      * @param position of the view in the list
      * @param toRight Open to right
      */
@@ -50,7 +50,7 @@ public interface SwipeListViewListener {
     void onMove(int position, float x);
 
     /**
-     * Start open item
+     * Start open_door_action item
      * @param position of the view in the list
      * @param action current action
      * @param right to right

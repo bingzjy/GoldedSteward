@@ -208,13 +208,13 @@
                     android:textColor="@color/gray_deep"
                     android:textSize="@dimen/font_size_16sp" />
 
-                <ListView
+                <com.ldnet.utility.CustomListView2
                     android:id="@+id/lv_order_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:divider="@null"
-                    android:scrollbars="none"></ListView>
+                    android:scrollbars="none"></com.ldnet.utility.CustomListView2>
             </LinearLayout>
             <!--商家信息-->
             <LinearLayout

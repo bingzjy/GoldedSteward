@@ -69,6 +69,7 @@ public class NoScrollViewPager extends ViewPager {
             return true;// 可行,消费,拦截事件
         }
     }
+
     public void setScroll(boolean scroll) {
         isScroll = scroll;
     }

@@ -234,8 +234,6 @@ public class BaseFragment extends Fragment {
     }
 
 
-
-
     //添加图片
     public void showAddPicture(PictureChoseListener listener){
         this.imageLisener=listener;

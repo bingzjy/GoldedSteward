@@ -42,7 +42,9 @@
                 android:padding="@dimen/dimen_16dp"
                 android:singleLine="true"
                 android:textColor="@color/gray_deep"
-                android:textSize="@dimen/font_size_16sp"/>
+                android:textSize="@dimen/font_size_16sp"
+                android:maxLength="11"
+            />
 
         <ImageView
                 android:layout_width="match_parent"

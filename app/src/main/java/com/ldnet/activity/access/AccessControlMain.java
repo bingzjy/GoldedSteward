@@ -1,38 +1,22 @@
 package com.ldnet.activity.access;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.adapter.MainPagerAdapter;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AccessControlService;
-import com.ldnet.service.BaseService;
 import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
-import com.ldnet.utility.Utility;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;

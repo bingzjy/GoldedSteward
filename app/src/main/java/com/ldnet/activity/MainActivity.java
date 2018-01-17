@@ -81,9 +81,12 @@ public class MainActivity extends BaseActionBarFragmentActivity implements View.
     private String[] permissions={Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA,Manifest.permission.CALL_PHONE};
 
+    public static MainActivity instance=null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance=this;
         // 主布局
         setContentView(R.layout.activity_main);
         // 初始化事件

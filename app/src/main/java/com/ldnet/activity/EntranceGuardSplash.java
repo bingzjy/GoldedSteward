@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,15 +27,13 @@ import com.dh.bluelock.pub.BlueLockPub;
 import com.dh.bluelock.util.Constants;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.EntranceGuardService;
+import com.ldnet.utility.ActivityUtil;
 import com.ldnet.utility.KeyCache;
 
 import java.util.HashMap;
 import java.util.Set;
 
-import cn.finalteam.galleryfinal.widget.GFImageView;
 import pl.droidsonroids.gif.GifImageView;
-
-import static com.unionpay.mobile.android.global.a.B;
 
 /**
  * @author lpf
@@ -56,6 +53,7 @@ public class EntranceGuardSplash extends Activity {
     private GifImageView mGifImage;
     private BlueToothReceiver mReceviver;
     private static final String TAG = "EntranceGuardSplash";
+    private int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,16 +61,29 @@ public class EntranceGuardSplash extends Activity {
         entranceGuardService = new EntranceGuardService(this);
 
         initView();
-        requestPermission();
 
         //注册蓝牙广播
         IntentFilter filter=new IntentFilter();
         filter.addAction("android.bluetooth.adapter.action.STATE_CHANGED");
         mReceviver=new BlueToothReceiver();
         this.registerReceiver(mReceviver,filter);
+
+        //销毁其他的Activity
+        ActivityUtil.finishAllActivity();
+
+        Log.e("aaa","快捷  onCreate");
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        requestPermission();
+       Log.e("aaa","快捷  onResume");
     }
 
     private void initView() {
+
         tvHouseInfo = (TextView) findViewById(R.id.tv_house_info);
         mTvOpenDoorTip = (TextView) findViewById(R.id.tv_show_open_door_information);
         imageViewBack = (ImageView) findViewById(R.id.imageView_back);
@@ -98,7 +109,7 @@ public class EntranceGuardSplash extends Activity {
             mTvOpenDoorTip.setText("正在连接蓝牙门禁...");
             startScan();
         } else {
-            Toast.makeText(EntranceGuardSplash.this, "请手动打开蓝牙", Toast.LENGTH_SHORT).show();
+            mTvOpenDoorTip.setText("请手动打开蓝牙");
         }
     }
 
@@ -116,53 +127,21 @@ public class EntranceGuardSplash extends Activity {
         }).start();
     }
 
-    /**
-     * 是否开启蓝牙的对话框
-     */
-    public void showDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(EntranceGuardSplash.this);
-        builder.setMessage("是否打开蓝牙设备?")
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int position) {
-                        dialogInterface.dismiss();
-                    }
-                })
-
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int position) {
-                        mBTAdapter.enable();
-                        dialogInterface.dismiss();
-                    }
-                });
-
-        AlertDialog dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
-    }
-
-
 
     //定义回调类（开门回调、扫描回调、扫描完毕回调）
     class LocalCallBack extends BlueLockPubCallBackBase {
         @Override
         public void openCloseDeviceCallBack(int i, int i1, String... strings) {
             mTvOpenDoorTip.setText("欢迎回家");
-            mGifImage.setImageResource(R.drawable.shortcut_opendoor2);
+            mGifImage.setImageResource(R.drawable.shortcut_opendoor_success);
             //添加开门日志
            entranceGuardService.EGLog(deviceID, handlerEGlog);
         }
 
         @Override
         public void scanDeviceCallBack(LEDevice leDevice, int i1, int i2) {
-            if (leDevice != null) {
-                Log.e("blue",leDevice.getDeviceName());
                 mDeviceId = leDevice.getDeviceId();
                 mScanDeviceResult.put(mDeviceId, leDevice);
-            } else {
-                Toast.makeText(EntranceGuardSplash.this, "搜索设备失败-_-", Toast.LENGTH_SHORT).show();
-            }
         }
 
 
@@ -187,10 +166,16 @@ public class EntranceGuardSplash extends Activity {
                     }
                 }
 
-                if (!opened) {
-                    Toast.makeText(EntranceGuardSplash.this, "请靠近设备再试", Toast.LENGTH_SHORT).show();
+
+                if (!opened && count < 2) {
                     //再次启动扫描
                     startScan();
+                    count++;
+                    Toast.makeText(EntranceGuardSplash.this, "请靠近设备再试", Toast.LENGTH_SHORT).show();
+
+                } else if (!opened && count == 2) {
+                    mGifImage.setImageResource(R.drawable.shortcut_open_fail);
+                    Toast.makeText(EntranceGuardSplash.this, "请靠近设备再试", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -199,8 +184,7 @@ public class EntranceGuardSplash extends Activity {
 
     private void requestPermission() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 110);
             } else {
                 //权限已获取，做自己的处理
@@ -241,9 +225,8 @@ public class EntranceGuardSplash extends Activity {
     };
 
     private void stopBlueScan(){
-        if(mBTAdapter!=null&&mBTAdapter.enable()){
+        if(mBTAdapter!=null){
             mBTAdapter.cancelDiscovery();
-            mBTAdapter.disable();
         }
     }
 
@@ -265,6 +248,7 @@ public class EntranceGuardSplash extends Activity {
                     break;
                 case 12:
                     mTvOpenDoorTip.setText("正在连接蓝牙门禁...");
+                    initBlueTooth();
                     startScan();
                     break;
                 case 13:
@@ -277,4 +261,16 @@ public class EntranceGuardSplash extends Activity {
         }
     }
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("aaa","快捷  onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("aaa","快捷  onDestroy");
+    }
 }

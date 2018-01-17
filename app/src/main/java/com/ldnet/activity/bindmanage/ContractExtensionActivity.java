@@ -43,6 +43,7 @@ public class ContractExtensionActivity extends BaseActionBarActivity {
     private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
     private Date minSDate, minEdate;
     private HouseRelationService houseRelationService;
+    private int residentType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +58,31 @@ public class ContractExtensionActivity extends BaseActionBarActivity {
         paramsRoomId = getIntent().getStringExtra("ROOM_ID");
         paramsDatee = getIntent().getStringExtra("EDATE");
         paramsDates = getIntent().getStringExtra("SDATE");
-        try {
-            minSDate = mFormat.parse(paramsDates);
-            minEdate = mFormat.parse(paramsDatee);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        residentType = getIntent().getIntExtra("STATE", 0);
+        etAddResidentDateStart.setText(paramsDatee);
+
+        if (residentType == 0 || residentType == 1) {   //未失效
+            etAddResidentDateStart.setText(paramsDates);
+            etAddResidentDateStart.setEnabled(false);
+            etAddResidentDateEnd.setHint("请选择结束时间");
+
+            try {
+                minEdate = mFormat.parse(paramsDatee);
+                minSDate = mFormat.parse(paramsDates);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else if (residentType == 2) {  //已失效
+
+            etAddResidentDateStart.setEnabled(true);
+            etAddResidentDateStart.setHint("请选择开始时间");
+            etAddResidentDateEnd.setHint("请选择结束时间");
+            try {
+                minEdate = mFormat.parse(mFormat.format(new Date()));
+                minSDate = mFormat.parse(mFormat.format(new Date()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -73,16 +94,16 @@ public class ContractExtensionActivity extends BaseActionBarActivity {
             case R.id.btn_back:
                 finish();
                 break;
-            case R.id.et_add_resident_date_start:
+            case R.id.et_add_resident_date_start: //续约的开始时间大于原结束时间
                 Calendar calendar1 = Calendar.getInstance();
                 DatePickerDialog dialog1 = new DatePickerDialog(ContractExtensionActivity.this, listener1,
                         calendar1.get(Calendar.YEAR),
                         calendar1.get(Calendar.MONTH),
                         calendar1.get(Calendar.DAY_OF_MONTH));
-                dialog1.getDatePicker().setMinDate(minSDate.getTime());
+                dialog1.getDatePicker().setMinDate(minSDate.getTime()-1000);
                 dialog1.show();
                 break;
-            case R.id.et_add_resident_date_end:
+            case R.id.et_add_resident_date_end:  //续约的结束时间大于原结束时间
                 Calendar calendar2 = Calendar.getInstance();
                 DatePickerDialog dialog2 = new DatePickerDialog(ContractExtensionActivity.this, listener2,
                         calendar2.get(Calendar.YEAR),

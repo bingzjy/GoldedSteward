@@ -78,7 +78,7 @@
             android:layout_width="@dimen/dimen_27dp"
             android:layout_height="@dimen/dimen_27dp"
             android:layout_marginRight="@dimen/dimen_8dp"
-            android:src="@drawable/weixinlogo" />
+            android:src="@drawable/ic_weixin_logo" />
 
         <LinearLayout
             android:layout_width="0dp"

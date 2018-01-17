@@ -101,7 +101,7 @@ public class UpdateManager {
         if (mUpdateInformation != null) {
             services.visionCode = mUpdateInformation.getVersionCode();
             services.visionName = mUpdateInformation.getVersionName();
-            if (versionCode < Integer.valueOf(mUpdateInformation.VersionCode)) {
+           if (versionCode < Integer.valueOf(mUpdateInformation.VersionCode)) {
                 return true;
             }
         }

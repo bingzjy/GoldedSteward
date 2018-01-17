@@ -43,8 +43,6 @@ public class GSApplication extends Application{
     }
 
     static String aa = Services.timeFormat();
-    static String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-    String aa2 = "";
     String phone = "";
 
     @Override

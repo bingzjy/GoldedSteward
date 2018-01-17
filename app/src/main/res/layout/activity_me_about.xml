@@ -173,15 +173,14 @@
             </LinearLayout>
         </LinearLayout>
         <TextView
-                android:id="@+id/tv"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/dimen_10dp"
-                android:layout_width="50dip"
-                android:layout_height="50dip"
-                android:layout_gravity="center"
-                android:background="@drawable/tiaozao"
-                android:gravity="center"
-                android:textColor="#ffffff"
-                android:textSize="15sp"/>
+            android:id="@+id/tv"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="15sp"/>
     </LinearLayout>
 </LinearLayout>

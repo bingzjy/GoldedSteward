@@ -1,23 +1,14 @@
 package com.ldnet.activity.access;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.autonavi.rtbt.IFrameForRTBT;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.Utility;
-
-import static com.ldnet.goldensteward.R.id.tv;
 
 public class GoodsRecordDetailActivity extends BaseActionBarActivity {
 

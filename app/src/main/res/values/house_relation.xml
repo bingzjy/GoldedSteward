@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="null_relation_data">家人都去哪了？</string>
+    <string name="bind_relation_date">绑定日期</string>
+    <string name="bind_relation_main_title">我的家属</string>
+    <string name="add_relation">添加</string>
+    <string name="add_relation_ok">确认添加</string>
+    <string name="add_relation_contract_again_ok">确认续约</string>
+    <string name="add_relation_contract_again">续约</string>
+    <string name="add_relation_input_name">输入姓名</string>
+    <string name="add_relation_input_tel">输入手机号码</string>
+    <string name="add_relation_input_date">请点击选择日期</string>
+</resources>

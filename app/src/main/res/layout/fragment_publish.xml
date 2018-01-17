@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.library.PullToRefreshScrollView
+        android:background="#EEEEEE"
+        android:id="@+id/main_act_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_find_informations"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_104dp"
+                android:drawablePadding="@dimen/dimen_24dp"
+                android:drawableTop="@drawable/default_null_data"
+                android:padding="@dimen/dimen_24dp"
+                android:text="@string/response_data_isNull"
+                android:textColor="@color/gray_text"
+                android:visibility="gone" />
+
+            <com.third.SwipeListView2.SwipeListViewWrap
+                xmlns:swipe="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/slv_me_publish"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                swipe:swipeActionLeft="reveal"
+                swipe:swipeActionRight="dismiss"
+                swipe:swipeBackView="@+id/slv_back_view"
+                swipe:swipeCloseAllItemsWhenMoveList="true"
+                swipe:swipeFrontView="@+id/slv_front_view"
+                swipe:swipeMode="left"
+                swipe:swipeOffsetLeft="@dimen/dimen_160dp"
+                swipe:swipeOffsetRight="0dp"
+                android:divider="#00000000"
+                >
+            </com.third.SwipeListView2.SwipeListViewWrap>
+        </LinearLayout>
+    </com.library.PullToRefreshScrollView>
+</LinearLayout>

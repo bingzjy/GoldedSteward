@@ -16,34 +16,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.me.Publish;
 import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.FreaMarketDetails;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.FindService;
 import com.ldnet.utility.BottomDialog;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
 import com.ldnet.view.ImageCycleView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import okhttp3.Call;
-
-import static com.ldnet.goldensteward.R.id.slv_me_publish;
 
 public class FreaMarket_Details extends BaseActionBarActivity {
     private TextView tv_main_title;

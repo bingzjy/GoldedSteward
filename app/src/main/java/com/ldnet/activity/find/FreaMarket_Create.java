@@ -1,102 +1,42 @@
 package com.ldnet.activity.find;
 
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-
-import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
-import com.ldnet.activity.adapter.ImageBucketChooseActivity;
 import com.ldnet.activity.adapter.ImageChooseActivity;
 import com.ldnet.activity.adapter.ImageItem;
-import com.ldnet.activity.adapter.ImagePublishAdapter;
-import com.ldnet.activity.adapter.ImageZoomActivity;
 import com.ldnet.activity.adapter.MyDialog;
 import com.ldnet.activity.base.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.home.Property_Repair;
-import com.ldnet.activity.home.Property_Repair_Create;
-import com.ldnet.activity.me.Publish;
 import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.FreaMarketDetails;
-import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.interfaze.PictureChoseListener;
 import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.FindService;
 import com.ldnet.utility.CashierInputFilter;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.CustomConstants;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.GSApplication;
-import com.ldnet.utility.IntentConstants;
-import com.ldnet.utility.SDCardFileCache;
 import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
 import com.nanchen.compresshelper.CompressHelper;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Request;
-
-import static android.R.string.no;
-import static android.icu.text.UnicodeSet.CASE;
-import static com.ldnet.goldensteward.R.id.et_weekend_cost;
-import static com.ldnet.goldensteward.R.id.ll_repair_picture_list;
-import static com.ldnet.utility.Services.IntegralTip;
 
 public class FreaMarket_Create extends BaseActionBarActivity {
     private TextView tv_main_title;
@@ -406,11 +346,9 @@ public class FreaMarket_Create extends BaseActionBarActivity {
             switch (msg.what){
                 case BaseService.DATA_SUCCESS:
                     showToast("修改成功");
-                    try {
-                        gotoActivityAndFinish(PublishActivity.class.getName(), null);
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    Intent intent=new Intent(FreaMarket_Create.this, PublishActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     acountService.setIntegralTip(new Handler(),urlUpdate);
                     break;
                 case BaseService.DATA_FAILURE:

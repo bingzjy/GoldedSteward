@@ -305,7 +305,6 @@ public class OrdersFragmentContent extends BaseFragment implements View.OnClickL
                 mDatas.clear();
                 mCurrentPageIndex = 1;//重置为第一页
                 orderService.getOrders(mCurrentTypeId, mCurrentPageIndex,handlerGetOrders);
-            //    Orders(mCurrentTypeId, mCurrentPageIndex);
                 mCurrentPageIndex++;//加载下一页
             }
 
@@ -313,7 +312,6 @@ public class OrdersFragmentContent extends BaseFragment implements View.OnClickL
             public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 if (mDatas != null && mDatas.size() > 0) {
                     orderService.getOrders(mCurrentTypeId, mCurrentPageIndex,handlerGetOrders);
-             //       Orders(mCurrentTypeId, mCurrentPageIndex);
                     mCurrentPageIndex++;//加载下一页
                 } else {
                     mPullToRefreshScrollView.onRefreshComplete();
@@ -338,7 +336,6 @@ public class OrdersFragmentContent extends BaseFragment implements View.OnClickL
                 }
                 //根据订单id获取订单具体信息
                 orderService.getOrderPayInformation(orderIds,handlerGetOrderPayInfo);
-            //    OrderPayInformation(orderIds);
                 break;
         }
     }

@@ -561,17 +561,20 @@ public class OrderService extends BaseService {
         }
     }
 
+
     //获取订单列表
     public void getOrders(final Integer viceType, final Integer pageIndex, final Handler handler) {
         // 请求的URL
         String url = Services.mHost + "BOrder/APP_GetOrderList?ResidentID=%s&ViceType=%s&PageCnt=%s&PageIndex=%s";
         url = String.format(url, UserInformation.getUserInfo().getUserId(), viceType, Services.PAGE_SIZE, pageIndex);
+        Log.e(tag, viceType + "getOrders  url:" + url);
         OkHttpService.get(url)
                 .execute(new DataCallBack(mContext, handler) {
 
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
+
                         Log.e(tag, viceType + "getOrders:" + s);
                         try {
                             JSONObject json = new JSONObject(s);

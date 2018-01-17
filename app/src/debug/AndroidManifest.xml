@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ldnet.goldensteward"
     android:installLocation="auto"
-    android:versionCode="435"
-    android:versionName="4.3.5">
+    android:versionCode="436"
+    android:versionName="4.3.6">
     <uses-sdk
         android:minSdkVersion="12"
         android:targetSdkVersion="22"/>
@@ -241,12 +241,6 @@
             android:label="@string/fragment_home_title"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.ldnet.activity.QuickOpenDoorActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/fragment_home_title"
-            android:screenOrientation="portrait">
-        </activity>
 
         <activity
             android:name="com.ldnet.activity.adapter.ImageBucketChooseActivity"

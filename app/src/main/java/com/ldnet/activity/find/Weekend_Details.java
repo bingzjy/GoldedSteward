@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -18,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.me.Publish;
 import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.WeekendDetails;
 import com.ldnet.entities.WeekendSignUp;
@@ -36,10 +34,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static com.ldnet.goldensteward.R.drawable.btn;
-import static com.ldnet.goldensteward.R.id.slv_me_publish;
-import static com.unionpay.mobile.android.global.a.I;
 
 public class Weekend_Details extends BaseActionBarActivity {
     private TextView tv_main_title;

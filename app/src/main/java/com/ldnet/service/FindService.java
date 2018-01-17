@@ -6,25 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.adapter.ImageItem;
-import com.ldnet.activity.find.FreaMarket_Create;
-import com.ldnet.activity.find.InforTabActivity;
-import com.ldnet.activity.find.Weekend;
-import com.ldnet.activity.find.Weekend_Create;
-import com.ldnet.activity.find.Weekend_Details;
-import com.ldnet.activity.home.HouseRentUpdate;
-import com.ldnet.activity.me.Publish;
 import com.ldnet.entities.FreaMarket;
 import com.ldnet.entities.FreaMarketDetails;
 import com.ldnet.entities.Information;
@@ -35,23 +19,14 @@ import com.ldnet.entities.WeekendSignUp;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.CookieInformation;
 import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.ListViewAdapter;
-import com.ldnet.utility.MyPagerAdapter;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
-import com.ldnet.utility.Utility;
-import com.ldnet.utility.ViewHolder;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhy.http.okhttp.OkHttpUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
-
-import okhttp3.Call;
 import okhttp3.Request;
 
 /**

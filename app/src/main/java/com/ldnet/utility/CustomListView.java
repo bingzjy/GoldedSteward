@@ -22,6 +22,8 @@ public class CustomListView extends ListView {
     public CustomListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
+
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
@@ -31,6 +33,7 @@ public class CustomListView extends ListView {
 
     @Override
     public boolean isEnabled() {
+
         return false;
     }
 

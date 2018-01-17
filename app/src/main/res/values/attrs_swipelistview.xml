@@ -18,7 +18,7 @@
 
 <resources>
 
-    <declare-styleable name="SwipeListView">
+    <declare-styleable name="SwipeListViewWrap">
         <attr name="swipeOpenOnLongPress" format="boolean"/>
         <attr name="swipeAnimationTime" format="integer"/>
         <attr name="swipeOffsetLeft" format="dimension"/>

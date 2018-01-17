@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 绑定社区 -->
+    <string name="search_community_keywords">小区</string>
+    <string name="activity_binding_community_title">绑定社区</string>
+    <string name="activity_binding_community_search_text">请输入小区名称</string>
+    <string name="correct_input_area">请正确输入小区名称</string>
+    <string name="manually_entered_village">请手动输入小区</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="nofind_men_jin">未找到门禁，请靠近设备后再试</string>
+    <string name="noopen_bulebooth">请打开蓝牙后再试</string>
+    <string name="noPrpperty">房屋无业主认证，请联系物业</string>
+    <string name="nobind_room">请绑定房屋后再试</string>
+    <string name="bind_ok">绑定成功</string>
+    <string name="welcome_home">欢迎回家</string>
+    <string name="have_open">已开门</string>
+    <string name="warm_prompt">**温馨提示**</string>
+    <string name="please_closedoor">请随手关门</string>
+    <string name="no_entrance">该小区未开通门禁，联系物业启用门禁吧</string>
+    <string name="use_entrance">启用</string>
+    <string name="nouse_entrance">未启用</string>
+    <string name="searchnull">未找到您的小区，请点击提交您的小区信息</string>
+    <string name="havebind">您已添加该房屋</string>
+    <string name="long_distance">开门失败，请靠近设备再试</string>
+
+
+    <!--验证-->
+    <string name="dialog_title">为保证小区安全，请验证后进行其他操作</string>
+    <string name="dialog_confirm">确认</string>
+    <string name="dialog_verify">验证</string>
+    <string name="dialog_shortcut_title">快捷方式已经创建，若您未在桌面找到，请在该应用的权限管理中开启创建快捷方式的权限</string>
+
+    <string name="input_error">您的输入有误，请确认后再输</string>
+    <string name="phone_input_empty">请输入业主号码后四位</string>
+    <string name="verification_code_input_empty">请输入验证码</string>
+    <string name="verification_code_send_over">短信验证已达5次，请明天再试</string>
+    <string name="vertification_code_send_ok">验证码发送成功</string>
+    <string name="vertification_code_send_fail">验证码发送失败</string>
+    <string name="vertification_code_resend_fail">验证码发送失败，十分钟之内</string>
+    <string name="vertification_code_input_error">验证码输入有误</string>
+    <string name="input_phone_null">请输入号码</string>
+    <string name="community_info_null">小区信息为空</string>
+    <string name="select_bind_date">请选择时间</string>
+    <string name="start_date_invalid">开始时间不能大于结束时间</string>
+    <string name="house_info_null">房间信息为空</string>
+
+
+    <string name="cancel_bind_success">解除绑定成功</string>
+    <string name="relation_famliy">亲属</string>
+    <string name="relation_resident">租户</string>
+    <string name="next_oprate">下一步</string>
+    <string name="get_valid_code_again">重新获取</string>
+    <string name="get_valid_codes">获取验证码</string>
+</resources>

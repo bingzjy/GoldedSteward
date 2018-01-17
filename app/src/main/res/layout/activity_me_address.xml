@@ -13,11 +13,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_104dp"
                 android:layout_centerHorizontal="true"
-                android:drawableTop="@drawable/shipping_address_empty"
+                android:drawableTop="@drawable/default_null_data"
                 android:padding="@dimen/dimen_24dp"
                 android:drawablePadding="@dimen/dimen_24dp"
                 android:visibility="gone"
-                android:textColor="@color/green_light"
+                android:textColor="@color/gray_text"
                 android:text="您还没有收货地址哦"/>
         <com.third.SwipeListView.SwipeListView
                 xmlns:swipe="http://schemas.android.com/apk/res-auto"

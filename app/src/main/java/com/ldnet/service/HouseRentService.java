@@ -1,63 +1,24 @@
 package com.ldnet.service;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.home.HouseRentUpdate;
-import com.ldnet.activity.home.HouseRent_List;
-import com.ldnet.activity.me.Community;
-import com.ldnet.activity.me.Publish;
-import com.ldnet.entities.FreaMarket;
-import com.ldnet.entities.HouseProperties;
 import com.ldnet.entities.HouseRent;
-import com.ldnet.goldensteward.R;
 import com.ldnet.utility.CookieInformation;
 import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
-import com.ldnet.utility.ViewHolder;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhy.http.okhttp.OkHttpUtils;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Request;
-
-import static android.R.attr.id;
-import static com.ldnet.goldensteward.R.id.addhouserent_rdoleft;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_area;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_hall;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_rent;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_room;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_tel;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_title;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_total_floor;
-import static com.ldnet.goldensteward.R.id.id_spinner_fitment;
-import static com.ldnet.goldensteward.R.id.id_spinner_orientation;
-import static com.ldnet.goldensteward.R.id.id_spinner_renttype;
-import static com.ldnet.goldensteward.R.id.id_spinner_room_config;
-import static com.ldnet.goldensteward.R.id.id_spinner_roomtype;
-import static com.ldnet.goldensteward.R.id.slv_me_publish;
-import static com.ldnet.goldensteward.R.id.tv_rent_list;
-import static com.ldnet.goldensteward.R.layout.houserent_list;
-import static com.unionpay.mobile.android.global.a.H;
-import static com.unionpay.mobile.android.global.a.o;
-import static com.unionpay.mobile.android.global.a.s;
 
 /**
  * Created by lee on 2017/11/7

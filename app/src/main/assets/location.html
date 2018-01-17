@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+<head>
+    <title></title>
+    <script> 
+        function getLocation() {
+            if (navigator.geolocation) {
+
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+
+                alert("呵呵");
+            }
+        }
+
+        function showPosition(position) {
+
+            alert("经度: " + position.coords.latitude + "纬度: " + position.coords.longitude);
+        }
+
+        function showError(error) {
+
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+
+                    alert("权限问题");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+
+                    alert("无法获取");
+                    break;
+                case error.TIMEOUT:
+
+                    alert("超时");
+                    break;
+                case error.UNKNOWN_ERROR:
+
+                    alert("未知错误");
+                    break;
+            }
+        }
+    </script>  
+
+</head>
+<body>
+
+    <button onclick="getLocation()">点击获取经纬度</button>
+
+</body>
+</html>

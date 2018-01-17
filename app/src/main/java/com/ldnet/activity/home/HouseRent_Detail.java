@@ -6,52 +6,25 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.find.FreaMarket;
-import com.ldnet.activity.find.FreaMarket_Details;
-import com.ldnet.activity.me.Publish;
 import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.HouseProperties;
 import com.ldnet.entities.HouseRent;
-import com.ldnet.entities.KValues;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.HouseRentService;
 import com.ldnet.utility.*;
 import com.ldnet.view.ImageCycleView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.key;
-import static com.ldnet.goldensteward.R.id.addhouserent_rdoleft;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_area;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_floor;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_hall;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_rent;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_room;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_room_number;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_tel;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_title;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_toilet;
-import static com.ldnet.goldensteward.R.id.et_house_rent_detail_total_floor;
-import static com.ldnet.goldensteward.R.id.houserent_detail_RoomDeploy;
-import static com.ldnet.goldensteward.R.id.id_spinner_fitment;
-import static com.ldnet.goldensteward.R.id.id_spinner_orientation;
-import static com.ldnet.goldensteward.R.id.id_spinner_renttype;
-import static com.ldnet.goldensteward.R.id.id_spinner_room_config;
-import static com.ldnet.goldensteward.R.id.id_spinner_roomtype;
-import static com.ldnet.goldensteward.R.id.slv_me_publish;
 
 /**
  * Created by Murray on 2015/9/10.
@@ -302,7 +275,7 @@ public class HouseRent_Detail extends BaseActionBarActivity {
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }else{
-                        //返回我的发布
+                        //返回我的房屋租赁列表
                         Intent intent=new Intent(HouseRent_Detail.this, HouseRent_List.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

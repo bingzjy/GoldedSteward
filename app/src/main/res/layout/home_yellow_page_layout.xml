@@ -22,7 +22,7 @@
                     android:layout_marginBottom="6dp"
                     android:background="@null"
                     android:contentDescription="@null"
-                    android:src="@drawable/house_resident_home_icon"/>
+                    android:src="@drawable/ic_house_resident"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
                 android:background="@null"
                 android:contentDescription="@null"
                 android:scaleType="fitXY"
-                android:src="@drawable/yellow_home_icon" />
+                android:src="@drawable/ic_yellow_home" />
 
             <TextView
                 android:id="@+id/aaaaaa"
@@ -98,7 +98,7 @@
                 android:layout_marginBottom="6dp"
                 android:background="@null"
                 android:contentDescription="@null"
-                android:src="@drawable/infobar_home_icon"/>
+                android:src="@drawable/ic_infobar"/>
 
             <TextView
                 android:layout_width="wrap_content"

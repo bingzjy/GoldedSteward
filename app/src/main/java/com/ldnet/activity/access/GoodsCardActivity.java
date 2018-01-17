@@ -31,10 +31,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.ldnet.goldensteward.R.id.init;
-import static com.ldnet.goldensteward.R.id.tv;
 import static com.ldnet.goldensteward.R.id.tv_access_goods_card_date;
-import static com.ldnet.goldensteward.R.string.share;
 import static com.ldnet.utility.Utility.getCacheBitmapFromView;
 
 public class GoodsCardActivity extends BaseActionBarActivity {

@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="95dp"
             android:layout_marginTop="37dp"
-            android:src="@drawable/shortcut_open1" />
+            android:src="@drawable/shortcut_open_wait" />
 
         <TextView
             android:id="@+id/tv_show_open_door_information"

@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="93dp"
             android:layout_marginTop="18dp"
-            android:src="@drawable/shortcut_opendoor2" />
+            android:src="@drawable/shortcut_opendoor_success" />
 
         <TextView
             android:id="@+id/tv_dialog_opendoor_state"
@@ -58,19 +58,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text=" 温馨提示：您已欠费223.0元          "
-            android:textColor="@color/orange_text2"
-            android:textSize="@dimen/font_size_14sp"
-            android:layout_marginTop="@dimen/dimen_5dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="长按开门按钮，即可开启快捷开门"
             android:textColor="@color/gray_text"
-            android:textSize="12sp"
+            android:textSize="@dimen/font_size_14sp"
             android:layout_marginTop="@dimen/dimen_5dp"
             />
 

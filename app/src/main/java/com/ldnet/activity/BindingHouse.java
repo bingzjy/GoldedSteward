@@ -31,7 +31,7 @@ import static com.ldnet.utility.Services.ROOM_NAME;
  * **************************************************
  * 逻辑：判断条件：是否已经绑定过（从当前用户的房产信息检索当前即将绑定的房屋）、是否是业主（从业主电话列表检索当前用户电话）
  * 非业主：关系选择、手机验证、通过后才执行绑定
- * 执行绑定：绑定、设置门禁关系、设置当前房屋、设置积分
+ * 业主：执行绑定（绑定、设置门禁关系、设置当前房屋、设置积分）
  *
  */
 public class BindingHouse extends BaseActionBarActivity {
@@ -59,6 +59,7 @@ public class BindingHouse extends BaseActionBarActivity {
     private List<EntranceGuard> entranceGuards;
     private BindingService service;
     private AcountService acountService;
+    private  boolean isOwner;
 
     //初始化视图
     @Override
@@ -253,7 +254,7 @@ public class BindingHouse extends BaseActionBarActivity {
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     if (msg.obj != null && ((List<EntranceGuard>) msg.obj).size() > 0) {
-                        boolean isOwner = false;
+                        isOwner = false;
                         entranceGuards = (List<EntranceGuard>) msg.obj;
                         for (int j = 0; j < entranceGuards.size(); j++) {
                             //如果当前用户属于业主（不含家属和租户）列表中的，那么直接绑定
@@ -263,16 +264,17 @@ public class BindingHouse extends BaseActionBarActivity {
                             }
                         }
 
+                        //业主直接绑定，无需设置门禁关系
                         if (isOwner) {
                             service.BindingHouse(mCommunityId, mHouseId, handlerBindingHouse);
                         } else {
                             closeProgressDialog();
                             HashMap<String, String> extras = new HashMap<String, String>();
                             extras.put(ROOM_ID, mHouseId);
-                            extras.put(ROOM_NAME,mHouseName==null?"":mHouseName);
+                            extras.put(ROOM_NAME, mHouseName == null ? "" : mHouseName);
                             extras.put(CLASS_FROM, BindingHouse.class.getName());
                             extras.put(COMMUNITY_ID, mCommunityId);
-                            extras.put(COMMUNITY_NAME, mCommunity_name==null?"":mCommunity_name);
+                            extras.put(COMMUNITY_NAME, mCommunity_name == null ? "" : mCommunity_name);
                             try {
                                 //非业主的话先验证（申请访客密码是也需要验证）
                                 gotoActivityAndFinish(VisitorValidComplete.class.getName(), extras);
@@ -296,6 +298,7 @@ public class BindingHouse extends BaseActionBarActivity {
         }
     };
 
+
     //绑定房子
     Handler handlerBindingHouse = new Handler() {
         @Override
@@ -306,9 +309,11 @@ public class BindingHouse extends BaseActionBarActivity {
                 case BaseService.DATA_SUCCESS:
                     if (msg.obj != null) {
                         showToast(msg.obj.toString());
-                        service.postEGBind("0",UserInformation.getUserInfo().UserId,"","",mHouseId,handlerEGBind);
-                        service.SetCurrentInforamtion(mCommunityId, mHouseId,new Handler());
-                        acountService.setIntegralTip(new Handler(),Services.mHost + "API/Resident/ResidentBindRoom");
+                        if (!isOwner) {
+                            service.postEGBind("0", UserInformation.getUserInfo().UserId, "", "", mHouseId, handlerEGBind);
+                        }
+                        service.SetCurrentInforamtion(mCommunityId, mHouseId, new Handler());
+                        acountService.setIntegralTip(new Handler(), Services.mHost + "API/Resident/ResidentBindRoom");
                         try {
                             if (!IsFromRegister) {
                                 HashMap<String, String> extras = new HashMap<String, String>();

@@ -307,6 +307,7 @@ public class PropertyFeeService extends BaseService {
                     @Override
                     public void onResponse(String s, int i) {
                         Log.e(Tag, "getArrearageAmount:" + s);
+                        Log.e(Tag, "getArrearageAmount----houseID" + UserInformation.getUserInfo().getHouseId()+"   "+UserInformation.getUserInfo().HouseName);
                         try {
                             JSONObject json = new JSONObject(s);
                             if (checkJsonData(s, handlerGetArrageAmount)) {

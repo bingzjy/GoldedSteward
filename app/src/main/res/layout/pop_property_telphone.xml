@@ -6,11 +6,6 @@
               android:layout_height="wrap_content"
               android:background="@color/gray_light"
               android:weightSum="1">
-    <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="@dimen/dimen_24dp"-->
-
-    <!--/>-->
     <TextView
             android:id="@+id/poptitle"
             android:layout_width="match_parent"

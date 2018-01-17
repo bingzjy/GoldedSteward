@@ -28,12 +28,11 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_marginTop="@dimen/dimen_104dp"
                     android:drawablePadding="@dimen/dimen_24dp"
-                    android:drawableTop="@drawable/notice_and_announcement_empty"
+                    android:drawableTop="@drawable/default_null_data"
                     android:padding="@dimen/dimen_24dp"
-                    android:text="别着急，会有的！"
-                    android:textColor="@color/green_light"
+                    android:text="@string/response_data_isNull"
+                    android:textColor="@color/gray_text"
                     android:visibility="gone"/>
         </LinearLayout>
     </com.library.PullToRefreshScrollView>

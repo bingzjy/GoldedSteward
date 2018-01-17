@@ -228,10 +228,8 @@ public class CommunityServices extends BaseFragment implements View.OnClickListe
                 case BaseService.DATA_SUCCESS:
                     mDatas.addAll((List<com.ldnet.entities.CommunityServices>)msg.obj);
                     mAdapter.notifyDataSetChanged();
-//                    mLvCommunityServices.setVisibility(View.VISIBLE);
-//                    tv_community_services.setVisibility(View.GONE);
-                    mLvCommunityServices.setVisibility(View.GONE);
-                    tv_community_services.setVisibility(View.VISIBLE);
+                    mLvCommunityServices.setVisibility(View.VISIBLE);
+                    tv_community_services.setVisibility(View.GONE);
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:
                     if (mDatas != null && mDatas.size() > 0) {

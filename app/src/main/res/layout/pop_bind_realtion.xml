@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#55555555"
+    android:gravity="bottom|center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_relation_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/line"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/setting_up_selector"
+        android:gravity="center"
+        android:text="呼叫 1312343999"
+        android:textColor="@color/blue_text"
+        android:textSize="@dimen/font_size_20sp"
+        android:padding="@dimen/dimen_12dp"
+        />
+    <TextView
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_above="@+id/albums"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#D9D8D3" />
+
+    <LinearLayout
+        android:id="@+id/ll_relation_contract"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    <TextView
+        android:id="@+id/tv_relation_contract"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/photograph"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/setting_center_selector"
+        android:gravity="center"
+        android:text="续约"
+        android:textColor="@color/blue_text"
+        android:textSize="@dimen/font_size_20sp"
+        android:padding="@dimen/dimen_12dp"
+        />
+    <TextView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#D9D8D3" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_relation_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cancel"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/setting_down_selector"
+        android:gravity="center"
+        android:text="删除"
+        android:textColor="@color/red"
+        android:textSize="@dimen/font_size_20sp"
+        android:padding="@dimen/dimen_12dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_relation_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/setting_one_selector">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/blue_text"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_size_20sp"
+            android:padding="@dimen/dimen_12dp"
+            />
+    </LinearLayout>
+</LinearLayout>

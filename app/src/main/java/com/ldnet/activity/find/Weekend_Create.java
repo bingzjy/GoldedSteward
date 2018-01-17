@@ -1,42 +1,27 @@
 package com.ldnet.activity.find;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.LinearGradient;
-import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import com.google.gson.Gson;
-import com.ldnet.activity.MainActivity;
-import com.ldnet.activity.access.AccessControlMain;
-import com.ldnet.activity.adapter.ImageChooseActivity;
 import com.ldnet.activity.adapter.ImageItem;
-import com.ldnet.activity.adapter.ImagePublishAdapter;
 import com.ldnet.activity.adapter.MyDialog;
 import com.ldnet.activity.base.AppUtils;
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
-import com.ldnet.activity.me.Publish;
 import com.ldnet.activity.me.PublishActivity;
-import com.ldnet.entities.User;
 import com.ldnet.entities.WeekendDetails;
 import com.ldnet.goldensteward.R;
 import com.ldnet.interfaze.PictureChoseListener;
@@ -44,42 +29,20 @@ import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.FindService;
 import com.ldnet.utility.CashierInputFilter;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.CustomConstants;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.GSApplication;
-import com.ldnet.utility.SDCardFileCache;
 import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
 import com.ldnet.view.SlideDateTimeListener;
 import com.ldnet.view.SlideDateTimePicker;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import org.apache.http.conn.scheme.HostNameResolver;
-import org.json.JSONException;
-import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import okhttp3.Call;
-import okhttp3.Request;
-
-import static cn.finalteam.toolsfinal.DateUtils.date;
-import static com.ldnet.goldensteward.R.id.ll_weekend_picture_list;
-import static com.unionpay.mobile.android.global.a.H;
 
 public class Weekend_Create extends BaseActionBarFragmentActivity implements View.OnClickListener {
     private TextView tv_main_title;
@@ -488,17 +451,16 @@ public class Weekend_Create extends BaseActionBarFragmentActivity implements Vie
         }
     };
 
+    //修改
     Handler handlerUpdate=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
                 case BaseService.DATA_SUCCESS:
-                    try {
-                        gotoActivityAndFinish(PublishActivity.class.getName(), null);
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    Intent intent=new Intent(Weekend_Create.this, PublishActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     acountService.setIntegralTip(new Handler(),urlUpdate);
                     break;
                 case BaseService.DATA_FAILURE:

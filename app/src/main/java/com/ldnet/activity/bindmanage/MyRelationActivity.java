@@ -1,8 +1,6 @@
 package com.ldnet.activity.bindmanage;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -11,13 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,16 +30,18 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.BindingService;
 import com.ldnet.service.HouseRelationService;
 import com.ldnet.utility.CustomListView;
+import com.ldnet.utility.CustomListView2;
 import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
+import com.library.PullToRefreshBase;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.third.SwipeListView.SwipeListView;
+import com.third.SwipeListView2.SwipeListViewWrap;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,10 +54,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.ldnet.goldensteward.R.id.init;
-import static com.ldnet.goldensteward.R.id.ll_relation_cancel;
-import static com.ldnet.goldensteward.R.id.ll_relation_contract;
 import static com.ldnet.goldensteward.R.id.lv_relation_detail;
+import static com.ldnet.goldensteward.R.id.slv_realtion_content;
 
 
 public class MyRelationActivity extends BaseActionBarActivity {
@@ -67,8 +65,8 @@ public class MyRelationActivity extends BaseActionBarActivity {
     TextView tvPageTitle;
     @BindView(R.id.iv_share)
     ImageView ivAdd;
-    @BindView(R.id.slv_realtion_content)
-    SwipeListView slvRealtion;
+    @BindView(R.id.lv_relation_detail)
+    ListView lvRealtion;
     @BindView(R.id.tv_null_data_title)
     TextView tvNullDataTitle;
 
@@ -83,7 +81,7 @@ public class MyRelationActivity extends BaseActionBarActivity {
     private static final String TAG = "MyRelationActivity";
     private String aa = Services.timeFormat();
     private String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-DD");
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 
     public DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
@@ -118,10 +116,7 @@ public class MyRelationActivity extends BaseActionBarActivity {
         tvPageTitle.setText(getString(R.string.bind_relation_main_title));
         ivAdd.setImageResource(R.drawable.green_add_icon);
         ivAdd.setVisibility(View.VISIBLE);
-        slvRealtion.setAdapter(mAdapter);
 
-        int deviceWidth = Utility.getScreenWidthforPX(this);
-        slvRealtion.setOffsetLeft(deviceWidth * 4 / 5);
         initAdapter();
     }
 
@@ -134,17 +129,25 @@ public class MyRelationActivity extends BaseActionBarActivity {
                 holder.setText(R.id.tv_realtion_community_name, ownerRoomRelation.Abbreviation);
 
                 if (ownerRoomRelation.Resident != null && ownerRoomRelation.Resident.size() > 0) {
-                    CustomListView listView = holder.getView(lv_relation_detail);
-                    listView.setAdapter(getItemAdapter(ownerRoomRelation.Resident, ownerRoomRelation));
-                    Log.e(TAG, "item adapter set");
+                    final SwipeListViewWrap slistView = holder.getView(slv_realtion_content);
+                    int deviceWidth = Utility.getScreenWidthforPX(MyRelationActivity.this);
+                    slistView.setOffsetLeft(deviceWidth - Utility.dip2px(MyRelationActivity.this, 55));
+                    slistView.setAdapter(getItemAdapter(ownerRoomRelation.Resident, ownerRoomRelation, slistView));
+
+                    slistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            slistView.closeOpenedItems();
+                        }
+                    });
+
                 }
             }
         };
-        slvRealtion.setAdapter(mAdapter);
+        lvRealtion.setAdapter(mAdapter);
     }
 
-
-    private ListViewAdapter<OwnerRoomRelation.ResidentBean> getItemAdapter(List<OwnerRoomRelation.ResidentBean> list, final OwnerRoomRelation ownerRoomRelation) {
+    private ListViewAdapter<OwnerRoomRelation.ResidentBean> getItemAdapter(List<OwnerRoomRelation.ResidentBean> list, final OwnerRoomRelation ownerRoomRelation, final SwipeListViewWrap slistView) {
         itemAdapter = new ListViewAdapter<OwnerRoomRelation.ResidentBean>(this, R.layout.item_my_realtion_detail_content, list) {
             @Override
             public void convert(ViewHolder holder, final OwnerRoomRelation.ResidentBean residentBean) {
@@ -156,67 +159,66 @@ public class MyRelationActivity extends BaseActionBarActivity {
                 TextView tvDate = holder.getView(R.id.tv_item_relation_date);
 
                 if (residentBean.ResidentType == 1) {
-                    holder.setText(R.id.tv_item_relation_date, residentBean.bindTime);
+                    holder.setText(R.id.tv_item_relation_date_title, "绑定日期：");   //有效期内
+                    holder.getView(R.id.tv_item_relation_date_title).setVisibility(View.VISIBLE);
+
                     holder.setImage(R.id.iv_item_relation_type, R.drawable.relation_family);
+
+                    tvDate.setTextColor(Color.parseColor("#9B9B9B"));
                     tvDate.setVisibility(View.VISIBLE);
+                    tvDate.setText(residentBean.bindTime);
                     tvDate.setCompoundDrawables(null, null, null, null);
                 } else {
                     holder.setImage(R.id.iv_item_relation_type, R.drawable.relation_resident);
                     if (!TextUtils.isEmpty(residentBean.Leasedatee)) {
-                        try {
-                            Date endDate = mFormat.parse(residentBean.Leasedatee);
-                            Date currentDate = mFormat.parse(mFormat.format(new Date()));
 
-                            if (endDate.compareTo(currentDate) == 0) {   //当天显示预警
-                                holder.getView(R.id.tv_item_relation_date_title).setVisibility(View.GONE);
-                                tvDate.setVisibility(View.VISIBLE);
+                        if (residentBean.residentState() == 1) {   //当天显示预警
+                            holder.getView(R.id.tv_item_relation_date_title).setVisibility(View.GONE);
+                            tvDate.setVisibility(View.VISIBLE);
+                            tvDate.setText(residentBean.Leasedatee + " 失效");
+                            tvDate.setTextColor(Color.parseColor("#FF0C2A"));
+                            Drawable drawable = getResources().getDrawable(R.drawable.ic_error);
+                            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                            tvDate.setCompoundDrawables(drawable, null, null, null);
+                        } else if (residentBean.residentState() == 2) {    //已失效
+                            holder.getView(R.id.tv_item_relation_date_title).setVisibility(View.VISIBLE);
+                            holder.setText(R.id.tv_item_relation_date_title, "已失效");
 
-                                tvDate.setText(residentBean.Leasedatee + " 失效");
-                                tvDate.setTextColor(Color.RED);
+                            tvDate.setCompoundDrawables(null, null, null, null);
+                            tvDate.setVisibility(View.GONE);
+                        } else {
+                            holder.setText(R.id.tv_item_relation_date_title, "绑定日期：");   //有效期内
+                            holder.getView(R.id.tv_item_relation_date_title).setVisibility(View.VISIBLE);
 
-                                Drawable drawable = getResources().getDrawable(R.drawable.ic_error);
-                                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-                                tvDate.setCompoundDrawables(drawable, null, null, null);
-                            } else if (endDate.compareTo(currentDate) < 0) {    //已失效
-                                holder.setText(R.id.tv_item_relation_date_title, "已失效");
-                                tvDate.setCompoundDrawables(null, null, null, null);
-                                tvDate.setVisibility(View.GONE);
-                                holder.getView(R.id.tv_item_relation_date_title).setVisibility(View.VISIBLE);
-                            } else {
-                                holder.setText(R.id.tv_item_relation_date_title, "绑定日期：");   //有效期内
-                                tvDate.setText(residentBean.bindTime);
-                                tvDate.setCompoundDrawables(null, null, null, null);
-                                tvDate.setVisibility(View.VISIBLE);
-                                holder.getView(R.id.tv_item_relation_date_title).setVisibility(View.VISIBLE);
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                            tvDate.setText(residentBean.bindTime);
+                            tvDate.setCompoundDrawables(null, null, null, null);
+                            tvDate.setVisibility(View.VISIBLE);
+                            tvDate.setTextColor(Color.parseColor("#9B9B9B"));
                         }
                     }
                 }
 
+                //更多点击
                 ImageView ivMore = holder.getView(R.id.iv_item_relation_more);
                 ivMore.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (residentBean.ResidentType == 1) {
-                            showMorePop(residentBean, ownerRoomRelation);
-                        } else {
-                            showMorePop(residentBean, ownerRoomRelation);
-                        }
+
+                        showMorePop(residentBean, ownerRoomRelation);
+
                     }
                 });
-
+                //删除
                 Button btnDel = holder.getView(R.id.slv_btn_delete);
                 btnDel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {    //解除绑定
                         bindingService.RemoveHouse(ownerRoomRelation.CommunityID, ownerRoomRelation.RoomID, residentBean.Id, handlerDel);
+                        slistView.closeOpenedItems();
                     }
                 });
             }
         };
-
         return itemAdapter;
     }
 
@@ -248,14 +250,14 @@ public class MyRelationActivity extends BaseActionBarActivity {
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     tvNullDataTitle.setVisibility(View.GONE);
-                    slvRealtion.setVisibility(View.VISIBLE);
+                    lvRealtion.setVisibility(View.VISIBLE);
                     relationsList.clear();
                     relationsList.addAll((ArrayList<OwnerRoomRelation>) msg.obj);
                     mAdapter.notifyDataSetChanged();
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:
                     tvNullDataTitle.setVisibility(View.VISIBLE);
-                    slvRealtion.setVisibility(View.GONE);
+                    lvRealtion.setVisibility(View.GONE);
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
@@ -339,6 +341,7 @@ public class MyRelationActivity extends BaseActionBarActivity {
                 intent.putExtra("RESIDENT_ID", resident.Id);
                 intent.putExtra("SDATE", resident.Leasedates);
                 intent.putExtra("EDATE", resident.Leasedatee);
+                intent.putExtra("STATE",resident.residentState());
                 startActivity(intent);
                 popupWindow.dismiss();
             }

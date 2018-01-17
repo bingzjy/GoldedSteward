@@ -4,36 +4,38 @@
     android:orientation="vertical">
 
     <include layout="@layout/activity_second_titlebar" />
+
     <com.library.PullToRefreshScrollView
-            android:background="#EEEEEE"
-            android:id="@+id/main_act_scrollview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+        android:id="@+id/main_act_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#EEEEEE">
+
         <LinearLayout
-                android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/shopping_cart_empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                >
-            <TextView
-                    android:id="@+id/shopping_cart_empty"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dimen_104dp"
-                    android:drawablePadding="@dimen/dimen_24dp"
-                    android:drawableTop="@drawable/shopping_cart_empty"
-                    android:padding="@dimen/dimen_24dp"
-                    android:text="您的购物车是空的"
-                    android:textColor="@color/green_light"
-                    android:visibility="gone" />
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_104dp"
+                android:drawablePadding="@dimen/dimen_24dp"
+                android:drawableTop="@drawable/default_null_data"
+                android:gravity="center"
+                android:padding="@dimen/dimen_24dp"
+                android:text="您的购物车是空的"
+                android:textColor="@color/gray_text"
+                android:visibility="gone" />
+
             <com.ldnet.utility.MyListView
-                    android:id="@+id/lv_shopping_carts"
-                    android:background="@drawable/border_top_bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-            </com.ldnet.utility.MyListView>
+                android:id="@+id/lv_shopping_carts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_top_bottom"></com.ldnet.utility.MyListView>
         </LinearLayout>
 
     </com.library.PullToRefreshScrollView>

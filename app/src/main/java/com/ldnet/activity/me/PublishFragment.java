@@ -45,6 +45,7 @@ import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.third.SwipeListView.BaseSwipeListViewListener;
 import com.third.SwipeListView.SwipeListView;
+import com.third.SwipeListView2.SwipeListViewWrap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +76,7 @@ public class PublishFragment extends BaseFragment {
     @BindView(R.id.tv_find_informations)
     TextView tvDataNull;
     @BindView(R.id.slv_me_publish)
-    SwipeListView slvMePublish;
+    SwipeListViewWrap slvMePublish;
     @BindView(R.id.main_act_scrollview)
     PullToRefreshScrollView refreshScrollview;
 
@@ -97,7 +98,6 @@ public class PublishFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initService();
-
     }
 
     @Override
@@ -118,8 +118,9 @@ public class PublishFragment extends BaseFragment {
         refreshScrollview.setHeaderLayout(new HeaderLayout(getActivity()));
         refreshScrollview.setFooterLayout(new FooterLayout(getActivity()));
         slvMePublish.setFocusable(false);
-        slvMePublish.setOffsetLeft(this.getResources().getDisplayMetrics().widthPixels * 3 / 5);
-        Utility.setListViewHeightBasedOnChildren(slvMePublish);
+
+        int deviceWidth=this.getResources().getDisplayMetrics().widthPixels;
+        slvMePublish.setOffsetLeft(deviceWidth-Utility.dip2px(getActivity(),160));
     }
 
     //初始化适配器
@@ -161,16 +162,21 @@ public class PublishFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         switch (publishEntity.Type) {
+
                             case 0: //房屋租赁
+                                showProgressDialog();
                                 houseRentService.deleteHouseRent(publishEntity.Id, handlerDelete);
                                 break;
                             case 1: //邻里通
+                                showProgressDialog();
                                 infoBarService.deleteInfoAction(publishEntity.Id, handlerDelete);
                                 break;
                             case 2: //闲置物品
+                                showProgressDialog();
                                 findService.deleteFreaMarket(publishEntity.Id, handlerDelete);
                                 break;
                             case 3:  //周边游
+                                showProgressDialog();
                                 findService.deleteWeekend(publishEntity.Id, handlerDelete);
                                 break;
                         }
@@ -242,7 +248,7 @@ public class PublishFragment extends BaseFragment {
         });
 
         //item单击事件
-        slvMePublish.setSwipeListViewListener(new BaseSwipeListViewListener() {
+        slvMePublish.setSwipeListViewListener(new com.third.SwipeListView2.BaseSwipeListViewListener() {
             @Override
             public void onClickFrontView(int position) {
                 super.onClickFrontView(position);
@@ -346,6 +352,7 @@ public class PublishFragment extends BaseFragment {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            closeProgressDialog();
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     showToast("删除成功");

@@ -12,7 +12,6 @@ import android.widget.*;
 import com.ldnet.activity.adapter.*;
 import com.ldnet.activity.base.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.me.Publish;
 import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.*;
 import com.ldnet.goldensteward.R;
@@ -606,8 +605,8 @@ public class HouseRentUpdate extends BaseActionBarActivity {
                 case BaseService.DATA_SUCCESS:
                     showToast("修改成功");
                     Intent intent = new Intent(HouseRentUpdate.this, PublishActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:

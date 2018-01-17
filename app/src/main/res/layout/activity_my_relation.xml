@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_my_relation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_white_theme" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_back" />
+
+    <TextView
+        android:id="@+id/tv_null_data_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/default_null_data"
+        android:drawablePadding="@dimen/dimen_15dp"
+        android:paddingTop="@dimen/dimen_64dp"
+        android:gravity="center_horizontal"
+        android:text="@string/null_relation_data"
+        android:textColor="@color/gray_text"
+        android:visibility="gone"
+        />
+
+
+    <ListView
+        android:id="@+id/lv_relation_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutAnimation="@anim/anim_item_layout"
+        android:scrollbars="none" />
+
+</LinearLayout>

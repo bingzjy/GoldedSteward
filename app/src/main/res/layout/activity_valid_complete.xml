@@ -4,118 +4,142 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <include layout="@layout/activity_second_titlebar"/>
+    <include layout="@layout/activity_second_titlebar" />
+
     <TextView
-            android:id="@+id/tv_cname"
-            android:layout_width="match_parent"
+        android:id="@+id/tv_cname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/black_text"
+        android:textSize="@dimen/font_size_14sp" />
+
+    <TextView
+        android:id="@+id/tv_rname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/black_text"
+        android:textSize="@dimen/font_size_14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_light_1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
-            android:text="请输入业主手机号后四位"
+            android:text="选择关系"
             android:textColor="@color/orange_deep"
-            android:textSize="@dimen/font_size_16sp"/>
-    <View android:layout_width="match_parent"
-          android:background="@color/gray"
-          android:layout_height="1dp"/>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:textSize="@dimen/font_size_14sp" />
 
-        <TextView
+        <RadioGroup
+            android:id="@+id/radioGroupID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/qinshuID"
+                android:layout_width="@dimen/dimen_20dp"
+                android:layout_height="@dimen/dimen_20dp"
+                android:background="@drawable/back_radio_check"
+                android:button="@null"
+                android:checked="true" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="选择关系"
-                android:textColor="@color/orange_deep"
-                android:textSize="@dimen/font_size_16sp"/>
-        <RadioGroup
-                android:id="@+id/radioGroupID"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:text="@string/relation_famliy"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/font_size_14sp"
+                android:layout_marginLeft="@dimen/dimen_10dp"/>
+            <RadioButton
+                android:id="@+id/zuhuID"
+                android:layout_width="@dimen/dimen_20dp"
+                android:layout_height="@dimen/dimen_20dp"
+                android:layout_marginLeft="@dimen/dimen_32dp"
+                android:background="@drawable/back_radio_check"
+                android:button="@null" />
 
-            <RadioButton
-                    android:text="亲属"
-                    android:id="@+id/qinshuID"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-            />
-            <RadioButton
-                    android:id="@+id/zuhuID"
-                    android:layout_marginLeft="@dimen/dimen_10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="租户"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/relation_resident"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/font_size_14sp"
+                android:layout_marginLeft="@dimen/dimen_10dp"/>
         </RadioGroup>
     </LinearLayout>
-    <View android:layout_width="match_parent"
-          android:background="@color/gray"
-          android:layout_height="1dp"/>
+
     <LinearLayout
-            android:id="@+id/ll_date"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_48dp">
+        android:id="@+id/ll_date"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_48dp"
+        android:layout_marginLeft="@dimen/dimen_10dp"
+        android:layout_marginRight="@dimen/dimen_10dp"
+        android:layout_marginTop="@dimen/dimen_10dp">
+
         <EditText
-                android:id="@+id/et_valid_start_date"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:hint="@string/weekend_sdate"
-                android:textSize="@dimen/font_size_14sp"/>
-        <EditText
-                android:visibility="gone"
-                android:id="@+id/et_weekend_start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:hint="@string/weekend_stime"
-                android:textSize="@dimen/font_size_14sp"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingLeft="@dimen/dimen_4dp"
-                android:paddingRight="@dimen/dimen_4dp"
-                android:text="-"
-                android:textColor="@color/gray"
-                android:textSize="@dimen/font_size_14sp"/>
-        <EditText
-                android:id="@+id/et_valid_end_date"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:hint="@string/weekend_edate"
-                android:textSize="@dimen/font_size_14sp"/>
-        <EditText
-                android:visibility="gone"
-                android:id="@+id/et_weekend_end_time"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:hint="@string/weekend_etime"
-                android:textSize="@dimen/font_size_14sp"/>
-    </LinearLayout>
-    <View
+            android:id="@+id/et_valid_start_date"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:background="@drawable/back_border_line_gray"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/weekend_sdate"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dimen_4dp"
+            android:paddingRight="@dimen/dimen_4dp"
+            android:text="-"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <EditText
+            android:id="@+id/et_valid_end_date"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/back_border_line_gray"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/weekend_edate"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:textSize="@dimen/font_size_14sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
     <Button
-            android:id="@+id/bt_valid_complete_visitor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/orange_deep"
-            android:padding="@dimen/dimen_20dp"
-            android:text="完成"
-            android:textColor="@color/white"
-    />
+        android:id="@+id/bt_valid_complete_visitor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange_deep"
+        android:padding="@dimen/dimen_20dp"
+        android:text="@string/next_oprate"
+        android:textColor="@color/white" />
 </LinearLayout>

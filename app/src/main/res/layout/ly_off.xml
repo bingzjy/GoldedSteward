@@ -11,13 +11,15 @@
     <TextView
             android:id="@+id/tv_dialog_title"
             android:text="您确定要退出吗？"
-            android:textColor="@color/black"
+            android:textColor="@color/black_text"
             android:layout_gravity="center"
             android:padding="15dp"
             android:textSize="@dimen/font_size_16sp"
             android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+        />
     <View
             android:background="@color/gray_light_2"
             android:layout_width="match_parent"
@@ -33,9 +35,11 @@
                 android:textSize="@dimen/font_size_14sp"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/black_text"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+
+            />
         <View
                 android:id="@+id/line"
                 android:background="@color/gray_light_2"
@@ -48,7 +52,7 @@
                 android:layout_gravity="center"
                 android:textSize="@dimen/font_size_14sp"
                 android:text="确定"
-                android:textColor="@color/black"
+                android:textColor="@color/blue_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
     </LinearLayout>

@@ -52,7 +52,7 @@
                     android:layout_height="@dimen/dimen_64dp"
                     android:background="@null"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/picture_plus" />
+                    android:src="@drawable/picture_plus" />
             </LinearLayout>
             </HorizontalScrollView>
             <LinearLayout

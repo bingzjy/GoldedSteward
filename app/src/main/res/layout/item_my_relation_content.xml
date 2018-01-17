@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_realtion_community_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_text_light11"
+        android:paddingBottom="@dimen/dimen_5dp"
+        android:paddingLeft="@dimen/dimen_15dp"
+        android:paddingTop="@dimen/dimen_5dp"
+        android:textColor="@color/black_text"
+        android:textSize="@dimen/font_size_14sp"
+        />
+
+    <com.third.SwipeListView2.SwipeListViewWrap
+        android:id="@+id/slv_realtion_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:swipeActionLeft="reveal"
+        app:swipeActionRight="dismiss"
+        app:swipeBackView="@id/slv_back_view"
+        app:swipeCloseAllItemsWhenMoveList="true"
+        app:swipeFrontView="@id/slv_front_view"
+        app:swipeMode="left"
+        app:swipeOffsetLeft="0dp"
+        app:swipeOffsetRight="@dimen/dimen_0dp"
+        android:layoutAnimation="@anim/anim_item_layout"
+        />
+
+</LinearLayout>

@@ -33,6 +33,7 @@ import com.ldnet.activity.adapter.MyDialog;
 import com.ldnet.goldensteward.R;
 import com.ldnet.interfaze.PermissionListener;
 import com.ldnet.interfaze.PictureChoseListener;
+import com.ldnet.utility.ActivityUtil;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -88,7 +89,7 @@ public class BaseActionBarActivity extends FinalActivity implements View.OnClick
         finalBitmap.configLoadingImage(R.drawable.default_info);//设置加载图片
         finalBitmap.configLoadfailImage(R.drawable.default_info);
 
-
+        ActivityUtil.addActivity(this);
     }
 
     @Override

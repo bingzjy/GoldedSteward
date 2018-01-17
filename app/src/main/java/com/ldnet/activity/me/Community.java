@@ -140,11 +140,13 @@ public class Community extends BaseActionBarActivity {
                 //设置小区为默认
                 final Button btn_community_default = holder.getView(R.id.btn_community_default);
 
+
+                //设置房间ListView
+                CustomListView lv_house_information = holder.getView(R.id.lv_house_information);
+                lv_house_information.setAdapter(getHouseAdapter(properties.Rooms, properties,myProperties.size()));
+
                 if (properties.Rooms != null && properties.Rooms.size() > 0) {
                     btn_community_default.setVisibility(View.GONE);
-                    //设置房间ListView
-                    CustomListView lv_house_information = holder.getView(R.id.lv_house_information);
-                    lv_house_information.setAdapter(getHouseAdapter(properties.Rooms, properties));
 
                 } else {
                     btn_community_default.setVisibility(View.VISIBLE);
@@ -156,6 +158,9 @@ public class Community extends BaseActionBarActivity {
                         }
                     });
                 }
+
+
+
 
                 //设置当前项为默认项
                 if (properties.IsDefalut()) {
@@ -179,7 +184,7 @@ public class Community extends BaseActionBarActivity {
 
 
     //得到房屋信息的绑定
-    private ListViewAdapter<Rooms> getHouseAdapter(List<Rooms> roomses, final MyProperties properties) {
+    private ListViewAdapter<Rooms> getHouseAdapter(final List<Rooms> roomses, final MyProperties properties, final int communityCount) {
 
         mHouseAdapter = new ListViewAdapter<Rooms>(this, R.layout.item_me_properties_house, roomses) {
             @Override
@@ -233,15 +238,31 @@ public class Community extends BaseActionBarActivity {
                     rooms.Default = true;
                     tv_house_name.setTextColor(getResources().getColor(R.color.green));
                     iv_me_house_icon.setImageResource(R.drawable.list_house_green);
-                    btn_house_delete.setEnabled(false);
+               //     btn_house_delete.setEnabled(false);
                     btn_house_default.setEnabled(false);
                 } else {
                     rooms.Default = false;
                     tv_house_name.setTextColor(getResources().getColor(R.color.gray_deep));
                     iv_me_house_icon.setImageResource(R.drawable.list_house_gray);
-                    btn_house_delete.setEnabled(true);
+              //      btn_house_delete.setEnabled(true);
                     btn_house_default.setEnabled(true);
                 }
+
+                //只有唯一小区、唯一房间
+                if (communityCount==1&&roomses.size()==1){
+
+                    btn_house_delete.setEnabled(true);
+
+                }else if (rooms.IsDefalut()&&communityCount>1){  //多个小区,当前默认，不可接触
+
+                    btn_house_delete.setEnabled(false);
+
+                }else if (!rooms.IsDefalut()){   //不是当前默认，可接触
+
+                    btn_house_delete.setEnabled(true);
+
+                }
+
             }
         };
         return mHouseAdapter;

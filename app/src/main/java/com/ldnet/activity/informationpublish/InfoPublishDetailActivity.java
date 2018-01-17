@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.find.FreaMarket_Create;
+import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.InfoBarDetail;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
@@ -189,7 +191,9 @@ public class InfoPublishDetailActivity extends BaseActionBarActivity {
             switch (msg.what){
                 case BaseService.DATA_SUCCESS:
                     showToast("删除成功");
-                    finish();
+                    Intent intent1 = new Intent(InfoPublishDetailActivity.this, PublishActivity.class);
+                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent1);
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:

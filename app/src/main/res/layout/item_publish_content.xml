@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/slv_back_view"
+        android:layout_width="160dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:orientation="horizontal"
+        android:background="@null">
+
+        <Button
+            android:id="@+id/btn_item_publish_update"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray_light"
+            android:focusable="false"
+            android:paddingLeft="@dimen/dimen_16dp"
+            android:paddingRight="@dimen/dimen_16dp"
+            android:layout_margin="@dimen/dimen_0dp"
+            android:text="修改"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_16sp" />
+
+        <Button
+            android:id="@+id/btn_item_publish_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/red_back"
+            android:focusable="false"
+            android:paddingLeft="@dimen/dimen_16dp"
+            android:paddingRight="@dimen/dimen_16dp"
+            android:layout_margin="@dimen/dimen_0dp"
+            android:text="@string/button_delete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_16sp" />
+    </LinearLayout>
+    <include layout="@layout/item_info_bar"/>
+</FrameLayout>

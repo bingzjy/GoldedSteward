@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.*;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.*;
@@ -23,7 +25,6 @@ import com.ldnet.activity.me.Community;
 import com.ldnet.activity.me.Coupon;
 import com.ldnet.activity.me.Information;
 import com.ldnet.activity.me.Message;
-import com.ldnet.activity.me.Publish;
 import com.ldnet.activity.access.AccessControlMain;
 import com.ldnet.entities.*;
 import com.ldnet.goldensteward.R;
@@ -39,6 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -297,6 +299,33 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
                 showAddPicture(new PictureChoseListener() {
                     @Override
                     public void choseSuccess(String imagePath) {
+
+                        Log.e("aaa","头像路径："+imagePath);
+
+                        ExifInterface exifInterface = null;
+                        try {
+                            exifInterface = new ExifInterface(imagePath);
+                            String datetime = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);// 拍摄时间
+                            String deviceName = exifInterface.getAttribute(ExifInterface.TAG_MAKE);// 设备品牌
+                            String deviceModel = exifInterface.getAttribute(ExifInterface.TAG_MODEL); // 设备型号
+                            String latValue = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
+                            String lngValue = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
+                            String latRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
+                            String lngRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
+
+                            if (latValue != null && latRef != null && lngValue != null && lngRef != null) {
+                                try {
+                                    float lat= convertRationalLatLonToFloat(latValue, latRef);
+                                    float lng=convertRationalLatLonToFloat(lngValue, lngRef);
+
+                                    Log.e("aaa","经纬度：lat:"+lat+"   lng:"+lng);
+                                } catch (IllegalArgumentException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         mImageUri = Uri.fromFile(new File(imagePath));
                         onCropImage(mImageUri);
                     }
@@ -469,6 +498,7 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
                         if (image != null) {
                             // 获取本地文件
                             File file = new File(mImageUri.getPath());
+
                             //压缩图片
                             Bitmap bitmap = CompressHelper.getDefault(getActivity()).compressToBitmap(file);
                             FileOutputStream fileOutStream = null;
@@ -491,7 +521,7 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
                                     User user = UserInformation.getUserInfo();
                                     user.UserThumbnail = fileId;
                                     UserInformation.setUserInfo(user);
-
+                                    showProgressDialog();
                                     acountService.changeInformation(user.UserName, user.UserThumbnail,handlerChangeUserInfo);
                                 }
                             }.start();
@@ -542,11 +572,12 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
         }
     };
 
-
+  //修改用户头像
  Handler handlerChangeUserInfo=new Handler(){
      @Override
      public void handleMessage(android.os.Message msg) {
          super.handleMessage(msg);
+         closeProgressDialog();
          switch (msg.what){
              case BaseService.DATA_SUCCESS:
                  //显示头像
@@ -562,12 +593,12 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
  };
 
 
-
+    //创建门禁快捷方式
     private void createShortcut(){
         //创建一个添加快捷方式的Intent
         Intent addSC = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
         //快捷键的标题
-        String title = "金牌门禁";
+        String title = getString(R.string.shortcut_title);
         //快捷键的图标
         Parcelable icon = Intent.ShortcutIconResource.fromContext(getActivity(), R.drawable.home_entrance_guard);
         //创建单击快捷键启动本程序的Intent
@@ -596,5 +627,30 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
         }
     };
 
+
+    private static float convertRationalLatLonToFloat(
+            String rationalString, String ref) {
+
+        String[] parts = rationalString.split(",");
+
+        String[] pair;
+        pair = parts[0].split("/");
+        double degrees = Double.parseDouble(pair[0].trim())
+                / Double.parseDouble(pair[1].trim());
+
+        pair = parts[1].split("/");
+        double minutes = Double.parseDouble(pair[0].trim())
+                / Double.parseDouble(pair[1].trim());
+
+        pair = parts[2].split("/");
+        double seconds = Double.parseDouble(pair[0].trim())
+                / Double.parseDouble(pair[1].trim());
+
+        double result = degrees + (minutes / 60.0) + (seconds / 3600.0);
+        if ((ref.equals("S") || ref.equals("W"))) {
+            return (float) -result;
+        }
+        return (float) result;
+    }
 
 }

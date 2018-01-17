@@ -225,7 +225,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
     }
 
     /**
-     * Set if the user can open an item with long press on cell
+     * Set if the user can open_door_action an item with long press on cell
      *
      * @param swipeOpenOnLongPress
      */

@@ -53,6 +53,7 @@ import static com.ldnet.utility.Services.ROOM_ID;
 import static com.ldnet.utility.Services.ROOM_NAME;
 import static com.ldnet.utility.Services.TO_APPLY;
 import static com.ldnet.utility.Utility.getScreenWidthforPX;
+import static com.unionpay.mobile.android.global.a.s;
 
 /**
  * ***************************************************
@@ -116,7 +117,9 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private DisplayImageOptions imageOptions;
     private String aa = Services.timeFormat();
     private String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-
+    private MyDailogTag openDoorDialog;
+    private LEDevice currentDevice;
+    private static SoundPool soundPool;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -200,30 +203,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         ll_yellow_pages.setOnClickListener(this);
         tv_main_title.setOnClickListener(this);
         bt_open_door.setOnClickListener(this);
-//        bt_open_door.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                //创建一个添加快捷方式的Intent
-//                Intent addSC = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-//                //快捷键的标题
-//                String title = "金牌门禁";
-//                //快捷键的图标
-//                Parcelable icon = Intent.ShortcutIconResource.fromContext(getActivity(), R.drawable.home_entrance_guard);
-//                //创建单击快捷键启动本程序的Intent
-//                Intent launcherIntent = new Intent(getActivity(), EntranceGuardSplash.class);
-//                //设置快捷键的标题
-//                addSC.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
-//                //设置快捷键的图标
-//                addSC.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-//                //设置单击此快捷键启动的程序
-//                addSC.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launcherIntent);
-//                //不允许重复创建
-//                addSC.putExtra("duplicate", false);
-//                //向系统发送添加快捷键的广播
-//                getActivity().sendBroadcast(addSC);
-//                return true;
-//            }
-//        });
 
         //刷新
         mRefreshableView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
@@ -569,6 +548,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         entranceGuardService.getKeyChain(true, handerGetKeyChain);
     }
 
+
     //获取用户欠费记录
     private void getArrearageAmount() {
         feeArrearage = "";
@@ -639,8 +619,17 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
 
     //开门点击事件
     private void openClick() {
-        scanDeviceResult.clear();
-        if (openDoorEnable()){
+
+        if (openDoorEnable()) {
+            Log.e("aaa", "openDialog is null ?" + openDoorDialog);
+            if (openDoorDialog == null) {
+                openDoorDialog = new MyDailogTag(getActivity(), feeArrearage);
+            } else {
+                openDoorDialog.startDialogShow(feeArrearage);
+            }
+            openDoorDialog.setType(0);
+            openDoorDialog.setDialogcallback(openDoorDialogCallBack);
+            openDoorDialog.show();
             if (keyChain == null || keyChain.size() == 0) {
                 getKeyChain(false);
             } else { //获取钥匙串成功，开启蓝牙扫描
@@ -654,25 +643,36 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         boolean ifOpen = false;
         deviceID = "";
         closeProgressDialog1();
-        for (KeyChain key : keyChain) {
-            LEDevice device = scanDeviceResult.get(key.getId());
-            if (device != null) {
-                ifOpen = true;
-                deviceID = device.getDeviceId();
-                device.setDevicePsw(key.getPassword());
-                blueLockPub.oneKeyOpenDevice(device, device.getDeviceId(), device.getDevicePsw());
-                break;
-            }
-        }
 
-        if (ifOpen == false) {
-            showToast(getString(R.string.long_distance));
-            blueStartScan();
+        if (scanDeviceResult != null && scanDeviceResult.size() > 0) {
+
+            for (KeyChain key : keyChain) {
+                LEDevice device = scanDeviceResult.get(key.getId());
+                if (device != null) {
+                    ifOpen = true;
+                    currentDevice = device;
+                    deviceID = device.getDeviceId();
+                    device.setDevicePsw(key.getPassword());
+                    Log.e("aaa", "开门预备---" + device.toString());
+
+                    blueLockPub.oneKeyOpenDevice(device, device.getDeviceId(), device.getDevicePsw());
+                    break;
+                }
+            }
+            if (ifOpen == false) {
+                Log.e("aaa", "开门失败---无匹配");
+                openDoorDialog.setType(2); //开门失败
+            }
+        } else {
+            Log.e("aaa", "开门失败---无设备");
+            openDoorDialog.setType(2); //开门失败
         }
     }
 
     //开启蓝牙扫描
     private void blueStartScan() {
+        scanDeviceResult.clear(); //清空已扫描的设备
+
         ((BlueLockPub) blueLockPub).setLockMode(Constants.LOCK_MODE_MANUL, null, false);
         ((BlueLockPub) blueLockPub).scanDevice(2000);
     }
@@ -750,36 +750,46 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         @Override
         public void openCloseDeviceCallBack(int i, int i1, String... strings) {
             closeProgressDialog1();
+            playSound(R.raw.open_door_action,getActivity());
             if (i == 0) {
-                if (!TextUtils.isEmpty(feeArrearage)) {
-                    MyDailogTag tag = new MyDailogTag(getActivity(), feeArrearage);
-                    tag.show();
-                }
+                openDoorDialog.setType(1);
                 //添加开门日志
                 if (deviceID != null && !deviceID.equals("")) {
                     entranceGuardService.EGLog(deviceID, handlerEGlog);
                 }
             } else {
+                openDoorDialog.setType(2);
                 showToast("开门失败，请靠近设备再试");
             }
         }
 
         @Override
         public void scanDeviceCallBack(LEDevice leDevice, int i, int i1) {
-            if (leDevice != null) {
-                scanDeviceResult.put(leDevice.getDeviceId(), leDevice);
-            } else {
-                showToast("扫描无果");
-            }
+            scanDeviceResult.put(leDevice.getDeviceId(), leDevice);
         }
 
         @Override
         public void scanDeviceEndCallBack(int i) {
+            Log.e("aaa", "蓝牙扫描完毕");
             openDoor();
         }
-
-
     }
+
+    //开门弹出框
+    MyDailogTag.DialogOpenDoorCallBack openDoorDialogCallBack = new MyDailogTag.DialogOpenDoorCallBack() {
+        @Override
+        public void clickEvent(int type) {
+            if (type == 1) {   //开门成功，点击查看物业费
+                Intent intent = new Intent(getActivity(), Property_Fee.class);
+                startActivity(intent);
+                openDoorDialog.hide();
+            } else if (type == 2) {  //开门失败，点击重新扫描
+                openDoorDialog.setType(0);
+                blueStartScan();
+            }
+        }
+    };
+
 
     //重力感应监听
     private SensorEventListener sensorEventListener = new SensorEventListener() {
@@ -801,7 +811,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                 msg.what = 123;
                 handler.sendMessage(msg);
 
-                playSound(R.raw.open,getActivity());
+                //播放摇一摇音效
+                playSound(R.raw.shake,getActivity());
             }
         }
 
@@ -1085,7 +1096,9 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            openClick();
+                            if (openDoorDialog == null || (openDoorDialog != null && !openDoorDialog.isShowing())) {
+                                openClick();
+                            }
                         }
                     }, 2000);
                     break;
@@ -1195,7 +1208,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             closeProgressDialog();
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
-                    if (TextUtils.isEmpty(msg.obj.toString()) || msg.obj.equals("0.0")) {
+                    if (TextUtils.isEmpty(msg.obj.toString()) || msg.obj.equals("0")||msg.obj.equals("0.0")||msg.obj.equals("0.00")) {
                         feeArrearage = "";
                     } else {
                         feeArrearage = msg.obj.toString();
@@ -1329,21 +1342,33 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (bluetoothAdapter != null && bluetoothAdapter.enable()) {
-            bluetoothAdapter.disable();
-        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
         approvePass = false;
-        sensorManager.unregisterListener(sensorEventListener);
+        if (sensorManager!=null){
+            sensorManager.unregisterListener(sensorEventListener);
+        }
+
+        if (openDoorDialog!=null&&openDoorDialog.isShowing()){
+            openDoorDialog.hide();
+            openDoorDialog=null;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (soundPool!=null){
+            soundPool.release();
+        }
+
     }
 
     //播放开门音效
     public static void playSound(int rawId, Context context) {
-        SoundPool soundPool;
         if (Build.VERSION.SDK_INT >= 21) {
             SoundPool.Builder builder = new SoundPool.Builder();
             //传入音频的数量
@@ -1373,6 +1398,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         //soundPool.release();
 
     }
+
+
 
 }
 

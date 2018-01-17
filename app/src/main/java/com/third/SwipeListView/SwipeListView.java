@@ -190,19 +190,19 @@ public class SwipeListView extends ListView {
         int swipeActionRight = SWIPE_ACTION_REVEAL;
 
         if (attrs != null) {
-            TypedArray styled = getContext().obtainStyledAttributes(attrs, R.styleable.SwipeListView);
-            swipeMode = styled.getInt(R.styleable.SwipeListView_swipeMode, SWIPE_MODE_BOTH);
-            swipeActionLeft = styled.getInt(R.styleable.SwipeListView_swipeActionLeft, SWIPE_ACTION_REVEAL);
-            swipeActionRight = styled.getInt(R.styleable.SwipeListView_swipeActionRight, SWIPE_ACTION_REVEAL);
-            swipeOffsetLeft = styled.getDimension(R.styleable.SwipeListView_swipeOffsetLeft, 0);
-            swipeOffsetRight = styled.getDimension(R.styleable.SwipeListView_swipeOffsetRight, 0);
-            swipeOpenOnLongPress = styled.getBoolean(R.styleable.SwipeListView_swipeOpenOnLongPress, true);
-            swipeAnimationTime = styled.getInteger(R.styleable.SwipeListView_swipeAnimationTime, 0);
-            swipeCloseAllItemsWhenMoveList = styled.getBoolean(R.styleable.SwipeListView_swipeCloseAllItemsWhenMoveList, true);
-            swipeDrawableChecked = styled.getResourceId(R.styleable.SwipeListView_swipeDrawableChecked, 0);
-            swipeDrawableUnchecked = styled.getResourceId(R.styleable.SwipeListView_swipeDrawableUnchecked, 0);
-            swipeFrontView = styled.getResourceId(R.styleable.SwipeListView_swipeFrontView, 0);
-            swipeBackView = styled.getResourceId(R.styleable.SwipeListView_swipeBackView, 0);
+            TypedArray styled = getContext().obtainStyledAttributes(attrs, R.styleable.SwipeListViewWrap);
+            swipeMode = styled.getInt(R.styleable.SwipeListViewWrap_swipeMode, SWIPE_MODE_BOTH);
+            swipeActionLeft = styled.getInt(R.styleable.SwipeListViewWrap_swipeActionLeft, SWIPE_ACTION_REVEAL);
+            swipeActionRight = styled.getInt(R.styleable.SwipeListViewWrap_swipeActionRight, SWIPE_ACTION_REVEAL);
+            swipeOffsetLeft = styled.getDimension(R.styleable.SwipeListViewWrap_swipeOffsetLeft, 0);
+            swipeOffsetRight = styled.getDimension(R.styleable.SwipeListViewWrap_swipeOffsetRight, 0);
+            swipeOpenOnLongPress = styled.getBoolean(R.styleable.SwipeListViewWrap_swipeOpenOnLongPress, true);
+            swipeAnimationTime = styled.getInteger(R.styleable.SwipeListViewWrap_swipeAnimationTime, 0);
+            swipeCloseAllItemsWhenMoveList = styled.getBoolean(R.styleable.SwipeListViewWrap_swipeCloseAllItemsWhenMoveList, true);
+            swipeDrawableChecked = styled.getResourceId(R.styleable.SwipeListViewWrap_swipeDrawableChecked, 0);
+            swipeDrawableUnchecked = styled.getResourceId(R.styleable.SwipeListViewWrap_swipeDrawableUnchecked, 0);
+            swipeFrontView = styled.getResourceId(R.styleable.SwipeListViewWrap_swipeFrontView, 0);
+            swipeBackView = styled.getResourceId(R.styleable.SwipeListViewWrap_swipeBackView, 0);
             styled.recycle();
         }
 
@@ -311,7 +311,7 @@ public class SwipeListView extends ListView {
     /**
      * Dismiss item
      *
-     * @param position Position that you want open
+     * @param position Position that you want open_door_action
      */
     public void dismiss(int position) {
         int height = touchListener.dismiss(position);
@@ -352,7 +352,7 @@ public class SwipeListView extends ListView {
     /**
      * Open ListView's item
      *
-     * @param position Position that you want open
+     * @param position Position that you want open_door_action
      */
     public void openAnimate(int position) {
         touchListener.openAnimate(position);
@@ -361,7 +361,7 @@ public class SwipeListView extends ListView {
     /**
      * Close ListView's item
      *
-     * @param position Position that you want open
+     * @param position Position that you want open_door_action
      */
     public void closeAnimate(int position) {
         touchListener.closeAnimate(position);
@@ -379,7 +379,7 @@ public class SwipeListView extends ListView {
     }
 
     /**
-     * Start open item
+     * Start open_door_action item
      *
      * @param position list item
      * @param action   current action
@@ -441,7 +441,7 @@ public class SwipeListView extends ListView {
      * Notifies onClosed
      *
      * @param position  Item closed
-     * @param fromRight If open from right
+     * @param fromRight If open_door_action from right
      */
     protected void onClosed(int position, boolean fromRight) {
         if (swipeListViewListener != null && position != ListView.INVALID_POSITION) {
@@ -569,7 +569,7 @@ public class SwipeListView extends ListView {
     }
 
     /**
-     * Sets if the user can open an item with long pressing on cell
+     * Sets if the user can open_door_action an item with long pressing on cell
      *
      * @param swipeOpenOnLongPress
      */
@@ -708,4 +708,12 @@ public class SwipeListView extends ListView {
 //    public void setOnTouchListener(Address address) {
 //
 //    }
+
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
+//                MeasureSpec.AT_MOST);
+//        super.onMeasure(widthMeasureSpec, expandSpec);
+//    }
+
 }

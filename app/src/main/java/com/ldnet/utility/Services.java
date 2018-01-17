@@ -1,19 +1,12 @@
 package com.ldnet.utility;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -21,23 +14,16 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.ldnet.activity.base.LoadingDialog;
-import com.ldnet.activity.home.Property_Repair;
 import com.ldnet.entities.*;
-import com.ldnet.goldensteward.R;
-import com.ldnet.service.OkHttpService;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
 import okhttp3.Request;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.*;
-import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -56,22 +42,22 @@ public class Services {
 
     // 服务器主机地址及端口
     // 测试环境
-    public final static String mHost1 = "http://192.168.0.105:8080/";
-    public final static String mHost = "http://192.168.0.105:8042/";
-    public final static String mImageHost = "http://192.168.0.105:8042/api/file/images/%s";
-    public final static String mCommunicationUrl = "http://192.168.0.105:8080";
-    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
-    public final static String mInvitationUrl = "http://192.168.0.105:8082/Invitation?UserID=%s";
-    public final static String mPayCallBackTaoBao = "http://192.168.0.105:8042/BOrder/PayCallBack";
+//    public final static String mHost1 = "http://192.168.0.105:8080/";
+//    public final static String mHost = "http://192.168.0.105:8042/";
+//    public final static String mImageHost = "http://192.168.0.105:8042/api/file/images/%s";
+//    public final static String mCommunicationUrl = "http://192.168.0.105:8080";
+//    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
+//    public final static String mInvitationUrl = "http://192.168.0.105:8082/Invitation?UserID=%s";
+//    public final static String mPayCallBackTaoBao = "http://192.168.0.105:8042/BOrder/PayCallBack";
 
     // 正式环境
-//    public final static String mHost1 = "http://p.goldwg.com/";
-//    public final static String mHost = "http://apifive.goldwg.com/";
-//    public final static String mImageHost = "http://apifive.goldwg.com/api/file/images/%s";
-//    public final static String mCommunicationUrl = "http://p.goldwg.com";
-//    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
-//    public final static String mInvitationUrl = "http://www.goldwg.com:85/Invitation?UserID=%s";
-//    public final static String mPayCallBackTaoBao = "http://apifive.goldwg.com/BOrder/PayCallBack";
+    public final static String mHost1 = "http://p.goldwg.com/";
+    public final static String mHost = "http://apifive.goldwg.com/";
+    public final static String mImageHost = "http://apifive.goldwg.com/api/file/images/%s";
+    public final static String mCommunicationUrl = "http://p.goldwg.com";
+    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
+    public final static String mInvitationUrl = "http://www.goldwg.com:85/Invitation?UserID=%s";
+    public final static String mPayCallBackTaoBao = "http://apifive.goldwg.com/BOrder/PayCallBack";
 
     // 分享好友页面
     public final static String mSharePageUrl = "http://www.goldwg.com:85/Invitation?UserID=%s";

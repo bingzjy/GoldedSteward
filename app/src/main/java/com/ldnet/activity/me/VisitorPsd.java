@@ -3,6 +3,7 @@ package com.ldnet.activity.me;
 import android.os.*;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.ldnet.activity.BindingHouse;
@@ -15,6 +16,7 @@ import com.ldnet.service.BindingService;
 import com.ldnet.utility.*;
 import java.util.*;
 
+import static android.R.attr.tag;
 import static com.ldnet.utility.Services.CLASS_FROM;
 import static com.ldnet.utility.Services.COMMUNITY_ID;
 import static com.ldnet.utility.Services.COMMUNITY_NAME;
@@ -167,6 +169,8 @@ public class VisitorPsd extends BaseActionBarActivity {
                 roomOwnerId = entranceGuard.getId();
                 flag = entranceGuard.getFlag();
                 validTel = true;
+
+                Log.e(TAG,"roomOwnerId:"+roomOwnerId+"   roomOwnerPhone"+roomOwnerPhone);
                 break;
             }
         }

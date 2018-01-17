@@ -28,6 +28,8 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.OrderService;
 import com.ldnet.utility.CookieInformation;
+import com.ldnet.utility.CustomListView;
+import com.ldnet.utility.CustomListView2;
 import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.Services;
@@ -66,7 +68,7 @@ public class Order_Details extends BaseActionBarActivity {
     private TextView tv_address_title;
     private TextView tv_address_zipcode;
     private TextView tv_address_name;
-    private ListView lv_order_details;
+    private CustomListView2 lv_order_details;
     private LinearLayout ll_goods_balance;
     private TextView tv_orders_prices;
     private Button btn_orders_balance;
@@ -117,7 +119,7 @@ public class Order_Details extends BaseActionBarActivity {
         tv_address_title = (TextView) findViewById(R.id.tv_address_title);
         tv_address_zipcode = (TextView) findViewById(R.id.tv_address_zipcode);
         tv_address_name = (TextView) findViewById(R.id.tv_address_name);
-        lv_order_details = (ListView) findViewById(R.id.lv_order_details);
+        lv_order_details = (CustomListView2) findViewById(R.id.lv_order_details);
         ll_goods_balance = (LinearLayout) findViewById(R.id.ll_goods_balance);
         tv_orders_prices = (TextView) findViewById(R.id.tv_orders_prices);
         btn_orders_balance = (Button) findViewById(R.id.btn_orders_balance);
@@ -146,6 +148,7 @@ public class Order_Details extends BaseActionBarActivity {
         services = new Services();
         orderService=new OrderService(this);
         orderService.getOrderDetails(orderId,handlerOrderDetail);
+
         if (!TextUtils.isEmpty(goodsId)){
             orderService.getGoodsInfo(goodsId,handlerGoodsDetail);
         }
@@ -232,7 +235,7 @@ public class Order_Details extends BaseActionBarActivity {
                       ll_goods_balance.setVisibility(View.GONE);
                   }
 
-                  if (mOrders.OT==0){
+                  if (mOrders.OT==0){  //普通商品
                       //订单详情
                       lv_order_details.setAdapter(new ListViewAdapter<OD>(Order_Details.this, R.layout.item_orders_item, mOrders.OD) {
                           @Override
@@ -251,7 +254,7 @@ public class Order_Details extends BaseActionBarActivity {
                                       .setText(R.id.tv_goods_numbers, String.valueOf(od.N));
                           }
                       });
-                  }else{
+                  }else{  //服务商品
                       lv_order_details.setAdapter(new ListViewAdapter<Orders.ODSBean>(Order_Details.this, R.layout.item_orders_item, mOrders.ODS) {
                           @Override
                           public void convert(ViewHolder holder, Orders.ODSBean od) {
@@ -321,9 +324,6 @@ public class Order_Details extends BaseActionBarActivity {
                             overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                         }
                     });
-                    break;
-                case BaseService.DATA_SUCCESS_OTHER:
-
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:

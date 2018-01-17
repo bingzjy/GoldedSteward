@@ -69,7 +69,7 @@ public class BindingService extends BaseService {
             @Override
             public void onResponse(String s, int i) {
                 super.onResponse(s, i);
-                Log.e("asdsdasd", "楼栋" + s);
+                Log.e(tag, "楼栋" + s);
                 try {
                     JSONObject json = new JSONObject(s);
                     if (checkJsonData(s, handlerBuilding)) {
@@ -108,7 +108,7 @@ public class BindingService extends BaseService {
             @Override
             public void onResponse(String s, int i) {
                 super.onResponse(s, i);
-                Log.d("asdsdasd", "111111111" + s);
+                Log.d(tag, "111111111" + s);
                 try {
                     if (checkJsonData(s, handlerUnits)) {
                         JSONObject json = new JSONObject(s);
@@ -149,7 +149,7 @@ public class BindingService extends BaseService {
             @Override
             public void onResponse(String s, int i) {
                 super.onResponse(s, i);
-                Log.d("asdsdasd", "111111111" + s);
+                Log.d(tag, "111111111" + s);
                 try {
                     if (checkJsonData(s, handlerHouses)) {
                         JSONObject json = new JSONObject(s);
@@ -226,6 +226,7 @@ public class BindingService extends BaseService {
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
         final String url = Services.mHost + "API/Resident/ResidentBindRoom";
+        Log.e(tag,"BindingHouse:"+url);
         HashMap<String, String> extras = new HashMap<>();
         extras.put("CommunityId", communityId);
         extras.put("RoomId", roomId);
@@ -248,7 +249,7 @@ public class BindingService extends BaseService {
 
                     @Override
                     public void onResponse(String s, int i) {
-                        Log.e(tag, "绑定房子结果" + s);
+                        Log.e(tag, "绑定房子结果:" + s);
                         try {
                             if (checkJsonData(s, handlerBindingHouse)) {
                                 {
@@ -319,7 +320,7 @@ public class BindingService extends BaseService {
             @Override
             public void onResponse(String s, int i) {
                 super.onResponse(s, i);
-                Log.e("asdsdasd", "是否有该房屋" + s);
+                Log.e(tag, "我的小区和房产：" + s);
                 try {
                     if (checkJsonData(s, handerMyProperties)) {
                         JSONObject json = new JSONObject(s);

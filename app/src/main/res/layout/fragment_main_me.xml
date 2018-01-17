@@ -335,32 +335,75 @@
                             android:src="@drawable/me_community"/>
 
                     <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/dimen_4dp"
-                            android:layout_marginTop="2dp"
-                        android:background="@drawable/border_bottom"
-                            android:layout_weight="1">
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_4dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_bottom">
 
                         <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:text="@string/fragment_me_community"
-                                android:textColor="@color/gray_deep"
-                                android:textSize="@dimen/font_size_16sp"/>
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="@string/fragment_me_community"
+                            android:textColor="@color/gray_deep"
+                            android:textSize="@dimen/font_size_16sp" />
 
                         <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:contentDescription="@null"
-                                android:src="@drawable/arrow_right_n"/>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@drawable/arrow_right_n" />
                     </LinearLayout>
                 </LinearLayout>
-           //出入管理
+                //我的家属
+                <LinearLayout
+                    android:id="@+id/ll_me_community_relation"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_48dp"
+                    android:orientation="horizontal"
+                    >
 
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@null"
+                        android:contentDescription="@null"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_house_relation"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_4dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/border_bottom"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="@string/fragment_me_community_relation"
+                            android:textColor="@color/gray_deep"
+                            android:textSize="@dimen/font_size_16sp"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@drawable/arrow_right_n"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+           //出入管理
                 <LinearLayout
                     android:id="@+id/ll_me_entry_exit_manage"
                     android:layout_width="match_parent"
@@ -375,7 +418,7 @@
                         android:layout_marginTop="2dp"
                         android:background="@null"
                         android:src="@drawable/access_icon"
-                        />
+                        android:id="@+id/imageButton" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -401,6 +444,52 @@
                             android:src="@drawable/arrow_right_n"/>
                     </LinearLayout>
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_me_create_shortcut"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_48dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_shortcut"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_4dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="@string/fragment_me_create_shortcut"
+                            android:textColor="@color/gray_deep"
+                            android:textSize="@dimen/font_size_16sp"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@drawable/arrow_right_n"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+
 
             </LinearLayout>
 
@@ -462,8 +551,7 @@
                         android:id="@+id/ll_me_message"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_48dp"
-                        android:orientation="horizontal"
-                >
+                        android:orientation="horizontal">
 
                     <ImageButton
                             android:layout_width="wrap_content"

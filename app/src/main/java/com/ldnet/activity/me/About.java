@@ -59,7 +59,6 @@ public class About extends BaseActionBarActivity {
         mCallMe = (LinearLayout) findViewById(R.id.call_me);
         btn_back = (ImageButton) findViewById(R.id.btn_back);
         tv = (TextView) findViewById(R.id.tv);
-        tv.setText("aaaaa");
         initEvent();
         //初始化服务
         services = new Services();

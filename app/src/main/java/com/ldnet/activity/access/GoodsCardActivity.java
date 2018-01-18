@@ -31,13 +31,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.ldnet.goldensteward.R.id.tv;
 import static com.ldnet.goldensteward.R.id.tv_access_goods_card_date;
 import static com.ldnet.utility.Utility.getCacheBitmapFromView;
 
 public class GoodsCardActivity extends BaseActionBarActivity {
 
     private TextView tvName, tvDate, tvTel, tvStatus, tvApproveDate;
-    private String date, status, imageId, approveDate;
+    private String date, status, imageId, approveDate,residentName,residentTel;
     private ImageView imageBar;
     private String imageUrl;
     private Services services;
@@ -61,6 +62,14 @@ public class GoodsCardActivity extends BaseActionBarActivity {
         imageId = intent.getStringExtra("IMAGE_ID");
         status = intent.getStringExtra("STATUS");
         approveDate = intent.getStringExtra("APPROVE_DATE");
+
+        residentName=intent.getStringExtra("RESIDENT_NAME");
+        residentTel=intent.getStringExtra("RESIDENT_TEL");
+
+        //业主姓名和业主电话
+        tvName.setText(residentName);
+        tvTel.setText("手机号码:"+residentTel);
+
         //二维码图片
         if (!TextUtils.isEmpty(imageId)) {
             imageUrl = services.getImageUrl(imageId);
@@ -123,6 +132,7 @@ public class GoodsCardActivity extends BaseActionBarActivity {
         btnShare = (ImageButton) findViewById(R.id.btn_custom);
         btnShare.setVisibility(View.VISIBLE);
         btnShare.setImageResource(R.drawable.shares);
+
         back.setOnClickListener(this);
         btnShare.setOnClickListener(this);
     }

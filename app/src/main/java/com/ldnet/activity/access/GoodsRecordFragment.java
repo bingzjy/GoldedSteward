@@ -143,6 +143,8 @@ public class GoodsRecordFragment extends BaseFragment implements View.OnClickLis
                     intent.putExtra("FROM_CLASS", getActivity().getClass().getName());
                     intent.putExtra("STATUS", record.Status + "");
                     intent.putExtra("APPROVE_DATE", record.ApproveTimeStr.toString());
+                    intent.putExtra("RESIDENT_TEL",record.ResidentTel);
+                    intent.putExtra("RESIDENT_NAME",record.ResidentName);
                     startActivity(intent);
                 } else {
 

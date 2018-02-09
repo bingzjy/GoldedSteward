@@ -16,7 +16,6 @@ import com.ldnet.utility.CookieInformation;
 import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,17 +23,6 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import okhttp3.Call;
-
-import static com.ldnet.goldensteward.R.id.lv_property_notification;
-import static com.ldnet.goldensteward.R.id.main_act_scrollview;
-import static com.ldnet.goldensteward.R.id.tv_house_name;
-import static com.ldnet.goldensteward.R.id.tv_main_title;
-import static com.ldnet.goldensteward.R.id.tv_notification_content;
-import static com.ldnet.goldensteward.R.id.tv_notification_date;
-import static com.ldnet.goldensteward.R.id.tv_notification_title;
-import static com.ldnet.goldensteward.R.id.webView;
-import static com.unionpay.mobile.android.global.a.D;
 
 /**
  * Created by lee on 2017/11/20

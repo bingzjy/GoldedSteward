@@ -5,7 +5,10 @@
         android:id="@+id/update_progress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimen_5dp"
         android:layout_marginLeft="@dimen/dimen_8dp"
-        android:layout_marginRight="@dimen/dimen_8dp"/>
+        android:layout_marginRight="@dimen/dimen_8dp"
+        android:progressDrawable="@drawable/back_profress_green"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        />
 </LinearLayout>

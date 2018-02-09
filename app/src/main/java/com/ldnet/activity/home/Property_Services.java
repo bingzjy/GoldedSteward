@@ -3,7 +3,6 @@ package com.ldnet.activity.home;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -11,9 +10,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.google.gson.Gson;
 import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.homeInspectionManage.NoticeHomeInspectionActivity;
 import com.ldnet.entities.*;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
@@ -21,16 +22,16 @@ import com.ldnet.service.HomeService;
 import com.ldnet.utility.*;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhy.http.okhttp.OkHttpUtils;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.unionpay.mobile.android.pboctransaction.samsung.f.f;
 
 public class Property_Services extends BaseActionBarActivity {
     private TextView tv_main_title;
@@ -44,6 +45,7 @@ public class Property_Services extends BaseActionBarActivity {
     private LinearLayout ll_home_complaint;
     private LinearLayout ll_home_communicate;
     private LinearLayout ll_home_telephone;
+    private LinearLayout ll_home_inspection;
     private LinearLayout ll_property_services;
     private CircleImageView iv_property_thumbnail;
     private TextView tv_property_name;
@@ -52,13 +54,15 @@ public class Property_Services extends BaseActionBarActivity {
     private PropertyServicesType mServicesType;
     private RoomInformation information;
     private HomeService homeService;
-    private Handler handlerDeleteRed=new Handler(){};
+    private Handler handlerDeleteRed = new Handler() {
+    };
+
     //初始化视图
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_property_services);
-        homeService=new HomeService(this);
+        homeService = new HomeService(this);
         findView();
     }
 
@@ -72,8 +76,6 @@ public class Property_Services extends BaseActionBarActivity {
     public void findView() {
         //初始化服务
         services = new Services();
-        //获取服务类型
-//        GetPropertyServicesTypes();
         ll_property_services = (LinearLayout) findViewById(R.id.ll_property_services);
         // 标题
         tv_main_title = (TextView) findViewById(R.id.tv_page_title);
@@ -114,13 +116,15 @@ public class Property_Services extends BaseActionBarActivity {
         ll_home_communicate = (LinearLayout) findViewById(R.id.ll_home_communicate);
         txCommunicate = (TextView) findViewById(R.id.tx_home_communicate);
 
+        //房屋验收
+        ll_home_inspection = (LinearLayout) findViewById(R.id.ll_home_inspection);
+
         //物业电话
         ll_home_telephone = (LinearLayout) findViewById(R.id.ll_home_telephone);
         //房屋信息
         RoomInformation();
         initEvent();
     }
-
 
 
     //获取房子信息
@@ -170,42 +174,42 @@ public class Property_Services extends BaseActionBarActivity {
 
 
     //显示小红点
-    private void showRed(){
+    private void showRed() {
         //报修显示红点
-        if (PushMessage.getPushInfo().REPAIRS){
+        if (PushMessage.getPushInfo().REPAIRS) {
             unread_baoxiu.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             unread_baoxiu.setVisibility(View.GONE);
         }
         //投诉
-        if (PushMessage.getPushInfo().COMPLAIN){
+        if (PushMessage.getPushInfo().COMPLAIN) {
             unread_tousu.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             unread_tousu.setVisibility(View.GONE);
         }
         //沟通
-        if (PushMessage.getPushInfo().COMMUNICATION){
+        if (PushMessage.getPushInfo().COMMUNICATION) {
             unread_goutong.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             unread_goutong.setVisibility(View.GONE);
         }
 
     }
 
 
-    private void hintRed(int type){
+    private void hintRed(int type) {
         //消除小红点
-        Msg msg=PushMessage.getPushInfo();
-        msg.REPAIRS=false;
+        Msg msg = PushMessage.getPushInfo();
+        msg.REPAIRS = false;
         PushMessage.setPushInformation(msg);
-        homeService.deleteRedPoint(type,handlerDeleteRed);
+        homeService.deleteRedPoint(type, handlerDeleteRed);
     }
 
     //初始化事件
     public void initEvent() {
         btn_back.setOnClickListener(this);
         //缴费
-        //ll_home_fee.setOnClickListener(this);
+        ll_home_inspection.setOnClickListener(this);
         //报修
         ll_home_repair.setOnClickListener(this);
         //投诉
@@ -260,7 +264,7 @@ public class Property_Services extends BaseActionBarActivity {
             case R.id.ll_home_communicate:
                 try {
                     unread_goutong.setVisibility(View.GONE);
-                   hintRed(3);
+                    hintRed(3);
                     HashMap<String, String> extras = new HashMap<String, String>();
                     extras.put("LEFT", "LEFT");
                     gotoActivityAndFinish(Property_Communicate.class.getName(), extras);
@@ -274,6 +278,13 @@ public class Property_Services extends BaseActionBarActivity {
                     HashMap<String, String> extras = new HashMap<String, String>();
                     extras.put("LEFT", "LEFT");
                     gotoActivityAndFinish(Property_Telephone.class.getName(), extras);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.ll_home_inspection:
+                try {
+                    gotoActivityAndFinish(NoticeHomeInspectionActivity.class.getName(), null);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -299,25 +310,26 @@ public class Property_Services extends BaseActionBarActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
 
-    Handler handlerGetRedPointPush=new Handler(){
+    Handler handlerGetRedPointPush = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
-                    List<Type> data=(List<Type>)msg.obj;
-                    Msg push=PushMessage.setMsg(data);
+                    List<Type> data = (List<Type>) msg.obj;
+                    Msg push = PushMessage.setMsg(data);
                     PushMessage.setPushInformation(push);
                     showRed();
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:
-                    List<Type> data2=new ArrayList<Type>();
-                    Msg push2=PushMessage.setMsg(data2);
+                    List<Type> data2 = new ArrayList<Type>();
+                    Msg push2 = PushMessage.setMsg(data2);
                     PushMessage.setPushInformation(push2);
                     showRed();
                     break;

@@ -34,7 +34,6 @@ import com.ldnet.utility.UserInformation;
 import com.third.Alipay.PayKeys;
 import com.third.Alipay.PayResult;
 import com.third.Alipay.SignUtils;
-import com.unionpay.UPPayAssistEx;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;
@@ -258,7 +257,7 @@ public class Pay extends BaseActionBarActivity implements CompoundButton.OnCheck
 
     // 调用银联
     public void doStartUnionPayPlugin(Activity activity, String tn, String serverMode) {
-        UPPayAssistEx.startPay(activity, null, null, tn, serverMode);
+        //UPPayAssistEx.startPay(activity, null, null, tn, serverMode);
     }
 
     //支付按钮点击事件

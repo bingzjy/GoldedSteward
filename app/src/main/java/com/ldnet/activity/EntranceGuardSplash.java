@@ -71,7 +71,6 @@ public class EntranceGuardSplash extends Activity {
         //销毁其他的Activity
         ActivityUtil.finishAllActivity();
 
-        Log.e("aaa","快捷  onCreate");
     }
 
 
@@ -79,7 +78,6 @@ public class EntranceGuardSplash extends Activity {
     protected void onResume() {
         super.onResume();
         requestPermission();
-       Log.e("aaa","快捷  onResume");
     }
 
     private void initView() {
@@ -106,10 +104,10 @@ public class EntranceGuardSplash extends Activity {
         LocalCallBack localCallBack = new LocalCallBack();
         mBlueLockPub.setResultCallBack(localCallBack);
         if (mBTAdapter.isEnabled()) {
-            mTvOpenDoorTip.setText("正在连接蓝牙门禁...");
+            mTvOpenDoorTip.setText(getString(R.string.blue_tooth_connectting));
             startScan();
         } else {
-            mTvOpenDoorTip.setText("请手动打开蓝牙");
+            mTvOpenDoorTip.setText(getString(R.string.open_blue_tooth_byself));
         }
     }
 
@@ -149,7 +147,8 @@ public class EntranceGuardSplash extends Activity {
         public void scanDeviceEndCallBack(int j) {
             Set<String> keySet = KeyCache.getKeyCache();
             if (keySet == null || keySet.size() == 0) {
-                Toast.makeText(EntranceGuardSplash.this, "当前房屋暂无钥匙，无法开门", Toast.LENGTH_SHORT).show();
+                mGifImage.setImageResource(R.drawable.shortcut_open_fail);
+                mTvOpenDoorTip.setText(getString(R.string.get_key_null));
             } else {
                 for (String keyMsg : keySet) {
                     Log.e(TAG, keyMsg);
@@ -171,11 +170,11 @@ public class EntranceGuardSplash extends Activity {
                     //再次启动扫描
                     startScan();
                     count++;
-                    Toast.makeText(EntranceGuardSplash.this, "请靠近设备再试", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EntranceGuardSplash.this, getString(R.string.close_door), Toast.LENGTH_SHORT).show();
 
                 } else if (!opened && count == 2) {
                     mGifImage.setImageResource(R.drawable.shortcut_open_fail);
-                    Toast.makeText(EntranceGuardSplash.this, "请靠近设备再试", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EntranceGuardSplash.this, getString(R.string.close_door), Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -205,7 +204,7 @@ public class EntranceGuardSplash extends Activity {
                     //权限已获取，做自己的处理
                     initBlueTooth();
                 } else {
-                    Toast.makeText(EntranceGuardSplash.this, "请手动开启位置权限", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EntranceGuardSplash.this, getString(R.string.location_permission), Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -244,18 +243,18 @@ public class EntranceGuardSplash extends Activity {
             int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,BluetoothAdapter.STATE_OFF);
             switch (state){
                 case 10:
-                    mTvOpenDoorTip.setText("请打开蓝牙");
+                    mTvOpenDoorTip.setText(getString(R.string.open_blue_tooth));
                     break;
                 case 12:
-                    mTvOpenDoorTip.setText("正在连接蓝牙门禁...");
+                    mTvOpenDoorTip.setText(getString(R.string.blue_tooth_connectting));
                     initBlueTooth();
                     startScan();
                     break;
                 case 13:
-                    mTvOpenDoorTip.setText("蓝牙正在关闭");
+                    mTvOpenDoorTip.setText(getString(R.string.blue_is_closeing));
                     break;
                 case 11:
-                    mTvOpenDoorTip.setText("蓝牙正在打开");
+                    mTvOpenDoorTip.setText(getString(R.string.blue_is_opening));
                     break;
             }
         }
@@ -265,12 +264,10 @@ public class EntranceGuardSplash extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e("aaa","快捷  onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("aaa","快捷  onDestroy");
     }
 }

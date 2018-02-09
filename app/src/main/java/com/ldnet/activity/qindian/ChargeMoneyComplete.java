@@ -11,8 +11,6 @@ import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
 
-import static com.unionpay.mobile.android.global.a.C;
-
 /**
  * Created by zjy on 2017/9/5.
  */

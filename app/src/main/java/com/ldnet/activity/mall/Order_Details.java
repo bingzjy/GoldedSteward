@@ -6,17 +6,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
 import com.ldnet.activity.Browser;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.Goods;
@@ -27,28 +23,14 @@ import com.ldnet.entities.Orders;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.OrderService;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.CustomListView;
 import com.ldnet.utility.CustomListView2;
-import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.third.Alipay.PayKeys;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-
-import okhttp3.Call;
-
-import static com.unionpay.mobile.android.global.a.I;
 
 /**
  * Created by Alex on 2015/9/28.

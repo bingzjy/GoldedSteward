@@ -54,8 +54,6 @@ import static com.ldnet.utility.Services.RESIDENT_TYPE;
 import static com.ldnet.utility.Services.ROOM_ID;
 import static com.ldnet.utility.Services.ROOM_NAME;
 import static com.ldnet.utility.Services.TO_APPLY;
-import static com.unionpay.mobile.android.global.a.F;
-import static com.unionpay.mobile.android.global.a.H;
 
 /**
  * Created by lee on 2017/4/25.

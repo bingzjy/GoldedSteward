@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_inspect_home_man"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ldnet.activity.homeInspectionManage.ManInspectHomeActivity">
+
+    <include layout="@layout/title_white_theme" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="31dp"
+        android:text="@string/inspect_home_man" />
+
+    <EditText
+        android:id="@+id/et_inspect_man"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:padding="@dimen/dimen_10dp"
+        android:hint="陪同验房人（选填）"
+        android:textColorHint="@color/gray_text"
+        android:textColor="@color/black_text"
+        android:background="@drawable/back_border_line_gray"
+        android:textSize="@dimen/font_size_14sp"
+        />
+
+    <Button
+        android:id="@+id/btn_start_inspect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/back_button_fill_green2"
+        android:text="@string/start_inspect_home"
+        android:textColor="@color/white"
+        android:padding="@dimen/dimen_12dp"
+        />
+</LinearLayout>

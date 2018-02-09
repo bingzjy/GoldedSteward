@@ -53,7 +53,6 @@ import static com.ldnet.utility.Services.ROOM_ID;
 import static com.ldnet.utility.Services.ROOM_NAME;
 import static com.ldnet.utility.Services.TO_APPLY;
 import static com.ldnet.utility.Utility.getScreenWidthforPX;
-import static com.unionpay.mobile.android.global.a.s;
 
 /**
  * ***************************************************
@@ -766,11 +765,13 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         @Override
         public void scanDeviceCallBack(LEDevice leDevice, int i, int i1) {
             scanDeviceResult.put(leDevice.getDeviceId(), leDevice);
+            Log.e("aaa","门禁："+leDevice.getDeviceId()+"  "+leDevice.getDeviceName());
         }
 
         @Override
         public void scanDeviceEndCallBack(int i) {
-            Log.e("aaa", "蓝牙扫描完毕");
+            Log.e("aaa", "蓝牙扫描完毕"+scanDeviceResult.size());
+
             openDoor();
         }
     }
@@ -1134,7 +1135,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
                     if (openDoorBykeyChain) { //如果是用于开门，则显示错误提示，否则只是获取钥匙串
-                        showToast(msg.obj.toString());
+                        openDoorDialog.setKeyIsNullType(true);
                     }
                     break;
             }

@@ -1,26 +1,13 @@
 package com.ldnet.service;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.mall.Goods_Details;
-import com.ldnet.activity.mall.Order_Confirm;
-import com.ldnet.activity.mall.Order_Details;
-import com.ldnet.activity.mall.Pay;
-import com.ldnet.activity.mall.Shopping_Carts;
 import com.ldnet.entities.AddressSimple;
-import com.ldnet.entities.Goods;
 import com.ldnet.entities.Goods1;
-import com.ldnet.entities.OD;
 import com.ldnet.entities.OrderPay;
 import com.ldnet.entities.Orders;
 import com.ldnet.entities.RS;
@@ -28,42 +15,17 @@ import com.ldnet.entities.SD;
 import com.ldnet.entities.ShoppingCart;
 import com.ldnet.entities.Stock;
 import com.ldnet.entities.SubOrders;
-import com.ldnet.goldensteward.R;
 import com.ldnet.utility.CookieInformation;
 import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
-import com.ldnet.utility.ViewHolder;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhy.http.okhttp.OkHttpUtils;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Request;
-
-import static com.ldnet.goldensteward.R.id.ll_goods_balance;
-import static com.ldnet.goldensteward.R.id.lv_order_details;
-import static com.ldnet.goldensteward.R.id.tv_address_name;
-import static com.ldnet.goldensteward.R.id.tv_address_title;
-import static com.ldnet.goldensteward.R.id.tv_address_zipcode;
-import static com.ldnet.goldensteward.R.id.tv_business_name;
-import static com.ldnet.goldensteward.R.id.tv_business_phone;
-import static com.ldnet.goldensteward.R.id.tv_orders_created;
-import static com.ldnet.goldensteward.R.id.tv_orders_numbers;
-import static com.ldnet.goldensteward.R.id.tv_orders_prices;
-import static com.ldnet.goldensteward.R.id.tv_orders_status;
-import static com.ldnet.utility.Utility.imageOptions;
-import static com.unionpay.mobile.android.global.a.D;
 
 
 /**
@@ -449,10 +411,15 @@ public class OrderService extends BaseService {
     }
 
     //删除购物车的商品
+    // ResidentID = c2d0e0b741ee494d88bac5cc00da0a3c;
+    //ShoppingDetailIDs = "b96a3734961a4ca9babaea3ef08b67d2,aec1470e63294ae08f5afffc728e96dc";
+
+
     public void deleteShopping(final String detailIds,final Handler handler){
         // 请求的URL
         String url = Services.mHost + "BShoppingCart/APP_DeleteShopping_ByDetailID?ShoppingDetailIDs=%s&ResidentID=%s";
         url = String.format(url, detailIds, UserInformation.getUserInfo().getUserId());
+        // url = String.format(url, "b96a3734961a4ca9babaea3ef08b67d2,aec1470e63294ae08f5afffc728e96dc","c2d0e0b741ee494d88bac5cc00da0a3c");
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
         String aa2 = url;

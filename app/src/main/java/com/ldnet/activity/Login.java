@@ -2,6 +2,7 @@ package com.ldnet.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,7 @@ import com.ldnet.utility.*;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.service.PushService;
 import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,10 +43,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
-
-import static com.unionpay.mobile.android.global.a.s;
 
 /**
  * ***************************************************

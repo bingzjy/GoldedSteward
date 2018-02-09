@@ -353,11 +353,10 @@ public class AcountService extends BaseService {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         });
-
     }
+
 
     //删除手机和用户关系
     public void deleteLoginUserPush(Handler handler){
@@ -620,6 +619,7 @@ public class AcountService extends BaseService {
                     }
                 });
     }
+
 
     //设置积分
     public  void setIntegralTip(final Handler handler, String routeURL){

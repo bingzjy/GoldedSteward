@@ -28,18 +28,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
-
 import okhttp3.Call;
-import okhttp3.Request;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.OTHER;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-import static com.iflytek.cloud.Setting.LOG_LEVEL.detail;
-import static com.ldnet.goldensteward.R.id.cover;
-import static com.unionpay.mobile.android.global.a.J;
-import static com.unionpay.mobile.android.global.a.h;
-import static com.unionpay.mobile.android.global.a.s;
-import static com.unionpay.mobile.android.global.a.t;
 
 public class InfoBarService extends BaseService {
 

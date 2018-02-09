@@ -1,27 +1,9 @@
 package com.ldnet.utility;
 
-import android.app.AlertDialog;
 import android.content.*;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.autonavi.rtbt.IFrameForRTBT;
-import com.ldnet.activity.qindian.ChargeBatteryActivity;
-
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
-
-import java.util.Set;
-
-import static android.content.Context.WIFI_SERVICE;
-import static com.unionpay.mobile.android.global.a.I;
 
 /**
  * Created by Administrator on 2015/1/19.

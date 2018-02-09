@@ -7,13 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
-import com.google.gson.Gson;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.informationpublish.PublishCommunityInfoActivity;
 import com.ldnet.entities.Item;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
@@ -22,19 +18,10 @@ import com.ldnet.utility.*;
 import com.ldnet.view.ImageCycleView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zhy.http.okhttp.OkHttpUtils;
-import okhttp3.Call;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.ldnet.goldensteward.R.id.iv;
 import static com.ldnet.goldensteward.R.id.ll_activity_content;
-import static com.unionpay.mobile.android.global.a.B;
-import static com.unionpay.mobile.android.global.a.s;
 
 /**
  * Created by zxs on 2016/3/1.

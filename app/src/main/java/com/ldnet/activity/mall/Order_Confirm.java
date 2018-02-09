@@ -9,7 +9,6 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -20,9 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.me.AddressEdit;
 import com.ldnet.activity.me.ChooseCoupon;
@@ -34,32 +30,17 @@ import com.ldnet.entities.SubOrders;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.OrderService;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.DialogAddress;
 import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.third.Alipay.PayKeys;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import com.ldnet.utility.ListViewAdapter;
-import okhttp3.Call;
-
-import static com.unionpay.mobile.android.global.a.B;
-import static com.unionpay.mobile.android.global.a.s;
 
 /**
  * Created by Alex on 2015/9/28.
@@ -161,6 +142,7 @@ public class Order_Confirm extends BaseActionBarActivity {
         services = new Services();
         //初始化订单商品详细
         mSubOrders = (List<SubOrders>) getIntent().getSerializableExtra("SUB_ORDERS");
+
         lv_order_details.setAdapter(new ListViewAdapter<SubOrders>(this, R.layout.item_order, mSubOrders) {
             @Override
             public void convert(final ViewHolder holder, final SubOrders orders) {

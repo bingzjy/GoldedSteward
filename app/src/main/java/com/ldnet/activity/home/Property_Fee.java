@@ -12,11 +12,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,6 +28,9 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.chinaums.pppay.unify.UnifyPayListener;
+import com.chinaums.pppay.unify.UnifyPayPlugin;
+import com.chinaums.pppay.unify.UnifyPayRequest;
 import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.adapter.FeeListViewAdapter;
 import com.ldnet.activity.adapter.PayTypeAdapter;
@@ -41,7 +44,6 @@ import com.ldnet.service.PropertyFeeService;
 import com.ldnet.utility.Arith;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
-import com.unionpay.UPPayAssistEx;
 
 import net.tsz.afinal.FinalDb;
 
@@ -54,7 +56,9 @@ import java.util.Set;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Property_Fee extends BaseActionBarActivity {
+import static com.ldnet.utility.Utility.backgroundAlpaha;
+
+public class Property_Fee extends BaseActionBarActivity implements UnifyPayListener {
     @BindView(R.id.tv_property_fee_empty)
     TextView tvPropertyFeeEmpty;
     private TextView tv_main_title;
@@ -148,7 +152,6 @@ public class Property_Fee extends BaseActionBarActivity {
                 case BaseService.DATA_SUCCESS:
                     //获取到物业费用
                     yearList.clear();
-
                     if (msg.obj == null) {
                         tvPropertyFeeEmpty.setVisibility(View.VISIBLE);
                         exlv_property_fees.setVisibility(View.GONE);
@@ -204,7 +207,6 @@ public class Property_Fee extends BaseActionBarActivity {
                         extra.put("from", Property_Fee.class.getName());
                         extra.put("house", tv_fee_houseinfo.getText().toString());
                         extra.put("fee", tv_fee_sum.getText().toString());
-
                         try {
                             gotoActivity(PayConfirm.class.getName(), extra);
                         } catch (ClassNotFoundException e) {
@@ -258,13 +260,11 @@ public class Property_Fee extends BaseActionBarActivity {
                 }
             }
         }
-
-        mAdapter.notifyDataSetChanged();
+        initAdapter();
     }
 
-
+    //初始化适配器
     private void initAdapter() {
-        //初始化适配器
         mAdapter = new FeeListViewAdapter(Property_Fee.this, showFeeList, tv_fee_sum, totalAmount);
         exlv_property_fees.setAdapter(mAdapter);
         exlv_property_fees.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -353,7 +353,11 @@ public class Property_Fee extends BaseActionBarActivity {
                     }
                     //判断用户选择，并提交到缴费的页面
                     if (!TextUtils.isEmpty(ids)) {
+//                        Intent intent = new Intent(Property_Fee.this, PropertyFeeCreateCode.class);
+//                        startActivity(intent);
                         showPayTypeSelect(ids, UserInformation.getUserInfo().UserId);
+
+                        // testPay();
                     } else {
                         showToast(getString(R.string.go_paid_none));
                     }
@@ -459,7 +463,7 @@ public class Property_Fee extends BaseActionBarActivity {
 
     // 调用银联
     public void doStartUnionPayPlugin(Activity activity, String tn, String serverMode) {
-        UPPayAssistEx.startPay(activity, null, null, tn, serverMode);
+        //UPPayAssistEx.startPay(activity, null, null, tn, serverMode);
     }
 
     //处理银联手机支付控件返回的支付结果
@@ -571,6 +575,9 @@ public class Property_Fee extends BaseActionBarActivity {
                         break;
                     case 1:  //银联
                         service.GetTnByFeesIds(feeId, payerId, handGetTnByFeesIds);
+                    case 2: //微信
+                        Intent intent = new Intent(Property_Fee.this, PropertyFeeCreateCode.class);
+                        startActivity(intent);
                         break;
                 }
             }
@@ -579,12 +586,21 @@ public class Property_Fee extends BaseActionBarActivity {
     }
 
 
-    //设置遮罩层效果
-    public void backgroundAlpaha(Activity context, float bgAlpha) {
-        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
-        lp.alpha = bgAlpha;
-        context.getWindow()
-                .addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        context.getWindow().setAttributes(lp);
+    private void testPay(String payUrl) {
+        UnifyPayPlugin payPlugin;
+        UnifyPayRequest payRequest;
+        payPlugin = UnifyPayPlugin.getInstance(this);
+        payRequest = new UnifyPayRequest();
+        payPlugin.setListener(Property_Fee.this);
+        payRequest.payChannel = UnifyPayRequest.CHANNEL_ALIPAY;
+        //payRequest.payData = "{\"qrCode\": \"https://qr.alipay.com/bax09847skqwcpztcnia8008\"}";
+        payRequest.payData = payUrl;
+        payPlugin.sendPayRequest(payRequest);
+    }
+
+
+    @Override
+    public void onResult(String s, String s1) {
+        Log.e(TAG, "支付结果：" + s + "   " + s1);
     }
 }

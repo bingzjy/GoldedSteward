@@ -2,6 +2,7 @@ package com.ldnet.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,6 +21,7 @@ import com.ldnet.activity.base.BaseActionBarFragmentActivity;
 import com.ldnet.entities.Goods;
 import com.ldnet.entities.YellowPageSort;
 import com.ldnet.goldensteward.R;
+import com.ldnet.service.AcountService;
 import com.ldnet.utility.*;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -47,6 +49,8 @@ public class YellowPageTabActivity extends BaseActionBarFragmentActivity impleme
     private ViewPager mYellowPagePager;
     private Integer mCurrentIndex = 0;
 
+    private final String URL_YELLOW=Services.mHost+"API/YellowPages/GetSubSortLstById";
+    private AcountService acountService;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +72,9 @@ public class YellowPageTabActivity extends BaseActionBarFragmentActivity impleme
         //初始化分类
         getYellowPageSortById(mYellowPageSortID);
         Utility.setTabsValue(mYellowPageTabs,this);
+
+        acountService=new AcountService(this);
+        acountService.setIntegralTip(new Handler(),URL_YELLOW);
     }
 
 

@@ -26,9 +26,7 @@ import com.ldnet.utility.UserInformation;
 import com.third.Alipay.PayKeys;
 import com.third.Alipay.PayResult;
 import com.third.Alipay.SignUtils;
-import com.unionpay.UPPayAssistEx;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -205,7 +203,7 @@ public class Recharge_Details extends BaseActionBarActivity implements CompoundB
 
     // 调用银联
     public void doStartUnionPayPlugin(Activity activity, String tn, String serverMode) {
-        UPPayAssistEx.startPay(activity, null, null, tn, serverMode);
+        //UPPayAssistEx.startPay(activity, null, null, tn, serverMode);
     }
 
     //编辑框改变的监听事件

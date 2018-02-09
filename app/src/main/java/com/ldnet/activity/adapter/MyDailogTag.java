@@ -24,9 +24,11 @@ public class MyDailogTag {
     DialogOpenDoorCallBack dialogOpenDoorCallBack;
     AlertDialog alertDialog;
     TextView close_dialog,warmPrompty,tvOpenState;
+    GifImageView gifImageView;
     Button checkBtn;
     int btnType;
     String fee;
+    boolean keyIsNull;
     /**
      * init the dialog
      * @return
@@ -50,6 +52,7 @@ public class MyDailogTag {
         close_dialog = (TextView) alertDialog.findViewById(R.id.tv_dialog_opendoor_close);
         warmPrompty = (TextView) alertDialog.findViewById(R.id.tv_dialog_opendoor_arrearage);
         tvOpenState=(TextView)alertDialog.findViewById(R.id.tv_dialog_opendoor_state);
+        gifImageView =(GifImageView)alertDialog.findViewById(R.id.imgv_gif_open_icon);
         checkBtn.setText("    关闭    ");
 
         initView(fee);
@@ -94,7 +97,7 @@ public class MyDailogTag {
 
 
     public void updateView(){
-        GifImageView gifImageView =(GifImageView)alertDialog.findViewById(R.id.imgv_gif_open_icon);
+
         if (btnType==0){ //开门等待
             checkBtn.setVisibility(View.GONE);
             tvOpenState.setText("开门中...");
@@ -126,6 +129,17 @@ public class MyDailogTag {
         this.btnType=type;
         updateView();
     }
+
+
+    public void setKeyIsNullType(boolean keyIsNULL){
+        if (keyIsNULL){
+            checkBtn.setVisibility(View.GONE);
+            tvOpenState.setText("获取钥匙失败，如有疑问，请联系物业");
+            tvOpenState.setTextSize(14);
+            gifImageView.setImageResource(R.drawable.shortcut_open_fail);
+        }
+    }
+
 
     public interface DialogOpenDoorCallBack{
         void clickEvent(int type);

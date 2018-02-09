@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_create_inspect_exception"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.ldnet.activity.homeInspectionManage.CreateInspectExceptionActivity">
+
+    <include layout="@layout/title_white_theme" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:paddingBottom="@dimen/dimen_10dp"
+            android:paddingTop="@dimen/dimen_10dp"
+            android:text="@string/input_location"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <EditText
+            android:id="@+id/et_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="填写部位"
+            android:textColor="@color/black_text"
+            android:textColorHint="@color/gray_text"
+            android:textSize="@dimen/font_size_14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:paddingBottom="@dimen/dimen_10dp"
+            android:paddingTop="@dimen/dimen_10dp"
+            android:text="@string/input_check_item"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <EditText
+            android:id="@+id/et_check_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="填写检查项"
+            android:textColor="@color/black_text"
+            android:textColorHint="@color/gray_text"
+            android:textSize="@dimen/font_size_14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:paddingBottom="@dimen/dimen_10dp"
+            android:paddingTop="@dimen/dimen_10dp"
+            android:text="@string/input_describe"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <EditText
+            android:id="@+id/et_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="填写描述说明"
+            android:textColor="@color/black_text"
+            android:textColorHint="@color/gray_text"
+            android:textSize="@dimen/font_size_14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_10dp"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:text="添加照片（最多5张）" />
+
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/ll_picture_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_4dp">
+
+            <ImageButton
+                android:id="@+id/btn_picture_add"
+                android:layout_width="@dimen/dimen_64dp"
+                android:layout_height="@dimen/dimen_64dp"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/btn_add_pic" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:text="确认"
+            android:paddingTop="14dp"
+            android:paddingBottom="@dimen/dimen_14dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_16sp"
+            android:layout_gravity="bottom"
+            />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,7 +1,6 @@
 package com.ldnet.activity.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,8 @@ import com.ldnet.entities.Fees;
 import com.ldnet.entities.lstAPPFees;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.Arith;
-import com.ldnet.utility.Services;
 import com.ldnet.utility.ViewHolder;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,15 +28,15 @@ public class FeeListViewAdapter extends BaseExpandableListAdapter {
     protected int mGroupLayoutId;
     protected int mItemLayoutId;
     private TextView textView;
-    private float aa;
+    private float allAmount;
     public Map<Integer, Boolean> isCheckMap = new HashMap<Integer, Boolean>();
 
     //构造函数
-    public FeeListViewAdapter(Context context, List<Fees> datas, TextView view, float aaa) {
+    public FeeListViewAdapter(Context context, List<Fees> datas, TextView view, float totalAmount) {
         mContext = context;
         mDatas = datas;
         textView = view;
-        aa = aaa;
+        allAmount = totalAmount;
         mInflater = LayoutInflater.from(context);
         mGroupLayoutId = R.layout.item_fee_group_view;
         mItemLayoutId = R.layout.item_fee_view;
@@ -107,13 +103,13 @@ public class FeeListViewAdapter extends BaseExpandableListAdapter {
                     if (((CheckBox) view).isChecked()) {
                         mDatas.get(groupPosition).IsChecked = true;
                         float add = mDatas.get(groupPosition).UnpaidSum().floatValue();
-                        aa = Arith.add(aa, add);
-                        textView.setText("总计:" + aa);
+                        allAmount = Arith.add(allAmount, add);
+                        textView.setText("总计:" + allAmount);
                     } else {
                         mDatas.get(groupPosition).IsChecked = false;
                         float sub = mDatas.get(groupPosition).UnpaidSum().floatValue();
-                        aa = Arith.sub(aa, sub);
-                        textView.setText("总计:" + aa);
+                        allAmount = Arith.sub(allAmount, sub);
+                        textView.setText("总计:" + allAmount);
                     }
                 }
             });
@@ -130,7 +126,6 @@ public class FeeListViewAdapter extends BaseExpandableListAdapter {
         } else {
             image.setImageResource(R.drawable.indicator_unexpand);
         }
-
         return holder.getConvertView();
     }
 
@@ -153,4 +148,5 @@ public class FeeListViewAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int i, int i1) {
         return false;
     }
+
 }

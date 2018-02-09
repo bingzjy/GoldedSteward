@@ -30,10 +30,6 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import static com.ldnet.goldensteward.R.id.btn_goods_minus;
-import static com.ldnet.goldensteward.R.id.btn_goods_plus;
-import static com.ldnet.goldensteward.R.id.et_goods_numbers;
-import static com.unionpay.mobile.android.global.a.s;
 
 /**
  * Created by lee on 2017/7/30.
@@ -91,12 +87,10 @@ public class GoodsService extends BaseService {
 
             @Override
             public void onBefore(Request request, int id) {
-                Log.e(tag, "首页区域设置getHomePageArea--------before" + s);
             }
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                Log.e(tag, "首页区域设置getHomePageArea--------error" + s);
             }
 
             @Override
@@ -198,7 +192,6 @@ public class GoodsService extends BaseService {
 
             @Override
             public void onBefore(Request request, int id) {
-                Log.e(tag,"getGoodsListByColumnId----onBefore:"+s);
             }
         });
 

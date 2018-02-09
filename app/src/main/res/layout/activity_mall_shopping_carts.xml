@@ -1,9 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/gray_back"
+    >
 
-    <include layout="@layout/activity_second_titlebar" />
+    <include layout="@layout/title_white_theme" />
 
     <com.library.PullToRefreshScrollView
         android:id="@+id/main_act_scrollview"
@@ -37,64 +39,60 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_top_bottom"></com.ldnet.utility.MyListView>
         </LinearLayout>
-
     </com.library.PullToRefreshScrollView>
 
     <LinearLayout
         android:id="@+id/ll_goods_balance"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_48dp"
-        android:background="@color/green"
-        android:visibility="gone">
+        android:background="@color/white"
+        android:visibility="gone"
+        >
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:paddingLeft="@dimen/dimen_8dp">
+            android:paddingLeft="@dimen/dimen_15dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="数量："
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_16sp" />
+            <CheckBox
+                android:id="@+id/cb_all_check"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/dimen_10dp"
+                android:background="@drawable/chk_custom"
+                android:button="@null"
+                android:checked="true"
+                />
 
             <TextView
                 android:id="@+id/tv_goods_numbers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="5"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/dimen_16dp"
-                android:text="金额："
-                android:textColor="@color/white"
+                android:text="全选"
+                android:textColor="@color/black_text"
                 android:textSize="@dimen/font_size_16sp" />
 
             <TextView
                 android:id="@+id/tv_goods_prices"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="￥320.00"
-                android:textColor="@color/white"
+                android:layout_marginRight="@dimen/dimen_10dp"
+                android:gravity="right"
+                android:text="总计：￥320.00"
+                android:textColor="@color/black_text"
                 android:textSize="@dimen/font_size_16sp" />
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_goods_balance"
-            android:layout_width="@dimen/dimen_78dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:background="@drawable/back_button_orange"
+            android:background="@color/green"
             android:text="去结算"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_16sp" />

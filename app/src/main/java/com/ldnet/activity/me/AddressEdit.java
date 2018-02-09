@@ -30,20 +30,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.AddressService;
 import com.ldnet.service.BaseService;
 import com.ldnet.utility.*;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import okhttp3.Call;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import static com.unionpay.mobile.android.global.a.s;
-import static com.unionpay.mobile.android.pboctransaction.samsung.f.f;
 
 public class AddressEdit extends BaseActionBarActivity {
 

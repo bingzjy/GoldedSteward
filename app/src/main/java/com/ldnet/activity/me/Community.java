@@ -38,7 +38,6 @@ import static com.ldnet.utility.Services.COMMUNITY_NAME;
 import static com.ldnet.utility.Services.ROOM_ID;
 import static com.ldnet.utility.Services.ROOM_NAME;
 import static com.ldnet.utility.Services.TO_APPLY;
-import static com.unionpay.mobile.android.pboctransaction.samsung.f.f;
 
 public class Community extends BaseActionBarActivity {
     private TextView tv_main_title;

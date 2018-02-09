@@ -42,7 +42,6 @@ public class CommunityShops extends BaseActionBarActivity {
     private TextView mShopNotification;
     // 小店商品id
     private CommunityShopId mShopId;
-
     //  商品分类
     private ListView mCommunityShopLv;
     private List<CommunityGoodsType> mGoodType;

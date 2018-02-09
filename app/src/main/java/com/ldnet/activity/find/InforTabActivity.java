@@ -17,6 +17,7 @@ import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
 import com.ldnet.entities.InformationType;
 import com.ldnet.goldensteward.R;
+import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.FindService;
 import com.ldnet.utility.CookieInformation;
@@ -51,6 +52,8 @@ public class InforTabActivity extends BaseActionBarFragmentActivity implements V
     private ViewPager pager;
     private Integer mCurrentIndex = 0;
     private FindService findService;
+    private AcountService acountService;
+    private final String URL_INFO=Services.mHost+"API/Information/Sel_HomePageList";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,9 @@ public class InforTabActivity extends BaseActionBarFragmentActivity implements V
         //初始化服务
         services = new Services();
         findService=new FindService(this);
+        acountService=new AcountService(this);
+        acountService.setIntegralTip(new Handler(),URL_INFO);
+
         //初始化View,事件
         initView();
         initEvent();

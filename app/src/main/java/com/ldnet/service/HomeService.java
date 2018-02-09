@@ -18,8 +18,6 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.unionpay.mobile.android.global.a.J;
-import static com.unionpay.mobile.android.global.a.s;
 
 /**
  * Created by lee on 2017/7/28.

@@ -5,7 +5,7 @@
               android:layout_height="match_parent"
 >
 
-    <include layout="@layout/activity_second_titlebar"/>
+    <include layout="@layout/title_white_theme"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

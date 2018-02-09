@@ -34,11 +34,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static android.R.attr.id;
-import static com.ldnet.goldensteward.R.id.et_visitor_phone;
-import static com.ldnet.goldensteward.R.id.tv_vistior_send;
-import static com.unionpay.mobile.android.global.a.C;
-import static com.unionpay.mobile.android.global.a.t;
 
 /**
  * Created by lee on 2017/6/25.

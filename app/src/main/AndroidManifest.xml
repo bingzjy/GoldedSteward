@@ -68,26 +68,27 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppBaseTheme"
-        tools:replace="android:icon,android:theme">
+        tools:replace="android:icon,android:theme,android:name">
 
-        <!-- 银联开始 -->
-        <uses-library
-            android:name="org.simalliance.openmobileapi"
-            android:required="false" />
+        <!--&lt;!&ndash; 银联开始 &ndash;&gt;-->
+        <!--<uses-library-->
+        <!--android:name="org.simalliance.openmobileapi"-->
+        <!--android:required="false" />-->
 
-        <activity
-            android:name="com.unionpay.uppay.PayActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:excludeFromRecents="true"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name="com.unionpay.UPPayWapActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <!-- 银联结束 -->
+        <!--<activity-->
+        <!--android:name="com.unionpay.uppay.PayActivity"-->
+        <!--android:configChanges="orientation|keyboardHidden"-->
+        <!--android:excludeFromRecents="true"-->
+        <!--android:label="@string/app_name"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:windowSoftInputMode="adjustResize" />-->
+        <!--<activity-->
+        <!--android:name="com.unionpay.UPPayWapActivity"-->
+        <!--android:configChanges="orientation|keyboardHidden"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:windowSoftInputMode="adjustResize" />-->
+        <!--&lt;!&ndash; 银联结束 &ndash;&gt;-->
+
 
         <!-- 网络监听 -->
         <receiver android:name="com.ldnet.utility.NetState">
@@ -110,6 +111,19 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!-- alipay sdk end -->
+
+        <!-- SDK核心功能 since 2.0.6-->
+        <activity
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@style/MyDialogStyle">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.ldnet.goldensteward" />
+            </intent-filter>
+        </activity>
+        <!-- Required  SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -122,12 +136,14 @@
                 <category android:name="com.ldnet.goldensteward" />
             </intent-filter>
         </activity>
+
         <!-- Required  SDK核心功能 -->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
             android:exported="false" />
-        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
@@ -139,6 +155,17 @@
                 <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
         </service>
+        <!-- since 3.0.9 Required SDK 核心功能-->
+        <provider
+            android:authorities="com.ldnet.goldensteward.DataProvider"
+            android:name="cn.jpush.android.service.DataProvider"
+            android:exported="false"
+            />
+        <provider
+            android:authorities="com.ldnet.goldensteward.DownloadProvider"
+            android:name="cn.jpush.android.service.DownloadProvider"
+            android:exported="true"
+            />
         <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
         <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
         <service
@@ -204,6 +231,7 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="21a61331846f75d81f599658" />
+
         <!-- 等待加载页面 -->
         <activity
             android:name="com.ldnet.activity.Splash"
@@ -229,7 +257,6 @@
             android:label="@string/fragment_home_title"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-
         <activity
             android:name="com.ldnet.activity.adapter.ImageBucketChooseActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -349,9 +376,8 @@
             android:hardwareAccelerated="false"
             android:label="验证完成"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:theme="@android:style/Theme.Holo.Light"
-            />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.ldnet.activity.home.Property_Score"
             android:hardwareAccelerated="false"
@@ -564,7 +590,6 @@
         <activity
             android:name="com.ldnet.activity.mall.Shopping_Carts"
             android:label="@string/fragment_me_shopping_cart"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.ldnet.activity.mall.Order_Details"
@@ -664,8 +689,15 @@
             android:theme="@android:style/Theme.Holo.Light" />
         <activity
             android:name="com.ldnet.activity.bindmanage.ContractExtensionActivity"
-            android:theme="@android:style/Theme.Holo.Light"/>
-        <activity android:name="com.ldnet.activity.me.PublishActivity"/>
+            android:theme="@android:style/Theme.Holo.Light" />
+        <activity android:name="com.ldnet.activity.me.PublishActivity" />
+        <activity android:name="com.ldnet.activity.home.PropertyFeeCreateCode" />
+        <activity android:name="com.ldnet.activity.home.PropertyFeePayTypeActivity" />
+        <activity android:name="com.ldnet.activity.homeInspectionManage.MainHomeInspectionActivity" />
+        <activity android:name="com.ldnet.activity.homeInspectionManage.NoticeHomeInspectionActivity" />
+        <activity android:name="com.ldnet.activity.homeInspectionManage.InspectExceptionDetailActivity" />
+        <activity android:name="com.ldnet.activity.homeInspectionManage.CreateInspectExceptionActivity" />
+        <activity android:name="com.ldnet.activity.homeInspectionManage.ManInspectHomeActivity"></activity>
     </application>
 
 </manifest>

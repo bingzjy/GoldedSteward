@@ -5,8 +5,8 @@
     android:versionCode="436"
     android:versionName="4.3.6">
     <uses-sdk
-        android:minSdkVersion="12"
-        android:targetSdkVersion="22"/>
+        android:minSdkVersion="14"
+        android:targetSdkVersion="23"/>
 
     <uses-permission android:name="com.ldnet.goldensteward.permission.JPUSH_MESSAGE"/>
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
@@ -68,7 +68,6 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppBaseTheme"
-
         >
         <!-- 银联开始-->
         <uses-library

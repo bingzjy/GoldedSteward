@@ -168,8 +168,7 @@ public class ChangePassword extends BaseActionBarActivity {
                 .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
                 .addHeader("timestamp", aa)
                 .addHeader("nonce", aa1)
-                .addHeader("signature", Services.textToMD5L32
-                        (md5))
+                .addHeader("signature", Services.textToMD5L32(md5))
                 .addParams("Id", UserInformation.getUserInfo().getUserId())
                 .addParams("OldPassword", oldPassword)
                 .addParams("NewPassword", newPassword)

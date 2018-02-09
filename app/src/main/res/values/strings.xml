@@ -212,7 +212,6 @@
     <string name="activity_register_error">注册失败，请稍后重试！</string>
 
 
-
     <!-- 生活黄页 -->
     <string name="position_on">商家未提供地理位置信息!</string>
     <string name="yellow_pages_life">生活黄页</string>
@@ -347,11 +346,11 @@
 
     <!--物业费支付-->
     <string name="weixin_title0">该二维码有效期5分钟</string>
-    <string name="weixin_title1">微信支付说明</string>
-    <string name="weixin_title2">由于微信接口问题，不能直接打开微信付款,请按如下方式支付：</string>
-    <string name="weixin_title3">1.请长按二维码选择分享给微信好友</string>
-    <string name="weixin_title4">2.在微信会话列表中搜索文件传输助手并发送</string>
-    <string name="weixin_title5">3.在微信里打开图片并长按识别二维码，即可进行付款</string>
+    <string name="weixin_title1">支付说明</string>
+    <string name="weixin_title2">请按如下方式支付：</string>
+    <string name="weixin_title3">方法二：使用另一部手机，微信或者支付宝“扫一扫”，扫描二维码进行支付</string>
+    <string name="weixin_title4">方法一：点击“下一步”，使用本机支付宝或者微信扫一扫进行付款</string>
+    <string name="weixin_title5">选择支付方式后，将跳转至相应付款应用的“扫一扫”界面，点击“扫一扫”右上角“相册”选择保存的付款二维码</string>
 
     <!--充电服务-->
     <string name="qindian_main_title">充电服务</string>
@@ -399,4 +398,21 @@
     <string name="errcode_cancel">分享取消</string>
     <string name="errcode_deny">分享被拒绝</string>
     <string name="errcode_unknown">分享返回</string>
+
+    <!--   门禁-->
+    <string name="get_key_null">获取钥匙失败，如有疑问，请联系物业</string>
+    <string name="close_door">请靠近设备再试</string>
+    <string name="location_permission">请手动开启位置权限</string>
+    <string name="open_blue_tooth_byself">请手动打开蓝牙</string>
+    <string name="blue_tooth_connectting">正在连接蓝牙门禁...</string>
+    <string name="open_blue_tooth">请打开蓝牙</string>
+    <string name="blue_is_opening">蓝牙正在打开</string>
+    <string name="blue_is_closeing">蓝牙正在关闭</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--商家-->
+    <string name="check_valid_goods">请选择有效的商品</string>
 </resources>

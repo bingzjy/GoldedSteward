@@ -57,6 +57,7 @@ public class DialogAlert extends Dialog {
         dialog_button_comfirm.setOnClickListener(clickListener);
     }
 
+
     //按钮事件监听
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override

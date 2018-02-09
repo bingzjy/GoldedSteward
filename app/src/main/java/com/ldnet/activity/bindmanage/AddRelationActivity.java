@@ -76,7 +76,7 @@ public class AddRelationActivity extends BaseActionBarActivity {
     @BindView(R.id.ll_add_relation_check_date)
     LinearLayout llAddRelationCheckDate;
 
-    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-DD");
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
     private ListViewAdapter<OwnerRoom> communityAdapter;
     private String paramsRoomId, paramsRoomName, paramsResiType = "2", paramsName, paramsTel, paramsDates = "", paramsDatee ="";
     private List<OwnerRoom> roomList = new ArrayList<>();

@@ -30,8 +30,8 @@ import static com.ldnet.utility.Services.ROOM_NAME;
  * 绑定房产，绑定用户的房屋信息
  * **************************************************
  * 逻辑：判断条件：是否已经绑定过（从当前用户的房产信息检索当前即将绑定的房屋）、是否是业主（从业主电话列表检索当前用户电话）
- * 非业主：关系选择、手机验证、通过后才执行绑定
- * 业主：执行绑定（绑定、设置门禁关系、设置当前房屋、设置积分）
+ * 非业主：关系选择、手机验证、通过后才执行绑定 (非业主是先绑定房子、修改门禁关系、设置当前房屋、设置积分)
+ * 业主：执行绑定（绑定、设置当前房屋、设置积分）
  *
  */
 public class BindingHouse extends BaseActionBarActivity {
@@ -299,7 +299,7 @@ public class BindingHouse extends BaseActionBarActivity {
     };
 
 
-    //绑定房子
+    //业主绑定房子
     Handler handlerBindingHouse = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -314,6 +314,7 @@ public class BindingHouse extends BaseActionBarActivity {
                         }
                         service.SetCurrentInforamtion(mCommunityId, mHouseId, new Handler());
                         acountService.setIntegralTip(new Handler(), Services.mHost + "API/Resident/ResidentBindRoom");
+
                         try {
                             if (!IsFromRegister) {
                                 HashMap<String, String> extras = new HashMap<String, String>();
@@ -360,6 +361,8 @@ public class BindingHouse extends BaseActionBarActivity {
             }
         }
     };
+
+
 
     //初始化事件
     public void initEvent() {

@@ -23,10 +23,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.type;
-import static com.ldnet.goldensteward.R.id.init;
-import static com.unionpay.mobile.android.global.a.I;
-
 public class Message extends BaseActionBarActivity {
 
     private TextView tv_main_title;

@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical">
+              android:orientation="vertical"
+                android:background="@color/gray_text_light7"
+    >
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -16,13 +18,14 @@
             android:layout_marginRight="@dimen/dimen_8dp"
             android:background="@drawable/chk_custom"
             android:button="@null"/>
-        <ImageView
+        <com.ldnet.utility.CenterImage
             android:id="@+id/iv_goods_image"
             android:layout_width="@dimen/dimen_104dp"
             android:layout_height="@dimen/dimen_104dp"
             android:layout_marginRight="@dimen/dimen_8dp"
             android:contentDescription="@null"
-            android:src="@mipmap/default_goods"/>
+            android:src="@mipmap/default_goods"
+            />
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -50,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:lines="1"
                         android:text="规格："
-                        android:textColor="@color/gray"
+                        android:textColor="@color/gray_text"
                         android:textSize="@dimen/font_size_14sp"/>
                     <TextView
                         android:id="@+id/tv_goods_stock"
@@ -58,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:lines="1"
                         android:text="300g"
-                        android:textColor="@color/gray"
+                        android:textColor="@color/gray_text"
                         android:textSize="@dimen/font_size_14sp"/>
                 </LinearLayout>
                 <LinearLayout
@@ -70,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:lines="1"
                     android:text="价格："
-                    android:textColor="@color/gray"
+                    android:textColor="@color/gray_text"
                     android:textSize="@dimen/font_size_14sp"/>
                 <TextView
                     android:id="@+id/tv_goods_price"
@@ -78,34 +81,40 @@
                     android:layout_height="wrap_content"
                     android:lines="1"
                     android:text="￥20.00"
-                    android:textColor="@color/gray"
+                    android:textColor="@color/gray_text"
                     android:textSize="@dimen/font_size_14sp"/>
                 </LinearLayout>
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_4dp">
+                android:layout_marginTop="@dimen/dimen_4dp"
+                >
+
                 <Button
                     android:id="@+id/btn_goods_minus"
                     android:layout_width="@dimen/dimen_27dp"
-                    android:layout_height="@dimen/dimen_27dp"
-                    android:background="@drawable/back_button_gray"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/back_border_line_gray_left"
                     android:enabled="false"
                     android:padding="@dimen/dimen_4dp"
-                    android:text="-"
-                    android:textColor="@color/white"/>
+                    android:text="－"
+                    android:textColor="@color/black_text"
+                    android:textSize="@dimen/font_size_16sp"
+                    />
                 <EditText
                     android:id="@+id/et_goods_numbers"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dimen_27dp"
                     android:layout_toRightOf="@id/btn_goods_minus"
-                    android:background="@drawable/back_edittext_login"
+                    android:background="@drawable/back_border_line_gray_center"
                     android:enabled="false"
                     android:focusable="false"
                     android:gravity="center"
                     android:inputType="number"
                     android:padding="@dimen/dimen_4dp"
+                    android:paddingLeft="@dimen/dimen_10dp"
+                    android:paddingRight="@dimen/dimen_10dp"
                     android:text="1"
                     android:textColor="@color/gray_deep"
                     android:textSize="@dimen/font_size_16sp"
@@ -114,12 +123,13 @@
                 <Button
                     android:id="@+id/btn_goods_plus"
                     android:layout_width="@dimen/dimen_27dp"
-                    android:layout_height="@dimen/dimen_27dp"
+                    android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/et_goods_numbers"
-                    android:background="@drawable/back_button_gray"
+                    android:background="@drawable/back_border_line_gray_right"
                     android:padding="@dimen/dimen_4dp"
-                    android:text="+"
-                    android:textColor="@color/white"/>
+                    android:text="＋"
+                    android:textSize="@dimen/font_size_16sp"
+                    android:textColor="@color/black_text"/>
 
                 <Button
                     android:id="@+id/btn_goods_delete"
@@ -128,7 +138,9 @@
                     android:layout_alignParentRight="true"
                     android:background="@drawable/back_button_red"
                     android:text="@string/button_delete"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

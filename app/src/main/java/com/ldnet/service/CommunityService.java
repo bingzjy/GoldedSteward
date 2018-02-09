@@ -45,11 +45,7 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Request;
 
-import static android.R.attr.data;
-import static android.R.attr.id;
-import static com.ldnet.goldensteward.R.id.tv_community_services;
-import static com.unionpay.mobile.android.global.a.C;
-import static com.unionpay.mobile.android.global.a.s;
+
 /**
  * Created by lee on 2017/10/10
  */

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:paddingBottom="@dimen/font_size_30sp"
+            android:paddingTop="@dimen/dimen_20dp"
+            android:text="正在更新，请耐心等待..."
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_16sp" />
+
+        <ProgressBar
+            android:id="@+id/update_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:progressDrawable="@drawable/back_profress_green" />
+
+        <TextView
+            android:id="@+id/tv_progress_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_16sp" />
+
+        <TextView
+            android:id="@+id/tv_operation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:gravity="right"
+            android:text="后台更新"
+            android:textColor="@color/green"
+            android:textSize="@dimen/font_size_14sp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            />
+    </LinearLayout>
+</LinearLayout>

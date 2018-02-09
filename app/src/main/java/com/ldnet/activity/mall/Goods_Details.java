@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -13,16 +12,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.autonavi.rtbt.IFrameForRTBT;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.FragmentHome;
 import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.Goods;
@@ -34,34 +28,16 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.GoodsService;
 import com.ldnet.service.OrderService;
 import com.ldnet.utility.BottomDialog;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.DialogGoods;
-import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
-import com.ldnet.utility.ViewHolder;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Request;
-
-import static com.ldnet.goldensteward.R.id.tv_goods_list;
-import static com.unionpay.mobile.android.global.a.C;
-import static com.unionpay.mobile.android.global.a.G;
 
 /**
  * Created by Alex on 2015/9/28.

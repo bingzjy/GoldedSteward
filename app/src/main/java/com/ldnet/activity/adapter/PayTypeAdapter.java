@@ -35,8 +35,8 @@ public class PayTypeAdapter extends BaseAdapter {
         this.context = context;
         inflater = LayoutInflater.from(context);
         payTypeDataList = new ArrayList<PayTypeData>();
-      //  payTypeDataList.add(new PayTypeData("微信支付", "在线支付", R.drawable.ic_weixin_logo));
         payTypeDataList.add(new PayTypeData("支付宝", "在线支付", R.drawable.alipay));
+     //   payTypeDataList.add(new PayTypeData("微信支付", "在线支付", R.drawable.ic_weixin_logo));
      //   payTypeDataList.add(new PayTypeData("银联支付", "在线支付", R.drawable.unionpay));
     }
 

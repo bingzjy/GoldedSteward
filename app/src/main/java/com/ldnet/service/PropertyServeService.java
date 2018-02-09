@@ -34,16 +34,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Call;
-import okhttp3.Request;
-
-import static com.ldnet.goldensteward.R.id.aaa;
-import static com.ldnet.goldensteward.R.id.btn_change_password;
-import static com.ldnet.goldensteward.R.id.et_say;
-import static com.ldnet.goldensteward.R.id.lv_list;
-import static com.ldnet.goldensteward.R.id.rb_score;
-import static com.ldnet.goldensteward.R.id.tv_share;
-import static com.ldnet.goldensteward.R.id.tv_text;
-import static com.unionpay.mobile.android.global.a.I;
 
 /**
  * Created by zjy on 2017/11/10

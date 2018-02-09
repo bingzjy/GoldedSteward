@@ -43,11 +43,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Request;
-
-import static com.unionpay.mobile.android.global.a.H;
-
 /**
  * Created by zxs on 2015/12/12.
  */

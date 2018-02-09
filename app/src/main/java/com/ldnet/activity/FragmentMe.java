@@ -326,6 +326,8 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+
+
                         mImageUri = Uri.fromFile(new File(imagePath));
                         onCropImage(mImageUri);
                     }
@@ -348,8 +350,11 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
                 startActivity(intent_wallet);
                 break;
             case R.id.ll_me_shopping_cart://我的购物车
-                Intent intent_shopping = new Intent(getActivity(), Shopping_Carts.class);
-                startActivity(intent_shopping);
+                try {
+                    gotoActivity(Shopping_Carts.class.getName(),null);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.ll_me_coupon://我的优惠劵
                 Intent intent_coupon = new Intent(getActivity(), Coupon.class);

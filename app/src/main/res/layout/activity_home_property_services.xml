@@ -297,7 +297,7 @@
                             android:layout_marginTop="2dp"
                             android:background="@null"
                             android:contentDescription="@null"
-                            android:src="@mipmap/home_repair"/>
+                            android:src="@drawable/home_repair"/>
 
                     <LinearLayout
                             android:layout_width="wrap_content"
@@ -346,7 +346,7 @@
                             android:layout_marginTop="2dp"
                             android:background="@null"
                             android:contentDescription="@null"
-                            android:src="@mipmap/home_complaint"/>
+                            android:src="@drawable/home_complaint"/>
 
                     <LinearLayout
                             android:layout_width="wrap_content"
@@ -395,7 +395,7 @@
                             android:layout_marginTop="2dp"
                             android:background="@null"
                             android:contentDescription="@null"
-                            android:src="@mipmap/home_communicate"/>
+                            android:src="@drawable/home_communicate"/>
 
                     <LinearLayout
                             android:layout_width="wrap_content"
@@ -431,6 +431,54 @@
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/ll_home_inspection"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_48dp"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@null"
+                        android:contentDescription="@null"
+                        android:src="@drawable/home_communicate"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_4dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_bottom">
+
+                        <TextView
+                            android:id="@+id/tx_home_inspection"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="@string/inpspect_notice_title"
+                            android:textColor="@color/gray_deep"
+                            android:textSize="@dimen/font_size_16sp"/>
+                        <ImageView
+                            android:visibility="gone"
+                            android:id="@+id/unread_inspect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/red"
+                            android:layout_gravity="center"
+                            />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@mipmap/arrow_right_n"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
                         android:id="@+id/ll_home_telephone"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_48dp"
@@ -443,7 +491,7 @@
                             android:layout_marginTop="2dp"
                             android:background="@null"
                             android:contentDescription="@null"
-                            android:src="@mipmap/home_telephone"/>
+                            android:src="@drawable/home_telephone"/>
 
                     <LinearLayout
                             android:layout_width="0dp"

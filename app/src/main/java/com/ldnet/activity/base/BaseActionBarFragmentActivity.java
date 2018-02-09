@@ -48,7 +48,7 @@ import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 
-import static com.unionpay.mobile.android.global.a.A;
+
 
 public class BaseActionBarFragmentActivity extends FragmentActivity {
 

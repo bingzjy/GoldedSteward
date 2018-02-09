@@ -33,10 +33,7 @@ import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-import static android.R.attr.id;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-import static com.ldnet.goldensteward.R.id.et_complain_content;
-import static com.unionpay.mobile.android.global.a.s;
+
 
 /**
  * Created by lee on 2017/9/30
@@ -148,8 +145,7 @@ public class AccessControlService extends BaseService {
                 .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
                 .addHeader("timestamp", aa)
                 .addHeader("nonce", aa1)
-                .addHeader("signature", Services.textToMD5L32
-                        (md5))
+                .addHeader("signature", Services.textToMD5L32(md5))
                 .addParams("str", jsonObject.toString())
                 .build()
                 .execute(new DataCallBack(mContext, handler) {

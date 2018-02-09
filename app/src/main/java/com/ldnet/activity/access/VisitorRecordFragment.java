@@ -38,8 +38,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.ldnet.utility.Services.dialog;
-import static com.unionpay.mobile.android.global.a.s;
+
 
 
 /**

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_goods_balance"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_48dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dimen_15dp">
+
+            <CheckBox
+                android:id="@+id/cb_all_check"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/dimen_10dp"
+                android:background="@drawable/chk_custom"
+                android:button="@null" />
+
+            <TextView
+                android:id="@+id/tv_goods_numbers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="全选"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <TextView
+                android:id="@+id/tv_goods_prices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/dimen_10dp"
+                android:gravity="right"
+                android:text="总计：￥320.00"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/font_size_16sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_goods_balance"
+            android:layout_width="@dimen/dimen_78dp"
+            android:layout_height="match_parent"
+            android:background="@color/green"
+            android:text="去结算"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_16sp" />
+    </LinearLayout>
+</LinearLayout>

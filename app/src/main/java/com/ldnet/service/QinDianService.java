@@ -23,10 +23,6 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 
-import static android.R.attr.data;
-import static com.unionpay.mobile.android.global.a.H;
-import static com.unionpay.mobile.android.global.a.M;
-
 /**
  * Created by zjy on 2017/9/10.
  */

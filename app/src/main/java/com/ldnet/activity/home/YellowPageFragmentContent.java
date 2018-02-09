@@ -32,6 +32,7 @@ import com.ldnet.activity.base.BaseFragment;
 import com.ldnet.entities.PageSortDetail;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
+import com.ldnet.service.AcountService;
 import com.ldnet.utility.*;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
@@ -71,7 +72,6 @@ public class YellowPageFragmentContent extends BaseFragment implements PoiSearch
     private String mCityCode = "西安";
     private TextView mOrderEmpty;
     private boolean up = false;
-
 
     private boolean permissGranted;
     HashMap<String, String> currentExtras = new HashMap<String, String>();
@@ -119,6 +119,7 @@ public class YellowPageFragmentContent extends BaseFragment implements PoiSearch
     public void initView(View view) {
         //初始化
         service = new Services();
+
         //获取分类的id ，key和类型
         mSortId = getArguments().getString("titleId");
         mSortKeywords = getArguments().getString("titleKeywords");
@@ -418,63 +419,5 @@ public class YellowPageFragmentContent extends BaseFragment implements PoiSearch
         }
     }
 
-
-//    //动态申请权限
-//    private void requestPermission(HashMap<String, String> extras) {
-//        currentExtras=extras;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            // 检查该权限是否已经获取
-//            int i = ContextCompat.checkSelfPermission(getActivity(), permissions[0]);
-//            // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
-//            if (i != PackageManager.PERMISSION_GRANTED) {
-//                // 如果没有授予该权限，就去提示用户请求
-//                ActivityCompat.requestPermissions(getActivity(), permissions, 321);
-//            } else {
-//                if(PackageManager.PERMISSION_GRANTED!=ContextCompat.checkSelfPermission(getActivity(), permissions[1])){
-//                    ActivityCompat.requestPermissions(getActivity(), permissions, 322);
-//                }else{
-//                    try{
-//                        gotoActivity(YellowPages_Map.class.getName(), extras);
-//                    }catch (ClassNotFoundException e){
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            }
-//        }else{
-//
-//        }
-//    }
-//
-//
-//
-//
-//
-//    // 用户权限 申请 的回调方法
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode == 321||requestCode==322) {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-//                    boolean noRemaind = shouldShowRequestPermissionRationale(permissions[1]);
-//                    if (!noRemaind) {
-//                        Toast.makeText(getActivity(), "请手动开启定位权限", Toast.LENGTH_LONG).show();
-//                    }
-//                } else {
-////                    Toast.makeText(getActivity(), "权限获取成功", Toast.LENGTH_LONG).show();
-////                    Intent openCameraIntent = new Intent(PatrolPoint.this, CaptureActivity.class);
-////                    startActivityForResult(openCameraIntent, 0);
-//                    try{
-//                        gotoActivity(YellowPages_Map.class.getName(), currentExtras);
-//                    }catch (ClassNotFoundException e){
-//                        e.printStackTrace();
-//                    }
-//
-//
-//                }
-//            }
-//        }
-//    }
 
 }

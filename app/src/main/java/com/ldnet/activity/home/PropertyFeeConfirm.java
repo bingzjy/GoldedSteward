@@ -17,7 +17,6 @@ import com.ldnet.entities.Fees;
 import com.ldnet.entities.lstAPPFees;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
-import com.unionpay.UPPayAssistEx;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -243,7 +242,7 @@ public class PropertyFeeConfirm extends BaseActionBarActivity implements View.On
 
     // 调用银联
     public void doStartUnionPayPlugin(Activity activity, String tn, String serverMode) {
-        UPPayAssistEx.startPay(activity, null, null, tn, serverMode);
+       // UPPayAssistEx.startPay(activity, null, null, tn, serverMode);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

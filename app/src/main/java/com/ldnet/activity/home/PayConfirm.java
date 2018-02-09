@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
@@ -18,6 +19,10 @@ import com.ldnet.service.PropertyFeeService;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by lee on 2017/7/26.
@@ -56,7 +61,7 @@ public class PayConfirm extends BaseActionBarActivity {
     void initData() {
         Intent intent = getIntent();
         if (intent != null) {
-            tvFee.setText("物业费  "+intent.getStringExtra("fee").toString());
+            tvFee.setText("物业费  " + intent.getStringExtra("fee").toString());
             tvHouseInfo.setText(intent.getStringExtra("house").toString());
             tvPayDate.setText(format.format(Calendar.getInstance().getTime()));
             String from = intent.getStringExtra("from");
@@ -81,7 +86,6 @@ public class PayConfirm extends BaseActionBarActivity {
     }
 
 
-
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -98,14 +102,14 @@ public class PayConfirm extends BaseActionBarActivity {
     Handler handlerCallBack = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     showToast("支付成功");
                     finish();
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
-                    showToast(msg.obj==null?getString(R.string.network_error):msg.obj.toString());
+                    showToast(msg.obj == null ? getString(R.string.network_error) : msg.obj.toString());
                     break;
 
 
@@ -115,4 +119,7 @@ public class PayConfirm extends BaseActionBarActivity {
     };
 
 
+    @OnClick(R.id.btn_back)
+    public void onViewClicked() {
+    }
 }

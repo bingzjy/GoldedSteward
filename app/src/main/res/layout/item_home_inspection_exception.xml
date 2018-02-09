@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView29"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:paddingLeft="@dimen/dimen_15dp"
+        android:text="2018-1-10"
+        android:textColor="@color/gray_text" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView29"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginTop="5dp"
+        android:text="检查项："
+        android:textColor="@color/black_text" />
+
+    <TextView
+        android:id="@+id/tv_location_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView32"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:layout_toEndOf="@+id/textView32"
+        android:layout_toRightOf="@+id/textView32"
+        android:text="自来水管道"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textColor="@color/black_text" />
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView32"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginTop="5dp"
+        android:text="描述说明："
+        android:textColor="@color/black_text" />
+
+    <TextView
+        android:id="@+id/tv_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView34"
+        android:layout_alignLeft="@+id/tv_location_detail"
+        android:layout_alignStart="@+id/tv_location_detail"
+        android:layout_marginLeft="@dimen/dimen_5dp"
+        android:layout_toLeftOf="@+id/tv_state"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="ddccccccc"
+        android:textColor="@color/black_text" />
+
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_describe"
+        android:layout_alignBottom="@+id/tv_describe"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:text="派单中"
+        android:textColor="@color/green" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:text="部位："
+        android:textColor="@color/black_text" />
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView29"
+        android:layout_marginLeft="@dimen/dimen_5dp"
+        android:layout_toLeftOf="@+id/tv_date"
+        android:layout_toRightOf="@+id/textView29"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="厨房11111111"
+        android:textColor="@color/black_text" />
+</RelativeLayout>

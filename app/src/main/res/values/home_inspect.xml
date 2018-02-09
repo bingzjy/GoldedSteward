@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <!-- 装修验房-->
+    <string name="inpspect_notice_title">房屋验收</string>
+    <string name="start_inspect_home">开始验房</string>
+    <string name="inspect_home_man">陪同验房人</string>
+    <string name="notice">须知</string>
+    <string name="input_location">部位</string>
+    <string name="input_check_item">检查项</string>
+    <string name="input_describe">描述说明</string>
+
+
+</resources>

@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.service.PushService;
 
 import java.util.ArrayList;
 import java.util.List;

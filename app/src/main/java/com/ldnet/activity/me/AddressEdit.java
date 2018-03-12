@@ -30,6 +30,8 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.AddressService;
 import com.ldnet.service.BaseService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.util.List;
 
 public class AddressEdit extends BaseActionBarActivity {
@@ -213,6 +215,18 @@ public class AddressEdit extends BaseActionBarActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "编辑收货地址：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "编辑收货地址：" + this.getClass().getSimpleName());
     }
 
     @Override

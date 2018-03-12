@@ -18,6 +18,7 @@ import com.ldnet.entities.MyProperties;
 import com.ldnet.entities.PPhones;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import net.tsz.afinal.FinalHttp;
@@ -164,5 +165,17 @@ public class Property_Telephone extends BaseActionBarActivity {
             return super.onKeyDown(keyCode, event);
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "物业服务-物业电话" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业服务-物业电话" + this.getClass().getSimpleName());
     }
 }

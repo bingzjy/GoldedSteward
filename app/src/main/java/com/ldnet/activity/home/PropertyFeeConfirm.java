@@ -17,6 +17,7 @@ import com.ldnet.entities.Fees;
 import com.ldnet.entities.lstAPPFees;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -277,5 +278,17 @@ public class PropertyFeeConfirm extends BaseActionBarActivity implements View.On
             }
         });
         builder.create().show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "物业交费-确认支付完成" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业交费-确认支付完成" + this.getClass().getSimpleName());
     }
 }

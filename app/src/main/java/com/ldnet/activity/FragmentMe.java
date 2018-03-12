@@ -36,6 +36,8 @@ import com.ldnet.utility.*;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -255,6 +257,14 @@ public class FragmentMe extends BaseFragment implements OnClickListener {
             ImageLoader.getInstance().displayImage(Services.getImageUrl(user.UserThumbnail),
                     ibtn_me_thumbnail, imageOptions);
         }
+        TCAgent.onPageStart(getActivity(), "首页-我:"+this.getClass().getSimpleName());
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "首页-我:"+this.getClass().getSimpleName());
     }
 
     //隐藏小红点

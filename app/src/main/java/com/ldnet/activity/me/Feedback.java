@@ -16,6 +16,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.PropertyServeService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
@@ -59,6 +60,18 @@ public class Feedback extends BaseActionBarActivity {
     public void initEvent() {
         btn_back.setOnClickListener(this);
         btn_me_feedback.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "意见反馈：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "意见反馈：" + this.getClass().getSimpleName());
     }
 
     //点击事件

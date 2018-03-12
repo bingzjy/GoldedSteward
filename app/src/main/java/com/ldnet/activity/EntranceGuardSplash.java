@@ -29,6 +29,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.EntranceGuardService;
 import com.ldnet.utility.ActivityUtil;
 import com.ldnet.utility.KeyCache;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -78,7 +79,9 @@ public class EntranceGuardSplash extends Activity {
     protected void onResume() {
         super.onResume();
         requestPermission();
+        TCAgent.onPageStart(this, "快捷开门：" + this.getClass().getSimpleName());
     }
+
 
     private void initView() {
 
@@ -233,6 +236,7 @@ public class EntranceGuardSplash extends Activity {
     protected void onPause() {
         super.onPause();
         stopBlueScan();
+        TCAgent.onPageEnd(this, "快捷开门：" + this.getClass().getSimpleName());
     }
 
     class BlueToothReceiver extends BroadcastReceiver{

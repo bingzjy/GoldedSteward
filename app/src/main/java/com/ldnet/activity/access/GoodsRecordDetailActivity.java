@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
+import com.tendcloud.tenddata.TCAgent;
 
 public class GoodsRecordDetailActivity extends BaseActionBarActivity {
 
@@ -67,4 +68,15 @@ public class GoodsRecordDetailActivity extends BaseActionBarActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "物品出入详情:" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物品出入详情:" + this.getClass().getSimpleName());
+    }
 }

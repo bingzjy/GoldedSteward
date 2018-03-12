@@ -16,6 +16,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.HouseRelationService;
 import com.ldnet.utility.Utility;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -175,4 +176,17 @@ public class ContractExtensionActivity extends BaseActionBarActivity {
         }
     };
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "门禁管理-租户续约：" + this.getClass().getSimpleName());
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "门禁管理-租户续约：" + this.getClass().getSimpleName());
+    }
 }

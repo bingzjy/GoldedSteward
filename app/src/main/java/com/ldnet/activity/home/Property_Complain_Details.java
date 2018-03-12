@@ -31,6 +31,7 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.PropertyServeService;
 import com.ldnet.utility.*;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import org.json.JSONException;
@@ -419,4 +420,17 @@ public class Property_Complain_Details extends BaseActionBarActivity {
             }
         }
     };
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "物业服务-投诉详情" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业服务-投诉详情" + this.getClass().getSimpleName());
+    }
 }

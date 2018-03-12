@@ -15,6 +15,8 @@ import android.widget.*;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.Services;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -73,6 +75,18 @@ public class Check extends BaseActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ly_check);
         findView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "版本检测：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "版本检测：" + this.getClass().getSimpleName());
     }
 
     public void findView() {

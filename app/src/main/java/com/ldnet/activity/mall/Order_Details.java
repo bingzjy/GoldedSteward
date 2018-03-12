@@ -29,6 +29,7 @@ import com.ldnet.utility.Services;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.Alipay.PayKeys;
 import java.text.SimpleDateFormat;
 
@@ -137,6 +138,18 @@ public class Order_Details extends BaseActionBarActivity {
         Utility.setListViewHeightBasedOnChildren(lv_order_details);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "订单详情：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "订单详情：" + this.getClass().getSimpleName());
+    }
 
     // 点击事件处理
     @Override

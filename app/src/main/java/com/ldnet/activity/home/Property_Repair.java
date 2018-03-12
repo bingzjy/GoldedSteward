@@ -2,33 +2,20 @@ package com.ldnet.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
 import com.ldnet.activity.me.Community;
-import com.ldnet.entities.ChargingItem;
-import com.ldnet.entities.Coupon;
-import com.ldnet.entities.HouseRent;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
-import com.ldnet.service.BaseService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
-import com.zhy.http.okhttp.OkHttpUtils;
-import okhttp3.Call;
-import okhttp3.Request;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -165,7 +152,7 @@ public class Property_Repair extends BaseActionBarFragmentActivity implements Vi
         tv_dc = (TextView) findViewById(R.id.tv_dc);
 
         RepairIngFragment tab01 = new RepairIngFragment();
-        RepairCommentFragment tab03 = new RepairCommentFragment();
+        RepairCompletedFragment tab03 = new RepairCompletedFragment();
         mFragments.add(tab01);
         mFragments.add(tab03);
 
@@ -250,5 +237,16 @@ public class Property_Repair extends BaseActionBarFragmentActivity implements Vi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "物业服务-报修主页" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业服务-报修主页" + this.getClass().getSimpleName());
     }
 }

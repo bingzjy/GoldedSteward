@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
@@ -14,10 +13,7 @@ import com.ldnet.activity.me.Community;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
-import com.zhy.http.okhttp.OkHttpUtils;
-import okhttp3.Call;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -161,7 +157,7 @@ public class Property_Complain extends BaseActionBarFragmentActivity implements 
         tv_dc = (TextView) findViewById(R.id.tv_dc);
 
         ComplainIngFragment tab01 = new ComplainIngFragment();
-        ComplainCommentFragment tab03 = new ComplainCommentFragment();
+        ComplainCompletedFragment tab03 = new ComplainCompletedFragment();
         mFragments.add(tab01);
         mFragments.add(tab03);
 
@@ -241,5 +237,17 @@ public class Property_Complain extends BaseActionBarFragmentActivity implements 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "物业服务-投诉主页" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业服务-投诉主页" + this.getClass().getSimpleName());
     }
 }

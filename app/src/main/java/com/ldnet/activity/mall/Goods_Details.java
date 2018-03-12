@@ -34,6 +34,8 @@ import com.ldnet.utility.UserInformation;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -213,6 +215,21 @@ public class Goods_Details extends BaseActionBarActivity {
         btn_custom.setOnClickListener(this);
         mBtnShopStore.setOnClickListener(this);
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "商品详情：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "商品详情：" + this.getClass().getSimpleName());
+    }
+
+
 
     // 点击事件处理
     @Override

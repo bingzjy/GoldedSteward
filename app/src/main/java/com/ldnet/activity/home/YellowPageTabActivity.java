@@ -23,6 +23,7 @@ import com.ldnet.entities.YellowPageSort;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AcountService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
@@ -162,4 +163,15 @@ public class YellowPageTabActivity extends BaseActionBarFragmentActivity impleme
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "生活黄页-主页：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "生活黄页-主页：" + this.getClass().getSimpleName());
+    }
 }

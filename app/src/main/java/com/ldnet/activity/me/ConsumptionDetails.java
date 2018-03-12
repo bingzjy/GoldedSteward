@@ -14,6 +14,7 @@ import com.ldnet.utility.CookieInformation;
 import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
@@ -88,6 +89,18 @@ public class ConsumptionDetails extends BaseActionBarActivity {
                 finish();
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "收支详情：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "收支详情：" + this.getClass().getSimpleName());
     }
 
     // 根据记录ID获取详细信息  记录ID  类型 1：账户操作详细 2：余额操作详细

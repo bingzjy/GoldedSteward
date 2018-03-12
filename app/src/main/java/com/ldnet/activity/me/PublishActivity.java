@@ -15,6 +15,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.utility.NoScrollViewPager;
 import com.ldnet.utility.PagerSlidingTabStrip;
 import com.ldnet.utility.Utility;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,9 +60,17 @@ public class PublishActivity extends BaseActionBarFragmentActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
+        TCAgent.onPageStart(this, "我的发布-主页：" + this.getClass().getSimpleName());
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "我的发布-主页：" + this.getClass().getSimpleName());
+    }
+
 
     private void initView() {
         tvPageTitle.setText("我的发布");

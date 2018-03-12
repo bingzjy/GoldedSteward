@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.ldnet.goldensteward.R;
+import com.tendcloud.tenddata.TCAgent;
 
 
 public class InspectExceptionCompletedFragment extends Fragment {
@@ -32,6 +33,19 @@ public class InspectExceptionCompletedFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(getActivity(), "房屋验收-异常上报完毕：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "房屋验收-异常上报完毕：" + this.getClass().getSimpleName());
     }
 
 }

@@ -23,6 +23,7 @@ import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -128,85 +129,7 @@ public class HouseRent_List extends BaseActionBarActivity {
         });
     }
 
-//    //获取房屋租赁信息
-//    public void getHouseRentInfo() {
-//        String url = Services.mHost + "API/Property/RentailSaleSelect";
-//        String aa = Services.timeFormat();
-//        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-//        String aa2 = url;
-//        String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + aa2 + Services.TOKEN;
-//        OkHttpUtils.get().url(url)
-//                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-//                .addHeader("timestamp", aa)
-//                .addHeader("nonce", aa1)
-//                .addHeader("signature", Services.textToMD5L32(md5))
-//                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo()).build()
-//                .execute(new DataCallBack(this) {
-//
-//                    @Override
-//                    public void onBefore(Request request, int id) {
-//                        super.onBefore(request, id);
-//                        showProgressDialog();
-//                    }
-//
-//                    @Override
-//                    public void onError(Call call, Exception e, int i) {
-//                        super.onError(call, e, i);
-//                        closeProgressDialog();
-//                    }
-//
-//                    @Override
-//                    public void onResponse(String s, int i) {
-//                        Log.e("asdsdasd", "111111111" + s);
-//                        closeProgressDialog();
-//                        try {
-//                            JSONObject json = new JSONObject(s);
-//                            JSONObject jsonObject = new JSONObject(json.getString("Data"));
-//                            JSONObject jsonObject1 = new JSONObject(jsonObject.getString("Obj"));
-//                            if (json.getBoolean("Status")) {
-//                                if (jsonObject.getBoolean("Valid")) {
-//                                    if (jsonObject.getString("Obj").equals("[]")) {
-//                                        showToast("暂时没有数据");
-//                                        return;
-//                                    }
-//                                    mHouseProperties = new HouseProperties();
-//                                    mHouseProperties.setOrientation(jsonObject1.getString("Orientation"));
-//                                    mHouseProperties.setFitmentType(jsonObject1.getString("FitmentType"));
-//                                    mHouseProperties.setRentType(jsonObject1.getString("RentType"));
-//                                    mHouseProperties.setRoomDeploy(jsonObject1.getString("RoomDeploy"));
-//                                    mHouseProperties.setRoomType(jsonObject1.getString("RoomType"));
-//                                    mListViewAdapter = new ListViewAdapter<HouseRent>(HouseRent_List.this, R.layout.item_houserent_list, mList) {
-//                                        @Override
-//                                        public void convert(ViewHolder holder, HouseRent h) {
-//                                            holder.setText(R.id.houserent_item_title, h.Title);
-//                                            try {
-//                                                holder.setText(R.id.houserent_item_housetype, mHouseProperties.getRoomType().get(Integer.valueOf(h.getRoomType()) + 1).Value);
-//                                            } catch (Exception e) {
-//                                                e.printStackTrace();
-//                                            }
-//                                            holder.setText(R.id.houserent_item_acreage, h.Acreage + "平米");
-//                                            holder.setText(R.id.houserent_item_address, h.Address);
-//                                            holder.setText(R.id.houserent_item_price, "￥" + h.Price + "元");
-//                                            holder.setText(R.id.houserent_item_status, h.Status);
-//                                            ImageView image = holder.getView(R.id.houserent_item_img);
-//                                            if (!TextUtils.isEmpty(h.Images)) {
-//                                                ImageLoader.getInstance().displayImage(services.getImageUrl(h.getThumbnail()), image,imageOptions);
-//                                            } else {
-//                                                image.setImageResource(R.drawable.default_info);
-//                                            }
-//                                        }
-//                                    };
-//                                    houserent_list.setAdapter(mListViewAdapter);
-//                                    mList.clear();
-//                                    houseRentService.getHouseRentList("",handlerDataList);
-//                                }
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -311,5 +234,15 @@ public class HouseRent_List extends BaseActionBarActivity {
         }
     };
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "房屋租赁列表：" + this.getClass().getSimpleName());
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "房屋租赁列表：" + this.getClass().getSimpleName());
+    }
 }

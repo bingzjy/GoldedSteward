@@ -38,6 +38,7 @@ import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -93,7 +94,7 @@ public class YellowPageFragmentContent extends BaseFragment implements PoiSearch
     @Override
     public void onResume() {
         super.onResume();
-
+        TCAgent.onPageStart(getActivity(), "生活黄页-内容：" + this.getClass().getSimpleName());
     }
 
     @Override
@@ -419,5 +420,9 @@ public class YellowPageFragmentContent extends BaseFragment implements PoiSearch
         }
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "生活黄页-内容：" + this.getClass().getSimpleName());
+    }
 }

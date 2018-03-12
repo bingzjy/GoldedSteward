@@ -31,6 +31,7 @@ import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UISwitchButton;
 import com.ldnet.utility.UserInformation;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.Alipay.PayKeys;
 import com.third.Alipay.PayResult;
 import com.third.Alipay.SignUtils;
@@ -130,6 +131,17 @@ public class Pay extends BaseActionBarActivity implements CompoundButton.OnCheck
         ll_goods_balance.setOnClickListener(this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "订单支付：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "订单支付：" + this.getClass().getSimpleName());
+    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

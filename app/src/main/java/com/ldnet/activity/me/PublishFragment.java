@@ -43,6 +43,7 @@ import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.SwipeListView.BaseSwipeListViewListener;
 import com.third.SwipeListView.SwipeListView;
 import com.third.SwipeListView2.SwipeListViewWrap;
@@ -109,6 +110,18 @@ public class PublishFragment extends BaseFragment {
         initEvent();
         loadData(true);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(getActivity(), "我的发布：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "我的发布：" + this.getClass().getSimpleName());
     }
 
 

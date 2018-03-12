@@ -25,6 +25,7 @@ import com.ldnet.goldensteward.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import javax.net.ssl.HostnameVerifier;
@@ -50,7 +51,6 @@ public class GSApplication extends Application{
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
-
 
 
     @Override
@@ -116,6 +116,11 @@ public class GSApplication extends Application{
                 .setFunctionConfig(functionConfig)
                 .build();
         GalleryFinal.init(coreConfig);
+
+        //设置talkingdata
+        TCAgent.LOG_ON = true;
+        TCAgent.init(this);
+        TCAgent.setReportUncaughtExceptions(true);//开启自动捕获异常
     }
 
     //重启应用
@@ -136,6 +141,8 @@ public class GSApplication extends Application{
             aa = aa.replace("]", "");
             aa = aa.replace("[", "");
             services.PostError(aa);
+            //记录异常信息
+            TCAgent.onError(context, ex);
            // restartApp();//发生崩溃异常时,重启应用
         }
     };

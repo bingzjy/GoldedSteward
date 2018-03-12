@@ -31,6 +31,7 @@ import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.PropertyFeeService;
 import com.ldnet.utility.UserInformation;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -303,5 +304,17 @@ public class PropertyFeeCreateCode extends BaseActionBarActivity implements Unif
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "物业交费-生成支付码" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业交费-生成支付码" + this.getClass().getSimpleName());
     }
 }

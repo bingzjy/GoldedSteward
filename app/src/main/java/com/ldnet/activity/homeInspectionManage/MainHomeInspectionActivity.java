@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.ldnet.activity.adapter.MainPagerAdapter;
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
 import com.ldnet.goldensteward.R;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,19 @@ public class MainHomeInspectionActivity extends BaseActionBarFragmentActivity {
         tvCustom.setVisibility(View.VISIBLE);
         ivAddException.setVisibility(View.VISIBLE);
         ivAddException.setImageResource(R.drawable.add_green_icon);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "房屋验收-主页：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "房屋验收-主页：" + this.getClass().getSimpleName());
     }
 
 

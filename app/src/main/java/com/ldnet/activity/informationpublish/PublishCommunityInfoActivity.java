@@ -41,6 +41,7 @@ import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -84,6 +85,19 @@ public class PublishCommunityInfoActivity extends BaseActionBarActivity {
         allTypeList.remove(0);
         initView();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "邻里通发布：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "邻里通发布：" + this.getClass().getSimpleName());
+    }
+
 
     private void initView(){
         tvType=(TextView)findViewById(R.id.tv_add_info_bar_type);

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
+import com.tendcloud.tenddata.TCAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,4 +78,17 @@ public class PropertyFeePayTypeActivity extends BaseActionBarActivity{
                 break;
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "物业交费-支付方式选择" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业交费-支付方式选择" + this.getClass().getSimpleName());
+    }
+
 }

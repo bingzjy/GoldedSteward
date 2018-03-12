@@ -34,6 +34,7 @@ import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.autoscrollviewpager.AutoScrollViewPager;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -260,6 +261,7 @@ public class FragmentFind extends BaseFragment implements OnClickListener {
         } else {
             ll_find_cza.setVisibility(View.GONE);
         }
+        TCAgent.onPageStart(getActivity(), "首页-发现" + this.getClass().getSimpleName());
     }
 
     private void loadData(Boolean isFirst) {
@@ -271,7 +273,11 @@ public class FragmentFind extends BaseFragment implements OnClickListener {
         }
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "首页-发现" + this.getClass().getSimpleName());
+    }
 
     //获取广告信息
     public void advertisement() {

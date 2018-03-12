@@ -2,6 +2,7 @@ package com.ldnet.activity;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -38,10 +39,12 @@ import com.ldnet.service.*;
 import com.ldnet.utility.*;
 import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.view.HeaderLayout;
+import com.ldnet.view.ImageCycleView;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.*;
 
@@ -147,9 +150,11 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         return view;
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+        TCAgent.onPageStart(getActivity(), "首页-首页" + this.getClass().getSimpleName());
 
         //获取小红点
         homeService.getAppRedPoint(handlerGetRedPointPush);
@@ -191,6 +196,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             iv_home_property_thumbnail.setImageResource(R.drawable.home_services_n);
         }
     }
+
+
     // 初始化事件
     private void initEvents() {
         ll_property_infobar.setOnClickListener(this);
@@ -641,6 +648,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private void openDoor() {
         boolean ifOpen = false;
         deviceID = "";
+        List<KeyChain> deviceAvailable = new ArrayList<>();
         closeProgressDialog1();
 
         if (scanDeviceResult != null && scanDeviceResult.size() > 0) {
@@ -648,33 +656,68 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             for (KeyChain key : keyChain) {
                 LEDevice device = scanDeviceResult.get(key.getId());
                 if (device != null) {
-                    ifOpen = true;
-                    currentDevice = device;
-                    deviceID = device.getDeviceId();
-                    device.setDevicePsw(key.getPassword());
-                    Log.e("aaa", "开门预备---" + device.toString());
-
-                    blueLockPub.oneKeyOpenDevice(device, device.getDeviceId(), device.getDevicePsw());
-                    break;
+                    deviceAvailable.add(key);
+//                    ifOpen = true;
+//                    currentDevice = device;
+//                    deviceID = device.getDeviceId();
+//                    device.setDevicePsw(key.getPassword());
+//                    Log.e("aaa", "开门预备---" + device.toString());
+//
+//                    blueLockPub.oneKeyOpenDevice(device, device.getDeviceId(), device.getDevicePsw());
                 }
             }
-            if (ifOpen == false) {
-                Log.e("aaa", "开门失败---无匹配");
+            Log.e("aaa", "开门匹配设备：" + deviceAvailable.size());
+
+            if (deviceAvailable.size() == 0) {
+                Log.e("aaa", "开门失败，无匹配");
                 openDoorDialog.setType(2); //开门失败
+            } else if (deviceAvailable.size() == 1) {  //只有一个设备
+                KeyChain key = deviceAvailable.get(0);
+                currentDevice = scanDeviceResult.get(key.getId());
+                deviceID = currentDevice.getDeviceId();
+                currentDevice.setDevicePsw(key.getPassword());
+                Log.e("aaa", "独立设备，开门预备：" + currentDevice.toString());
+
+                blueLockPub.oneKeyOpenDevice(currentDevice, currentDevice.getDeviceId(), currentDevice.getDevicePsw());
+
+            } else if (deviceAvailable.size() > 1) {  //多个设备
+                int min = 0;
+                KeyChain minKey = null;  //默认第一个最强
+                for (KeyChain key : deviceAvailable) {
+                    LEDevice device = scanDeviceResult.get(key.getId());
+
+                    if (min == 0) {
+                        min = Math.abs(device.getRssi());
+                        minKey = key;
+                    } else if (Math.abs(device.getRssi()) < min) {
+                        min = Math.abs(device.getRssi());
+                        minKey = key;
+                    }
+                }
+
+                //选择信号强度最大的开启蓝牙门禁
+                currentDevice = scanDeviceResult.get(minKey.getId());
+                deviceID = currentDevice.getDeviceId();
+                currentDevice.setDevicePsw(minKey.getPassword());
+                Log.e("aaa", "多设备，信号最强开门" + currentDevice.toString() + "  RSSI:" + currentDevice.getRssi());
+                showToast("信号最强设备ID:" + currentDevice.getDeviceId() + "    RSSI:" + currentDevice.getRssi());
+                blueLockPub.oneKeyOpenDevice(currentDevice, currentDevice.getDeviceId(), currentDevice.getDevicePsw());
             }
         } else {
-            Log.e("aaa", "开门失败---无设备");
+            Log.e("aaa", "开门失败，无设备");
             openDoorDialog.setType(2); //开门失败
         }
     }
+
 
     //开启蓝牙扫描
     private void blueStartScan() {
         scanDeviceResult.clear(); //清空已扫描的设备
 
         ((BlueLockPub) blueLockPub).setLockMode(Constants.LOCK_MODE_MANUL, null, false);
-        ((BlueLockPub) blueLockPub).scanDevice(2000);
+        ((BlueLockPub) blueLockPub).scanDevice(1000);
     }
+
 
     //判断业主是否通过认证
     private void checkOpenEntrance() {
@@ -765,7 +808,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         @Override
         public void scanDeviceCallBack(LEDevice leDevice, int i, int i1) {
             scanDeviceResult.put(leDevice.getDeviceId(), leDevice);
-            Log.e("aaa","门禁："+leDevice.getDeviceId()+"  "+leDevice.getDeviceName());
+            Log.e("aaa", "门禁：" + leDevice.getDeviceId() + "  " + leDevice.getDeviceName() + " RSSI:" + leDevice.getRssi());
         }
 
         @Override
@@ -1357,6 +1400,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             openDoorDialog.hide();
             openDoorDialog=null;
         }
+        TCAgent.onPageEnd(getActivity(), "首页-首页" + this.getClass().getSimpleName());
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.home.Property_Services;
 import com.ldnet.goldensteward.R;
+import com.tendcloud.tenddata.TCAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +35,18 @@ public class NoticeHomeInspectionActivity extends BaseActionBarActivity {
         tvCustom.setVisibility(View.VISIBLE);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "房屋验收-须知：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "房屋验收-须知：" + this.getClass().getSimpleName());
+    }
 
     @OnClick({R.id.tv_custom,R.id.btn_back})
     public void onViewClicked(View view) {

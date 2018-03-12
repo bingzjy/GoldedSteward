@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.amap.api.navi.*;
 import com.amap.api.navi.enums.NaviType;
 import com.amap.api.navi.model.*;
@@ -15,6 +16,7 @@ import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.AMapUtils;
 import com.ldnet.utility.TTSController;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
 /**
  * Created by Alex on 2015/11/6.
  */
-public class YellowPages_Navi extends BaseActionBarActivity implements View.OnClickListener ,AMapNaviViewListener,AMapNaviListener{
+public class YellowPages_Navi extends BaseActionBarActivity implements View.OnClickListener, AMapNaviViewListener, AMapNaviListener {
 
     // 标题
     private TextView tv_page_title;
@@ -30,14 +32,9 @@ public class YellowPages_Navi extends BaseActionBarActivity implements View.OnCl
     //导航View
     private AMapNaviView mAMapNaviView;
     //是否为模拟导航
-   private boolean mIsEmulatorNavi;
+    private boolean mIsEmulatorNavi;
     private ImageButton mBtnBack;
-
-
-//    protected NaviLatLng mEndLatlng = new NaviLatLng(22.652, 113.966);
-//    //算路起点坐标
-//    protected NaviLatLng mStartLatlng = new NaviLatLng(22.540332, 113.939961);
-    protected NaviLatLng mEndLatlng ;
+    protected NaviLatLng mEndLatlng;
     //算路起点坐标
     protected NaviLatLng mStartLatlng;
     //存储算路起点的列表
@@ -75,17 +72,17 @@ public class YellowPages_Navi extends BaseActionBarActivity implements View.OnCl
         mBtnBack = (ImageButton) findViewById(R.id.btn_back);
         mBtnBack.setOnClickListener(this);
         Bundle bundle = getIntent().getExtras();
-        if(bundle!=null){
-            Double slat=bundle.getDouble("SLAT");
-            Double slon=bundle.getDouble("SLON");
-            Double elat=bundle.getDouble("ELAT");
-            Double elon=bundle.getDouble("ELON");
-            mEndLatlng=new NaviLatLng(elat,elon);
-            mStartLatlng=new NaviLatLng(slat,slon);
-            type=bundle.getString("TYPE","WALK");
+        if (bundle != null) {
+            Double slat = bundle.getDouble("SLAT");
+            Double slon = bundle.getDouble("SLON");
+            Double elat = bundle.getDouble("ELAT");
+            Double elon = bundle.getDouble("ELON");
+            mEndLatlng = new NaviLatLng(elat, elon);
+            mStartLatlng = new NaviLatLng(slat, slon);
+            type = bundle.getString("TYPE", "WALK");
             mIsEmulatorNavi = bundle.getBoolean(AMapUtils.ISEMULATOR, false);
         }
-      //  processBundle(bundle);
+        //  processBundle(bundle);
         init(savedInstanceState);
     }
 
@@ -110,7 +107,7 @@ public class YellowPages_Navi extends BaseActionBarActivity implements View.OnCl
         mAMapNaviView = (AMapNaviView) findViewById(R.id.amnv_yellowpages_navi);
         mAMapNaviView.onCreate(savedInstanceState);
         mAMapNaviView.setAMapNaviViewListener(this);
-        mTTSController= com.ldnet.map.TTSController.getInstance(this);
+        mTTSController = com.ldnet.map.TTSController.getInstance(this);
         mTTSController.init();
         mAMapNavi.addAMapNaviListener(mTTSController);
         mAMapNaviView.setNaviMode(AMapNaviView.NORTH_UP_MODE);
@@ -171,6 +168,7 @@ public class YellowPages_Navi extends BaseActionBarActivity implements View.OnCl
                 break;
         }
     }
+
     @Override
     public void onInitNaviSuccess() {
 /**
@@ -185,7 +183,7 @@ public class YellowPages_Navi extends BaseActionBarActivity implements View.OnCl
  *  说明: 以上参数都是boolean类型，其中multipleroute参数表示是否多条路线，如果为true则此策略会算出多条路线。
  *  注意: 不走高速与高速优先不能同时为true 高速优先与避免收费不能同时为true
  */
-        if (type.equals("DRIVE")){
+        if (type.equals("DRIVE")) {
             int strategy = 0;
             try {
                 //再次强调，最后一个参数为true时代表多路径，否则代表单路径
@@ -196,20 +194,19 @@ public class YellowPages_Navi extends BaseActionBarActivity implements View.OnCl
             mWayPointList.add(mEndLatlng);
             // 驾车算路
             mAMapNavi.calculateDriveRoute(sList, eList, mWayPointList, strategy);
-        }else if(type.equals("WALK")){
-            mAMapNavi.calculateWalkRoute(mStartLatlng,mEndLatlng);
+        } else if (type.equals("WALK")) {
+            mAMapNavi.calculateWalkRoute(mStartLatlng, mEndLatlng);
         }
     }
 
 
-
     @Override
     public void onCalculateRouteSuccess() {
-        if(type.equals("WALK")){
-            Log.e("map","导航--步行onCalculateRouteSuccess");
+        if (type.equals("WALK")) {
+            Log.e("map", "导航--步行onCalculateRouteSuccess");
             mAMapNavi.startNavi(NaviType.GPS);
-        }else{
-            Log.e("map","导航---驾车onCalculateRouteSuccess");
+        } else {
+            Log.e("map", "导航---驾车onCalculateRouteSuccess");
             mAMapNavi.startNavi(NaviType.EMULATOR);
         }
     }
@@ -267,7 +264,6 @@ public class YellowPages_Navi extends BaseActionBarActivity implements View.OnCl
     }
 
 
-
     @Override
     public void onStartNavi(int i) {
 
@@ -297,7 +293,6 @@ public class YellowPages_Navi extends BaseActionBarActivity implements View.OnCl
     public void onArriveDestination() {
 
     }
-
 
 
     @Override
@@ -404,6 +399,7 @@ public class YellowPages_Navi extends BaseActionBarActivity implements View.OnCl
     public void onPlayRing(int i) {
 
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -414,7 +410,7 @@ public class YellowPages_Navi extends BaseActionBarActivity implements View.OnCl
     public void onResume() {
         super.onResume();
         mAMapNaviView.onResume();
-
+        TCAgent.onPageStart(this, "生活黄页-地图导航：" + this.getClass().getSimpleName());
     }
 
     @Override
@@ -423,6 +419,7 @@ public class YellowPages_Navi extends BaseActionBarActivity implements View.OnCl
         mAMapNaviView.onPause();
         AMapNavi.getInstance(this).stopNavi();
         mTTSController.stopSpeaking();
+        TCAgent.onPageEnd(this, "生活黄页-地图导航：" + this.getClass().getSimpleName());
     }
 
     @Override

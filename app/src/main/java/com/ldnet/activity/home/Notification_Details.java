@@ -28,6 +28,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.NotificationService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
@@ -278,5 +279,15 @@ public class Notification_Details extends BaseActionBarActivity {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "通知详情：" + this.getClass().getSimpleName());
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "通知详情：" + this.getClass().getSimpleName());
+    }
 }

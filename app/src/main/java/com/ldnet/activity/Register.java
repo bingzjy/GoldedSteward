@@ -16,6 +16,9 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
+import com.tendcloud.tenddata.TDAccount;
+
 import java.lang.ref.WeakReference;
 import java.util.*;
 
@@ -74,6 +77,20 @@ public class Register extends BaseActionBarActivity {
         btn_register_valid_phone.setOnClickListener(this);
         btn_register_register.setOnClickListener(this);
     }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "注册页：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "注册页：" + this.getClass().getSimpleName());
+    }
+
 
 
     // 初始化控件
@@ -286,6 +303,8 @@ public class Register extends BaseActionBarActivity {
                 case BaseService.DATA_SUCCESS:
                     service.getData(et_register_phone.getText().toString().trim(),
                             et_register_password.getText().toString().trim(), 0,handlerGetData);
+
+
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
@@ -309,6 +328,9 @@ public class Register extends BaseActionBarActivity {
                     } else if (type == IS_OWNER) {
                         service.IntegralTip(IS_OWNER,handlerIntegralTip);
                     }
+
+                    //记录注册行为
+                    TCAgent.onRegister(UserInformation.getUserInfo().getUserId(), TDAccount.AccountType.REGISTERED, UserInformation.getUserInfo().getUserName());
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:

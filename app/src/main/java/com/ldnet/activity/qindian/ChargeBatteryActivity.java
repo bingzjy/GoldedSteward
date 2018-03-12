@@ -33,6 +33,7 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.QinDianService;
 import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.ViewHolder;
+import com.tendcloud.tenddata.TCAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,7 +92,10 @@ public class ChargeBatteryActivity extends BaseActionBarActivity {
         filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
         filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
         this.registerReceiver(mReceiver, filter);
+
+        TCAgent.onPageStart(this, "充电服务-充电：" + this.getClass().getSimpleName());
     }
+
 
     private void checkTimeOut() {
         try {
@@ -353,5 +357,6 @@ public class ChargeBatteryActivity extends BaseActionBarActivity {
     protected void onPause() {
         super.onPause();
         unregisterReceiver(mReceiver);
+        TCAgent.onPageEnd(this, "充电服务-充电：" + this.getClass().getSimpleName());
     }
 }

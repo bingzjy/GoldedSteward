@@ -24,6 +24,7 @@ import com.ldnet.utility.ViewHolder;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.Alipay.PayResult;
 import com.third.Alipay.SignUtils;
 
@@ -102,6 +103,18 @@ public class ChargeMoneyActivity extends BaseActionBarActivity implements IWXAPI
         checkBoxAlipay.setOnCheckedChangeListener(this);
         checkBoxWeiXin.setOnCheckedChangeListener(this);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "充电服务-充值：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "充电服务-充值：" + this.getClass().getSimpleName());
     }
 
     @Override

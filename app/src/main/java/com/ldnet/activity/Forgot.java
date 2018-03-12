@@ -22,6 +22,7 @@ import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AcountService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import net.tsz.afinal.FinalHttp;
@@ -86,6 +87,18 @@ public class Forgot extends BaseActionBarActivity {
         btn_forgot_next.setOnClickListener(this);
         btn_back.setOnClickListener(this);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "忘记密码：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "忘记密码：" + this.getClass().getSimpleName());
     }
 
     // 初始化控件

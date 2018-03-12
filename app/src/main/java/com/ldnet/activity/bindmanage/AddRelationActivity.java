@@ -33,6 +33,7 @@ import com.ldnet.service.HouseRelationService;
 import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -303,4 +304,17 @@ public class AddRelationActivity extends BaseActionBarActivity {
             etAddResidentDateEnd.setText(paramsDatee);
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "门禁管理-添加绑定关系：" + this.getClass().getSimpleName());
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "门禁管理-添加绑定关系：" + this.getClass().getSimpleName());
+    }
 }

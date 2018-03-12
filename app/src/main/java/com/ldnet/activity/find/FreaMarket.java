@@ -33,6 +33,7 @@ import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;
@@ -70,6 +71,19 @@ public class FreaMarket extends BaseActionBarActivity {
         initEvents();
         findService.getFreaMarketList("",handler);
         showProgressDialog1();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "闲置物品-主页：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "闲置物品-主页：" + this.getClass().getSimpleName());
     }
 
 

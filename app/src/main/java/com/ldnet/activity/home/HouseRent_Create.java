@@ -24,6 +24,7 @@ import com.ldnet.service.OkHttpService;
 import com.ldnet.utility.*;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 
 import okhttp3.Call;
 import okhttp3.Request;
@@ -530,5 +531,17 @@ public class HouseRent_Create extends BaseActionBarActivity {
     protected void onDestroy() {
         Log.e("aa","test_onDestroy");
         super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "创建房屋租赁：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "创建房屋租赁：" + this.getClass().getSimpleName());
     }
 }

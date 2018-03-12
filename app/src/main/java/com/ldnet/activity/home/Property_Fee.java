@@ -44,6 +44,7 @@ import com.ldnet.service.PropertyFeeService;
 import com.ldnet.utility.Arith;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
+import com.tendcloud.tenddata.TCAgent;
 
 import net.tsz.afinal.FinalDb;
 
@@ -52,10 +53,8 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 import static com.ldnet.utility.Utility.backgroundAlpaha;
 
 public class Property_Fee extends BaseActionBarActivity implements UnifyPayListener {
@@ -86,7 +85,9 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
     private final String wxPay = "WXPAY";
     private float totalAmount;
     private static final String TAG = "Property_Fee";
+    private final String testPayURL = "{\"qrCode\": \"https://qr.alipay.com/bax06976qwtbro1fpkdu2042\"}";
 
+    //payRequest.payData = "{\"qrCode\": \"https://qr.alipay.com/bax09847skqwcpztcnia8008\"}";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +111,8 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
         //默认获取全部的未交费数据
         showProgressDialog1();
         service.getPropertyFee(null, null, "0", handlerGetFee);
+        TCAgent.onPageStart(this, "物业交费主页：" + this.getClass().getSimpleName());
+
     }
 
     //初始化控件
@@ -355,9 +358,9 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
                     if (!TextUtils.isEmpty(ids)) {
 //                        Intent intent = new Intent(Property_Fee.this, PropertyFeeCreateCode.class);
 //                        startActivity(intent);
-                        showPayTypeSelect(ids, UserInformation.getUserInfo().UserId);
+                        //                       showPayTypeSelect(ids, UserInformation.getUserInfo().UserId);
 
-                        // testPay();
+                        testPay(testPayURL);
                     } else {
                         showToast(getString(R.string.go_paid_none));
                     }
@@ -592,8 +595,8 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
         payPlugin = UnifyPayPlugin.getInstance(this);
         payRequest = new UnifyPayRequest();
         payPlugin.setListener(Property_Fee.this);
-        payRequest.payChannel = UnifyPayRequest.CHANNEL_ALIPAY;
-        //payRequest.payData = "{\"qrCode\": \"https://qr.alipay.com/bax09847skqwcpztcnia8008\"}";
+        //  payRequest.payChannel = UnifyPayRequest.CHANNEL_ALIPAY;
+        payRequest.payChannel = UnifyPayRequest.CHANNEL_WEIXIN;
         payRequest.payData = payUrl;
         payPlugin.sendPayRequest(payRequest);
     }
@@ -602,5 +605,12 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
     @Override
     public void onResult(String s, String s1) {
         Log.e(TAG, "支付结果：" + s + "   " + s1);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业交费主页：" + this.getClass().getSimpleName());
     }
 }

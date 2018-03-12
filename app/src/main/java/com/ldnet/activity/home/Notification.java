@@ -25,6 +25,7 @@ import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import okhttp3.Call;
@@ -227,6 +228,14 @@ public class Notification extends BaseActionBarActivity {
             }
         }, 0);
         super.onResume();
+        TCAgent.onPageStart(this, "通知主页：" + this.getClass().getSimpleName());
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "通知主页：" + this.getClass().getSimpleName());
     }
 
     @Override

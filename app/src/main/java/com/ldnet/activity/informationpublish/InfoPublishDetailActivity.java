@@ -26,6 +26,7 @@ import com.ldnet.utility.BottomDialog;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.Utility;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 
 import static android.R.attr.data;
 import static android.R.attr.rowHeight;
@@ -70,6 +71,19 @@ public class InfoPublishDetailActivity extends BaseActionBarActivity {
             service.getInfoDetail(detailId,handler);
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "邻里通详情：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "邻里通详情：" + this.getClass().getSimpleName());
+    }
+
 
     private void initView(){
         String item=getIntent().getStringExtra("ITEM");

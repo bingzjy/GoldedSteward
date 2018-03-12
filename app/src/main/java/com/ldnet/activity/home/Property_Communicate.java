@@ -17,6 +17,7 @@ import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.signala.hubs.HubConnection;
 import com.third.signala.hubs.HubInvokeCallback;
 import com.third.signala.hubs.HubOnDataCallback;
@@ -324,6 +325,7 @@ public class Property_Communicate extends BaseActionBarActivity {
     protected void onResume() {
         super.onResume();
         initSignalA();
+        TCAgent.onPageStart(this, "物业服务-沟通" + this.getClass().getSimpleName());
     }
 
     @Override
@@ -335,4 +337,10 @@ public class Property_Communicate extends BaseActionBarActivity {
         }
     }
 
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业服务-沟通" + this.getClass().getSimpleName());
+    }
 }

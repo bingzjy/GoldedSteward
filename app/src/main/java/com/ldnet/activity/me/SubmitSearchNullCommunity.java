@@ -19,6 +19,7 @@ import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.Areas;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import org.json.JSONException;
@@ -55,6 +56,22 @@ public class SubmitSearchNullCommunity extends BaseActionBarActivity implements 
         initData();
         super.onCreate(savedInstanceState);
     }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "提交地址搜索反馈：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "提交地址搜索反馈：" + this.getClass().getSimpleName());
+    }
+
+
     private void initView(){
         sr_address_provinces=(Spinner)findViewById(R.id.sr_address_provinces);
         sr_address_cities=(Spinner)findViewById(R.id.sr_address_cities);

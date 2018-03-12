@@ -21,6 +21,7 @@ import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -83,6 +84,19 @@ public class Integral extends BaseActionBarActivity {
         initEvent();
         initEvents();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "我的积分：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "我的积分：" + this.getClass().getSimpleName());
+    }
+
 
     private void initEvents() {
         mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {

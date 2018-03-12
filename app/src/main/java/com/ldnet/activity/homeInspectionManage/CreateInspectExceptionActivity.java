@@ -17,6 +17,8 @@ import com.ldnet.utility.Services;
 import com.ldnet.utility.Utility;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -57,6 +59,20 @@ public class CreateInspectExceptionActivity extends BaseActionBarActivity {
     private void initView(){
         tvPageTitle.setText("添加异常");
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "房屋验收-创建异常：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "房屋验收-创建异常：" + this.getClass().getSimpleName());
+    }
+
 
     @OnClick({R.id.btn_back, R.id.btn_picture_add, R.id.btn_create})
     public void onViewClicked(View view) {

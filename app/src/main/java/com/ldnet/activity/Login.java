@@ -28,6 +28,8 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
+import com.tendcloud.tenddata.TDAccount;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import cn.jpush.android.api.JPushInterface;
@@ -71,6 +73,19 @@ public class Login extends BaseActionBarActivity {
         acountService=new AcountService(Login.this);
 
         initView();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "登录页：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "登录页：" + this.getClass().getSimpleName());
     }
 
 
@@ -176,6 +191,8 @@ public class Login extends BaseActionBarActivity {
                 case BaseService.DATA_SUCCESS:
                     //请求手机唯一码。绑定关系，用于获取推送
                      requestPermission();
+                    //记录用户登录行为
+                    TCAgent.onLogin(UserInformation.getUserInfo().getUserId(), TDAccount.AccountType.REGISTERED, UserInformation.getUserInfo().getUserName());
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:

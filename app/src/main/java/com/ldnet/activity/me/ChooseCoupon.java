@@ -16,6 +16,7 @@ import com.ldnet.entities.RS;
 import com.ldnet.entities.SubOrders;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -168,6 +169,18 @@ public class ChooseCoupon extends BaseActionBarActivity implements XListView.IXL
         mLvCoupon.setAdapter(mAdapter);
 
         initEvent();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this,"选择优惠券："+this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this,"选择优惠券："+this.getClass().getSimpleName());
     }
 
     public void initEvent() {

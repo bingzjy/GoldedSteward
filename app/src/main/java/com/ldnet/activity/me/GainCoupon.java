@@ -16,6 +16,7 @@ import com.ldnet.entities.Coupon;
 import com.ldnet.entities.HouseRent;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
@@ -56,9 +57,6 @@ public class GainCoupon extends BaseActionBarActivity implements XListView.IXLis
         //回退按钮
         btn_back = (ImageButton) findViewById(R.id.btn_back);
         // 我的优惠劵按钮
-//        mMeCoupon = (Button) findViewById(R.id.btn_custom);
-//        mMeCoupon.setVisibility(View.VISIBLE);
-//        mMeCoupon.setText("我的");
         mXLvCoupon = (XListView) findViewById(R.id.lv_gain_coupon);
         //初始化服务
         services = new Services();
@@ -108,11 +106,7 @@ public class GainCoupon extends BaseActionBarActivity implements XListView.IXLis
         mXLvCoupon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                try {
-//                    gotoActivityAndFinish(com.ldnet.activity.me.Coupon.class.getName(), null);
-//                } catch (ClassNotFoundException e) {
-//                    e.printStackTrace();
-//                }
+
             }
         });
         initEvent();
@@ -120,7 +114,19 @@ public class GainCoupon extends BaseActionBarActivity implements XListView.IXLis
 
     public void initEvent() {
         btn_back.setOnClickListener(this);
-//        mMeCoupon.setOnClickListener(this);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "领取优惠券：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "领取优惠券：" + this.getClass().getSimpleName());
     }
 
     @Override

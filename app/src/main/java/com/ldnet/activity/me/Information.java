@@ -17,6 +17,7 @@ import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
@@ -94,6 +95,19 @@ public class Information extends BaseActionBarActivity {
         btn_me_information_comfirm.setOnClickListener(this);
         mBtnMeChangePassword.setOnClickListener(this);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "我的信息：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "我的信息：" + this.getClass().getSimpleName());
+    }
+
 
     //点击事件
     @Override

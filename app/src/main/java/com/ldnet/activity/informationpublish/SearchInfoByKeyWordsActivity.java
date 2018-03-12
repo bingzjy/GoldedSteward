@@ -38,6 +38,8 @@ import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,6 +136,21 @@ public class SearchInfoByKeyWordsActivity extends BaseActionBarActivity {
             }
         });
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "邻里通搜索：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "邻里通搜索：" + this.getClass().getSimpleName());
+    }
+
+
 
     @Override
     public void onClick(View view) {

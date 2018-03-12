@@ -19,6 +19,7 @@ import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.Services;
 import com.ldnet.view.Rotate3dAnimation;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.HashMap;
 
@@ -65,6 +66,17 @@ public class About extends BaseActionBarActivity {
         handler.post(myRunnable);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "我-关于：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "我-关于：" + this.getClass().getSimpleName());
+    }
 
     private Runnable myRunnable= new Runnable() {
         public void run() {

@@ -19,6 +19,7 @@ import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,19 @@ public class MessageList extends BaseActionBarActivity {
         //请求数据
         messageService.getMsgListByType(messageType.getPushType(),"0",handler);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "消息列表：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "消息列表：" + this.getClass().getSimpleName());
+    }
+
 
     public void initView(){
         // 标题

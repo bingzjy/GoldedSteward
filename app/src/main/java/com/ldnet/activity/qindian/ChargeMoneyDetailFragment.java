@@ -23,6 +23,7 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.QinDianService;
 import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.ViewHolder;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,6 +67,13 @@ public class ChargeMoneyDetailFragment extends Fragment {
     public void onResume() {
         initData();
         super.onResume();
+        TCAgent.onPageStart(getActivity(), "充电服务-充值详情页：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "充电服务-充值详情页：" + this.getClass().getSimpleName());
     }
 
     private void initView(View view) {

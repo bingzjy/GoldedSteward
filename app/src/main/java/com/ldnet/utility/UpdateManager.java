@@ -132,7 +132,7 @@ public class UpdateManager {
                 return true;
             }
         }
-        return true;
+        return false;
     }
     /**
      * 获取软件版本号

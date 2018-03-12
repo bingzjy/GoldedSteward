@@ -24,6 +24,7 @@ import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
@@ -192,4 +193,16 @@ public class ComplainIngFragment extends BaseFragment implements View.OnClickLis
                 });
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(getActivity(), "物业服务-投诉进行中：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "物业服务-投诉进行中：" + this.getClass().getSimpleName());
+    }
 }

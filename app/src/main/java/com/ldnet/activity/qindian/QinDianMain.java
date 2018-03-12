@@ -17,6 +17,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.QinDianService;
 import com.ldnet.utility.UserInformation;
+import com.tendcloud.tenddata.TCAgent;
 
 /**
  * Created by lee on 2017/9/4.
@@ -38,6 +39,18 @@ public class QinDianMain extends BaseActionBarActivity {
         initView();
         //注册
         register();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "充电服务-主页：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "充电服务-主页：" + this.getClass().getSimpleName());
     }
 
     private void initView() {

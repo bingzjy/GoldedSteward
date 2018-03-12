@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.ldnet.activity.MainActivity;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
+import com.tendcloud.tenddata.TCAgent;
 
 /**
  * Created by zjy on 2017/9/5.
@@ -29,6 +30,18 @@ public class ChargeMoneyComplete extends BaseActionBarActivity {
         imageBack=(ImageButton)findViewById(R.id.btn_back);
         back.setOnClickListener(this);
         imageBack.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "充电服务-充值成功：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "充电服务-充值成功：" + this.getClass().getSimpleName());
     }
 
     @Override

@@ -27,6 +27,7 @@ import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.ViewHolder;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -77,6 +78,13 @@ public class ConsumeDetailFragment extends Fragment {
     public void onResume() {
         initData();
         super.onResume();
+        TCAgent.onPageStart(getActivity(), "充电服务-消费详情页：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "充电服务-消费详情页：" + this.getClass().getSimpleName());
     }
 
     private void initView(View view) {

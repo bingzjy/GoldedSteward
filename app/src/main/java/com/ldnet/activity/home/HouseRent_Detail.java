@@ -21,6 +21,8 @@ import com.ldnet.service.HouseRentService;
 import com.ldnet.utility.*;
 import com.ldnet.view.ImageCycleView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -321,4 +323,16 @@ public class HouseRent_Detail extends BaseActionBarActivity {
             }
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "房屋租赁详情：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "房屋租赁详情：" + this.getClass().getSimpleName());
+    }
 }

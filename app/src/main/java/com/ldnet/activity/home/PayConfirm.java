@@ -15,6 +15,7 @@ import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.PropertyFeeService;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -122,4 +123,17 @@ public class PayConfirm extends BaseActionBarActivity {
     @OnClick(R.id.btn_back)
     public void onViewClicked() {
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "物业交费-确认支付完成" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业交费-确认支付完成" + this.getClass().getSimpleName());
+    }
+
 }

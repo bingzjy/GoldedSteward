@@ -27,6 +27,7 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.BindingService;
 import com.ldnet.service.EntranceGuardService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.*;
 
@@ -312,6 +313,18 @@ public class Community extends BaseActionBarActivity {
     public void initEvent() {
         btn_back.setOnClickListener(this);
         btn_binding_community.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "我的小区：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "我的小区：" + this.getClass().getSimpleName());
     }
 
     //点击事件

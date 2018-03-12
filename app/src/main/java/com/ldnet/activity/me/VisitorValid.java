@@ -20,6 +20,7 @@ import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.BindingService;
 import com.ldnet.utility.Services;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -101,6 +102,15 @@ public class VisitorValid extends BaseActionBarActivity {
             bindService.getValid(room_id, room_owner_phone, flag, handlerSendSms);
         }
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "验证验证码：" + this.getClass().getSimpleName());
+    }
+
+
 
     //获取传递参数
     private void getExtra() {
@@ -339,5 +349,6 @@ public class VisitorValid extends BaseActionBarActivity {
     protected void onPause() {
         timer.cancel();
         super.onPause();
+        TCAgent.onPageEnd(this, "验证验证码：" + this.getClass().getSimpleName());
     }
 }

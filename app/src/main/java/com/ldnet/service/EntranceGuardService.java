@@ -56,7 +56,7 @@ public class EntranceGuardService extends BaseService {
 
                     @Override
                     public void onResponse(String s, int i) {
-                        Log.e(tag, "访问密码请求结果" + s);
+                        Log.e(tag, "请求钥匙串结果：" + s);
                         try {
                             JSONObject json = new JSONObject(s);
                             if (checkJsonData(s, handlerGetKeyChain)) {

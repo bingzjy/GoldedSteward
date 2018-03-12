@@ -27,6 +27,7 @@ import com.ldnet.utility.PagerSlidingTabStrip;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;
@@ -87,6 +88,8 @@ public class InforTabActivity extends BaseActionBarFragmentActivity implements V
     public void onResume() {
         super.onResume();
         pager.setCurrentItem(pager.getCurrentItem());
+        TCAgent.onPageStart(this, "生活资讯-主页：" + this.getClass().getSimpleName());
+
     }
 
     public void initEvent() {
@@ -141,5 +144,13 @@ public class InforTabActivity extends BaseActionBarFragmentActivity implements V
             }
         }
     };
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "生活资讯-主页：" + this.getClass().getSimpleName());
+    }
+
 }
 

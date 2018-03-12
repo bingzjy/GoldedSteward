@@ -20,6 +20,7 @@ import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
@@ -183,4 +184,15 @@ public class RepairIngFragment extends BaseFragment implements View.OnClickListe
                 });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(getActivity(), "物业服务-报修进行状态内容" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "物业服务-报修进行状态内容" + this.getClass().getSimpleName());
+    }
 }

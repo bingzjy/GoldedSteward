@@ -25,6 +25,7 @@ import com.ldnet.service.PropertyServeService;
 import com.ldnet.utility.*;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -199,9 +200,15 @@ public class Property_Repair_Create extends BaseActionBarActivity {
 
     }
 
-    @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
+        TCAgent.onPageStart(this, "物业服务-新增报修" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业服务-新增报修" + this.getClass().getSimpleName());
     }
 
     //压缩、保存、上传所选图片

@@ -23,6 +23,7 @@ import com.ldnet.utility.CookieInformation;
 import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.Alipay.PayKeys;
 import com.third.Alipay.PayResult;
 import com.third.Alipay.SignUtils;
@@ -90,6 +91,19 @@ public class Recharge_Details extends BaseActionBarActivity implements CompoundB
         mUnionCheckBox.setOnCheckedChangeListener(this);
         mSureRecharge.setOnClickListener(this);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "我的钱包-充值：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "我的钱包-充值：" + this.getClass().getSimpleName());
+    }
+
 
     @Override
     public void onClick(View v) {

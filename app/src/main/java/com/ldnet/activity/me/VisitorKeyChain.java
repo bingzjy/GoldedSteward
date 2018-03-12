@@ -22,6 +22,7 @@ import com.ldnet.utility.*;
 //import com.tencent.mm.sdk.openapi.IWXAPI;
 //import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -93,6 +94,19 @@ public class VisitorKeyChain extends BaseActionBarActivity {
         initEvent();
         services = new Services();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "访客密码：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "访客密码：" + this.getClass().getSimpleName());
+    }
+
 
     public void initView() {
         mServices = new Services();

@@ -33,6 +33,8 @@ import com.ldnet.utility.Services;
 import com.ldnet.utility.Utility;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -120,6 +122,19 @@ public class FreaMarket_Create extends BaseActionBarActivity {
         InputFilter[] filters={new CashierInputFilter(MAX_VALUE)};
         et_frea_market_new_price.setFilters(filters);
         et_frea_market_think_price.setFilters(filters);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "闲置物品-添加：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "闲置物品-添加：" + this.getClass().getSimpleName());
     }
 
     public boolean isNull() {

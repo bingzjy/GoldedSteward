@@ -23,6 +23,8 @@ import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -247,5 +249,15 @@ public class CommunityServices extends BaseFragment implements View.OnClickListe
         }
     };
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(getActivity(), "周边惠-内容：" + this.getClass().getSimpleName());
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "周边惠-内容：" + this.getClass().getSimpleName());
+    }
 }

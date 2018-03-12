@@ -27,6 +27,8 @@ import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
 import com.ldnet.view.ImageCycleView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.util.ArrayList;
 
 public class FreaMarket_Details extends BaseActionBarActivity {
@@ -108,6 +110,20 @@ public class FreaMarket_Details extends BaseActionBarActivity {
             tvCustom.setText("分享");
         }
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "闲置物品-详情：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "闲置物品-详情：" + this.getClass().getSimpleName());
+    }
+
 
     private com.ldnet.view.ImageCycleView.ImageCycleViewListener mAdCycleViewListener =
             new com.ldnet.view.ImageCycleView.ImageCycleViewListener() {

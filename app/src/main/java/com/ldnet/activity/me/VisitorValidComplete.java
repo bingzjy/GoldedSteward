@@ -25,6 +25,7 @@ import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
 import com.ldnet.view.SlideDateTimeListener;
 import com.ldnet.view.SlideDateTimePicker;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -141,6 +142,20 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
         bt_valid_complete_visitor.setOnClickListener(this);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "绑定关系认证：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "绑定关系认证：" + this.getClass().getSimpleName());
+    }
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -253,22 +268,6 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
         return super.dispatchKeyEvent(event);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        endDateClick = null;
-//        startDateClick = null;
-//        et_valid_start_date.setText("");
-//        et_valid_end_date.setText("");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-//        endDateClick = null;
-//        startDateClick = null;
-    }
-
     //判断用户输入
     private boolean notNull() {
         if (Utility.editIsNull(et_valid_start_date) || Utility.editIsNull(et_valid_start_date)) {
@@ -281,7 +280,6 @@ public class VisitorValidComplete extends BaseActionBarFragmentActivity implemen
         }
         return true;
     }
-
 
     //返回事件
     private void backEvent() {

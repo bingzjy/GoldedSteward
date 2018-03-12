@@ -38,6 +38,8 @@ import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.FinalBitmap;
 import java.io.File;
@@ -91,6 +93,7 @@ public class BaseActionBarActivity extends FinalActivity implements View.OnClick
 
         ActivityUtil.addActivity(this);
     }
+
 
     @Override
     public void onClick(View view) {

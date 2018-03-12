@@ -18,6 +18,7 @@ import com.ldnet.utility.CookieInformation;
 import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
@@ -79,6 +80,18 @@ public class Complain extends BaseActionBarActivity {
     public void initEvent() {
         btn_back.setOnClickListener(this);
         btn_me_feedback.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "投诉：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "投诉：" + this.getClass().getSimpleName());
     }
 
     //点击事件

@@ -1,27 +1,17 @@
 package com.ldnet.service;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.Browser;
-import com.ldnet.activity.ImageCycleView;
-import com.ldnet.activity.home.CommunityShops;
-import com.ldnet.activity.mall.GoodsList;
-import com.ldnet.activity.mall.Shopping_Carts;
 import com.ldnet.entities.*;
-import com.ldnet.goldensteward.R;
-import com.ldnet.utility.CookieInformation;
 import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
-import com.zhy.http.okhttp.OkHttpUtils;
+
 import okhttp3.Call;
 import okhttp3.Request;
 import org.json.JSONException;

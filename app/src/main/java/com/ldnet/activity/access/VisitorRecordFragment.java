@@ -32,6 +32,7 @@ import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class VisitorRecordFragment extends BaseFragment implements View.OnClickL
         showProgressDialog("");
         accessVisitorRecordList.clear();
         service.getVisitorAccessRecord("2016-10-09 00:00:00", mformat.format(new Date()), "", getDataHandler);
+        TCAgent.onPageStart(getActivity(), "访客记录:" + this.getClass().getSimpleName());
     }
 
     private void initView(View view) {
@@ -199,4 +201,9 @@ public class VisitorRecordFragment extends BaseFragment implements View.OnClickL
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "访客记录:" + this.getClass().getSimpleName());
+    }
 }

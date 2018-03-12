@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.MessageData;
 import com.ldnet.goldensteward.R;
+import com.tendcloud.tenddata.TCAgent;
 
 import static com.ldnet.goldensteward.R.id.tv_main_title;
 
@@ -28,6 +29,17 @@ public class MessageDetail extends BaseActionBarActivity {
         initView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "消息详情：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "消息详情：" + this.getClass().getSimpleName());
+    }
 
     public void initView(){
         Intent intent = this.getIntent();

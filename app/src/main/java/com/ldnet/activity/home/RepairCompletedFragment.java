@@ -2,8 +2,6 @@ package com.ldnet.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,7 @@ import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
-import com.third.listviewshangxia.XListView;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -28,15 +26,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/3/17 0017.
  */
-public class RepairCompleteFragment extends BaseFragment implements View.OnClickListener {
+public class RepairCompletedFragment extends BaseFragment implements View.OnClickListener {
 
     private ListView listView;
     private ListViewAdapter<Repair> adapter;
@@ -44,50 +40,48 @@ public class RepairCompleteFragment extends BaseFragment implements View.OnClick
     private List<Repair> datas;
     private View view;
     private PullToRefreshScrollView mPullToRefreshScrollView;
-    private TextView complete;
+    private TextView comment;
+    private static int a = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.ly_complete_fragment, null);
+        view = inflater.inflate(R.layout.ly_completed_fragment, null);
         findView(view);
         initEvents();
         return view;
     }
 
     public void findView(View view) {
-        complete = (TextView) view.findViewById(R.id.complete);
+        comment = (TextView) view.findViewById(R.id.comment);
         mPullToRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.main_act_scrollview);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setHeaderLayout(new HeaderLayout(getActivity()));
         mPullToRefreshScrollView.setFooterLayout(new FooterLayout(getActivity()));
-        listView = (ListView) view.findViewById(R.id.lv_home_repairs_complete);
+        listView = (ListView) view.findViewById(R.id.lv_home_repairs_comment);
         listView.setFocusable(false);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                try {
                 if (i <= mDatas.size()) {
                     Integer index = i;
                     Intent intent = new Intent(getActivity(), Property_Repair_Details.class);
                     intent.putExtra("FLAG", "REPAIR");
-                    intent.putExtra("REPAIR_ID", mDatas.get(index).ID);
+                    intent.putExtra("SCORE", "TRUE");
+                    intent.putExtra("REPAIR_ID", mDatas.get(index).getID());
                     intent.putExtra("REPAIR_STATUS", mDatas.get(index).getNodesName());
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("REPAIR", mDatas.get(index));
                     intent.putExtras(bundle);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+                    a = listView.getSelectedItemPosition();
                 }
             }
         });
         mDatas.clear();
         Repairs("");
-    }
-
-
-    @Override
-    public void onClick(View view) {
-
     }
 
     private void initEvents() {
@@ -111,7 +105,7 @@ public class RepairCompleteFragment extends BaseFragment implements View.OnClick
     }
 
     //报修列表
-    public void Repairs(String lastId) {
+    public void Repairs(final String lastId) {
         // 请求的URL
         User user = UserInformation.getUserInfo();
 //        String url = Services.mHost + "API/Property/GetRepairByResidentId/%s/%s?lastId=%s";
@@ -158,21 +152,41 @@ public class RepairCompleteFragment extends BaseFragment implements View.OnClick
                                         mDatas.addAll(datas);
                                         adapter = new ListViewAdapter<Repair>(getActivity(), R.layout.item_home_repair, mDatas) {
                                             @Override
-                                            public void convert(ViewHolder holder, Repair repair) {
+                                            public void convert(ViewHolder holder, final Repair repair) {
                                                 holder.setText(R.id.tv_repair_content, repair.Content)
-                                                        .setText(R.id.tv_repair_status, repair.getNodesName())
                                                         .setText(R.id.tv_repair_date, Services.subStr(repair.getCreateDay()))
                                                         .setText(R.id.tv_repair_type, "[" + repair.getRtypeName() + "]");
-
+                                                TextView textView = (TextView) holder.getView(R.id.tv_repair_status);
+                                                if (!repair.getIsScore().equals("true")) {
+                                                    textView.setText("待评价");
+                                                    textView.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            Intent intent = new Intent(getActivity(), Property_Repair_Details.class);
+                                                            intent.putExtra("FLAG", "REPAIR");
+                                                            intent.putExtra("SCORE", "TRUE");
+                                                            intent.putExtra("REPAIR_ID", repair.getID());
+                                                            intent.putExtra("REPAIR_STATUS", repair.getNodesName());
+                                                            Bundle bundle = new Bundle();
+                                                            bundle.putSerializable("REPAIR", repair);
+                                                            intent.putExtras(bundle);
+                                                            startActivity(intent);
+                                                            getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+                                                            a = listView.getSelectedItemPosition();
+                                                        }
+                                                    });
+                                                } else {
+                                                    textView.setText("已评价");
+                                                }
                                             }
                                         };
                                         listView.setAdapter(adapter);
                                         Services.setListViewHeightBasedOnChildren(listView);
-                                    }else {
+                                    } else {
                                         if (mDatas != null && mDatas.size() > 0) {
                                             showToast("沒有更多数据");
                                         } else {
-                                            complete.setVisibility(View.VISIBLE);
+                                            comment.setVisibility(View.VISIBLE);
                                         }
                                     }
                                 }
@@ -185,8 +199,29 @@ public class RepairCompleteFragment extends BaseFragment implements View.OnClick
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (Services.comment != null && !Services.comment.equals("")) {
+            mDatas.clear();
+            Repairs("");
+            listView.setSelection(a);
+        }
+        TCAgent.onPageStart(getActivity(), "物业服务-报修完成状态内容" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "物业服务-报修完成状态内容" + this.getClass().getSimpleName());
+    }
+    
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        closeProgressDialog();
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

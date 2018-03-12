@@ -1,4 +1,5 @@
 package com.ldnet.activity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -23,8 +24,11 @@ import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.utility.*;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+import com.tendcloud.tenddata.TDAccount;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
@@ -33,6 +37,7 @@ import cn.jpush.android.api.JPushInterface;
 import okhttp3.Call;
 import okhttp3.Headers;
 import okhttp3.Response;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,18 +66,32 @@ public class Splash extends BaseActionBarActivity {
     private ImageView iv;
     private String url = Services.mHost + "API/Account/Logon";
     private AcountService acountService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 去掉信息栏
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        acountService=new AcountService(this);
+        acountService = new AcountService(this);
         // 设置内容
         final View view = View.inflate(this, R.layout.activity_splash, null);
         setContentView(view);
         init(view);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "闪屏页："+this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "闪屏页："+this.getClass().getSimpleName());
+    }
+
 
 
     public void init(final View view) {
@@ -93,7 +112,7 @@ public class Splash extends BaseActionBarActivity {
                             if (!TextUtils.isEmpty(CookieInformation.getUserInfo().getCookieinfo())) {
                                 User user = UserInformation.getUserInfo();
                                 showProgressDialog();
-                                acountService.getToken(user.UserPhone,handlerToken);
+                                acountService.getToken(user.UserPhone, handlerToken);
                             } else {
                                 Message msg = new Message();
                                 msg.what = 1003;
@@ -118,11 +137,11 @@ public class Splash extends BaseActionBarActivity {
         });
     }
 
-    Handler handlerToken=new Handler(){
+    Handler handlerToken = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     acountService.Login(UserInformation.getUserInfo().UserPhone,
                             UserInformation.getUserInfo().UserPassword, handlerLogin);
@@ -136,12 +155,16 @@ public class Splash extends BaseActionBarActivity {
         }
     };
 
-    Handler handlerLogin=new Handler(){
+    Handler handlerLogin = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
+
+                    //记录用户登录行为
+                    TCAgent.onLogin(UserInformation.getUserInfo().getUserId(), TDAccount.AccountType.REGISTERED, UserInformation.getUserInfo().getUserName());
+
                     //设置别名
                     JPushInterface.setDebugMode(true);//设置开启日志，发布关闭
                     JPushInterface.init(Splash.this);//初始化jpush
@@ -159,13 +182,14 @@ public class Splash extends BaseActionBarActivity {
                             e.printStackTrace();
                         }
                     } else {
-                        acountService.setIntegralTip(handlerIntegralTip,url);
+                        acountService.setIntegralTip(handlerIntegralTip, url);
                     }
+
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
                     closeProgressDialog();
-
+                    //用户密码修改登陆失败，重新登陆
                     // 定义 intent
                     Intent intent = new Intent(Splash.this, Login.class);
                     intent.putExtra("password", UserInformation.getUserInfo().getUserPassword());
@@ -183,12 +207,12 @@ public class Splash extends BaseActionBarActivity {
         }
     };
 
-    Handler handlerIntegralTip=new Handler(){
+    Handler handlerIntegralTip = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             closeProgressDialog();
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
@@ -216,6 +240,8 @@ public class Splash extends BaseActionBarActivity {
                     showToast(getString(R.string.network_none_tip));
                     break;
                 case 1002:
+                    //记录用户登录行为
+                    TCAgent.onLogin(UserInformation.getUserInfo().getUserId(), TDAccount.AccountType.REGISTERED, UserInformation.getUserInfo().getUserName());
                     try {
                         gotoActivityAndFinish(MainActivity.class.getName(), null);
                     } catch (ClassNotFoundException e) {

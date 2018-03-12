@@ -14,6 +14,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.ViewHolder;
+import com.tendcloud.tenddata.TCAgent;
 
 /**
  * Created by lee on 2016/7/12.
@@ -42,7 +43,6 @@ public class PropertyFeeDetail extends BaseActionBarActivity implements View.OnC
 
         fees = (Fees) getIntent().getSerializableExtra("lstAPPFees");
         flag = getIntent().getBooleanExtra("flag",false);
-//        position = getIntent().getIntExtra("position",0);
 
         tv_main_title = (TextView) findViewById(R.id.tv_page_title);
         tv_main_title.setText(getString(R.string.fee_detail));
@@ -96,5 +96,17 @@ public class PropertyFeeDetail extends BaseActionBarActivity implements View.OnC
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "物业交费-费用详情" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业交费-费用详情" + this.getClass().getSimpleName());
     }
 }

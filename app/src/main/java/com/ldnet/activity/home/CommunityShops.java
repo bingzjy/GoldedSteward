@@ -16,6 +16,7 @@ import com.ldnet.entities.*;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
@@ -373,5 +374,18 @@ public class CommunityShops extends BaseActionBarActivity {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "社区小店：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "社区小店：" + this.getClass().getSimpleName());
     }
 }

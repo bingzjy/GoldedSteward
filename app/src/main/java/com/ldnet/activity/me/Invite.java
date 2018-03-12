@@ -17,6 +17,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.utility.BottomDialog;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
+import com.tendcloud.tenddata.TCAgent;
 
 public class Invite extends BaseActionBarActivity {
 
@@ -71,6 +72,19 @@ public class Invite extends BaseActionBarActivity {
         btn_back.setOnClickListener(this);
         tv_share.setOnClickListener(this);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "邀请好友：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "邀请好友：" + this.getClass().getSimpleName());
+    }
+
 
     //点击事件
     @Override

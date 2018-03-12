@@ -35,6 +35,7 @@ import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,6 +77,19 @@ public class InfoShowContentFragment extends BaseFragment {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(getActivity(), "邻里通：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "邻里通：" + this.getClass().getSimpleName());
+    }
+
 
     @Override
     public void onDestroy() {
@@ -243,12 +257,6 @@ public class InfoShowContentFragment extends BaseFragment {
         }else{
             service.getInfoList(CommunityInfoBarMainActivity.currentBigType, littleType, "", "", handler);
         }
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
 }

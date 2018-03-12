@@ -36,6 +36,7 @@ import com.ldnet.utility.Services;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.Alipay.PayKeys;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -266,6 +267,18 @@ public class Order_Confirm extends BaseActionBarActivity {
         btn_back.setOnClickListener(this);
         ll_order_address_select.setOnClickListener(this);
         btn_goods_balance.setOnClickListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "订单确认：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "订单确认：" + this.getClass().getSimpleName());
     }
 
     // 点击事件处理

@@ -21,6 +21,7 @@ import com.ldnet.activity.base.BaseActionBarFragmentActivity;
 import com.ldnet.goldensteward.R;
 import com.ldnet.interfaze.PermissionListener;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RationaleListener;
@@ -105,6 +106,20 @@ public class MainActivity extends BaseActionBarFragmentActivity implements View.
         //注册广播
         MyNetWorkBroadcastReceive.msgListeners.add(this);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "首页:"+this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "首页:"+this.getClass().getSimpleName());
+    }
+
+
 
     @Override
     public void onNewMessage(String message) {}

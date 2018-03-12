@@ -35,6 +35,7 @@ import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -306,4 +307,17 @@ public class InforDetailActivity extends BaseActionBarActivity implements XListV
             }
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "生活资讯-详情：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "生活资讯-详情：" + this.getClass().getSimpleName());
+    }
+
 }

@@ -18,6 +18,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.utility.BottomDialog;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
+import com.tendcloud.tenddata.TCAgent;
 
 import net.tsz.afinal.core.AsyncTask;
 
@@ -175,5 +176,17 @@ public class VisitorCardActivity extends BaseActionBarActivity {
             }
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "访客证:" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "访客证:" + this.getClass().getSimpleName());
     }
 }

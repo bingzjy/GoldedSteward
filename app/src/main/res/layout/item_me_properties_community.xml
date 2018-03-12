@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="@dimen/dimen_4dp"
-                android:src="@mipmap/list_community_gray"/>
+                android:src="@drawable/list_community_gray" />
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -35,6 +35,7 @@ import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.Alipay.PayKeys;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -148,6 +149,19 @@ public class Orders extends BaseActionBarActivity {
         btn_back.setOnClickListener(this);
         btn_goods_balance.setOnClickListener(this);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "我的订单列表：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "我的订单列表：" + this.getClass().getSimpleName());
+    }
+
 
     //点击事件
     @Override

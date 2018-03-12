@@ -22,6 +22,7 @@ import com.ldnet.activity.adapter.MainPagerAdapter;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.QinDianService;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +63,14 @@ public class QinDianAccount extends FragmentActivity implements View.OnClickList
         super.onResume();
         //获取账户余额
         service.getRemind(getRemindHandler);
+        TCAgent.onPageStart(this, "充电服务-我的账户：" + this.getClass().getSimpleName());
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "充电服务-我的账户：" + this.getClass().getSimpleName());
+    }
 
     void initDate(Bundle savedInstanceState) {
         FragmentManager manager = getSupportFragmentManager();

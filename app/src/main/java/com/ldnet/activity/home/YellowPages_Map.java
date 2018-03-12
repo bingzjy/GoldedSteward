@@ -37,6 +37,7 @@ import com.ldnet.map.MyDrivingMyRouteOverlay;
 import com.ldnet.map.MyWalkMyRouteOverlay;
 import com.ldnet.map.NewDrivingRouteOverlay;
 import com.ldnet.utility.AMapUtils;
+import com.tendcloud.tenddata.TCAgent;
 
 
 import java.util.ArrayList;
@@ -258,7 +259,7 @@ public class YellowPages_Map extends Activity implements
         super.onResume();
         mlocationClient.startLocation();
         mMapView.onResume();
-
+        TCAgent.onPageStart(this, "生活黄页-地图定位：" + this.getClass().getSimpleName());
     }
 
 
@@ -329,6 +330,7 @@ public class YellowPages_Map extends Activity implements
         super.onPause();
         mlocationClient.stopLocation();
         mMapView.onPause();
+        TCAgent.onPageEnd(this, "生活黄页-地图定位：" + this.getClass().getSimpleName());
     }
 
     @Override
@@ -499,6 +501,5 @@ public class YellowPages_Map extends Activity implements
     public void onRideRouteSearched(RideRouteResult rideRouteResult, int i) {
 
     }
-
 
 }

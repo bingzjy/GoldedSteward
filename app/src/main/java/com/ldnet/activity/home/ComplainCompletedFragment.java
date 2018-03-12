@@ -3,8 +3,6 @@ package com.ldnet.activity.home;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +22,7 @@ import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
-import com.third.listviewshangxia.XListView;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -32,15 +30,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/3/17 0017.
  */
-public class ComplainCommentFragment extends BaseFragment implements View.OnClickListener {
+public class ComplainCompletedFragment extends BaseFragment implements View.OnClickListener {
 
     private ListView listView;
     private ListViewAdapter<Repair> adapter;
@@ -53,7 +49,7 @@ public class ComplainCommentFragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ly_comment_fragment, null);
+        View view = inflater.inflate(R.layout.ly_completed_fragment, null);
         findView(view);
         initEvents();
         return view;
@@ -224,6 +220,12 @@ public class ComplainCommentFragment extends BaseFragment implements View.OnClic
             Repairs("");
             listView.setSelection(a);
         }
+        TCAgent.onPageStart(getActivity(), "物业服务-投诉完成：" + this.getClass().getSimpleName());
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "物业服务-投诉完成：" + this.getClass().getSimpleName());
+    }
 }

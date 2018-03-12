@@ -29,6 +29,8 @@ import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
 import com.ldnet.view.ImageCycleView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -125,10 +127,7 @@ public class Weekend_Details extends BaseActionBarActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+
 
     private com.ldnet.view.ImageCycleView.ImageCycleViewListener mAdCycleViewListener =
             new com.ldnet.view.ImageCycleView.ImageCycleViewListener() {
@@ -397,4 +396,18 @@ public class Weekend_Details extends BaseActionBarActivity {
             }
         }
     };
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "周边游-详情：" + this.getClass().getSimpleName());
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "周边游-详情：" + this.getClass().getSimpleName());
+    }
 }

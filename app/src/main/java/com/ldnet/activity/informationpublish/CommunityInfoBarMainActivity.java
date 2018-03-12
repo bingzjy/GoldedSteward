@@ -21,6 +21,8 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.InfoBarService;
 import com.ldnet.utility.PagerSlidingTabStrip;
 import com.ldnet.utility.Utility;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,9 +109,17 @@ public class CommunityInfoBarMainActivity extends BaseActionBarFragmentActivity 
                 btnPrivide.setChecked(false);
             }
         }
-
+        TCAgent.onPageStart(this, "邻里通-主页：" + this.getClass().getSimpleName());
         Log.e("test","默认："+currentIndex);
     }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "邻里通-主页：：" + this.getClass().getSimpleName());
+    }
+
 
     @Override
     public void onClick(View view) {

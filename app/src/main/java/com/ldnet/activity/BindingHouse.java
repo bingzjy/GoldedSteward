@@ -15,6 +15,8 @@ import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.BindingService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +87,18 @@ public class BindingHouse extends BaseActionBarActivity {
         //获取楼栋信息
         service.Buildings(mCommunityId, handlerBuilding);
         showProgressDialog();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "绑定房子：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "绑定房子：" + this.getClass().getSimpleName());
     }
 
     private void initView(){

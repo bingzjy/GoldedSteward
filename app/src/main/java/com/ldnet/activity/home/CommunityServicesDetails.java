@@ -18,6 +18,8 @@ import com.ldnet.utility.*;
 import com.ldnet.view.ImageCycleView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -271,5 +273,18 @@ public class CommunityServicesDetails extends BaseActionBarActivity {
             }
         };
         mLvcommunityServices.setAdapter(mAdapter);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "周边惠-详情：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "周边惠-详情：" + this.getClass().getSimpleName());
     }
 }

@@ -39,6 +39,7 @@ import com.ldnet.utility.ViewHolder;
 import com.library.PullToRefreshBase;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.SwipeListView.SwipeListView;
 import com.third.SwipeListView2.SwipeListViewWrap;
 
@@ -110,6 +111,7 @@ public class MyRelationActivity extends BaseActionBarActivity {
     protected void onResume() {
         super.onResume();
         getData();
+        TCAgent.onPageStart(this, "门禁管理-我的门禁关系表：" + this.getClass().getSimpleName());
     }
 
     private void initView() {
@@ -374,4 +376,10 @@ public class MyRelationActivity extends BaseActionBarActivity {
         unbinder.unbind();
     }
 
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "门禁管理-我的门禁关系表：" + this.getClass().getSimpleName());
+    }
 }

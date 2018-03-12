@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.CommunityRoomInfo;
 import com.ldnet.entities.MyProperties;
+//import com.ldnet.goldensteward.R;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AccessControlService;
 import com.ldnet.service.BaseService;
@@ -38,6 +39,7 @@ import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -345,5 +347,18 @@ public class AddGoodsApplyActivity extends BaseActionBarActivity {
             }
         });
         backgroundAlpaha(AddGoodsApplyActivity.this, 0.5f);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "添加物品出入申请:" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "添加物品出入申请:" + this.getClass().getSimpleName());
     }
 }

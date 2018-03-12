@@ -60,6 +60,7 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:name="com.ldnet.utility.GSApplication"
@@ -89,6 +90,19 @@
         <!--android:windowSoftInputMode="adjustResize" />-->
         <!--&lt;!&ndash; 银联结束 &ndash;&gt;-->
 
+        <!-- talkingdata分析工具-->
+        <service
+            android:name="com.talkingdata.sdk.TDAntiCheatingService"
+            android:process="com.talkingdata.sdk.TDAntiCheatingService">  <!--用户质量评估Service可以配置在主进程或者单独进程-->
+            <intent-filter>
+                <action android:name="com.talkingdata.sdk.TDAntiCheatingService" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="TD_APP_ID"
+            android:value="388367EA2DF541E3B35C903DA652D871" />
+        <!-- talkingdata分析工具-->
+
 
         <!-- 网络监听 -->
         <receiver android:name="com.ldnet.utility.NetState">
@@ -96,14 +110,18 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+        <!-- 网络监听 -->
 
+        <!--高德地图-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="84db3ca84209501f58a7934b21653a62" />
 
         <service android:name="com.amap.api.location.APSService" />
+        <!--高德地图-->
 
-        <!-- alipay sdk begin -->
+
+        <!-- 支付宝支付 sdk begin -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -378,12 +396,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity
-            android:name="com.ldnet.activity.home.Property_Score"
-            android:hardwareAccelerated="false"
-            android:label="报修评分"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+
         <activity
             android:name="com.ldnet.activity.home.HouseRent_Detail"
             android:label="@string/fragment_home_yellow_lease_detail"
@@ -423,10 +436,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Transparent"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name="com.ldnet.activity.home.Property_Repair_Communicate"
-            android:label="@string/property_services_repair"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.ldnet.activity.home.Property_Complain"
             android:label="@string/property_services_complain"
@@ -437,10 +447,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Transparent"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name="com.ldnet.activity.home.Property_Complain_Communicate"
-            android:label="@string/property_services_complain"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.ldnet.activity.home.Property_Communicate"
             android:label="@string/property_services_communicate"

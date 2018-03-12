@@ -35,6 +35,7 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.BindingService;
 import com.ldnet.service.PropertyServeService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import okhttp3.Call;
@@ -123,6 +124,13 @@ public class BindingCommunity extends BaseActionBarActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+        TCAgent.onPageStart(this, "绑定小区：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "绑定小区：" + this.getClass().getSimpleName());
     }
 
     //初始化定位

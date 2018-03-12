@@ -45,6 +45,7 @@ import com.ldnet.utility.*;
 import com.ldnet.utility.Toast;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import net.tsz.afinal.FinalHttp;
@@ -292,10 +293,6 @@ public class Property_Complain_Create extends BaseActionBarActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
     Handler handlerAdd=new Handler(){
         @Override
@@ -319,4 +316,16 @@ public class Property_Complain_Create extends BaseActionBarActivity {
             }
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "物业服务-新增投诉" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业服务-新增投诉" + this.getClass().getSimpleName());
+    }
 }

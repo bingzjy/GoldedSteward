@@ -20,6 +20,8 @@ import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +55,7 @@ public class Message extends BaseActionBarActivity {
         messageType.clear();
         //获取消息数据
         messageService.getMsgTypes(handler);
+        TCAgent.onPageStart(this, "消息中心：" + this.getClass().getSimpleName());
     }
 
     //初始化服务
@@ -61,6 +64,15 @@ public class Message extends BaseActionBarActivity {
         messageService = new MessageService(this);
         homeService = new HomeService(this);
     }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "消息中心：" + this.getClass().getSimpleName());
+    }
+
 
     //初始化View
     private void initView(){

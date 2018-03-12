@@ -15,6 +15,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.utility.MyFrPagerAdapter;
 import com.ldnet.utility.PagerSlidingTabStrip;
 import com.ldnet.utility.Utility;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.ArrayList;
 
@@ -65,6 +66,18 @@ public class OrdersTabActivity extends BaseActionBarFragmentActivity implements 
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "订单-主页：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "订单-主页：" + this.getClass().getSimpleName());
     }
 
 

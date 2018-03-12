@@ -18,6 +18,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.AddressService;
 import com.ldnet.service.BaseService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.SwipeListView.BaseSwipeListViewListener;
 import com.third.SwipeListView.SwipeListView;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -70,6 +71,13 @@ public class Address extends BaseActionBarActivity {
         //获取地址列表
         showProgressDialog();
         addressService.getAddressList(handlerGetAddress);
+        TCAgent.onPageStart(this, "收货地址：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "收货地址：" + this.getClass().getSimpleName());
     }
 
     public void initView(){

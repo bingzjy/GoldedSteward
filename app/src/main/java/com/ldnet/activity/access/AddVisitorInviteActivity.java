@@ -38,6 +38,7 @@ import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -433,4 +434,15 @@ public class AddVisitorInviteActivity extends BaseActionBarActivity implements R
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "添加访客邀请:" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "添加访客邀请:" + this.getClass().getSimpleName());
+    }
 }

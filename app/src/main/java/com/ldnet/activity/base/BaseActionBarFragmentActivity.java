@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.ldnet.utility.ActivityUtil;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.tendcloud.tenddata.TCAgent;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -82,6 +84,7 @@ public class BaseActionBarFragmentActivity extends FragmentActivity {
 
         ActivityUtil.addActivity(this);
     }
+
 
     /**
      * 判断checkBox弹出的图层是否显示

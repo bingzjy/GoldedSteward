@@ -17,6 +17,8 @@ import com.ldnet.activity.adapter.MainPagerAdapter;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AccessControlService;
 import com.ldnet.utility.Services;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -164,4 +166,16 @@ public class AccessControlMain extends FragmentActivity implements View.OnClickL
         manager.putFragment(savedInstanceState, Visitor_FRAGMENT, visitorRecordFragment);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "出入管理主页:" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "出入管理主页:" + this.getClass().getSimpleName());
+    }
 }

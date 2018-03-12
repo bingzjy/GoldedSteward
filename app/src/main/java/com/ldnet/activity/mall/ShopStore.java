@@ -39,6 +39,7 @@ import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;
@@ -118,7 +119,6 @@ public class ShopStore extends BaseActionBarActivity {
         mRetailerType = new ArrayList<RetailerGoodsType>();
         mRetailerType = mServices.getGoodsTypes(retailerID);
         getRetailerInfo(retailerID);
-//        getGoodsTypes(retailerID);
         mAdapter = new ListViewAdapter<RetailerGoodsType>(this, R.layout.item_shop_store_sort, mRetailerType) {
             @Override
             public void convert(ViewHolder holder, final RetailerGoodsType goodsType) {
@@ -138,7 +138,6 @@ public class ShopStore extends BaseActionBarActivity {
                             extras.put("RETAILERID", retailerID);
                             extras.put("PAGE_TITLE", goodsType.Title);
                             extras.put("CID", mCID);
-//                            extras.put("URL", mUrl);
                             gotoActivity(StoreGoods.class.getName(), extras);
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();
@@ -229,8 +228,15 @@ public class ShopStore extends BaseActionBarActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
+        TCAgent.onPageStart(this, "进入店铺：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "进入店铺：" + this.getClass().getSimpleName());
     }
 
     public void initEvent() {

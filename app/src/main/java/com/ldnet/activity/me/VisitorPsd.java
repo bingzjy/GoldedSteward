@@ -14,6 +14,8 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.BindingService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.util.*;
 
 import static android.R.attr.tag;
@@ -97,6 +99,20 @@ public class VisitorPsd extends BaseActionBarActivity {
         showProgressDialog();
         bindingService.getEntranceGuard(room_id, handlerEntrance);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "验证业主：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "验证业主：" + this.getClass().getSimpleName());
+    }
+
+
 
     // 初始化事件
     public void initEvent() {

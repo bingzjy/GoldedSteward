@@ -15,6 +15,7 @@ import com.ldnet.entities.AccountInfo;
 import com.ldnet.entities.ConsumptionMessage;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -109,6 +110,19 @@ public class Recharge extends BaseActionBarActivity implements XListView.IXListV
         mRecharge.setOnClickListener(this);
         mBalanceDetails.setOnClickListener(this);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "我的钱包：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "我的钱包：" + this.getClass().getSimpleName());
+    }
+
 
     @Override
     public void onClick(View v) {

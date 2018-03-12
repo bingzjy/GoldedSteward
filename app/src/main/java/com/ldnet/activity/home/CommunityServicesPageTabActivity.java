@@ -23,6 +23,7 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.CommunityService;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import org.json.JSONException;
@@ -135,5 +136,16 @@ public class CommunityServicesPageTabActivity extends BaseActionBarFragmentActiv
     };
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "周边惠-主页：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "周边惠-主页：" + this.getClass().getSimpleName());
+    }
 
 }

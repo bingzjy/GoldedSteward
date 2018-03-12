@@ -21,6 +21,8 @@ import com.ldnet.service.HouseRentService;
 import com.ldnet.utility.*;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
@@ -416,11 +418,14 @@ public class HouseRentUpdate extends BaseActionBarActivity {
     protected void onPause() {
         super.onPause();
         mHouseRent=null;
+        TCAgent.onPageEnd(this, "房屋租赁修改：" + this.getClass().getSimpleName());
     }
 
+
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
+        TCAgent.onPageStart(this, "房屋租赁修改：" + this.getClass().getSimpleName());
     }
 
     private void setAdapterData(JSONObject jsonObject1) {

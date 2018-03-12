@@ -29,6 +29,7 @@ import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class GoodsRecordFragment extends BaseFragment implements View.OnClickLis
         showProgressDialog("");
         accessGoodsRecordList.clear();
         service.getGoodsAccessRecord("2016-10-10 00:00:00", format.format(new Date()), "", getDataHandler);
+        TCAgent.onPageStart(getActivity(), "物品出入:" + this.getClass().getSimpleName());
     }
 
     private void initView(View view) {
@@ -213,25 +215,11 @@ public class GoodsRecordFragment extends BaseFragment implements View.OnClickLis
         }
     };
 
-
-//    public void showProgressDialog(String str) {
-//        if (dialog == null) {
-//            dialog = new LoadingDialog(getActivity());
-//            dialog.setCanceledOnTouchOutside(false);
-//        }
-//        dialog.setText(str);
-//        if (!dialog.isShowing()) {
-//            dialog.show();
-//        }
-//    }
-//
-//    public void closeProgressDialog() {
-//        if (dialog != null && dialog.isShowing()) {
-//            dialog.dismiss();
-//        }
-//    }
-//
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(getActivity(), "物品出入:" + this.getClass().getSimpleName());
+    }
 
 
 }

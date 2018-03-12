@@ -35,6 +35,8 @@ import com.ldnet.view.SlideDateTimeListener;
 import com.ldnet.view.SlideDateTimePicker;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.ParseException;
@@ -471,5 +473,15 @@ public class Weekend_Create extends BaseActionBarFragmentActivity implements Vie
         }
     };
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "周边游-添加：" + this.getClass().getSimpleName());
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "周边游-添加：" + this.getClass().getSimpleName());
+    }
 }

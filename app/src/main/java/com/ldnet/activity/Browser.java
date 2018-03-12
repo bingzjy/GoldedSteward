@@ -25,6 +25,7 @@ import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tendcloud.tenddata.TCAgent;
 
 
 import java.io.BufferedInputStream;
@@ -120,6 +121,17 @@ public class Browser extends BaseActionBarActivity {
         initEvents();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "网页：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "网页：" + this.getClass().getSimpleName());
+    }
 
     public void initView() {
         //Settings

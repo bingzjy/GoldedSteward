@@ -38,6 +38,8 @@ import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -96,6 +98,19 @@ public class Shopping_Carts extends BaseActionBarActivity {    // 标题
         initView();
         initEvent();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "我的购物车：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "我的购物车：" + this.getClass().getSimpleName());
+    }
+
 
     private void initView() {
         // 标题

@@ -18,6 +18,7 @@ import com.ldnet.utility.CookieInformation;
 import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
@@ -77,6 +78,18 @@ public class ChangePassword extends BaseActionBarActivity {
         // 返回
         mBtnBack = (ImageButton) findViewById(R.id.btn_back);
         initEvent();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "修改密码：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "修改密码：" + this.getClass().getSimpleName());
     }
 
     public boolean isNUll(){

@@ -21,6 +21,7 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.HomeService;
 import com.ldnet.utility.*;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -71,6 +72,7 @@ public class Property_Services extends BaseActionBarActivity {
     protected void onResume() {
         super.onResume();
         homeService.getAppRedPoint(handlerGetRedPointPush);
+        TCAgent.onPageStart(this, "物业服务" + this.getClass().getSimpleName());
     }
 
     public void findView() {
@@ -336,4 +338,11 @@ public class Property_Services extends BaseActionBarActivity {
             }
         }
     };
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "物业服务" + this.getClass().getSimpleName());
+    }
 }

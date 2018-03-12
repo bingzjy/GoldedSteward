@@ -16,6 +16,7 @@ import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.HouseRent;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
@@ -86,6 +87,18 @@ public class Coupon extends BaseActionBarActivity implements XListView.IXListVie
     public void initEvent() {
         btn_back.setOnClickListener(this);
         mBtGoCoupon.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "我的优惠券：" + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "我的优惠券：" + this.getClass().getSimpleName());
     }
 
     @Override

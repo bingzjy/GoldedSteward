@@ -292,7 +292,7 @@ public class Goods_Details extends BaseActionBarActivity {
 
     String textView;
 
-    //弹出对话框
+    //弹出对话框 true：购买   false:加入购物车
     private void showDialog(Boolean isBuy) {
         DialogGoods dialog;
         if (isBuy) {
@@ -309,8 +309,8 @@ public class Goods_Details extends BaseActionBarActivity {
                 dialog.show();
             }
         }
-
     }
+
 
     //添加购物车
     class ShoppingCart implements DialogGoods.OnGoodsDialogListener {
@@ -318,6 +318,7 @@ public class Goods_Details extends BaseActionBarActivity {
         public void Confirm(String businessId, String goodsId, String stockId, Integer number) {
             if (mGoods.ST>=1){
                 orderService.addPurchaseCar(businessId, goodsId, stockId, number,addPurchaseCarHandler);
+                TCAgent.onAddItemToShoppingCart(goodsId, "", "", 499900, 10);
             }else{
                 showToast(getResources().getString(R.string.mall_goods_not));
             }
@@ -331,6 +332,7 @@ public class Goods_Details extends BaseActionBarActivity {
         public void Confirm(String businessId, String goodsId, String stockId, Integer number) {
            if (mGoods.ST>=1){
                orderService.orderPreSubmit(businessId, goodsId, stockId, number,orderHandler);
+
            }else{
                showToast(getResources().getString(R.string.mall_goods_not));
             }
@@ -388,7 +390,7 @@ public class Goods_Details extends BaseActionBarActivity {
     };
 
 
-    //获取商品信息
+    //获取商品信息w
     Handler getGoodsInfoHandler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -401,6 +403,10 @@ public class Goods_Details extends BaseActionBarActivity {
                     if (mGoods==null){
                         mGoods=goods;
                     }
+
+                    //商品浏览分析统计
+                    int price = (int) Math.ceil(Double.parseDouble(goods.getRP())) * 100;
+                    TCAgent.onViewItem(goods.GID, goods.GSN, goods.T, price);
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:

@@ -107,7 +107,7 @@ public class Splash extends BaseActionBarActivity {
                     @Override
                     public void run() {
                         Looper.prepare();
-                        if (isNetworkAvailable()) {
+                        if (Services.netWorkConnected()) {
                             // 如果Cookie存在，直接跳转，无需访问服务器进行登录
                             if (!TextUtils.isEmpty(CookieInformation.getUserInfo().getCookieinfo())) {
                                 User user = UserInformation.getUserInfo();
@@ -190,7 +190,6 @@ public class Splash extends BaseActionBarActivity {
                 case BaseService.DATA_REQUEST_ERROR:
                     closeProgressDialog();
                     //用户密码修改登陆失败，重新登陆
-                    // 定义 intent
                     Intent intent = new Intent(Splash.this, Login.class);
                     intent.putExtra("password", UserInformation.getUserInfo().getUserPassword());
                     intent.putExtra("phone", UserInformation.getUserInfo().getUserPhone());
@@ -261,18 +260,5 @@ public class Splash extends BaseActionBarActivity {
         }
     };
 
-    //判断当前是否有可用的网路链接
-    private Boolean isNetworkAvailable() {
-        Context context = getApplicationContext();
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null) {
-            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-            if (networkInfo != null) {
-                if (networkInfo.getState().equals(NetworkInfo.State.CONNECTED)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
 }

@@ -31,6 +31,8 @@ import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UISwitchButton;
 import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.Utility;
+import com.tendcloud.tenddata.Order;
 import com.tendcloud.tenddata.TCAgent;
 import com.third.Alipay.PayKeys;
 import com.third.Alipay.PayResult;
@@ -376,7 +378,6 @@ public class Pay extends BaseActionBarActivity implements CompoundButton.OnCheck
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();
                         }
-                        //Toast.makeText(Pay.this, R.string.mall_pay_succeed, Toast.LENGTH_SHORT).show();
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
@@ -387,6 +388,11 @@ public class Pay extends BaseActionBarActivity implements CompoundButton.OnCheck
                             showToast(R.string.mall_pay_failure);
                         }
                     }
+
+
+                    //订单支付成功数据统计
+                    Order order = Order.createOrder(Utility.generateGUID(), Math.round(totalPrices) * 100, "CNY").addItem("007", "家电", "电视", 499900, 1);
+                    TCAgent.onOrderPaySucc(UserInformation.getUserInfo().getUserId(), "Alipay", order);
                     break;
                 }
                 case SDK_CHECK_FLAG: {
@@ -402,10 +408,9 @@ public class Pay extends BaseActionBarActivity implements CompoundButton.OnCheck
     };
 
 
+    // 处理银联手机支付控件返回的支付结果
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        /*************************************************
-         * 处理银联手机支付控件返回的支付结果
-         ************************************************/
+
         if (data == null) {
             return;
         }
@@ -416,6 +421,11 @@ public class Pay extends BaseActionBarActivity implements CompoundButton.OnCheck
         final String str = data.getExtras().getString("pay_result");
         if (str.equalsIgnoreCase("success")) {
             msg = "支付成功！";
+
+            //订单支付成功数据统计
+            Order order = Order.createOrder(Utility.generateGUID(), Math.round(totalPrices) * 100, "CNY").addItem("007", "家电", "电视", 499900, 1);
+            TCAgent.onOrderPaySucc(UserInformation.getUserInfo().getUserId(), "Union", order);
+
         } else if (str.equalsIgnoreCase("fail")) {
             msg = "支付失败！";
         } else if (str.equalsIgnoreCase("cancel")) {
@@ -425,7 +435,6 @@ public class Pay extends BaseActionBarActivity implements CompoundButton.OnCheck
         builder.setTitle("支付结果通知");
         builder.setMessage(msg);
         builder.setInverseBackgroundForced(true);
-//         builder.setCustomTitle();
         builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -441,11 +450,11 @@ public class Pay extends BaseActionBarActivity implements CompoundButton.OnCheck
                 } else {
                     dialog.dismiss();
                 }
-
             }
         });
         builder.create().show();
     }
+
 
     //获取商家用户账户信息
     public void getUserId() {
@@ -496,7 +505,7 @@ public class Pay extends BaseActionBarActivity implements CompoundButton.OnCheck
                 });
     }
 
-    //    使用余额支付 api/BOrder?orderID={orderID}&RID={RID}&BalancePayMoney={BalancePayMoney}&otherPayType={otherPayType}
+    //使用余额支付 api/BOrder?orderID={orderID}&RID={RID}&BalancePayMoney={BalancePayMoney}&otherPayType={otherPayType}
     public void balancePaid(String orderID, String BalancePayMoney, String otherPayType, final String type) {
         // 请求的URL
         String url = Services.mHost + "BOrder/Set_BalancePay?orderID=%s&RID=%s&BalancePayMoney=%s&otherPayType=%s";

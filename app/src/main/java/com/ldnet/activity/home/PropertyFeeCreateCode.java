@@ -22,10 +22,6 @@ import android.widget.TextView;
 import com.chinaums.pppay.unify.UnifyPayListener;
 import com.chinaums.pppay.unify.UnifyPayPlugin;
 import com.chinaums.pppay.unify.UnifyPayRequest;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
 import com.ldnet.activity.adapter.PayTypeAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
@@ -123,13 +119,13 @@ public class PropertyFeeCreateCode extends BaseActionBarActivity implements Unif
 //        }
 
         tvFeePropertyName.setText(UserInformation.getUserInfo().PropertyName);
-        try {
-            bitmapCode = createQRCode("https://qr-test2.chinaums.com/bills/qrCode.do?id=31941801189001119111252841");
-            showToast("二维码已保存在本地图库 (DCIM > 金牌管家)");
-            ivCode.setImageBitmap(bitmapCode);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            bitmapCode = createQRCode("https://qr-test2.chinaums.com/bills/qrCode.do?id=31941801189001119111252841");
+//            showToast("二维码已保存在本地图库 (DCIM > 金牌管家)");
+//            ivCode.setImageBitmap(bitmapCode);
+//        } catch (WriterException e) {
+//            e.printStackTrace();
+//        }
     }
 
 
@@ -165,43 +161,43 @@ public class PropertyFeeCreateCode extends BaseActionBarActivity implements Unif
         }
     }
 
-    public Bitmap createQRCode(String url) throws WriterException {
-
-        if (url == null || url.equals("")) {
-            return null;
-        }
-
-        // 生成二维矩阵,编码时指定大小,不要生成了图片以后再进行缩放,这样会模糊导致识别失败
-        BitMatrix matrix = new MultiFormatWriter().encode(url,
-                BarcodeFormat.QR_CODE, 150, 150);
-
-        int width = matrix.getWidth();
-        int height = matrix.getHeight();
-
-        // 二维矩阵转为一维像素数组,也就是一直横着排了
-        int[] pixels = new int[width * height];
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                if (matrix.get(x, y)) {
-                    pixels[y * width + x] = 0xff000000;
-                }
-            }
-        }
-
-        Bitmap bitmap = Bitmap.createBitmap(width, height,
-                Bitmap.Config.ARGB_8888);
-        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
-
-        Bitmap newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(newBitmap);
-        canvas.drawColor(Color.WHITE);
-        Paint paint = new Paint();
-        canvas.drawBitmap(bitmap, 0, 0, paint); //将原图使用给定的画笔画到画布上
-
-        saveImage(newBitmap); //保存图片至本地图库
-        return newBitmap;
-    }
+//    public Bitmap createQRCode(String url) throws WriterException {
+//
+//        if (url == null || url.equals("")) {
+//            return null;
+//        }
+//
+//        // 生成二维矩阵,编码时指定大小,不要生成了图片以后再进行缩放,这样会模糊导致识别失败
+//        BitMatrix matrix = new MultiFormatWriter().encode(url,
+//                BarcodeFormat.QR_CODE, 150, 150);
+//
+//        int width = matrix.getWidth();
+//        int height = matrix.getHeight();
+//
+//        // 二维矩阵转为一维像素数组,也就是一直横着排了
+//        int[] pixels = new int[width * height];
+//
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                if (matrix.get(x, y)) {
+//                    pixels[y * width + x] = 0xff000000;
+//                }
+//            }
+//        }
+//
+//        Bitmap bitmap = Bitmap.createBitmap(width, height,
+//                Bitmap.Config.ARGB_8888);
+//        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+//
+//        Bitmap newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+//        Canvas canvas = new Canvas(newBitmap);
+//        canvas.drawColor(Color.WHITE);
+//        Paint paint = new Paint();
+//        canvas.drawBitmap(bitmap, 0, 0, paint); //将原图使用给定的画笔画到画布上
+//
+//        saveImage(newBitmap); //保存图片至本地图库
+//        return newBitmap;
+//    }
 
 
     //保存图片在本地

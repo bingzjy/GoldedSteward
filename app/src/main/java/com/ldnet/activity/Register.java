@@ -69,6 +69,7 @@ public class Register extends BaseActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
         initView();
         service = new AcountService(this);
         // 监听注册按钮事件
@@ -95,8 +96,7 @@ public class Register extends BaseActionBarActivity {
 
     // 初始化控件
     public void initView() {
-        // 设置布局
-        setContentView(R.layout.activity_register);
+
         AppUtils.setupUI(findViewById(R.id.ll_register), this);
         // 初始化服务
         services = new Services();

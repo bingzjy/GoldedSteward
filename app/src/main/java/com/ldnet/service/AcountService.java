@@ -257,8 +257,7 @@ public class AcountService extends BaseService {
         extras.put("Password", password);
         extras.put("PlatForm", "Android");
         Services.json(extras);
-        String md5 =  phone+
-                aa + aa1 + Services.json(extras) + Services.TOKEN;
+        String md5 =  phone+ aa + aa1 + Services.json(extras) + Services.TOKEN;
         Log.d("Services.aa",aa+","+aa1+","+Services.TOKEN);
         OkHttpUtils.post().url(url)
                 .addHeader("phone", phone)
@@ -292,6 +291,8 @@ public class AcountService extends BaseService {
                         Gson gson = new Gson();
                         User user = gson.fromJson(jsonObject.getString("Obj"), User.class);
                         UserInformation.setUserInfo(user);
+
+                        Log.e(tag,"登录Login--保存返回信息:"+UserInformation.getUserInfo().UserId+":phone"+UserInformation.getUserInfo().UserPhone);
 
                         handler.sendEmptyMessage(DATA_SUCCESS);
                     }
@@ -329,7 +330,7 @@ public class AcountService extends BaseService {
             @Override
             public void onBefore(Request request, int id) {
                 super.onBefore(request, id);
-                Log.e(tag,"setLoginUserPush----before:--params"+phoneDeviceId+"   "+UserInformation.getUserInfo().getUserId());
+                Log.e(tag, "setLoginUserPush----before:--params" + phoneDeviceId + "   getUserId:" + UserInformation.getUserInfo().getUserId());
             }
 
             @Override

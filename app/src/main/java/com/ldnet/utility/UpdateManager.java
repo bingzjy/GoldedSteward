@@ -70,6 +70,7 @@ public class UpdateManager {
     private TextView tvProgressValue;
     private TextView tvProgressOperate;
     private AlertDialog mDownloadDialog;
+    private AlertDialog mDownloadDialog1;
     // 服务获取最新的APP版本信息
     private Services services;
     private DownCompletedReceiver mReceiver;
@@ -107,7 +108,7 @@ public class UpdateManager {
     public Boolean checkUpdate() {
         if (isUpdate()) {
             // 显示提示对话框
-            showNoticeDialog();
+            showNoticeDialog2();
             return true;
         } else {
             return false;
@@ -128,12 +129,13 @@ public class UpdateManager {
         if (mUpdateInformation != null) {
             services.visionCode = mUpdateInformation.getVersionCode();
             services.visionName = mUpdateInformation.getVersionName();
-           if (versionCode < Integer.valueOf(mUpdateInformation.VersionCode)) {
+            if (versionCode < Integer.valueOf(mUpdateInformation.VersionCode)) {
                 return true;
             }
         }
-        return false;
+        return true;
     }
+
     /**
      * 获取软件版本号
      *
@@ -154,55 +156,33 @@ public class UpdateManager {
     /**
      * 显示软件更新对话框
      */
-    private void showNoticeDialog() {
-        // 构造对话框
+    private void showNoticeDialog2() {
+        mDownloadDialog1 = new AlertDialog.Builder(mContext).create();
+        Window window = mDownloadDialog1.getWindow();
+        mDownloadDialog1.setCanceledOnTouchOutside(true);
+        mDownloadDialog1.show();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-        builder.setTitle(R.string.soft_update_title + mUpdateInformation.VersionName);
-        builder.setMessage(mUpdateInformation.Memo);
-        // 更新
-        builder.setPositiveButton(R.string.soft_update_updatebtn, new DialogInterface.OnClickListener() {
+        window.setContentView(R.layout.dialog_update_notification_layout);
+
+        WindowManager.LayoutParams lp = window.getAttributes();
+        DisplayMetrics d = mContext.getResources().getDisplayMetrics();
+        lp.width = (int) (d.widthPixels * 0.8);
+        window.setAttributes(lp);
+
+        TextView tvTitle = (TextView) mDownloadDialog1.findViewById(R.id.tv_update_title);
+        TextView tvContent = (TextView) mDownloadDialog1.findViewById(R.id.tv_update_message);
+        TextView tvUpdate = (TextView) mDownloadDialog1.findViewById(R.id.tv_to_update);
+
+        tvTitle.setText(R.string.soft_update_title + mUpdateInformation.VersionName);
+        tvContent.setText(mUpdateInformation.getMemo());
+        tvUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                // 显示下载对话框
-                //  showDownloadDialog();
+            public void onClick(View v) {
                 showUpdateProgress();
+                mDownloadDialog1.dismiss();
             }
         });
-        Dialog noticeDialog = builder.create();
-        noticeDialog.show();
     }
-
-
-//
-//    /**
-//     * 显示软件下载对话框
-//     */
-//    private void showDownloadDialog() {
-//        // 构造软件下载对话框
-//        AlertDialog.Builder builder = new AlertDialog.Builder(mContext,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-//        builder.setCancelable(false);
-//        builder.setTitle(R.string.soft_updating);
-//        // 给下载对话框增加进度条
-//        final LayoutInflater inflater = LayoutInflater.from(mContext);
-//        View v = inflater.inflate(R.layout.softupdate_progress, null);
-//        mProgress = (ProgressBar) v.findViewById(R.id.update_progress);
-//        builder.setView(v);
-//        // 取消更新
-//        builder.setNegativeButton(R.string.soft_update_cancel, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//                // 设置取消状态
-//                cancelUpdate = true;
-//            }
-//        });
-//        mDownloadDialog = builder.create();
-//        mDownloadDialog.show();
-//        // 现在文件
-//        downloadApk();
-//    }
 
 
     //显示下载
@@ -305,7 +285,6 @@ public class UpdateManager {
             mDownloadDialog.dismiss();
         }
     }
-
 
 
     //后台下载

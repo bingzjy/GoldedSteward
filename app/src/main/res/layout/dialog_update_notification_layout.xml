@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_update_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:paddingBottom="@dimen/font_size_20sp"
+            android:paddingTop="@dimen/dimen_20dp"
+            android:text="应用更新至4.3.5"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_16sp" />
+
+        <TextView
+            android:id="@+id/update_progress"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/green" />
+
+        <TextView
+            android:id="@+id/tv_update_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:text="阿私房话ID初始登记山东黄金开不开机上档次激发出VB你大学书法家可承受的是触手可及的技术性的处境辛苦"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_16sp" />
+
+        <TextView
+            android:id="@+id/tv_to_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:gravity="center_horizontal"
+            android:text="更新"
+            android:textColor="@color/green"
+            android:textSize="@dimen/font_size_14sp" />
+    </LinearLayout>
+</LinearLayout>

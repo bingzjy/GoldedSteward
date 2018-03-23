@@ -25,11 +25,15 @@ import com.ldnet.activity.base.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
+import com.ldnet.interfaze.PermissionListener;
 import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.utility.*;
 import com.tendcloud.tenddata.TCAgent;
 import com.tendcloud.tenddata.TDAccount;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import cn.jpush.android.api.JPushInterface;
@@ -45,6 +49,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -69,9 +74,7 @@ public class Login extends BaseActionBarActivity {
         AppUtils.setupUI(findViewById(R.id.rl_login), this);
         // 去掉信息栏
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         acountService=new AcountService(Login.this);
-
         initView();
     }
 

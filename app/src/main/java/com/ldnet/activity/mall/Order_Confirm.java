@@ -33,9 +33,11 @@ import com.ldnet.service.OrderService;
 import com.ldnet.utility.DialogAddress;
 import com.ldnet.utility.ListViewAdapter;
 import com.ldnet.utility.Services;
+import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tendcloud.tenddata.Order;
 import com.tendcloud.tenddata.TCAgent;
 import com.third.Alipay.PayKeys;
 import java.io.Serializable;
@@ -83,7 +85,6 @@ public class Order_Confirm extends BaseActionBarActivity {
     //订单总金额
     private BigDecimal totalPrices = new BigDecimal("0.00");
     private BigDecimal totalYhjjm = new BigDecimal("0.00");
-
     //
     private static final Integer PAY_TYPE_OFFLINE = 1;
     private static final Integer PAY_TYPE_ONLINE = 2;
@@ -108,7 +109,7 @@ public class Order_Confirm extends BaseActionBarActivity {
     protected Float mOnlinePay;
     private OrderPay orderPay;
     private OrderService orderService;
-
+    private Order order;//数据分析-交易订单
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -327,8 +328,13 @@ public class Order_Confirm extends BaseActionBarActivity {
                     } else {
                         if (mPayInformation == null) {
                             //提交订单
-                          //  OrderSubmitNew(mSubOrders, mCurrentAddress.ID);
                             orderService.orderSubmitConfirm(mSubOrders,mCurrentAddress.ID,orderSubmitHandler);
+                            //统计分析订单记录
+
+                            order = Order.createOrder(Utility.generateGUID(),   Math.round(mOnlinePay)*100, "CNY")
+                                    .addItem("007", "家电", "电视", 499900, 1)
+                                    .addItem("008", "家电", "冰箱", 399900, 1);
+
                         } else {
                             Intent intent = new Intent(this, Pay.class);
                             intent.putExtra("ORDER_PAY", mPayInformation);
@@ -513,6 +519,9 @@ public class Order_Confirm extends BaseActionBarActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_from_left,R.anim.slide_out_to_right);
+
+                    //成功下单记录
+                    TCAgent.onPlaceOrder(UserInformation.getUserInfo().getUserId(), order);
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:
                     showToast(R.string.you_submit);

@@ -403,7 +403,7 @@ public class VisitorKeyChain extends BaseActionBarActivity {
 
     private void setTvSharePass(){
         shareVistorPassUrl=shareVistorPassUrl+UserInformation.getUserInfo().getCommunityId()+"&code="+visitorPass;
-        if (!new Services().netWorkConnected()){
+        if (!Services.netWorkConnected()){
             showToast("网络连接异常，请检查网络");
         }else{
             if (!visitorPass.equals("")){

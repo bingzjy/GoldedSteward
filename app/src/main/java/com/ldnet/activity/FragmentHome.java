@@ -87,7 +87,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     List<Goods> goods;
     private PullToRefreshScrollView mRefreshableView;
     private View view;
-
     private ArrayList<String> mImageUrl = new ArrayList<>();
     private ImageCycleView mAdView;
     private ImageView splash_iv;
@@ -97,6 +96,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private LockCallBack lockCallBack;
     private String deviceID = "";//设备id
     private List<KeyChain> keyChain = new ArrayList<>();
+    private HashMap<String, KeyChain> keyChainMap = new HashMap<>();
     private String feeArrearage = "";
     private boolean openEntranceState;  //是否开通门禁 ，true开通
     private SensorManager sensorManager;
@@ -114,7 +114,9 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private TextView title;
     private TextView description;
     private ImageView image;
-    HashMap<String, LEDevice> scanDeviceResult = new HashMap<String, LEDevice>();  //存放扫描结果
+    private HashMap<String, LEDevice> scanDeviceResult = new HashMap<String, LEDevice>();  //存放扫描结果
+    private List<KeyChain> deviceAvailable = new ArrayList<>();
+    private HashSet<LEDevice> deviceSet = new HashSet<>();
     private Handler handlerDeleteRed=new Handler(){};
     private DisplayImageOptions imageOptions;
     private String aa = Services.timeFormat();
@@ -122,6 +124,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private MyDailogTag openDoorDialog;
     private LEDevice currentDevice;
     private static SoundPool soundPool;
+    private Timer timer;
+    private TimerTask timerTask;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -146,7 +150,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         sensorManager = (SensorManager) getActivity().getSystemService(getActivity().SENSOR_SERVICE);
         vibrator = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
 
-
         return view;
     }
 
@@ -160,10 +163,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         homeService.getAppRedPoint(handlerGetRedPointPush);
 
         // 注册监听器
-        if (sensorManager != null) {
-            sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                    SensorManager.SENSOR_DELAY_GAME);
-        }
+        setSensorManager(true);
+
         //获取最新用户信息
         SetCurrentInforamtion();
 
@@ -196,7 +197,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             iv_home_property_thumbnail.setImageResource(R.drawable.home_services_n);
         }
     }
-
 
     // 初始化事件
     private void initEvents() {
@@ -248,7 +248,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         // 标题
         tv_main_title = (TextView) view.findViewById(R.id.tv_main_title);
         bt_open_door = (ImageButton) view.findViewById(R.id.bt_open_door);
-        bt_open_door.setOnClickListener(this);
         //物业图标
         iv_home_property_thumbnail = (ImageView) view.findViewById(R.id.iv_home_property_thumbnail);
         unread_fuwu = (ImageView) view.findViewById(R.id.unread_fuwu);
@@ -417,6 +416,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         switch (v.getId()) {
             // 生活黄页
             case R.id.ll_yellow_pages:
+
                 Intent intent_yellowpage = new Intent(getActivity(), YellowPageTabActivity.class);
                 intent_yellowpage.putExtra("YELLOW_PAGE_SORT_ID", "8f1f1e4092784199bbec0229e1cca9b0");
                 intent_yellowpage.putExtra("YELLOW_PAGE_SORT_NAME", getResources().getString(R.string.fragment_home_yellow_pages));
@@ -528,6 +528,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         }
     }
 
+
     //获取商品首页区域内容
     public void getHomePageArea(final LayoutInflater inflater) {
         currentHomePageLayout = inflater;
@@ -549,11 +550,11 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     //获取钥匙串
     public void getKeyChain(boolean init) {
         keyChain.clear();
+        keyChainMap.clear();
         openDoorBykeyChain = !init;
         showProgressDialog();
         entranceGuardService.getKeyChain(true, handerGetKeyChain);
     }
-
 
     //获取用户欠费记录
     private void getArrearageAmount() {
@@ -576,33 +577,48 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         acountService.getApprove(UserInformation.getUserInfo().getHouseId(), UserInformation.getUserInfo().UserId, handlerGetApprove);
     }
 
-    //开门条件：入住金管家、开启门禁、开启蓝牙、有房屋，再请求钥匙，在handle中做处理
+
+    //开门点击事件
+    private void openClick() {
+        if (openDoorEnable()) {
+            if (openDoorDialog == null) {
+                openDoorDialog = new MyDailogTag(getActivity(), feeArrearage);
+            } else {
+                openDoorDialog.startDialogShow(feeArrearage);
+            }
+            openDoorDialog.setType(0); //0开门等待状态 1开门成功 2开门失败
+            openDoorDialog.setDialogcallback(openDoorDialogCallBack);
+            openDoorDialog.show();
+            if (keyChain == null || keyChain.size() == 0) {
+                getKeyChain(false);
+            } else { //获取钥匙串成功，开启蓝牙扫描
+                blueStartScan();
+            }
+            //定时器,定时10s
+            runTimer();
+        }
+    }
+
+
+    //开门条件：入驻金管家、开启门禁、开启蓝牙、有房屋，再请求钥匙，在handle中做处理
     private boolean openDoorEnable(){
-        //未入住金牌管家
-        if (TextUtils.isEmpty(UserInformation.getUserInfo().getPropertyId())) {      //有无物业入驻
-            Intent intent = new Intent(getActivity(), Browser.class);
-            intent.putExtra("PAGE_URL", "http://www.goldwg.com:88/mobile/yaoqingwuye");
-            intent.putExtra("FROM_CLASS_NAME", getActivity().getClass().getName());
-            intent.putExtra("PAGE_URL_ORGIN", "http://www.goldwg.com:88/mobile/yaoqingwuye");
-            intent.putExtra("PAGE_TITLE_ORGIN", "金牌管家邀请函");
-            startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
-            return false;
-        }
-
-        //未开通门禁
-        if (!openEntranceState) {
-            openEntrance();
-            return false;
-        }
-
-        //提示开启蓝牙
-        if (bluetoothAdapter.isEnabled() == false){
-            showToast(getString(R.string.noopen_bulebooth));
-            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            blueLockPub = BlueLockPub.bleLockInit(getActivity());
-            return false;
-        }
+//        //未入驻金牌管家
+//        if (TextUtils.isEmpty(UserInformation.getUserInfo().getPropertyId())) {      //有无物业入驻
+//            Intent intent = new Intent(getActivity(), Browser.class);
+//            intent.putExtra("PAGE_URL", "http://www.goldwg.com:88/mobile/yaoqingwuye");
+//            intent.putExtra("FROM_CLASS_NAME", getActivity().getClass().getName());
+//            intent.putExtra("PAGE_URL_ORGIN", "http://www.goldwg.com:88/mobile/yaoqingwuye");
+//            intent.putExtra("PAGE_TITLE_ORGIN", "金牌管家邀请函");
+//            startActivity(intent);
+//            getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+//            return false;
+//        }
+//
+//        //未开通门禁
+//        if (!openEntranceState) {
+//            openEntrance();
+//            return false;
+//        }
 
         //未绑定房屋
         if (TextUtils.isEmpty(UserInformation.getUserInfo().getHouseId())) {
@@ -617,55 +633,47 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             dialog2.show();
             dialog2.setDialogCallback(dialogcallback);
 
-            sensorManager.unregisterListener(sensorEventListener); //未审核禁用摇一摇
+            return false;
+        }
+
+        //提示开启蓝牙
+        if (bluetoothAdapter.isEnabled() == false) {
+            showToast(getString(R.string.noopen_bulebooth));
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            blueLockPub = BlueLockPub.bleLockInit(getActivity());
             return false;
         }
         return true;
     }
 
-    //开门点击事件
-    private void openClick() {
 
-        if (openDoorEnable()) {
-            Log.e("aaa", "openDialog is null ?" + openDoorDialog);
-            if (openDoorDialog == null) {
-                openDoorDialog = new MyDailogTag(getActivity(), feeArrearage);
-            } else {
-                openDoorDialog.startDialogShow(feeArrearage);
-            }
-            openDoorDialog.setType(0);
-            openDoorDialog.setDialogcallback(openDoorDialogCallBack);
-            openDoorDialog.show();
-            if (keyChain == null || keyChain.size() == 0) {
-                getKeyChain(false);
-            } else { //获取钥匙串成功，开启蓝牙扫描
-                blueStartScan();
-            }
+    //是否启用摇一摇
+    private void setSensorManager(boolean available) {
+        if (available) {
+            sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                    SensorManager.SENSOR_DELAY_GAME);
+        } else {
+            sensorManager.unregisterListener(sensorEventListener); //未审核禁用摇一摇
         }
     }
 
+
     //开门动作：当前设备和钥匙串匹配成功，即可开门
     private void openDoor() {
-        boolean ifOpen = false;
         deviceID = "";
-        List<KeyChain> deviceAvailable = new ArrayList<>();
+        deviceAvailable.clear();
         closeProgressDialog1();
 
         if (scanDeviceResult != null && scanDeviceResult.size() > 0) {
 
-            for (KeyChain key : keyChain) {
-                LEDevice device = scanDeviceResult.get(key.getId());
-                if (device != null) {
-                    deviceAvailable.add(key);
-//                    ifOpen = true;
-//                    currentDevice = device;
-//                    deviceID = device.getDeviceId();
-//                    device.setDevicePsw(key.getPassword());
-//                    Log.e("aaa", "开门预备---" + device.toString());
-//
-//                    blueLockPub.oneKeyOpenDevice(device, device.getDeviceId(), device.getDevicePsw());
+            Iterator<String> iterator = scanDeviceResult.keySet().iterator();
+            while (iterator.hasNext()) {
+                KeyChain keyValue = keyChainMap.get(iterator.next());
+                if (keyValue != null) {
+                    deviceAvailable.add(keyValue);
                 }
             }
+
             Log.e("aaa", "开门匹配设备：" + deviceAvailable.size());
 
             if (deviceAvailable.size() == 0) {
@@ -685,13 +693,14 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                 KeyChain minKey = null;  //默认第一个最强
                 for (KeyChain key : deviceAvailable) {
                     LEDevice device = scanDeviceResult.get(key.getId());
-
                     if (min == 0) {
                         min = Math.abs(device.getRssi());
                         minKey = key;
-                    } else if (Math.abs(device.getRssi()) < min) {
-                        min = Math.abs(device.getRssi());
-                        minKey = key;
+                    } else {
+                        if (Math.abs(device.getRssi()) < min) {
+                            min = Math.abs(device.getRssi());
+                            minKey = key;
+                        }
                     }
                 }
 
@@ -710,12 +719,35 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     }
 
 
+    //开启门禁开门定时器
+    private void runTimer() {
+        if (timer != null) {
+            if (timerTask != null) {
+                timerTask.cancel(); //销毁定时器
+                timer.cancel();
+            }
+        }
+        timer = new Timer();
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                //超时点击重试
+                handlerOpenDoorTimer.sendEmptyMessage(111);
+            }
+        };
+        timer.schedule(timerTask, 10000);
+    }
+
+
     //开启蓝牙扫描
     private void blueStartScan() {
         scanDeviceResult.clear(); //清空已扫描的设备
+        deviceSet.clear();
 
         ((BlueLockPub) blueLockPub).setLockMode(Constants.LOCK_MODE_MANUL, null, false);
         ((BlueLockPub) blueLockPub).scanDevice(1000);
+
+        runTimer();
     }
 
 
@@ -799,6 +831,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                 if (deviceID != null && !deviceID.equals("")) {
                     entranceGuardService.EGLog(deviceID, handlerEGlog);
                 }
+
             } else {
                 openDoorDialog.setType(2);
                 showToast("开门失败，请靠近设备再试");
@@ -808,13 +841,13 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         @Override
         public void scanDeviceCallBack(LEDevice leDevice, int i, int i1) {
             scanDeviceResult.put(leDevice.getDeviceId(), leDevice);
+            deviceSet.add(leDevice);
             Log.e("aaa", "门禁：" + leDevice.getDeviceId() + "  " + leDevice.getDeviceName() + " RSSI:" + leDevice.getRssi());
         }
 
         @Override
         public void scanDeviceEndCallBack(int i) {
             Log.e("aaa", "蓝牙扫描完毕"+scanDeviceResult.size());
-
             openDoor();
         }
     }
@@ -1130,6 +1163,25 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         }
     }
 
+
+    //开门超时
+    Handler handlerOpenDoorTimer = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 111) {
+                Log.e("aaa", "开门超时!");
+
+                openDoorDialog.setType(2);
+
+                if (currentDevice != null) {
+                    blueLockPub.oneKeyCloseDevice(currentDevice, currentDevice.getDeviceId(), currentDevice.getDevicePsw());
+                    blueLockPub.oneKeyDisconnectDevice(currentDevice);
+                }
+            }
+        }
+    };
+
     //摇摇动作
     Handler handler = new Handler() {
         @Override
@@ -1168,6 +1220,11 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     keyChain = (List<KeyChain>) msg.obj;
+
+                    for (KeyChain key : keyChain) {
+                        keyChainMap.put(key.getId(), key);
+                    }
+
                     //缓存钥匙串、房屋信息
                     KeyCache.saveKey(keyChain, UserInformation.getUserInfo().getCommuntiyName() + "  " + UserInformation.getUserInfo().getHouseName());
                     if (openDoorBykeyChain) { //如果门，需要开启扫描，否则只是获取钥匙串并保存
@@ -1230,10 +1287,18 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:  //开通门禁
                     openEntranceState = true;
+                    if (!TextUtils.isEmpty(UserInformation.getUserInfo().PropertyId)) {
+                        bt_open_door.setVisibility(View.VISIBLE);
+                    } else {
+                        bt_open_door.setVisibility(View.GONE);
+                        setSensorManager(false);
+                    }
                     break;
                 case BaseService.DATA_SUCCESS_OTHER: //未开通门禁
+                    setSensorManager(false);
                     openEntranceState = false;
                     sensorManager.unregisterListener(sensorEventListener);
+                    bt_open_door.setVisibility(View.GONE);
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
@@ -1281,7 +1346,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                     dialog2.show();
                     dialog2.setDialogCallback(dialogcallback);
 
-                    sensorManager.unregisterListener(sensorEventListener); //未审核禁用摇一摇
+                    setSensorManager(false);
                     approvePass = false;
                     break;
                 case BaseService.DATA_FAILURE:
@@ -1443,8 +1508,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         //soundPool.release();
 
     }
-
-
 
 }
 

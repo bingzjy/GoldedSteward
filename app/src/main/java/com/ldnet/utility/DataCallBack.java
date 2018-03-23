@@ -39,14 +39,19 @@ public class DataCallBack extends StringCallback{
 
     @Override
     public void onError(Call call, Exception e, int i) {
-        Message msg=new Message();
-        msg.what=DATA_REQUEST_ERROR;
+        Message msg = new Message();
+        msg.what = DATA_REQUEST_ERROR;
         if (Services.net) {
-            msg.obj=context.getString(R.string.network_request_fail);
+            msg.obj = context.getString(R.string.network_request_fail);
         } else {
             msg.obj=context.getString(R.string.network_none_tip);
         }
-        handler.sendMessage(msg);
+        if (handler != null) {
+            handler.sendMessage(msg);
+        } else {
+            Toast.makeText(context, msg.obj.toString(), 1000).show();
+        }
+
     }
 
     @Override

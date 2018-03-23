@@ -351,6 +351,7 @@
     <string name="weixin_title3">方法二：使用另一部手机，微信或者支付宝“扫一扫”，扫描二维码进行支付</string>
     <string name="weixin_title4">方法一：点击“下一步”，使用本机支付宝或者微信扫一扫进行付款</string>
     <string name="weixin_title5">选择支付方式后，将跳转至相应付款应用的“扫一扫”界面，点击“扫一扫”右上角“相册”选择保存的付款二维码</string>
+    <string name="payment_not_open">该小区暂未开通线上支付</string>
 
     <!--充电服务-->
     <string name="qindian_main_title">充电服务</string>

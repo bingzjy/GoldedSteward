@@ -99,14 +99,22 @@ public class GoodsList extends BaseActionBarActivity {
         lvGoodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Goods goods = goodList.get(position);
+
                 Intent intent = new Intent(GoodsList.this, Goods_Details.class);
-                intent.putExtra("GOODS", goodList.get(position));
-                intent.putExtra("URL", goodList.get(position).URL);
+                intent.putExtra("GOODS", goods);
+                intent.putExtra("URL", goods.URL);
                 intent.putExtra("CID", mCID);
                 intent.putExtra("PAGE_TITLE", mTitle);
                 intent.putExtra("FROM_CLASS_NAME", GoodsList.class.getName());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+
+                //商品浏览分析统计
+                int price = (int) Math.ceil(Double.parseDouble(goods.getGP())) * 100;
+                TCAgent.onViewItem(goods.GID, goods.GSN, goods.T, price);
+                Log.e("good_list", "商品ID:" + goods.GID + "   类别：" + goods.GSN + "  商品名称：" + goods.T + "价格（分）：" + price);
             }
         });
         initEvent();

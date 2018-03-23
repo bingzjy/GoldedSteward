@@ -135,12 +135,26 @@ public class GSApplication extends Application{
     private Thread.UncaughtExceptionHandler restartHandler = new Thread.UncaughtExceptionHandler() {
         public void uncaughtException(Thread thread, Throwable ex) {
             Log.e("aaa","异常："+ex.toString());
-            String aa = "thread:" + thread
-                    + "name:" + thread.getName() + "id:" + thread.getId() + "exception:"
-                    + ex;
-            aa = aa.replace("]", "");
-            aa = aa.replace("[", "");
-            services.PostError(aa);
+            String exInfo = "";
+            if (ex.getStackTrace() != null && ex.getStackTrace().length > 0) { //附加栈信息
+                exInfo = "thread:" + thread
+                        + "  |name:" + thread.getName()
+                        + "  |id:" + thread.getId()
+                        + "  |location:" + ex.getStackTrace()[0]
+                        + "  |exception:" + ex;
+                exInfo = exInfo.replace("]", "");
+                exInfo = exInfo.replace("[", "");
+            } else {                                                            //未知栈信息
+                exInfo = "thread:" + thread
+                        + "  |name:" + thread.getName()
+                        + "  |id:" + thread.getId()
+                        + "  |location:Unknow"
+                        + "  |exception:" + ex;
+                exInfo = exInfo.replace("]", "");
+                exInfo = exInfo.replace("[", "");
+            }
+            Log.e("aaa", "提交异常信息：" + exInfo);
+            services.PostError(exInfo);
             //记录异常信息
             TCAgent.onError(context, ex);
            // restartApp();//发生崩溃异常时,重启应用

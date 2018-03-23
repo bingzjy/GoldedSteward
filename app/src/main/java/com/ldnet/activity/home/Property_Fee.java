@@ -41,12 +41,16 @@ import com.ldnet.entities.lstAPPFees;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.PropertyFeeService;
+import com.ldnet.utility.AddPopWindow;
 import com.ldnet.utility.Arith;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
 import com.tendcloud.tenddata.TCAgent;
 
 import net.tsz.afinal.FinalDb;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,9 +89,18 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
     private final String wxPay = "WXPAY";
     private float totalAmount;
     private static final String TAG = "Property_Fee";
-    private final String testPayURL = "{\"qrCode\": \"https://qr.alipay.com/bax06976qwtbro1fpkdu2042\"}";
+    // private final String testPayURL = "{\"qrCode\": \"https://qr.alipay.com/bax06976qwtbro1fpkdu2042\"}";
+    private final String testPayURL = "{\n" +
+            "  \"package\": \"Sign=WXPay\",\n" +
+            "  \"appid\": \"wxa4207e39a8e5cf0f\",\n" +
+            "  \"sign\": \"61B28AE83E7516559E196ADA335E3D5C\",\n" +
+            "  \"partnerid\": \"93231660\",\n" +
+            "  \"prepayid\": \"wx20180313105446159fc0cd080669561694\",\n" +
+            "  \"noncestr\": \"1520909686294\",\n" +
+            "  \"timestamp\": \"1520909686\"\n" +
+            "}";
+    private boolean openPay = false;
 
-    //payRequest.payData = "{\"qrCode\": \"https://qr.alipay.com/bax09847skqwcpztcnia8008\"}";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,8 +125,8 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
         showProgressDialog1();
         service.getPropertyFee(null, null, "0", handlerGetFee);
         TCAgent.onPageStart(this, "物业交费主页：" + this.getClass().getSimpleName());
-
     }
+
 
     //初始化控件
     private void initView() {
@@ -150,7 +163,6 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            closeProgressDialog1();
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     //获取到物业费用
@@ -166,6 +178,7 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
                         totalFeeList.addAll((List<Fees>) msg.obj);
                         showFee();
                     }
+                    service.checkNewUnionPay(handlerOpenPayment);
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
@@ -176,38 +189,23 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
     };
 
 
-    Handler handGetTnByFeesIds = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case BaseService.DATA_SUCCESS:
-                    if (!TextUtils.isEmpty((String) msg.obj)) {
-                        doStartUnionPayPlugin(Property_Fee.this, (String) msg.obj, "00");
-                    }
-                    break;
-                case BaseService.DATA_FAILURE:
-                case BaseService.DATA_REQUEST_ERROR:
-                    showToast((String) msg.obj);
-                    break;
-            }
-        }
-    };
-
     Handler handlerAlPAY = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            closeProgressDialog1();
+            closeProgressDialog();
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
-                    if (!TextUtils.isEmpty(msg.obj.toString())) {
+                    Bundle bundle = msg.getData();
+                    if (bundle != null) {
+                        String orderId = bundle.getString("OrderId");
+                        String payInfo = bundle.getString("PayInfo");
+                        String payType = bundle.getString("PayType");
 
-                        String urlAndorder[] = msg.obj.toString().split(",");
-                        HashMap extra = new HashMap();
-                        extra.put("url", urlAndorder[0]);
-                        extra.put("order", urlAndorder[1]);
-                        extra.put("from", Property_Fee.class.getName());
+                        HashMap<String, String> extra = new HashMap<>();
+                        extra.put("OrderId", orderId);
+                        extra.put("PayInfo", payInfo);
+                        extra.put("PayType", payType);
                         extra.put("house", tv_fee_houseinfo.getText().toString());
                         extra.put("fee", tv_fee_sum.getText().toString());
                         try {
@@ -220,6 +218,28 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
                     showToast(msg.obj == null ? getString(R.string.network_error) : msg.obj.toString());
+                    break;
+            }
+        }
+    };
+
+
+    //是否开通银联商务
+    Handler handlerOpenPayment = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            closeProgressDialog1();
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    openPay = true;
+                    break;
+                case BaseService.DATA_SUCCESS_OTHER:
+                    openPay = false;
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:
+                    showToast(msg.obj.toString());
                     break;
             }
         }
@@ -339,31 +359,33 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
                     addPopWindow.dismiss();
                     break;
                 case R.id.tv_fee_pay:
-                    //检查用户选择
-                    String ids = "";
-                    for (Fees f : showFeeList) {
-                        if (f.IsChecked != null && f.IsChecked) {
-                            for (lstAPPFees laf : f.lstAPPFees) {
-                                if (!laf.Status) {
-                                    if (!TextUtils.isEmpty(ids)) {
-                                        ids += "," + laf.ID;
-                                    } else {
-                                        ids = laf.ID;
+
+  //                  if (openPay) {
+                        //检查用户选择
+                        String ids = "";
+                        for (Fees f : showFeeList) {
+                            if (f.IsChecked != null && f.IsChecked) {
+                                for (lstAPPFees laf : f.lstAPPFees) {
+                                    if (!laf.Status) {
+                                        if (!TextUtils.isEmpty(ids)) {
+                                            ids += "," + laf.ID;
+                                        } else {
+                                            ids = laf.ID;
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    //判断用户选择，并提交到缴费的页面
-                    if (!TextUtils.isEmpty(ids)) {
-//                        Intent intent = new Intent(Property_Fee.this, PropertyFeeCreateCode.class);
-//                        startActivity(intent);
-                        //                       showPayTypeSelect(ids, UserInformation.getUserInfo().UserId);
-
-                        testPay(testPayURL);
-                    } else {
-                        showToast(getString(R.string.go_paid_none));
-                    }
+                        //判断用户选择，并提交到缴费的页面
+                        if (!TextUtils.isEmpty(ids)) {
+                            showPayTypeSelect(ids);
+                        } else {
+                            showToast(getString(R.string.go_paid_none));
+                        }
+ //                   }
+//                    else {
+//                        showToast(getString(R.string.payment_not_open));
+//                    }
                     break;
                 default:
                     break;
@@ -464,64 +486,7 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
     }
 
 
-    // 调用银联
-    public void doStartUnionPayPlugin(Activity activity, String tn, String serverMode) {
-        //UPPayAssistEx.startPay(activity, null, null, tn, serverMode);
-    }
 
-    //处理银联手机支付控件返回的支付结果
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data == null) {
-            return;
-        }
-        String msg = "";
-        /*
-         * 支付控件返回字符串:success、fail、cancel 分别代表支付成功，支付失败，支付取消
-         */
-        final String str = data.getExtras().getString("pay_result");
-        if (str.equalsIgnoreCase("success")) {
-            msg = "支付成功！";
-        } else if (str.equalsIgnoreCase("fail")) {
-            msg = "支付失败！";
-        } else if (str.equalsIgnoreCase("cancel")) {
-            msg = "用户取消了支付";
-        }
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-        builder.setTitle("支付结果通知");
-        builder.setMessage(msg);
-        builder.setInverseBackgroundForced(true);
-        builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-
-                currentFeeType = "0";
-                service.getPropertyFee(null, null, "0", handlerGetFee);
-            }
-        });
-        builder.create().show();
-    }
-
-
-    public static List<String> removeDuplicate(List<String> list) {
-        Set set = new LinkedHashSet<String>();
-        set.addAll(list);
-        list.clear();
-        list.addAll(set);
-        return list;
-    }
-
-
-    public static List<Fees> removeDuplicate1(List<Fees> list) {
-        Set set = new LinkedHashSet<String>();
-        set.addAll(list);
-        list.clear();
-        list.addAll(set);
-        return list;
-    }
-
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (addPopWindow != null) {
@@ -532,7 +497,7 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
 
 
     //支付方式选择
-    public void showPayTypeSelect(final String feeId, final String payerId) {
+    public void showPayTypeSelect(final String feeId) {
         LayoutInflater layoutInflater = LayoutInflater.from(Property_Fee.this);
         View popupView = layoutInflater.inflate(R.layout.pop_pay_type, null);
         final PopupWindow mPopWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT,
@@ -574,31 +539,17 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
                 mPopWindow.dismiss();
                 switch (position) {
                     case 0://支付宝
-                        service.ALWeiXinPay(feeId, payerId, alPay, handlerAlPAY);
+                        showProgressDialog();
+                        service.newPayByUnion(feeId, "1", handlerAlPAY);
                         break;
-                    case 1:  //银联
-                        service.GetTnByFeesIds(feeId, payerId, handGetTnByFeesIds);
-                    case 2: //微信
-                        Intent intent = new Intent(Property_Fee.this, PropertyFeeCreateCode.class);
-                        startActivity(intent);
+                    case 1: //微信
+                        showProgressDialog();
+                        service.newPayByUnion(feeId, "0", handlerAlPAY);
                         break;
                 }
             }
         });
         backgroundAlpaha(Property_Fee.this, 0.5f);
-    }
-
-
-    private void testPay(String payUrl) {
-        UnifyPayPlugin payPlugin;
-        UnifyPayRequest payRequest;
-        payPlugin = UnifyPayPlugin.getInstance(this);
-        payRequest = new UnifyPayRequest();
-        payPlugin.setListener(Property_Fee.this);
-        //  payRequest.payChannel = UnifyPayRequest.CHANNEL_ALIPAY;
-        payRequest.payChannel = UnifyPayRequest.CHANNEL_WEIXIN;
-        payRequest.payData = payUrl;
-        payPlugin.sendPayRequest(payRequest);
     }
 
 
@@ -613,4 +564,24 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
         super.onPause();
         TCAgent.onPageEnd(this, "物业交费主页：" + this.getClass().getSimpleName());
     }
+
+
+    public static List<String> removeDuplicate(List<String> list) {
+        Set set = new LinkedHashSet<String>();
+        set.addAll(list);
+        list.clear();
+        list.addAll(set);
+        return list;
+    }
+
+
+    public static List<Fees> removeDuplicate1(List<Fees> list) {
+        Set set = new LinkedHashSet<String>();
+        set.addAll(list);
+        list.clear();
+        list.addAll(set);
+        return list;
+    }
+
+
 }

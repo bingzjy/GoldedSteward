@@ -6,16 +6,23 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chinaums.pppay.unify.UnifyPayListener;
+import com.chinaums.pppay.unify.UnifyPayPlugin;
+import com.chinaums.pppay.unify.UnifyPayRequest;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.PropertyFeeService;
 import com.tendcloud.tenddata.TCAgent;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,12 +35,14 @@ import butterknife.OnClick;
 /**
  * Created by lee on 2017/7/26.
  */
-public class PayConfirm extends BaseActionBarActivity {
+public class PayConfirm extends BaseActionBarActivity implements UnifyPayListener {
 
     private TextView tvHouseInfo, tvFee, tvPayDate;
     private Button payConfirm;
     private PropertyFeeService service;
     private String orderId;
+    private static final String TAG = "PayConfirm";
+
     private ImageView headerBack;
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -45,7 +54,6 @@ public class PayConfirm extends BaseActionBarActivity {
 
         initView();
         initData();
-
     }
 
 
@@ -59,32 +67,27 @@ public class PayConfirm extends BaseActionBarActivity {
         payConfirm.setOnClickListener(this);
     }
 
+
     void initData() {
         Intent intent = getIntent();
         if (intent != null) {
             tvFee.setText("物业费  " + intent.getStringExtra("fee").toString());
             tvHouseInfo.setText(intent.getStringExtra("house").toString());
             tvPayDate.setText(format.format(Calendar.getInstance().getTime()));
-            String from = intent.getStringExtra("from");
-            if (from != null && from.equals(Property_Fee.class.getName())) {
-                //跳转支付宝
-                String url = intent.getStringExtra("url");
-                if (!TextUtils.isEmpty(url)) {
-                    HashMap extra = new HashMap();
-                    extra.put("url", url);
-                    extra.put("from", PayConfirm.class.getName());
-                    extra.put("house", intent.getStringExtra("house"));
-                    extra.put("fee", intent.getStringExtra("fee"));
+            String channel = intent.getStringExtra("PayType");
+            orderId = intent.getStringExtra("OrderId");
+            String payInfo = intent.getStringExtra("PayInfo");
 
-                    Intent intent2 = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(intent2);
-                }
-                orderId = intent.getStringExtra("order");
+            try {
+                JSONObject jsonObject = new JSONObject(payInfo);
+                String payUrl = jsonObject.getString("appPayRequest");
+                toPay(payUrl, channel);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
-
-
     }
+
 
 
     @Override
@@ -95,10 +98,11 @@ public class PayConfirm extends BaseActionBarActivity {
                 finish();
                 break;
             case R.id.btn_pay_complete:   //查看订单状态，是否支付成功
-                service.aliPayCallBack(orderId, handlerCallBack);
+                service.getNewUnionPayResult(orderId, handlerCallBack);
                 break;
         }
     }
+
 
     Handler handlerCallBack = new Handler() {
         @Override
@@ -112,8 +116,6 @@ public class PayConfirm extends BaseActionBarActivity {
                 case BaseService.DATA_REQUEST_ERROR:
                     showToast(msg.obj == null ? getString(R.string.network_error) : msg.obj.toString());
                     break;
-
-
             }
             super.handleMessage(msg);
         }
@@ -123,6 +125,14 @@ public class PayConfirm extends BaseActionBarActivity {
     @OnClick(R.id.btn_back)
     public void onViewClicked() {
     }
+
+
+    @Override
+    public void onResult(String s, String s1) {
+        Log.e(TAG, "支付结果：" + s + "   " + s1);
+    }
+
+
 
     @Override
     public void onResume() {
@@ -135,5 +145,32 @@ public class PayConfirm extends BaseActionBarActivity {
         super.onPause();
         TCAgent.onPageEnd(this, "物业交费-确认支付完成" + this.getClass().getSimpleName());
     }
+
+
+    //调取微信或者支付宝的支付界面
+    private void toPay(String payInfo, String channel) {
+        UnifyPayPlugin payPlugin;
+        UnifyPayRequest payRequest;
+        payPlugin = UnifyPayPlugin.getInstance(this);
+        payRequest = new UnifyPayRequest();
+        payPlugin.setListener(PayConfirm.this);
+        if (!TextUtils.isEmpty(channel) && channel.equals("1")) {
+            payRequest.payChannel = UnifyPayRequest.CHANNEL_ALIPAY;
+        } else if (!TextUtils.isEmpty(channel) && channel.equals("0")) {
+            payRequest.payChannel = UnifyPayRequest.CHANNEL_WEIXIN;
+        }
+
+        payRequest.payData = payInfo;
+        payPlugin.sendPayRequest(payRequest);
+
+        payPlugin.setListener(new UnifyPayListener() {
+            @Override
+            public void onResult(String s, String s1) {
+                Log.e(TAG, "支付回调：" + s + "s1:" + s1);
+            }
+        });
+    }
+
+
 
 }

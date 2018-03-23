@@ -1,12 +1,14 @@
 package com.ldnet.service;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ldnet.activity.Login;
 import com.ldnet.entities.Fees;
 import com.ldnet.entities.PPhones;
 import com.ldnet.goldensteward.R;
@@ -20,6 +22,7 @@ import okhttp3.Request;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.lang.reflect.Type;
+import java.nio.channels.Channel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +40,7 @@ public class PropertyFeeService extends BaseService {
 
 
     //查询物业费 (年份全部：year\month=0, 费用全部 status=2   0未交费  1已缴费)
-    public void getPropertyFee( String year, String month, String status, final Handler handlerGetFee) {
+    public void getPropertyFee(String year, String month, String status, final Handler handlerGetFee) {
         if (TextUtils.isEmpty(year)) {
             year = "0";
         }
@@ -53,47 +56,47 @@ public class PropertyFeeService extends BaseService {
         url = String.format(url, UserInformation.getUserInfo().HouseId, year, month, status);
         Log.e(Tag, "getPropertyFee:-----url:" + url);
         OkHttpService.get(url).execute(new DataCallBack(mContext, handlerGetFee) {
-            @Override
-            public void onResponse(String s, int i) {
-                super.onResponse(s, i);
-                Log.e(Tag, "getPropertyFee:" + s);
-                try {
-                    JSONObject json = new JSONObject(s);
-                    if (checkJsonData(s, handlerGetFee)) {
-                        JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                        if (jsonObject.optBoolean("Valid")) {
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<List<Fees>>() {
-                            }.getType();
-                            if (jsonObject.getString("Obj").equals("[]") || TextUtils.isEmpty(jsonObject.getString("Obj"))) {
-                                //无数据
-                                android.os.Message msg = handlerGetFee.obtainMessage();
-                                msg.what = DATA_SUCCESS;
-                                msg.obj = null;
-                                handlerGetFee.sendMessage(msg);
-                            } else {
-                                List<Fees> feesList = gson.fromJson(jsonObject.getString("Obj"), type);
-                                android.os.Message msg = handlerGetFee.obtainMessage();
-                                msg.what = DATA_SUCCESS;
-                                msg.obj = feesList;
-                                handlerGetFee.sendMessage(msg);
-                            }
-                        } else {
-                            sendErrorMessage(handlerGetFee, jsonObject);
-                        }
-                    }
+                                           @Override
+                                           public void onResponse(String s, int i) {
+                                               super.onResponse(s, i);
+                                               Log.e(Tag, "getPropertyFee:" + s);
+                                               try {
+                                                   JSONObject json = new JSONObject(s);
+                                                   if (checkJsonData(s, handlerGetFee)) {
+                                                       JSONObject jsonObject = new JSONObject(json.getString("Data"));
+                                                       if (jsonObject.optBoolean("Valid")) {
+                                                           Gson gson = new Gson();
+                                                           Type type = new TypeToken<List<Fees>>() {
+                                                           }.getType();
+                                                           if (jsonObject.getString("Obj").equals("[]") || TextUtils.isEmpty(jsonObject.getString("Obj"))) {
+                                                               //无数据
+                                                               android.os.Message msg = handlerGetFee.obtainMessage();
+                                                               msg.what = DATA_SUCCESS;
+                                                               msg.obj = null;
+                                                               handlerGetFee.sendMessage(msg);
+                                                           } else {
+                                                               List<Fees> feesList = gson.fromJson(jsonObject.getString("Obj"), type);
+                                                               android.os.Message msg = handlerGetFee.obtainMessage();
+                                                               msg.what = DATA_SUCCESS;
+                                                               msg.obj = feesList;
+                                                               handlerGetFee.sendMessage(msg);
+                                                           }
+                                                       } else {
+                                                           sendErrorMessage(handlerGetFee, jsonObject);
+                                                       }
+                                                   }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+                                               } catch (JSONException e) {
+                                                   e.printStackTrace();
+                                               }
+                                           }
                                        }
         );
     }
 
 
     //获取银联支付所需的TN码
-    public void GetTnByFeesIds(final String feesIds,final  String payerId, final Handler handlerGetTnByFeesIds) {
+    public void GetTnByFeesIds(final String feesIds, final String payerId, final Handler handlerGetTnByFeesIds) {
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
         // 请求的URL
@@ -384,5 +387,126 @@ public class PropertyFeeService extends BaseService {
                 });
     }
 
+
+    //是否开通银联线上支付
+    public void checkNewUnionPay(final Handler handler) {
+        String url = Services.mHost + "API/Fee/GetNewUnionPay/%s?communityId=%s";
+        url = String.format(url, UserInformation.getUserInfo().getPropertyId(), UserInformation.getUserInfo().CommunityId);
+        Log.e(Tag,"是否开通银联线上支付---参数："+url);
+        OkHttpService.get(url).execute(new DataCallBack(mContext, handler) {
+
+            @Override
+            public void onBefore(Request request, int id) {
+                super.onBefore(request, id);
+                Log.e(Tag,"是否开通银联线上支付---onBefore");
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+                super.onResponse(s, i);
+                Log.e(Tag, "是否开通银联线上支付:" + s);
+                try {
+                    if (checkJsonDataSuccess(s, handler)) {
+                        JSONObject json = null;
+                        json = new JSONObject(s);
+                        JSONObject jsonObject = new JSONObject(json.getString("Data"));
+
+                        if (jsonObject.getString("Obj").equals("null")) {  //未开通线上支付
+                            handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
+                        } else {
+                            Message msg = handler.obtainMessage();
+                            msg.what = DATA_SUCCESS;
+                            msg.obj = jsonObject.getString("Obj");
+                            handler.sendMessage(msg);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+
+    //线上支付，支付渠道微信0，支付宝1
+    public void newPayByUnion(final String feeIds, final String payChannel, final Handler handler) {
+        String url = Services.mHost + "API/Fee/NewUnionPay";
+        String aa = Services.timeFormat();
+        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+
+        HashMap<String, String> extras = new HashMap<>();
+        extras.put("FeesIds", feeIds);
+        extras.put("PayerId", UserInformation.getUserInfo().UserId);
+        extras.put("PayType", payChannel);
+        Log.e(Tag, "新银联支付参数:" + Services.json(extras));
+
+        String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + Services.json(extras) + Services.TOKEN;
+        OkHttpUtils.post().url(url)
+                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
+                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
+                .addHeader("timestamp", aa)
+                .addHeader("nonce", aa1)
+                .addHeader("signature", Services.textToMD5L32(md5))
+                .addParams("FeesIds", feeIds)
+                .addParams("PayerId", UserInformation.getUserInfo().UserId)
+                .addParams("PayType", payChannel)
+                .build()
+                .execute(new DataCallBack(mContext, handler) {
+                    @Override
+                    public void onBefore(Request request, int id) {
+                        super.onBefore(request, id);
+                        Log.e(Tag,"新银联支付参数---onBefore");
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        super.onResponse(s, i);
+                        Log.e(Tag, "新银联支付：" + s);
+                        try {
+                            if (checkJsonDataSuccess(s, handler)) {
+                                JSONObject json = new JSONObject(s);
+                                JSONObject data = new JSONObject(json.getString("Data"));
+                                Message msg = handler.obtainMessage();
+                                msg.what = DATA_SUCCESS;
+                                Bundle bundle = new Bundle();
+                                bundle.putString("OrderId", data.getString("Message"));
+                                bundle.putString("PayInfo", data.getString("Obj"));
+                                bundle.putString("PayType", payChannel);
+                                msg.setData(bundle);
+                                handler.sendMessage(msg);
+                            }
+                        } catch (JSONException e) {
+
+                        }
+                    }
+                });
+    }
+
+
+    //支付结果回调
+    public void getNewUnionPayResult(final String orderId, final Handler handler) {
+        String url = Services.mHost + "API/Fee/GetNewUnionPayOorder/%s?companyId=%s&communityId=%s";
+        url = String.format(url, orderId, UserInformation.getUserInfo().getPropertyId(), UserInformation.getUserInfo().CommunityId);
+        Log.e(Tag, "支付结果查询url：" + url);
+        OkHttpService.get(url).execute(new DataCallBack(mContext, handler) {
+            @Override
+            public void onResponse(String s, int i) {
+                super.onResponse(s, i);
+
+                Log.e(Tag, "支付结果查询：" + s);
+                try {
+                    if (checkJsonDataSuccess(s, handler)) {
+                        JSONObject json = new JSONObject(s);
+                        JSONObject data = new JSONObject(json.getString("Data"));
+                        handler.sendEmptyMessage(DATA_SUCCESS);
+                    }
+
+                } catch (JSONException e) {
+
+                }
+            }
+        });
+
+    }
 
 }

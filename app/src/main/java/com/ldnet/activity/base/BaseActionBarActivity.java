@@ -7,17 +7,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.PermissionChecker;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,17 +21,13 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.ldnet.activity.adapter.MyDialog;
 import com.ldnet.goldensteward.R;
-import com.ldnet.interfaze.PermissionListener;
 import com.ldnet.interfaze.PictureChoseListener;
 import com.ldnet.utility.ActivityUtil;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.tendcloud.tenddata.TCAgent;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.FinalBitmap;
@@ -46,12 +35,10 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
@@ -61,16 +48,11 @@ public class BaseActionBarActivity extends FinalActivity implements View.OnClick
     protected LoadingDialog dialog;
     protected LoadingDialog1 dialog1;
     protected DisplayImageOptions imageOptions;
-    protected ImageLoader imageLoader = ImageLoader.getInstance();
-    Context context;
     protected FinalBitmap finalBitmap;
     private int flag;
-    String aa = Services.timeFormat();
-    String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-
-    private PermissionListener mListener;
+    private String timeStamp = Services.timeFormat();
+    private String randomNumber = (int) ((Math.random() * 9 + 1) * 100000) + "";
     private PictureChoseListener imageLisener;
-    private static final int PERMISSION_REQUESTCODE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +63,7 @@ public class BaseActionBarActivity extends FinalActivity implements View.OnClick
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .resetViewBeforeLoading(true)
-                .extraForDownloader(UserInformation.getUserInfo().UserPhone + "," + aa + "," + aa1)
+                .extraForDownloader(UserInformation.getUserInfo().UserPhone + "," + timeStamp + "," + randomNumber)
                 .build();
 
         finalBitmap = FinalBitmap.create(this); //初始化
@@ -320,7 +302,6 @@ public class BaseActionBarActivity extends FinalActivity implements View.OnClick
         }
         return hex.toString();
     }
-
 
 
     //添加图片

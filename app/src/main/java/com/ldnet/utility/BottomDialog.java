@@ -29,10 +29,11 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.mm.sdk.platformtools.Util;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
+
 import okhttp3.Call;
 
 /**
- *
+ * 微信分享
  */
 public class BottomDialog {
     private Context mContext;
@@ -81,6 +82,7 @@ public class BottomDialog {
 
     /**
      * 展示ui
+     *
      * @param activity
      */
     public void uploadImageUI(final Activity activity) {
@@ -173,7 +175,7 @@ public class BottomDialog {
                     getItemPressedStateListDrawable(context, 0, 0, 0, 0, 7, 7), 17);
         } else {
             tv_choosePhoto = getItem(context, "分享到微信好友", 0, 13, 0, 13,
-                0xFF25B59E,
+                    0xFF25B59E,
                     getItemPressedStateListDrawable(context, 0, 0, 7, 7, 7, 7), 17);
         }
 
@@ -183,12 +185,12 @@ public class BottomDialog {
             @Override
             public void onClick(View v) {
                 regTiWx();
-                if ((mUrl == null || mUrl.equals("")) && bitmap == null) {
+                if ((mUrl == null || mUrl.equals("")) && bitmap == null) { //分享文字
                     shareTextToApp(0);
-                } else if (bitmap != null) {
+                } else if (bitmap != null) {                               //分享图片
                     toShareApp(SendMessageToWX.Req.WXSceneSession);
                 } else {
-                    toShareApp(SendMessageToWX.Req.WXSceneSession);
+                    toShareApp(SendMessageToWX.Req.WXSceneSession);        //分享网页
                 }
             }
         });
@@ -379,7 +381,7 @@ public class BottomDialog {
             ImageSize imageSize = new ImageSize(THUMB_SIZE, THUMB_SIZE);
             if (Services.isNotNullOrEmpty(mImageUrl)) {
                 getData(flag, msg);
-            } else if (bitmap != null) {
+            } else if (bitmap != null) {  //分享图片
                 WXImageObject imgObj = new WXImageObject(bitmap);
                 WXMediaMessage imgMsg = new WXMediaMessage();
                 imgMsg.mediaObject = imgObj;

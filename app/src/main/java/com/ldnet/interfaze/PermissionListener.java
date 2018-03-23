@@ -7,6 +7,6 @@ import java.util.List;
  */
 
 public interface PermissionListener {
-    void onGranted(int requestCode,List<String> deniedPermissions);
-    void onDenied(int requestCode,List<String> deniedPermissions);
+    void onGranted(int requestCode, List<String> deniedPermissions);
+    void onDenied(int requestCode, List<String> deniedPermissions);
 }

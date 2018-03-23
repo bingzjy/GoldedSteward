@@ -71,12 +71,13 @@ public class VisitorValid extends BaseActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mServices = new Services();
-        bindService = new BindingService(this);
-        acountService = new AcountService(this);
         // 设置布局
         setContentView(R.layout.activity_visitor_valid);
         AppUtils.setupUI(findViewById(R.id.ll_visitor_valid), this);
+        mServices = new Services();
+        bindService = new BindingService(this);
+        acountService = new AcountService(this);
+
         initView();
         initEvent();
     }

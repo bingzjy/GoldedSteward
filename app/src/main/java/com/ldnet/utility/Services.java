@@ -155,10 +155,10 @@ public class Services {
             networkException();
             return null;
         }
-
     }
 
-    public boolean netWorkConnected(){
+
+    public static boolean netWorkConnected(){
         Context context = GSApplication.getInstance();
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -171,6 +171,7 @@ public class Services {
         }
         return false;
     }
+
 
     public void networkException() {
         Context context = GSApplication.getInstance();
@@ -542,8 +543,6 @@ public class Services {
             String aa = Services.timeFormat();
             String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
             String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + Services.json(extras) + TOKEN;
-//            Log.d("asdsdasd12132", url + "--" + aa + "--" + aa1 + "--" + md5 + "--" + Services.json(extras) + "--" + logger);
-//            Log.d("asdsdasd12132","=-=-=-="+TOKEN);
             OkHttpUtils.post().url(url)
                     .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
                     .addHeader("phone", UserInformation.getUserInfo().getUserPhone())

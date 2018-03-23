@@ -38,6 +38,28 @@ public class SD {
     //是否被选中
     public Boolean IsChecked = true;
 
+
+    public boolean isSoldOut() { //下架
+        if (ISNU || ISXJ) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isOutStore() { //无货
+        if (ISKC || ISUD) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean unCheckable() {  //不可结算
+        if (isOutStore() || isSoldOut()) {
+            return true;
+        }
+        return false;
+    }
+
     public String getID() {
         return ID;
     }

@@ -8,8 +8,8 @@ import java.io.Serializable;
 public class KeyChain implements Serializable {
 
 
-    private String Password;//设备ID
-    private String Id;//设备密码
+    private String Password;//设备密码
+    private String Id;//设备ID
     private String CommunityNo;//小区编号
     private String BuildingNo;//楼栋编号
     private String Type;//门禁类型，0-公共门，1-单元门

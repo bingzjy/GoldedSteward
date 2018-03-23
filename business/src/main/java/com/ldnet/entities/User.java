@@ -29,7 +29,8 @@ public class User implements Serializable {
         this.CZAID="";
         this.CZAUserId="";
         this.CZAToken="";
-	}
+        this.HasRoom = 0;
+    }
 
 	// 用户ID
 	public String UserId;
@@ -111,7 +112,8 @@ public class User implements Serializable {
     public String CZAUserId;
     public String CZAToken;
 
-
+    //是否有业主身份的房子
+    public int HasRoom; //1 有房子，0 没有
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

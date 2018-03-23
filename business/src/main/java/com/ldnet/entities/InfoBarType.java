@@ -16,4 +16,11 @@ public class InfoBarType implements Serializable{
     public int value;
     public String name;
 
+    public InfoBarType(int value, String name) {
+        this.value = value;
+        this.name = name;
+    }
+
+    public InfoBarType() {
+    }
 }

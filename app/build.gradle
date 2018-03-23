@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.neenbedankt.android-apt'
 
 android {
 
@@ -9,8 +8,8 @@ android {
         applicationId "com.ldnet.goldensteward"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 436
-        versionName "4.3.6"
+        versionCode 437
+        versionName "4.3.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {

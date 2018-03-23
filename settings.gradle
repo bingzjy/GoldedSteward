@@ -1,1 +1,1 @@
-include ':app', ':business'
+include ':app', ':business', ':example'

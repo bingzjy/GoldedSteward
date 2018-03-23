@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ldnet.goldensteward"
     android:installLocation="auto"
-    android:versionCode="436"
-    android:versionName="4.3.6">
+    android:versionCode="437"
+    android:versionName="4.3.7">
 
     <!-- Required -->
     <permission

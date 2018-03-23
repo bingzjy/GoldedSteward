@@ -84,21 +84,9 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
     private String currentFeeType = "0";
     private String currentYearType = "0";
     private PropertyFeeService service;
-    // WXPAY微信  ALIPAY支付宝
-    private final String alPay = "ALIPAY";
-    private final String wxPay = "WXPAY";
     private float totalAmount;
     private static final String TAG = "Property_Fee";
-    // private final String testPayURL = "{\"qrCode\": \"https://qr.alipay.com/bax06976qwtbro1fpkdu2042\"}";
-    private final String testPayURL = "{\n" +
-            "  \"package\": \"Sign=WXPay\",\n" +
-            "  \"appid\": \"wxa4207e39a8e5cf0f\",\n" +
-            "  \"sign\": \"61B28AE83E7516559E196ADA335E3D5C\",\n" +
-            "  \"partnerid\": \"93231660\",\n" +
-            "  \"prepayid\": \"wx20180313105446159fc0cd080669561694\",\n" +
-            "  \"noncestr\": \"1520909686294\",\n" +
-            "  \"timestamp\": \"1520909686\"\n" +
-            "}";
+
     private boolean openPay = false;
 
     @Override
@@ -360,7 +348,7 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
                     break;
                 case R.id.tv_fee_pay:
 
-  //                  if (openPay) {
+                    if (openPay) {
                         //检查用户选择
                         String ids = "";
                         for (Fees f : showFeeList) {
@@ -382,10 +370,9 @@ public class Property_Fee extends BaseActionBarActivity implements UnifyPayListe
                         } else {
                             showToast(getString(R.string.go_paid_none));
                         }
- //                   }
-//                    else {
-//                        showToast(getString(R.string.payment_not_open));
-//                    }
+                    } else {
+                        showToast(getString(R.string.payment_not_open));
+                    }
                     break;
                 default:
                     break;

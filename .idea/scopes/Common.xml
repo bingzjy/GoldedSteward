@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Common" pattern="file[app]:src/main/java/com/ldnet/activity//*" />
+</component>

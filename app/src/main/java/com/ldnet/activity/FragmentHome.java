@@ -26,6 +26,10 @@ import com.dh.bluelock.imp.OneKeyInterface;
 import com.dh.bluelock.object.LEDevice;
 import com.dh.bluelock.pub.BlueLockPub;
 import com.dh.bluelock.util.Constants;
+import com.intelligoo.sdk.LibDevModel;
+import com.intelligoo.sdk.LibInterface;
+import com.intelligoo.sdk.ScanCallBackSort;
+import com.intelligoo.sdk.ScanCallback;
 import com.ldnet.activity.adapter.*;
 import com.ldnet.activity.base.BaseFragment;
 import com.ldnet.activity.home.*;
@@ -106,6 +110,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private BindingService bindingService;
     private PropertyFeeService propertyFeeService;
     private EntranceGuardService entranceGuardService;
+    private LadderControlService ladderControlService;
     private HomeService homeService;
     private GoodsService goodsService;
     private String tag = FragmentHome.class.getSimpleName();
@@ -230,6 +235,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         entranceGuardService = new EntranceGuardService(getActivity());
         homeService = new HomeService(getActivity());
         goodsService = new GoodsService(getActivity());
+        ladderControlService = new LadderControlService(getActivity());
     }
 
     // 初始化视图
@@ -504,7 +510,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                 break;
             case R.id.bt_open_door:
                 //开门条件：开启门禁、开启蓝牙、入住金管家、有房屋，再请求钥匙，在handle中做处理
-                openClick();
+                //  openClick();
+                ladderControlService.getLadderControlKey(handlerGetLadderKey);
                 break;
             //邻里通
             case R.id.ll_yellow_infobar:
@@ -1438,6 +1445,23 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             }
         }
     };
+
+    Handler handlerGetLadderKey = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case BaseService.DATA_SUCCESS:
+                    showToast(msg.obj.toString());
+                    break;
+                case BaseService.DATA_FAILURE:
+                case BaseService.DATA_REQUEST_ERROR:
+                    showToast(msg.obj.toString());
+                    break;
+            }
+        }
+    };
+
     @Override
     public void onBottom() {
 
@@ -1508,6 +1532,53 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         //soundPool.release();
 
     }
+
+
+    //梯控
+    ScanCallBackSort scanCallBack = new ScanCallBackSort() {
+        @Override
+        public void onScanResult(ArrayList<Map<String, Integer>> arrayList) {
+
+        }
+
+        @Override
+        public void onScanResultAtOnce(String s, int i) {
+
+        }
+    };
+
+
+    LibInterface.ManagerCallback openCallBack = new LibInterface.ManagerCallback() {
+        @Override
+        public void setResult(int i, Bundle bundle) {
+            if (i == 0x00) {
+                Toast.makeText(getActivity(), "Success",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                if (i == 48) {
+                    Toast.makeText(getActivity(), "Result Error Timer Out", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Failure:" + i,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    };
+
+
+    //调用梯控扫描
+    private void startScanElevator() {
+        int ret = LibDevModel.scanDeviceSort(getActivity(), true, 800, scanCallBack);
+        if (ret != 0) {
+            showToast("扫描梯控设备失败");
+        }
+    }
+
+    //调用梯控开门
+    private void openElevator(LibDevModel device) {
+        int ret = LibDevModel.openDoor(getActivity(), device, openCallBack);
+    }
+
 
 }
 

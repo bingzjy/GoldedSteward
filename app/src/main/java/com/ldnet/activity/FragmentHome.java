@@ -122,7 +122,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private HashMap<String, LEDevice> scanDeviceResult = new HashMap<String, LEDevice>();  //存放扫描结果
     private List<KeyChain> deviceAvailable = new ArrayList<>();
     private HashSet<LEDevice> deviceSet = new HashSet<>();
-    private Handler handlerDeleteRed=new Handler(){};
+    private Handler handlerDeleteRed = new Handler() {
+    };
     private DisplayImageOptions imageOptions;
     private String aa = Services.timeFormat();
     private String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
@@ -131,6 +132,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private static SoundPool soundPool;
     private Timer timer;
     private TimerTask timerTask;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -196,7 +198,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         User user = UserInformation.getUserInfo();
         if (!TextUtils.isEmpty(user.PropertyThumbnail)) {
             iv_home_property_thumbnail.setBackgroundColor(Color.WHITE);
-            ImageLoader.getInstance().displayImage(Services.getImageUrl(user.PropertyThumbnail), iv_home_property_thumbnail,  imageOptions);
+            ImageLoader.getInstance().displayImage(Services.getImageUrl(user.PropertyThumbnail), iv_home_property_thumbnail, imageOptions);
         } else {
             iv_home_property_thumbnail.setBackgroundColor(Color.TRANSPARENT);
             iv_home_property_thumbnail.setImageResource(R.drawable.home_services_n);
@@ -230,7 +232,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private void initService() {
         services = new Services();
         acountService = new AcountService(getActivity());
-        bindingService=new BindingService(getActivity());
+        bindingService = new BindingService(getActivity());
         propertyFeeService = new PropertyFeeService(getActivity());
         entranceGuardService = new EntranceGuardService(getActivity());
         homeService = new HomeService(getActivity());
@@ -280,9 +282,9 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         //黄页
         ll_yellow_pages = (LinearLayout) view.findViewById(R.id.ll_yellow_pages);
         //邻里通
-        ll_property_infobar=(LinearLayout)view.findViewById(R.id.ll_yellow_infobar);
+        ll_property_infobar = (LinearLayout) view.findViewById(R.id.ll_yellow_infobar);
         //周边惠
-        ll_property_service_activity=(LinearLayout)view.findViewById(R.id.ll_yellow_service);
+        ll_property_service_activity = (LinearLayout) view.findViewById(R.id.ll_yellow_service);
 
         // 刷新的控件
         mRefreshableView = (PullToRefreshScrollView) view.findViewById(R.id.refresh_root);
@@ -370,7 +372,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     }
 
     //设置小红点的显示
-    private void showRedDot(){
+    private void showRedDot() {
         //物业通知
         if (PushMessage.getPushInfo().NOTICE) {
             unread_notification.setVisibility(View.VISIBLE);
@@ -394,7 +396,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
 
         //物业通知、物业服务模块 ，首页底部显示小红点
         if (PushMessage.getPushInfo().COMPLAIN || PushMessage.getPushInfo().REPAIRS ||
-                PushMessage.getPushInfo().COMMUNICATION||PushMessage.getPushInfo().NOTICE||PushMessage.getPushInfo().FEE) {
+                PushMessage.getPushInfo().COMMUNICATION || PushMessage.getPushInfo().NOTICE || PushMessage.getPushInfo().FEE) {
             getActivity().findViewById(R.id.iv_zc1).setVisibility(View.VISIBLE);
         } else {
             getActivity().findViewById(R.id.iv_zc1).setVisibility(View.GONE);
@@ -575,7 +577,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     //获取用户最新信息
     public void SetCurrentInforamtion() {
         showProgressDialog();
-        bindingService.SetCurrentInforamtion(UserInformation.getUserInfo().getCommunityId(),UserInformation.getUserInfo().HouseId,handlerSetCurrentInforamtion);
+        bindingService.SetCurrentInforamtion(UserInformation.getUserInfo().getCommunityId(), UserInformation.getUserInfo().HouseId, handlerSetCurrentInforamtion);
     }
 
     //判断是否验证
@@ -608,7 +610,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
 
 
     //开门条件：入驻金管家、开启门禁、开启蓝牙、有房屋，再请求钥匙，在handle中做处理
-    private boolean openDoorEnable(){
+    private boolean openDoorEnable() {
 //        //未入驻金牌管家
 //        if (TextUtils.isEmpty(UserInformation.getUserInfo().getPropertyId())) {      //有无物业入驻
 //            Intent intent = new Intent(getActivity(), Browser.class);
@@ -635,8 +637,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         }
 
         //房屋未验证
-        if (!approvePass){
-            CustomAlertDialog dialog2 = new CustomAlertDialog(getActivity(), false,getResources().getString(R.string.dialog_title), getResources().getString(R.string.dialog_verify));
+        if (!approvePass) {
+            CustomAlertDialog dialog2 = new CustomAlertDialog(getActivity(), false, getResources().getString(R.string.dialog_title), getResources().getString(R.string.dialog_verify));
             dialog2.show();
             dialog2.setDialogCallback(dialogcallback);
 
@@ -762,7 +764,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private void checkOpenEntrance() {
         //true 表示未开通门禁；false表示开通门禁
         openEntranceState = false;
-        entranceGuardService.checkOpenEntrance(UserInformation.getUserInfo().getCommunityId(),handlerCheckOpenEntrance);
+        entranceGuardService.checkOpenEntrance(UserInformation.getUserInfo().getCommunityId(), handlerCheckOpenEntrance);
     }
 
     //未开通门禁提示对话框
@@ -788,7 +790,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         log_off_confirm.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utility.showCallPop(getActivity(),false);
+                Utility.showCallPop(getActivity(), false);
                 alertDialog.dismiss();
             }
         });
@@ -809,10 +811,10 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             HashMap<String, String> extras = new HashMap<String, String>();
             extras.put(TO_APPLY, "PASS");
             extras.put(ROOM_ID, UserInformation.getUserInfo().getHouseId());
-            extras.put(ROOM_NAME,UserInformation.getUserInfo().getHouseName());
-            extras.put(CLASS_FROM,getActivity().getClass().getName());
+            extras.put(ROOM_NAME, UserInformation.getUserInfo().getHouseName());
+            extras.put(CLASS_FROM, getActivity().getClass().getName());
             extras.put(COMMUNITY_ID, UserInformation.getUserInfo().getCommunityId());
-            extras.put(COMMUNITY_NAME,UserInformation.getUserInfo().getCommuntiyName());
+            extras.put(COMMUNITY_NAME, UserInformation.getUserInfo().getCommuntiyName());
             try {
                 gotoActivityAndFinish(VisitorValidComplete.class.getName(), extras);
             } catch (ClassNotFoundException e) {
@@ -831,7 +833,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         @Override
         public void openCloseDeviceCallBack(int i, int i1, String... strings) {
             closeProgressDialog1();
-            playSound(R.raw.open_door_action,getActivity());
+            playSound(R.raw.open_door_action, getActivity());
             if (i == 0) {
                 openDoorDialog.setType(1);
                 //添加开门日志
@@ -854,7 +856,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
 
         @Override
         public void scanDeviceEndCallBack(int i) {
-            Log.e("aaa", "蓝牙扫描完毕"+scanDeviceResult.size());
+            Log.e("aaa", "蓝牙扫描完毕" + scanDeviceResult.size());
             openDoor();
         }
     }
@@ -896,7 +898,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                 handler.sendMessage(msg);
 
                 //播放摇一摇音效
-                playSound(R.raw.shake,getActivity());
+                playSound(R.raw.shake, getActivity());
             }
         }
 
@@ -926,10 +928,10 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                     Intent intent = new Intent(getActivity(), Goods_Details.class);
                     intent.putExtra("FROM_CLASS_NAME", getActivity().getClass().getName());
                     intent.putExtra("GOODS_URL", mData.get(position).getGoodsUrl().toString());
-                    intent.putExtra("GOODS_RID",mData.get(position).RID);
-                    intent.putExtra("GOODS_ID",mData.get(position).GOODSID.toString());
-                    intent.putExtra("CID",mData.get(position).ID);
-                    intent.putExtra("PAGE_TITLE",mData.get(position).TITLE);
+                    intent.putExtra("GOODS_RID", mData.get(position).RID);
+                    intent.putExtra("GOODS_ID", mData.get(position).GOODSID.toString());
+                    intent.putExtra("CID", mData.get(position).ID);
+                    intent.putExtra("PAGE_TITLE", mData.get(position).TITLE);
                     startActivity(intent);
                 } else {
                     Intent goodsListIntent = new Intent(getActivity(), GoodsList.class);
@@ -943,7 +945,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
 
         @Override
         public void displayImage(String imageURL, ImageView imageView) {
-            ImageLoader.getInstance().displayImage(imageURL, imageView,  imageOptions);// 此处本人使用了ImageLoader对图片进行加装！
+            ImageLoader.getInstance().displayImage(imageURL, imageView, imageOptions);// 此处本人使用了ImageLoader对图片进行加装！
         }
     };
 
@@ -964,16 +966,16 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     }
 
     //绘制首页
-    private void setHomeAreaData(){
+    private void setHomeAreaData() {
         mImageUrl.clear();
         mData.clear();
         mAppHomePage.removeAllViews();
 
         if (mAppHomePageArea != null) {
 
-            for (APPHomePage_Area areaData:mAppHomePageArea){
+            for (APPHomePage_Area areaData : mAppHomePageArea) {
 
-                for (APPHomePage_Row rowData: areaData.APPHomePage_Row){
+                for (APPHomePage_Row rowData : areaData.APPHomePage_Row) {
 
                     mData = rowData.getAPPHomePage_Column();
 
@@ -1022,10 +1024,10 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                                         Intent intent = new Intent(getActivity(), Goods_Details.class);
                                         intent.putExtra("FROM_CLASS_NAME", getActivity().getClass().getName());
                                         intent.putExtra("GOODS_URL", column.GoodsUrl.toString());
-                                        intent.putExtra("GOODS_RID",column.RID);
-                                        intent.putExtra("GOODS_ID",column.GOODSID.toString());
-                                        intent.putExtra("CID",column.ID);
-                                        intent.putExtra("PAGE_TITLE",column.TITLE);
+                                        intent.putExtra("GOODS_RID", column.RID);
+                                        intent.putExtra("GOODS_ID", column.GOODSID.toString());
+                                        intent.putExtra("CID", column.ID);
+                                        intent.putExtra("PAGE_TITLE", column.TITLE);
                                         startActivity(intent);
                                     } else {
                                         Intent goodsListIntent = new Intent(getActivity(), GoodsList.class);
@@ -1109,7 +1111,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         image = new ImageView(getActivity());
         Integer imageWidth;
         if (column.SHOWTITLE) {
-            imageWidth =Double.valueOf(column_width * column.ImgWidthPro / 100.0f).intValue();
+            imageWidth = Double.valueOf(column_width * column.ImgWidthPro / 100.0f).intValue();
             title.setVisibility(View.VISIBLE);
             description.setVisibility(View.VISIBLE);
         } else {
@@ -1123,7 +1125,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         image.setLayoutParams(image_lp);
         image.setScaleType(ImageView.ScaleType.FIT_XY);
         ImageLoader.getInstance().displayImage(services.getImageUrl(column.IMGID), image,
-              imageOptions);
+                imageOptions);
         if (column.ImgPosition == 0 || column.ImgPosition == 2) {
             ll_column.setOrientation(LinearLayout.VERTICAL);
             if (column.ImgPosition == 0) {
@@ -1250,7 +1252,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     };
 
 
-
     //获取周边小店返回
     Handler handlerCommunityShop = new Handler() {
         @Override
@@ -1324,7 +1325,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             closeProgressDialog();
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
-                    if (TextUtils.isEmpty(msg.obj.toString()) || msg.obj.equals("0")||msg.obj.equals("0.0")||msg.obj.equals("0.00")) {
+                    if (TextUtils.isEmpty(msg.obj.toString()) || msg.obj.equals("0") || msg.obj.equals("0.0") || msg.obj.equals("0.00")) {
                         feeArrearage = "";
                     } else {
                         feeArrearage = msg.obj.toString();
@@ -1349,7 +1350,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                     approvePass = true;
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:  //审核未通过
-                    CustomAlertDialog dialog2 = new CustomAlertDialog(getActivity(),false,getResources().getString(R.string.dialog_title), getResources().getString(R.string.dialog_verify));
+                    CustomAlertDialog dialog2 = new CustomAlertDialog(getActivity(), false, getResources().getString(R.string.dialog_title), getResources().getString(R.string.dialog_verify));
                     dialog2.show();
                     dialog2.setDialogCallback(dialogcallback);
 
@@ -1425,20 +1426,20 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     };
 
     //获取小红点推送
-    Handler handlerGetRedPointPush=new Handler(){
+    Handler handlerGetRedPointPush = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
-                    List<Type> data=(List<Type>)msg.obj;
-                    Msg push=PushMessage.setMsg(data);
+                    List<Type> data = (List<Type>) msg.obj;
+                    Msg push = PushMessage.setMsg(data);
                     PushMessage.setPushInformation(push);
                     showRedDot();
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:
-                    List<Type> data2=new ArrayList<Type>();
-                    Msg push2=PushMessage.setMsg(data2);
+                    List<Type> data2 = new ArrayList<Type>();
+                    Msg push2 = PushMessage.setMsg(data2);
                     PushMessage.setPushInformation(push2);
                     showRedDot();
                     break;
@@ -1481,13 +1482,13 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     public void onPause() {
         super.onPause();
         approvePass = false;
-        if (sensorManager!=null){
+        if (sensorManager != null) {
             sensorManager.unregisterListener(sensorEventListener);
         }
 
-        if (openDoorDialog!=null&&openDoorDialog.isShowing()){
+        if (openDoorDialog != null && openDoorDialog.isShowing()) {
             openDoorDialog.hide();
-            openDoorDialog=null;
+            openDoorDialog = null;
         }
         TCAgent.onPageEnd(getActivity(), "首页-首页" + this.getClass().getSimpleName());
     }
@@ -1495,7 +1496,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     @Override
     public void onStop() {
         super.onStop();
-        if (soundPool!=null){
+        if (soundPool != null) {
             soundPool.release();
         }
 
@@ -1552,14 +1553,12 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         @Override
         public void setResult(int i, Bundle bundle) {
             if (i == 0x00) {
-                Toast.makeText(getActivity(), "Success",
-                        Toast.LENGTH_SHORT).show();
+                showToast("Success");
             } else {
                 if (i == 48) {
-                    Toast.makeText(getActivity(), "Result Error Timer Out", Toast.LENGTH_SHORT).show();
+                    showToast("Result Error Timer Out");
                 } else {
-                    Toast.makeText(getActivity(), "Failure:" + i,
-                            Toast.LENGTH_SHORT).show();
+                    showToast("Failure:" + i);
                 }
             }
         }

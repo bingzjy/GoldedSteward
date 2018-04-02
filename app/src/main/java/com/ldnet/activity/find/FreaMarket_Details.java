@@ -16,8 +16,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.me.PublishActivity;
+import com.ldnet.entities.APPHomePage_Column;
 import com.ldnet.entities.FreaMarketDetails;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
@@ -30,12 +32,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FreaMarket_Details extends BaseActionBarActivity {
     private TextView tv_main_title;
     private ImageButton btn_back;
     private ImageCycleView vp_frea_market_images;
-    private TextView tv_frea_market_title,tvCustom;
+    private TextView tv_frea_market_title, tvCustom;
     private TextView tv_frea_market_contract_name;
     private TextView tv_frea_market_datetime;
     private TextView tv_frea_market_org_price;
@@ -66,17 +69,17 @@ public class FreaMarket_Details extends BaseActionBarActivity {
         initView();
         initEvent();
         //初始化服务
-        findService=new FindService(this);
+        findService = new FindService(this);
         services = new Services();
         showProgressDialog();
-        findService.getFreaMarketDetails(mFreamarketId,handlerGetDetail);
+        findService.getFreaMarketDetails(mFreamarketId, handlerGetDetail);
     }
 
     private void initView() {
         // 标题
         tv_main_title = (TextView) findViewById(R.id.tv_page_title);
         tv_main_title.setText(R.string.frea_market_title);
-        tvCustom=(TextView)findViewById(R.id.tv_custom);
+        tvCustom = (TextView) findViewById(R.id.tv_custom);
         tvCustom.setVisibility(View.VISIBLE);
         //返回按钮
         btn_back = (ImageButton) findViewById(R.id.btn_back);
@@ -106,7 +109,7 @@ public class FreaMarket_Details extends BaseActionBarActivity {
         if (mFromPublish) {
             tvCustom.setText("编辑");
             btn_frea_market_call.setText("编辑信息");
-        }else{
+        } else {
             tvCustom.setText("分享");
         }
     }
@@ -128,16 +131,21 @@ public class FreaMarket_Details extends BaseActionBarActivity {
     private com.ldnet.view.ImageCycleView.ImageCycleViewListener mAdCycleViewListener =
             new com.ldnet.view.ImageCycleView.ImageCycleViewListener() {
 
-        @Override
-        public void onImageClick(int position, View imageView) {
+                @Override
+                public void onImageClick(int position, View imageView) {
 
-        }
+                }
 
-        @Override
-        public void displayImage(String imageURL, ImageView imageView) {
-            ImageLoader.getInstance().displayImage(imageURL, imageView, imageOptions);// 此处本人使用了ImageLoader对图片进行加装！
-        }
-    };
+                @Override
+                public void onImageDataClick(int position, View imageView, List<APPHomePage_Column> mData) {
+
+                }
+
+                @Override
+                public void displayImage(String imageURL, ImageView imageView) {
+                    ImageLoader.getInstance().displayImage(imageURL, imageView, imageOptions);// 此处本人使用了ImageLoader对图片进行加装！
+                }
+            };
 
     //初始化事件
     public void initEvent() {
@@ -164,9 +172,9 @@ public class FreaMarket_Details extends BaseActionBarActivity {
             case R.id.btn_frea_market_call:
                 if (btn_frea_market_call.getText().toString().contains("删除")) {         //删除
                     if (details != null) {
-                        findService.deleteFreaMarket(details.Id,handlerDelete);
+                        findService.deleteFreaMarket(details.Id, handlerDelete);
                     }
-                } else if(btn_frea_market_call.getText().toString().contains("致电")) {   //致电
+                } else if (btn_frea_market_call.getText().toString().contains("致电")) {   //致电
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mContractPhone));
                     startActivity(intent);
                 }
@@ -176,16 +184,16 @@ public class FreaMarket_Details extends BaseActionBarActivity {
                     Intent intent = new Intent(this, FreaMarket_Create.class);
                     intent.putExtra("FREA_MARKET_ID", mFreamarketId);
                     intent.putExtra("FROM_FREAMARKET_DETAILS", "true");
-                    if (mFromPublish){
-                        intent.putExtra("FROM_PUBLISH","true");
+                    if (mFromPublish) {
+                        intent.putExtra("FROM_PUBLISH", "true");
                     }
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
-                }else{  //分享
-                    if (!TextUtils.isEmpty(details.Url)){
-                        BottomDialog dialog=new BottomDialog(FreaMarket_Details.this,details.Url,details.Title);
+                } else {  //分享
+                    if (!TextUtils.isEmpty(details.Url)) {
+                        BottomDialog dialog = new BottomDialog(FreaMarket_Details.this, details.Url, details.Title);
                         dialog.uploadImageUI(FreaMarket_Details.this);
-                    }else{
+                    } else {
                         showToast("暂时不能分享");
                     }
                 }
@@ -194,6 +202,7 @@ public class FreaMarket_Details extends BaseActionBarActivity {
                 break;
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
@@ -214,17 +223,17 @@ public class FreaMarket_Details extends BaseActionBarActivity {
     }
 
 
-    Handler handlerGetDetail=new Handler(){
+    Handler handlerGetDetail = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             closeProgressDialog();
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
-                    details=(FreaMarketDetails)msg.obj;
-                    if (details.ResidentId.equals(UserInformation.getUserInfo().UserId)||mFromPublish){  //本人的发布信息，编辑
+                    details = (FreaMarketDetails) msg.obj;
+                    if (details.ResidentId.equals(UserInformation.getUserInfo().UserId) || mFromPublish) {  //本人的发布信息，编辑
                         btn_frea_market_call.setText("删除信息");
-                    }else{                                                   //不是本人 ，致电
+                    } else {                                                   //不是本人 ，致电
                         btn_frea_market_call.setText("致电物主");
                     }
 
@@ -239,7 +248,7 @@ public class FreaMarket_Details extends BaseActionBarActivity {
                     tv_frea_market_price.setText("￥" + details.Price);
                     tv_frea_market_address.setText(details.Address);
                     tv_frea_market_content.setText(details.Memo);
-                    if (details.Img != null&&details.Img.size()>0) {
+                    if (details.Img != null && details.Img.size() > 0) {
                         for (String imageId : details.Img) {
                             if (!TextUtils.isEmpty(imageId)) {
                                 mImageUrl.add(Services.getImageUrl(imageId));
@@ -258,21 +267,21 @@ public class FreaMarket_Details extends BaseActionBarActivity {
     };
 
 
-    Handler handlerDelete=new Handler(){
+    Handler handlerDelete = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     showToast("删除成功");
-                    if (mFromPublish){
+                    if (mFromPublish) {
                         //返回我的发布
-                        Intent intent=new Intent(FreaMarket_Details.this, PublishActivity.class);
+                        Intent intent = new Intent(FreaMarket_Details.this, PublishActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                    }else{
+                    } else {
                         //返回我的发布
-                        Intent intent=new Intent(FreaMarket_Details.this, FreaMarket.class);
+                        Intent intent = new Intent(FreaMarket_Details.this, FreaMarket.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }

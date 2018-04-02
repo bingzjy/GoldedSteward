@@ -16,8 +16,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.me.PublishActivity;
+import com.ldnet.entities.APPHomePage_Column;
 import com.ldnet.entities.WeekendDetails;
 import com.ldnet.entities.WeekendSignUp;
 import com.ldnet.goldensteward.R;
@@ -41,7 +43,7 @@ public class Weekend_Details extends BaseActionBarActivity {
     private TextView tv_main_title;
     private ImageButton btn_back;
     private ImageCycleView vp_weekenimages;
-    private TextView tv_weekend_title,tvCustom;
+    private TextView tv_weekend_title, tvCustom;
     private TextView tv_weekend_content;
     private TextView tv_weekend_cost;
     private TextView tv_weekend_signup_number;
@@ -78,20 +80,20 @@ public class Weekend_Details extends BaseActionBarActivity {
         initView();
         initService();
         initEvent();
-        findService.getWeekendDetail(mWeekendId,handlerGetDetail);
+        findService.getWeekendDetail(mWeekendId, handlerGetDetail);
     }
 
     //初始化服务
-    private void initService(){
+    private void initService() {
         services = new Services();
-        acountService=new AcountService(this);
-        findService=new FindService(this);
+        acountService = new AcountService(this);
+        findService = new FindService(this);
     }
 
-    private void initView(){
+    private void initView() {
         tv_main_title = (TextView) findViewById(R.id.tv_page_title);
         tv_main_title.setText(R.string.fragment_find_weekend);
-        tvCustom=(TextView)findViewById(R.id.tv_custom);
+        tvCustom = (TextView) findViewById(R.id.tv_custom);
         tvCustom.setVisibility(View.VISIBLE);
         if (mFromPublish) {
             tvCustom.setText("编辑");
@@ -121,27 +123,31 @@ public class Weekend_Details extends BaseActionBarActivity {
         btn_weekend_call = (Button) findViewById(R.id.btn_weekend_call);
         btn_weekend_signup = (Button) findViewById(R.id.btn_weekend_signup);
 
-        if (mFromPublish){
+        if (mFromPublish) {
             btn_weekend_call.setText("删除活动");
             btn_weekend_signup.setText("查看报名");
         }
     }
 
 
-
     private com.ldnet.view.ImageCycleView.ImageCycleViewListener mAdCycleViewListener =
             new com.ldnet.view.ImageCycleView.ImageCycleViewListener() {
 
-        @Override
-        public void onImageClick(int position, View imageView) {
+                @Override
+                public void onImageClick(int position, View imageView) {
 
-        }
+                }
 
-        @Override
-        public void displayImage(String imageURL, ImageView imageView) {
-            ImageLoader.getInstance().displayImage(imageURL, imageView, imageOptions);// 此处本人使用了ImageLoader对图片进行加装！
-        }
-    };
+                @Override
+                public void onImageDataClick(int position, View imageView, List<APPHomePage_Column> mData) {
+
+                }
+
+                @Override
+                public void displayImage(String imageURL, ImageView imageView) {
+                    ImageLoader.getInstance().displayImage(imageURL, imageView, imageOptions);// 此处本人使用了ImageLoader对图片进行加装！
+                }
+            };
 
     //初始化事件
     public void initEvent() {
@@ -167,20 +173,20 @@ public class Weekend_Details extends BaseActionBarActivity {
                 }
                 break;
             case R.id.btn_weekend_signup_information://查看报名
-                findService.WeekendSignUpInformation(mWeekendId,"",handlerGetSignInfo);
+                findService.WeekendSignUpInformation(mWeekendId, "", handlerGetSignInfo);
                 break;
             case R.id.btn_weekend_call://致电组织者或者删除
-                if (btn_weekend_call.getText().toString().contains("删除")){
+                if (btn_weekend_call.getText().toString().contains("删除")) {
                     findService.deleteWeekend(mWeekendId, handlerDelete);
-                }else if (btn_weekend_call.getText().toString().contains("致电")){
+                } else if (btn_weekend_call.getText().toString().contains("致电")) {
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mContractPhone));
                     startActivity(intent);
                 }
                 break;
             case R.id.btn_weekend_signup://点击报名或者查看报名
-                if (btn_weekend_signup.getText().toString().contains("查看")){
-                    findService.WeekendSignUpInformation(mWeekendId,"",handlerGetSignInfo);
-                }else if (btn_weekend_signup.getText().toString().contains("报名")){
+                if (btn_weekend_signup.getText().toString().contains("查看")) {
+                    findService.WeekendSignUpInformation(mWeekendId, "", handlerGetSignInfo);
+                } else if (btn_weekend_signup.getText().toString().contains("报名")) {
                     if (!TextUtils.isEmpty(UserInformation.getUserInfo().getUserName())) {
                         weekendApplyDialog();
                     } else {
@@ -196,7 +202,7 @@ public class Weekend_Details extends BaseActionBarActivity {
                     startActivity(intent2);
                     overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 } else {   //分享
-                    BottomDialog dialog=new BottomDialog(Weekend_Details.this,mDetails.Url,mDetails.Title);
+                    BottomDialog dialog = new BottomDialog(Weekend_Details.this, mDetails.Url, mDetails.Title);
                     dialog.uploadImageUI(Weekend_Details.this);
                 }
                 break;
@@ -218,7 +224,7 @@ public class Weekend_Details extends BaseActionBarActivity {
 
     //报名的对话框
     private void weekendApplyDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         builder.setTitle(R.string.weekend_signup)
                 .setCancelable(false)
                 .setPositiveButton("确定", new weekendApplyDialogClass())
@@ -232,13 +238,13 @@ public class Weekend_Details extends BaseActionBarActivity {
         public void onClick(DialogInterface dialog, int which) {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:// 报名
-                    findService.WeekendSignUp(mWeekendId,handlerSignUp);
+                    findService.WeekendSignUp(mWeekendId, handlerSignUp);
                     break;
             }
         }
     }
 
-    private void setDetailData(){
+    private void setDetailData() {
         //是否可以报名
         tv_weekend_end_datetime.setText(Services.subStr(mDetails.EndDatetime));
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -273,19 +279,19 @@ public class Weekend_Details extends BaseActionBarActivity {
         tv_weekend_start_datetime.setText(Services.subStr(mDetails.StartDatetime));
         tv_weekend_address.setText(mDetails.ActiveAddress);
 
-        if (mDetails.MemberCount>0
-                &&mDetails.ResidentId.equals(UserInformation.getUserInfo().UserId)){
+        if (mDetails.MemberCount > 0
+                && mDetails.ResidentId.equals(UserInformation.getUserInfo().UserId)) {
             btn_weekend_call.setEnabled(false);
             tvCustom.setVisibility(View.GONE);
-        }else{
+        } else {
             tvCustom.setVisibility(View.VISIBLE);
             btn_weekend_call.setEnabled(true);
         }
 
         //图片加载
-        if (mDetails.Img!= null&&mDetails.Img.size()>0) {
-            for (String imageID:mDetails.Img){
-                if (!TextUtils.isEmpty(imageID)){
+        if (mDetails.Img != null && mDetails.Img.size() > 0) {
+            for (String imageID : mDetails.Img) {
+                if (!TextUtils.isEmpty(imageID)) {
                     mImageUrl.add(Services.getImageUrl(imageID));
                 }
             }
@@ -293,16 +299,16 @@ public class Weekend_Details extends BaseActionBarActivity {
         }
     }
 
-    Handler handlerSignUp=new Handler(){
+    Handler handlerSignUp = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     showToast(getResources().getString(R.string.weekend_signup_success));
                     btn_weekend_signup.setEnabled(false);
                     btn_weekend_signup.setText("已报名");
-                    acountService.setIntegralTip(new Handler(),url);
+                    acountService.setIntegralTip(new Handler(), url);
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
@@ -324,7 +330,7 @@ public class Weekend_Details extends BaseActionBarActivity {
                         items[i] = infos.get(i).toString();
                     }
                     //dialog参数设置
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Weekend_Details.this,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);  //先得到构造器
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Weekend_Details.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);  //先得到构造器
                     builder.setTitle(R.string.apply_information); //设置标题
                     //设置列表显示，注意设置了列表显示就不要设置builder.setMessage()了，否则列表不起作用。
                     builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -348,11 +354,11 @@ public class Weekend_Details extends BaseActionBarActivity {
         }
     };
 
-    Handler handlerGetDetail=new Handler(){
+    Handler handlerGetDetail = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     mDetails = (WeekendDetails) msg.obj;
                     setDetailData();
@@ -369,21 +375,21 @@ public class Weekend_Details extends BaseActionBarActivity {
 
 
     //删除周边游
-    Handler handlerDelete=new Handler(){
+    Handler handlerDelete = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     showToast("删除成功");
-                    if (mFromPublish){
+                    if (mFromPublish) {
                         //返回我的发布
-                        Intent intent=new Intent(Weekend_Details.this, PublishActivity.class);
+                        Intent intent = new Intent(Weekend_Details.this, PublishActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                    }else{
+                    } else {
                         //返回我的发布
-                        Intent intent=new Intent(Weekend_Details.this, Weekend.class);
+                        Intent intent = new Intent(Weekend_Details.this, Weekend.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }

@@ -98,6 +98,7 @@ public class PayConfirm extends BaseActionBarActivity implements UnifyPayListene
                 finish();
                 break;
             case R.id.btn_pay_complete:   //查看订单状态，是否支付成功
+                showProgressDialog();
                 service.getNewUnionPayResult(orderId, handlerCallBack);
                 break;
         }
@@ -107,6 +108,7 @@ public class PayConfirm extends BaseActionBarActivity implements UnifyPayListene
     Handler handlerCallBack = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            closeProgressDialog();
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     showToast("支付成功");

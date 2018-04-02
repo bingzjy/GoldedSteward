@@ -447,9 +447,9 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                     getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 } else {
                     Intent intent = new Intent(getActivity(), Browser.class);
-                    intent.putExtra("PAGE_URL", "http://www.goldwg.com:88/mobile/yaoqingwuye");
+                    intent.putExtra("PAGE_URL", "http://p.goldwg.com:88/mobile/yaoqingwuye");
                     intent.putExtra("FROM_CLASS_NAME", getActivity().getClass().getName());
-                    intent.putExtra("PAGE_URL_ORGIN", "http://www.goldwg.com:88/mobile/yaoqingwuye");
+                    intent.putExtra("PAGE_URL_ORGIN", "http://p.goldwg.com:88/mobile/yaoqingwuye");
                     intent.putExtra("PAGE_TITLE_ORGIN", "金牌管家邀请函");
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
@@ -470,9 +470,9 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                     }
                 } else {
                     Intent intent = new Intent(getActivity(), Browser.class);
-                    intent.putExtra("PAGE_URL", "http://www.goldwg.com:88/mobile/yaoqingwuye");
+                    intent.putExtra("PAGE_URL", "http://p.goldwg.com:88/mobile/yaoqingwuye");
                     intent.putExtra("FROM_CLASS_NAME", getActivity().getClass().getName());
-                    intent.putExtra("PAGE_URL_ORGIN", "http://www.goldwg.com:88/mobile/yaoqingwuye");
+                    intent.putExtra("PAGE_URL_ORGIN", "http://p.goldwg.com:88/mobile/yaoqingwuye");
                     intent.putExtra("PAGE_TITLE_ORGIN", "金牌管家邀请函");
                     startActivity(intent);
                 }
@@ -491,9 +491,9 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                     }
                 } else {
                     Intent intent = new Intent(getActivity(), Browser.class);
-                    intent.putExtra("PAGE_URL", "http://www.goldwg.com:88/mobile/yaoqingwuye");
+                    intent.putExtra("PAGE_URL", "http://p.goldwg.com:88/mobile/yaoqingwuye");
                     intent.putExtra("FROM_CLASS_NAME", getActivity().getClass().getName());
-                    intent.putExtra("PAGE_URL_ORGIN", "http://www.goldwg.com:88/mobile/yaoqingwuye");
+                    intent.putExtra("PAGE_URL_ORGIN", "http://p.goldwg.com:88/mobile/yaoqingwuye");
                     intent.putExtra("PAGE_TITLE_ORGIN", "金牌管家邀请函");
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
@@ -512,8 +512,8 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                 break;
             case R.id.bt_open_door:
                 //开门条件：开启门禁、开启蓝牙、入住金管家、有房屋，再请求钥匙，在handle中做处理
-                //  openClick();
-                ladderControlService.getLadderControlKey(handlerGetLadderKey);
+                openClick();
+                //ladderControlService.getLadderControlKey(handlerGetLadderKey);
                 break;
             //邻里通
             case R.id.ll_yellow_infobar:
@@ -718,7 +718,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                 deviceID = currentDevice.getDeviceId();
                 currentDevice.setDevicePsw(minKey.getPassword());
                 Log.e("aaa", "多设备，信号最强开门" + currentDevice.toString() + "  RSSI:" + currentDevice.getRssi());
-                showToast("信号最强设备ID:" + currentDevice.getDeviceId() + "    RSSI:" + currentDevice.getRssi());
                 blueLockPub.oneKeyOpenDevice(currentDevice, currentDevice.getDeviceId(), currentDevice.getDevicePsw());
             }
         } else {
@@ -915,7 +914,14 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         @Override
         public void onImageClick(int position, View imageView) {
             // TODO 单击图片处理事件
-            Log.e(tag, "onImageClick---000000");
+
+        }
+
+
+        @Override
+        public void onImageDataClick(int position, View imageView, List<APPHomePage_Column> mData) {
+            // TODO 单击图片处理事件
+
             if (mData != null && mData.size() > 0 && mData.get(position) != null) {
 
                 if (mData.get(position).TYPES == 3) {
@@ -941,7 +947,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                 }
             }
         }
-
 
         @Override
         public void displayImage(String imageURL, ImageView imageView) {
@@ -979,25 +984,23 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
 
                     mData = rowData.getAPPHomePage_Column();
 
-                    if (rowData.getIsSlide().equals("true")) {    //可以轮播播放
+                    if (rowData.getIsSlide().equals("true")) {    //采用幻灯片的,可以轮播播放
+
+                        for (APPHomePage_Column columnData : rowData.APPHomePage_Column) {
+                            mImageUrl.add(Services.getImageUrl(columnData.getIMGID()));
+                        }
 
                         LinearLayout linearLayout = (LinearLayout) currentHomePageLayout.inflate(R.layout.ly_image_cycle, null);
 
-                        for (APPHomePage_Column columnData : rowData.APPHomePage_Column) {
+                        Integer screenWidth = Utility.getScreenWidthforPX(getActivity());   //设置幻灯片的尺寸
+                        Integer rowHeight = Float.valueOf(screenWidth * rowData.getRowHeightBI() / 100.00F).intValue();
+                        LayoutParams row_lp = new LayoutParams(screenWidth, rowHeight);
+                        row_lp.setMargins(0, 0, 0, Utility.dip2px(getActivity(), 1.0f));
+                        linearLayout.setLayoutParams(row_lp);
+                        mAdView = (ImageCycleView) linearLayout.findViewById(R.id.ad_view);
+                        mAdView.setImageResources(mImageUrl, mAdCycleViewListener, mData);
+                        mAppHomePage.addView(linearLayout);
 
-                            mImageUrl.add(Services.getImageUrl(columnData.getIMGID()));
-                            mAppHomePage.removeAllViews();
-                            //设置幻灯片的尺寸
-                            Integer screenWidth = Utility.getScreenWidthforPX(getActivity());
-                            Integer rowHeight = Float.valueOf(screenWidth * rowData.getRowHeightBI() / 100.00F).intValue();
-                            LayoutParams row_lp = new LayoutParams(screenWidth, rowHeight);
-                            row_lp.setMargins(0, 0, 0, Utility.dip2px(getActivity(), 1.0f));
-                            linearLayout.setLayoutParams(row_lp);
-
-                            mAdView = (ImageCycleView) linearLayout.findViewById(R.id.ad_view);
-                            mAdView.setImageResources(mImageUrl, mAdCycleViewListener);
-                            mAppHomePage.addView(linearLayout);
-                        }
                     } else if (rowData.getIsSlide().equals("false")) {     //不采用幻灯片的，初始化区域、行、列
                         //初始化行，给行填充数据，并添加到mAppHomePage
                         LinearLayout ll_row = initRow(rowData.APPHomePage_Column.size(), Float.parseFloat(rowData.HEIGHTBI));
@@ -1074,7 +1077,6 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         }
         return ll_row;
     }
-
 
     //首页区域，初始化列
     private LinearLayout initColumn(Integer columnCount, APPHomePage_Column column) {

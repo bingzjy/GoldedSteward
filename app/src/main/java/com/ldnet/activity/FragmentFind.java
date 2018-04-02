@@ -214,6 +214,11 @@ public class FragmentFind extends BaseFragment implements OnClickListener {
         }
 
         @Override
+        public void onImageDataClick(int position, View imageView, List<APPHomePage_Column> mData) {
+
+        }
+
+        @Override
         public void displayImage(String imageURL, ImageView imageView) {
             ImageLoader.getInstance().displayImage(imageURL, imageView, imageOptions);// 此处本人使用了ImageLoader对图片进行加装！
         }

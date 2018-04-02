@@ -189,8 +189,7 @@ public class PublishFragment extends BaseFragment {
                                 findService.deleteFreaMarket(publishEntity.Id, handlerDelete);
                                 break;
                             case 3:  //周边游
-                                showProgressDialog();
-                                findService.deleteWeekend(publishEntity.Id, handlerDelete);
+                                  findService.deleteWeekend(publishEntity.Id, handlerDelete);
                                 break;
                         }
                         slvMePublish.closeOpenedItems();
@@ -369,8 +368,7 @@ public class PublishFragment extends BaseFragment {
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     showToast("删除成功");
-                    mDatas.remove(currentPublish);
-                    mAdapter.notifyDataSetChanged();
+                    loadData(false);
                     slvMePublish.closeOpenedItems();
                     break;
                 case BaseService.DATA_FAILURE:

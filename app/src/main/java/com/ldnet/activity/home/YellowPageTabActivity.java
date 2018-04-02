@@ -50,7 +50,7 @@ public class YellowPageTabActivity extends BaseActionBarFragmentActivity impleme
     private ViewPager mYellowPagePager;
     private Integer mCurrentIndex = 0;
 
-    private final String URL_YELLOW=Services.mHost+"API/YellowPages/GetSubSortLstById";
+    private final String URL_YELLOW=Services.mHost+"YellowPages/GetListYellowPagesBySortId/";
     private AcountService acountService;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,7 +81,7 @@ public class YellowPageTabActivity extends BaseActionBarFragmentActivity impleme
 
     //根据分类id获取子分类
     public void getYellowPageSortById(String id) {
-        String url = Services.mHost + "API/YellowPages/GetSubSortLstById/" + id;
+        final String url = Services.mHost + "API/YellowPages/GetSubSortLstById/" + id;
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
         String aa2 = url;
@@ -102,6 +102,7 @@ public class YellowPageTabActivity extends BaseActionBarFragmentActivity impleme
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
                         Log.e("asdsdasd", "getYellowPageSortById:" + s);
+                     //   acountService.setIntegralTip(new Handler(),url);
                         try {
                             JSONObject json = new JSONObject(s);
                             JSONObject jsonObject = new JSONObject(json.getString("Data"));

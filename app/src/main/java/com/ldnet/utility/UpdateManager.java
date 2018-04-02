@@ -133,7 +133,7 @@ public class UpdateManager {
                 return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**

@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.*;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.entities.APPHomePage_Column;
 import com.ldnet.entities.Item;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
@@ -120,6 +121,11 @@ public class CommunityServicesDetails extends BaseActionBarActivity {
 
         @Override
         public void onImageClick(int position, View imageView) {
+
+        }
+
+        @Override
+        public void onImageDataClick(int position, View imageView, List<APPHomePage_Column> mData) {
 
         }
 

@@ -11,8 +11,10 @@ import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
+
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.me.PublishActivity;
+import com.ldnet.entities.APPHomePage_Column;
 import com.ldnet.entities.HouseProperties;
 import com.ldnet.entities.HouseRent;
 import com.ldnet.goldensteward.R;
@@ -24,6 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
 
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,12 +40,12 @@ public class HouseRent_Detail extends BaseActionBarActivity {
             houserent_detail_fitmenttype, houserent_detail_roomtype,
             houserent_detail_floor, houserent_detail_orientation, btn_update,
             houserent_detail_title, houserent_detail_address, houserent_detail_tv_address,
-            tv_page_title,houserent_detail_RoomDeploy;
+            tv_page_title, houserent_detail_RoomDeploy;
     private Button houserent_detail_contracttel;
     private RelativeLayout houserent_detail_rl_address;
     private Services service;
     private ImageButton btn_back;
-    private HouseProperties mHouseProperties=new HouseProperties();
+    private HouseProperties mHouseProperties = new HouseProperties();
     private ImageCycleView vp_house_rent_images;
     private List<View> mImages;
     private PagerAdapter mAdapter;
@@ -72,19 +75,19 @@ public class HouseRent_Detail extends BaseActionBarActivity {
         houseService.getHouseInfo(handlerGetHouseInfo);
 
         //来自房屋租赁
-        houseId=getIntent().getStringExtra("HouseRent_ID");
-        if (!TextUtils.isEmpty(houseId)){
+        houseId = getIntent().getStringExtra("HouseRent_ID");
+        if (!TextUtils.isEmpty(houseId)) {
             showProgressDialog();
             houseService.getHouseRentListById(houseId, handlerHouseResent);
         }
     }
 
-    private void initService(){
+    private void initService() {
         service = new Services();
-        houseService=new HouseRentService(this);
+        houseService = new HouseRentService(this);
     }
 
-    private void initData(){
+    private void initData() {
         //标题
         houserent_detail_title.setText(houseRent.Title);
         //租金
@@ -100,22 +103,21 @@ public class HouseRent_Detail extends BaseActionBarActivity {
 
         try {
             //付钱方式
-            int key5=Integer.parseInt(houseRent.RentType)+1;
+            int key5 = Integer.parseInt(houseRent.RentType) + 1;
             houserent_detail_rentType.setText(mHouseProperties.getRentType().get(key5).getValue());
 
             //装修
-            int key4=Integer.parseInt(houseRent.FitmentType)+1;
+            int key4 = Integer.parseInt(houseRent.FitmentType) + 1;
             houserent_detail_fitmenttype.setText(mHouseProperties.getFitmentType().get(key4).getValue());
             //概况
-            int key3=Integer.parseInt(houseRent.getRoomType())+1;
+            int key3 = Integer.parseInt(houseRent.getRoomType()) + 1;
             houserent_detail_roomtype.setText(mHouseProperties.getRoomType().get(key3).getValue());
             //房屋配置
-            int key2=Integer.parseInt(houseRent.getRoomDeploy())+1;
+            int key2 = Integer.parseInt(houseRent.getRoomDeploy()) + 1;
             houserent_detail_RoomDeploy.setText(mHouseProperties.getRoomDeploy().get(key2).getValue());
             //朝向
-            int key = Integer.parseInt(houseRent.getOrientation())+1;
+            int key = Integer.parseInt(houseRent.getOrientation()) + 1;
             houserent_detail_orientation.setText(mHouseProperties.getOrientation().get(key).getValue());
-
 
 
         } catch (Exception e) {
@@ -132,19 +134,20 @@ public class HouseRent_Detail extends BaseActionBarActivity {
         //图片加载
         if (!TextUtils.isEmpty(houseRent.Images)) {
             for (String imageid : houseRent.Images.split(",")) {
-                if(!TextUtils.isEmpty(imageid)){
+                if (!TextUtils.isEmpty(imageid)) {
                     mImageUrl.add(Services.getImageUrl(imageid));
                 }
             }
             vp_house_rent_images.setImageResources(mImageUrl, mAdCycleViewListener);
         }
     }
-    private void initView(){
+
+    private void initView() {
         btn_back = (ImageButton) findViewById(R.id.btn_back);
         tv_page_title = (TextView) findViewById(R.id.tv_page_title);
         tv_page_title.setText(R.string.houserent_detail_title);
-        houserent_detail_RoomDeploy = (TextView)findViewById(R.id.houserent_detail_RoomDeploy);
-        houserent_detail_rl_address = (RelativeLayout)findViewById(R.id.houserent_detail_rl_address);
+        houserent_detail_RoomDeploy = (TextView) findViewById(R.id.houserent_detail_RoomDeploy);
+        houserent_detail_rl_address = (RelativeLayout) findViewById(R.id.houserent_detail_rl_address);
         houserent_detail_title = (TextView) findViewById(R.id.houserent_detail_title);
         houserent_detail_price = (TextView) findViewById(R.id.houserent_detail_price);
         houserent_detail_rentType = (TextView) findViewById(R.id.houserent_detail_rentType);
@@ -166,15 +169,16 @@ public class HouseRent_Detail extends BaseActionBarActivity {
         linearParams.height = dm.widthPixels / 3 * 2;
         vp_house_rent_images.setLayoutParams(linearParams);
 
-        if (mFromPublish){
+        if (mFromPublish) {
             btn_update.setText("编辑");
             houserent_detail_contracttel.setText("删除信息");
             btn_update.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             houserent_detail_contracttel.setText("拨打电话");
             btn_update.setVisibility(View.GONE);
         }
     }
+
     public void initEvent() {
         btn_back.setOnClickListener(this);
         btn_update.setOnClickListener(this);
@@ -185,6 +189,11 @@ public class HouseRent_Detail extends BaseActionBarActivity {
 
         @Override
         public void onImageClick(int position, View imageView) {
+
+        }
+
+        @Override
+        public void onImageDataClick(int position, View imageView, List<APPHomePage_Column> mData) {
 
         }
 
@@ -210,18 +219,18 @@ public class HouseRent_Detail extends BaseActionBarActivity {
                 break;
             case R.id.houserent_detail_contracttel://如果来自我的发布跳转到编辑
                 if (mFromPublish) {
-                    houseService.deleteHouseRent(houseId,handlerDelete);
+                    houseService.deleteHouseRent(houseId, handlerDelete);
                 } else {
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + houseRent.ContactTel));
                     startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_from_left,R.anim.slide_out_to_right);
+                    overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 }
                 break;
             case R.id.btn_update:
                 Intent intent = new Intent(this, HouseRentUpdate.class);
                 intent.putExtra("HouseRent", houseRent);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_from_left,R.anim.slide_out_to_right);
+                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             default:
                 break;
@@ -242,20 +251,20 @@ public class HouseRent_Detail extends BaseActionBarActivity {
             }
 
             return false;
-        }else {
+        } else {
             return super.onKeyDown(keyCode, event);
         }
     }
 
     //获取房屋租赁
-    Handler handlerHouseResent=new Handler(){
+    Handler handlerHouseResent = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             closeProgressDialog();
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
-                    houseRent= (HouseRent) msg.obj;
+                    houseRent = (HouseRent) msg.obj;
                     initData();
                     break;
             }
@@ -264,21 +273,21 @@ public class HouseRent_Detail extends BaseActionBarActivity {
 
 
     //删除房屋租赁、邻里通、周边游、闲置物品
-    Handler handlerDelete=new Handler(){
+    Handler handlerDelete = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
                     showToast("删除成功");
-                    if (mFromPublish){
+                    if (mFromPublish) {
                         //返回我的发布
-                        Intent intent=new Intent(HouseRent_Detail.this, PublishActivity.class);
+                        Intent intent = new Intent(HouseRent_Detail.this, PublishActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                    }else{
+                    } else {
                         //返回我的房屋租赁列表
-                        Intent intent=new Intent(HouseRent_Detail.this, HouseRent_List.class);
+                        Intent intent = new Intent(HouseRent_Detail.this, HouseRent_List.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
@@ -307,7 +316,7 @@ public class HouseRent_Detail extends BaseActionBarActivity {
     }
 
 
-    Handler handlerGetHouseInfo=new Handler(){
+    Handler handlerGetHouseInfo = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);

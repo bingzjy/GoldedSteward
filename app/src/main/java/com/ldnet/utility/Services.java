@@ -39,22 +39,23 @@ public class Services {
 
     // 服务器主机地址及端口
     // 测试环境
-//    public final static String mHost1 = "http://192.168.0.105:8080/";
-//    public final static String mHost = "http://192.168.0.105:8042/";
-//    public final static String mImageHost = "http://192.168.0.105:8042/api/file/images/%s";
-//    public final static String mCommunicationUrl = "http://192.168.0.105:8080";
-//    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
-//    public final static String mInvitationUrl = "http://192.168.0.105:8082/Invitation?UserID=%s";
-//    public final static String mPayCallBackTaoBao = "http://192.168.0.105:8042/BOrder/PayCallBack";
+    public final static String mHost1 = "http://192.168.0.105:8080/";
+    public final static String mHost = "http://192.168.0.105:8042/";
+    public final static String mImageHost = "http://192.168.0.105:8042/api/file/images/%s";
+    public final static String mCommunicationUrl = "http://192.168.0.105:8080";
+    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
+    public final static String mInvitationUrl = "http://192.168.0.105:8082/Invitation?UserID=%s";
+    public final static String mPayCallBackTaoBao = "http://192.168.0.105:8042/BOrder/PayCallBack";
+
 
     // 正式环境
-    public final static String mHost1 = "http://p.goldwg.com/";
-    public final static String mHost = "http://apifive.goldwg.com/";
-    public final static String mImageHost = "http://apifive.goldwg.com/api/file/images/%s";
-    public final static String mCommunicationUrl = "http://p.goldwg.com";
-    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
-    public final static String mInvitationUrl = "http://www.goldwg.com:85/Invitation?UserID=%s";
-    public final static String mPayCallBackTaoBao = "http://apifive.goldwg.com/BOrder/PayCallBack";
+//    public final static String mHost1 = "http://p.goldwg.com/";
+//    public final static String mHost = "http://apifive.goldwg.com/";
+//    public final static String mImageHost = "http://apifive.goldwg.com/api/file/images/%s";
+//    public final static String mCommunicationUrl = "http://p.goldwg.com";
+//    public final static String mPaidUrl = "http://p.goldwg.com/Property/Fee/AppPay?feeHistoryIds=%s&payerId=%s";
+//    public final static String mInvitationUrl = "http://www.goldwg.com:85/Invitation?UserID=%s";
+//    public final static String mPayCallBackTaoBao = "http://apifive.goldwg.com/BOrder/PayCallBack";
 
     // 分享好友页面
     public final static String mSharePageUrl = "http://www.goldwg.com:85/Invitation?UserID=%s";

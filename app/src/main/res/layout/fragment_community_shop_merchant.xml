@@ -1,0 +1,216 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll_merchant_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_12dp"
+        android:paddingTop="@dimen/dimen_12dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_15dp"
+            android:src="@drawable/ic_address" />
+
+        <TextView
+            android:id="@+id/tv_address_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:text="商家地址："
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15dp"
+            android:src="@drawable/arrow_gray_right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_merchant_tel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_12dp"
+        android:paddingTop="@dimen/dimen_12dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_15dp"
+            android:src="@drawable/ic_tel" />
+
+        <TextView
+            android:id="@+id/tv_telephone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:text="商家电话："
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15dp"
+            android:src="@drawable/arrow_gray_right" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_merchant_business_qualification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_12dp"
+        android:paddingTop="@dimen/dimen_12dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_15dp"
+            android:src="@drawable/ic_certificate" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:text="@string/business_qualification"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15dp"
+            android:src="@drawable/arrow_gray_right" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_10dp"
+        android:background="@color/gray_back" />
+
+    <LinearLayout
+        android:id="@+id/ll_merchant_distribution_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_12dp"
+        android:paddingTop="@dimen/dimen_12dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_15dp"
+            android:src="@drawable/ic_car" />
+
+        <TextView
+            android:id="@+id/tv_distribution_address"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:text="配送范围："
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15dp"
+            android:src="@drawable/arrow_gray_right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_merchant_distribution_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_12dp"
+        android:paddingTop="@dimen/dimen_12dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_15dp"
+            android:src="@drawable/ic_time" />
+
+        <TextView
+            android:id="@+id/tv_distribution_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:text="配送时间："
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15dp"
+            android:src="@drawable/arrow_gray_right" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_12dp"
+        android:paddingTop="@dimen/dimen_12dp">
+
+        <ImageView
+            android:id="@+id/iv_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_15dp"
+            android:src="@drawable/ic_notification" />
+
+        <TextView
+            android:id="@+id/tv_notification_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_notification"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:text="@string/notification"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <TextView
+            android:id="@+id/tv_notification_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_notification_title"
+            android:layout_toRightOf="@+id/iv_notification"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:paddingRight="@dimen/dimen_15dp"
+            android:paddingTop="11dp"
+            android:text="shshhhhshdhsvjkfkdfjvnjdfgvjfcnvjcnjvfdjnvjcnjfnjdnjfnvjnfdjnjvdhhd"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -32,6 +32,7 @@ import com.intelligoo.sdk.ScanCallBackSort;
 import com.intelligoo.sdk.ScanCallback;
 import com.ldnet.activity.adapter.*;
 import com.ldnet.activity.base.BaseFragment;
+import com.ldnet.activity.communityshop.CommunityShopMainActivity;
 import com.ldnet.activity.home.*;
 import com.ldnet.activity.informationpublish.CommunityInfoBarMainActivity;
 import com.ldnet.activity.mall.GoodsList;
@@ -132,6 +133,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     private static SoundPool soundPool;
     private Timer timer;
     private TimerTask timerTask;
+    private HashMap<String, LCDevice> lcDeviceHashMap = new HashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -298,7 +300,10 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         iv_home_ads.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                goodsService.communityshops(handlerCommunityShop);
+                Intent intent = new Intent(getActivity(), CommunityShopMainActivity.class);
+                startActivity(intent);
+
+                //goodsService.communityshops(handlerCommunityShop);
             }
         });
 
@@ -512,8 +517,9 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
                 break;
             case R.id.bt_open_door:
                 //开门条件：开启门禁、开启蓝牙、入住金管家、有房屋，再请求钥匙，在handle中做处理
-                openClick();
+                //  openClick();
                 //ladderControlService.getLadderControlKey(handlerGetLadderKey);
+                entranceGuardService.getGateInfo(new Handler());
                 break;
             //邻里通
             case R.id.ll_yellow_infobar:
@@ -1455,7 +1461,11 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
             super.handleMessage(msg);
             switch (msg.what) {
                 case BaseService.DATA_SUCCESS:
-                    showToast(msg.obj.toString());
+                    List<LCDevice> lcDevices = (List<LCDevice>) msg.obj;
+                    lcDeviceHashMap = getHashLCDevice(lcDevices);
+                    startScanElevator();
+                    break;
+                case BaseService.DATA_SUCCESS_OTHER:
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
@@ -1537,11 +1547,25 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     }
 
 
-    //梯控
+    /*
+    *
+    * 测试梯控
+    * lcDeviceHashMap：后台请求设备信息<String,LCDevice>
+    *
+    * */
+    //梯控扫描结果
     ScanCallBackSort scanCallBack = new ScanCallBackSort() {
         @Override
         public void onScanResult(ArrayList<Map<String, Integer>> arrayList) {
-
+            for (Map<String, Integer> map : arrayList) {
+                for (String sn : map.keySet()) {
+                    LCDevice lcDevice = lcDeviceHashMap.get(sn);
+                    if (lcDevice != null) {
+                        LibDevModel libDevModel = getLibDevModel(lcDevice);
+                        openElevator(libDevModel);
+                    }
+                }
+            }
         }
 
         @Override
@@ -1551,6 +1575,7 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
     };
 
 
+    //梯控开门回调
     LibInterface.ManagerCallback openCallBack = new LibInterface.ManagerCallback() {
         @Override
         public void setResult(int i, Bundle bundle) {
@@ -1580,6 +1605,24 @@ public class FragmentHome extends BaseFragment implements OnClickListener, Borde
         int ret = LibDevModel.openDoor(getActivity(), device, openCallBack);
     }
 
+    private LibDevModel getLibDevModel(LCDevice lcDevice) {
+        LibDevModel libDevModel = new LibDevModel();
+        libDevModel.devMac = lcDevice.devMac;
+        libDevModel.devSn = lcDevice.devSN;
+        libDevModel.eKey = lcDevice.devEkey;
+        libDevModel.devType = Integer.parseInt(lcDevice.devType);
+
+        return libDevModel;
+    }
+
+
+    private HashMap<String, LCDevice> getHashLCDevice(List<LCDevice> list) {
+        HashMap<String, LCDevice> hashMap = new HashMap<>();
+        for (LCDevice lcDevice : list) {
+            hashMap.put(lcDevice.devSN, lcDevice);
+        }
+        return hashMap;
+    }
 
 }
 

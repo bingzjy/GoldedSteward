@@ -27,6 +27,8 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.Request;
+
 
 /**
  * Created by lee on 2017/10/22
@@ -145,6 +147,11 @@ public class OrderService extends BaseService {
                         .addParams("str",object.toString())
                         .build()
                         .execute(new DataCallBack(mContext, handler) {
+
+                            @Override
+                            public void onBefore(Request request, int id) {
+                                Log.e(tag, "addPurchaseCar-onBefore--params:" + object.toString());
+                            }
 
                             @Override
                             public void onResponse(String s, int i) {

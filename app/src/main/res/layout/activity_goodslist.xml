@@ -6,33 +6,38 @@
 
 
     <include layout="@layout/activity_second_titlebar_textbutton" />
+
     <com.library.PullToRefreshScrollView
-            android:background="#EEEEEE"
-            android:id="@+id/main_act_scrollview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:id="@+id/main_act_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EEEEEE">
+
         <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <TextView
-                    android:id="@+id/tv_goods_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/dimen_104dp"
-                    android:drawablePadding="@dimen/dimen_24dp"
-                    android:drawableTop="@drawable/default_null_data"
-                    android:padding="@dimen/dimen_24dp"
-                    android:text="@string/response_data_isNull"
-                    android:textColor="@color/gray_text"
-                    android:visibility="gone"/>
+                android:id="@+id/tv_goods_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dimen_104dp"
+                android:drawablePadding="@dimen/dimen_24dp"
+                android:drawableTop="@drawable/default_null_data"
+                android:padding="@dimen/dimen_24dp"
+                android:text="@string/response_data_isNull"
+                android:textColor="@color/gray_text"
+                android:visibility="gone"
+                />
+
             <ListView
-                    android:id="@+id/goods_list"
-                    android:background="@drawable/border_top_bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-            </ListView>
+                android:id="@+id/goods_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_top_bottom"></ListView>
         </LinearLayout>
 
     </com.library.PullToRefreshScrollView>

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ldnet.entities.FreaMarket;
@@ -22,31 +23,34 @@ import com.ldnet.utility.DataCallBack;
 import com.ldnet.utility.Services;
 import com.ldnet.utility.UserInformation;
 import com.zhy.http.okhttp.OkHttpUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
+
 import okhttp3.Request;
 
 /**
  * Created by lee on 2017/10/26
  */
 
-public class FindService extends BaseService  {
+public class FindService extends BaseService {
 
-    private String tag=FindService.class.getSimpleName();
+    private String tag = FindService.class.getSimpleName();
 
     public FindService(Context context) {
-        this.mContext=context;
+        this.mContext = context;
     }
 
     //获取我的发布
-    public void getMyPublish(final String lastId,final Handler handler){
+    public void getMyPublish(final String lastId, final Handler handler) {
         // 请求的URL
         String url = Services.mHost + "API/Resident/GetMyPublish/%s?lastId=%s";
         url = String.format(url, UserInformation.getUserInfo().UserId, lastId);
-        OkHttpService.get(url).execute(new DataCallBack(mContext,handler) {
+        OkHttpService.get(url).execute(new DataCallBack(mContext, handler) {
 
             @Override
             public void onBefore(Request request, int id) {
@@ -60,23 +64,23 @@ public class FindService extends BaseService  {
                 Log.e(tag, "getMyPublish:" + s);
                 try {
                     JSONObject json = new JSONObject(s);
-                    if (checkJsonData(s,handler)){
+                    if (checkJsonData(s, handler)) {
                         JSONObject jsonObject = new JSONObject(json.getString("Data"));
                         if (jsonObject.getBoolean("Valid")) {
                             Gson gson = new Gson();
                             Type type = new TypeToken<List<com.ldnet.entities.Publish>>() {
                             }.getType();
                             List<com.ldnet.entities.Publish> datas = gson.fromJson(jsonObject.getString("Obj"), type);
-                            if (datas!=null&&datas.size()>0){
-                                Message msg=handler.obtainMessage();
-                                msg.what=DATA_SUCCESS;
-                                msg.obj=datas;
+                            if (datas != null && datas.size() > 0) {
+                                Message msg = handler.obtainMessage();
+                                msg.what = DATA_SUCCESS;
+                                msg.obj = datas;
                                 handler.sendMessage(msg);
-                            }else{
+                            } else {
                                 handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
                             }
-                        }else{
-                            sendErrorMessage(handler,jsonObject);
+                        } else {
+                            sendErrorMessage(handler, jsonObject);
                         }
                     }
                 } catch (JSONException e) {
@@ -87,34 +91,34 @@ public class FindService extends BaseService  {
     }
 
     //获取周末详情
-    public void getWeekendDetail(final String id,final Handler handler){
+    public void getWeekendDetail(final String id, final Handler handler) {
         // 请求的URL
         String url = Services.mHost + "API/Resident/GetWeekendById/%s?residentId=%s";
         url = String.format(url, id, UserInformation.getUserInfo().UserId);
-       OkHttpService.get(url)
-                .execute(new DataCallBack(mContext,handler) {
+        OkHttpService.get(url)
+                .execute(new DataCallBack(mContext, handler) {
 
                     @Override
                     public void onResponse(String s, int i) {
                         Log.e(tag, "getWeekendDetail:" + s);
                         try {
                             JSONObject json = new JSONObject(s);
-                            if (checkJsonData(s,handler)){
+                            if (checkJsonData(s, handler)) {
                                 JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                                if (jsonObject.optBoolean("Valid")){
+                                if (jsonObject.optBoolean("Valid")) {
                                     Gson gson = new Gson();
                                     WeekendDetails details = gson.fromJson(jsonObject.getString("Obj"),
                                             WeekendDetails.class);
-                                    if (details!=null){
-                                        Message msg=handler.obtainMessage();
-                                        msg.what=DATA_SUCCESS;
-                                        msg.obj=details;
+                                    if (details != null) {
+                                        Message msg = handler.obtainMessage();
+                                        msg.what = DATA_SUCCESS;
+                                        msg.obj = details;
                                         handler.sendMessage(msg);
-                                    }else{
-                                        sendErrorMessage(handler,"暂无详细信息");
+                                    } else {
+                                        sendErrorMessage(handler, "暂无详细信息");
                                     }
-                                }else{
-                                    sendErrorMessage(handler,jsonObject);
+                                } else {
+                                    sendErrorMessage(handler, jsonObject);
                                 }
                             }
                         } catch (JSONException e) {
@@ -125,12 +129,13 @@ public class FindService extends BaseService  {
     }
 
     //获取周边游列表
-    public void getWeekendList(final String id,final Handler handler){
+    public void getWeekendList(final String id, final Handler handler) {
         // 请求的URL
         String url = Services.mHost + "API/Resident/GetWeekendByLastId/%s?lastId=%s";
-        url = String.format(url, UserInformation.getUserInfo().getCommuntiyCityId(), id);
-       OkHttpService.get(url)
-                .execute(new DataCallBack(mContext,handler) {
+    //    url = String.format(url, UserInformation.getUserInfo().getCommuntiyCityId(), id);
+        url = String.format(url,"0", id);
+        OkHttpService.get(url)
+                .execute(new DataCallBack(mContext, handler) {
 
                     @Override
                     public void onResponse(String s, int i) {
@@ -138,28 +143,28 @@ public class FindService extends BaseService  {
                         Log.e(tag, "getWeekendList:" + s);
                         try {
                             JSONObject json = new JSONObject(s);
-                            if (checkJsonData(s,handler)){
+                            if (checkJsonData(s, handler)) {
                                 JSONObject jsonObject = new JSONObject(json.getString("Data"));
                                 if (jsonObject.getBoolean("Valid")) {
                                     Gson gson = new Gson();
                                     Type type = new TypeToken<List<com.ldnet.entities.Weekend>>() {
                                     }.getType();
 
-                                    if (!jsonObject.getString("Obj").equals("null")){
+                                    if (!jsonObject.getString("Obj").equals("null")) {
                                         List<com.ldnet.entities.Weekend> datas = gson.fromJson(jsonObject.getString("Obj"), type);
-                                        if (datas!=null&&datas.size()>0){
-                                            Message msg=handler.obtainMessage();
-                                            msg.what=DATA_SUCCESS;
-                                            msg.obj=datas;
+                                        if (datas != null && datas.size() > 0) {
+                                            Message msg = handler.obtainMessage();
+                                            msg.what = DATA_SUCCESS;
+                                            msg.obj = datas;
                                             handler.sendMessage(msg);
-                                        }else{
+                                        } else {
                                             handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
                                         }
-                                    }else{
+                                    } else {
                                         handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
                                     }
-                                }else{
-                                    sendErrorMessage(handler,jsonObject);
+                                } else {
+                                    sendErrorMessage(handler, jsonObject);
                                 }
                             }
 
@@ -171,8 +176,8 @@ public class FindService extends BaseService  {
     }
 
     //发布周边游
-    public void weekendCreate(final String title,final String sDatetime,final String eDatetime,final String address,
-                              final String cost,final String imageIds,final String content,final Handler handler){
+    public void weekendCreate(final String title, final String sDatetime, final String eDatetime, final String address,
+                              final String cost, final String imageIds, final String content, final Handler handler) {
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
         // 请求的URL
@@ -211,19 +216,19 @@ public class FindService extends BaseService  {
                 .addParams("ContractTel", user.getUserPhone())
                 .addParams("CityId", user.getCommuntiyCityId())
                 .addParams("ResidentId", user.getUserId())
-                .build().execute(new DataCallBack(mContext,handler) {
+                .build().execute(new DataCallBack(mContext, handler) {
 
             @Override
             public void onResponse(String s, int i) {
-                Log.e(tag,"weekendCreate:"+s);
+                Log.e(tag, "weekendCreate:" + s);
                 try {
                     JSONObject json = new JSONObject(s);
-                    if (checkJsonData(s,handler)){
+                    if (checkJsonData(s, handler)) {
                         JSONObject jsonObject = new JSONObject(json.getString("Data"));
                         if (jsonObject.getBoolean("Valid")) {
                             handler.sendEmptyMessage(DATA_SUCCESS);
                         } else {
-                            sendErrorMessage(handler,jsonObject);
+                            sendErrorMessage(handler, jsonObject);
                         }
                     }
                 } catch (JSONException e) {
@@ -232,9 +237,10 @@ public class FindService extends BaseService  {
             }
         });
     }
+
     //更新周边游
-    public void weekendUpdate( final String id,  final String title,  final String sDatetime,  final String eDatetime,
-                               final String address,  final String cost,  final String imageIds,  final String content,final Handler handler){
+    public void weekendUpdate(final String id, final String title, final String sDatetime, final String eDatetime,
+                              final String address, final String cost, final String imageIds, final String content, final Handler handler) {
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
         // 请求的URL
@@ -276,18 +282,18 @@ public class FindService extends BaseService  {
                 .addParams("ContractTel", user.getUserPhone())
                 .addParams("CityId", user.getCommuntiyCityId())
                 .addParams("ResidentId", user.getUserId())
-                .build().execute(new DataCallBack(mContext,handler) {
+                .build().execute(new DataCallBack(mContext, handler) {
             @Override
             public void onResponse(String s, int i) {
                 Log.e(tag, "weekendUpdate:" + s);
                 try {
                     JSONObject json = new JSONObject(s);
-                    if (checkJsonData(s,handler)){
+                    if (checkJsonData(s, handler)) {
                         JSONObject jsonObject = new JSONObject(json.getString("Data"));
                         if (jsonObject.getBoolean("Valid")) {
                             handler.sendEmptyMessage(DATA_SUCCESS);
                         } else {
-                            sendErrorMessage(handler,jsonObject);
+                            sendErrorMessage(handler, jsonObject);
                         }
                     }
                 } catch (JSONException e) {
@@ -298,42 +304,43 @@ public class FindService extends BaseService  {
     }
 
     //获取闲置物品列表
-    public void getFreaMarketList(final String lastID,final Handler handler){
+    public void getFreaMarketList(final String lastID, final Handler handler) {
         // 请求的URL
         String url = Services.mHost + "API/Resident/GetUnusedGoodsList/%s?lastId=%s";
-        url = String.format(url, UserInformation.getUserInfo().CommuntiyCityId, lastID);
+      //  url = String.format(url, UserInformation.getUserInfo().CommuntiyCityId, lastID);
+        url = String.format(url,"0", lastID);
         OkHttpService.get(url)
-                .execute(new DataCallBack(mContext,handler) {
+                .execute(new DataCallBack(mContext, handler) {
 
                     @Override
                     public void onResponse(String s, int i) {
-                        super.onResponse(s,i);
+                        super.onResponse(s, i);
                         Log.e(tag, "getFreaMarketList:" + s);
                         try {
                             JSONObject json = new JSONObject(s);
-                            if (checkJsonData(s,handler)){
+                            if (checkJsonData(s, handler)) {
                                 JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                                    if (jsonObject.getBoolean("Valid")) {
-                                        Gson gson = new Gson();
-                                        Type type = new TypeToken<List<FreaMarket>>() {
-                                        }.getType();
+                                if (jsonObject.getBoolean("Valid")) {
+                                    Gson gson = new Gson();
+                                    Type type = new TypeToken<List<FreaMarket>>() {
+                                    }.getType();
 
-                                        if (!jsonObject.getString("Obj").equals("null")) {
-                                            List<FreaMarket> datas = gson.fromJson(jsonObject.getString("Obj"), type);
-                                            if (datas != null && datas.size() > 0) {
-                                                Message msg = handler.obtainMessage();
-                                                msg.what = DATA_SUCCESS;
-                                                msg.obj = datas;
-                                                handler.sendMessage(msg);
-                                            } else {
-                                                handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
-                                            }
-                                        }else{
+                                    if (!jsonObject.getString("Obj").equals("null")) {
+                                        List<FreaMarket> datas = gson.fromJson(jsonObject.getString("Obj"), type);
+                                        if (datas != null && datas.size() > 0) {
+                                            Message msg = handler.obtainMessage();
+                                            msg.what = DATA_SUCCESS;
+                                            msg.obj = datas;
+                                            handler.sendMessage(msg);
+                                        } else {
                                             handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
                                         }
-                                    }else{
-                                        sendErrorMessage(handler,jsonObject);
+                                    } else {
+                                        handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
                                     }
+                                } else {
+                                    sendErrorMessage(handler, jsonObject);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -342,35 +349,36 @@ public class FindService extends BaseService  {
                 });
     }
 
+
     //获取闲置物品详情
-    public void getFreaMarketDetails(String id,final Handler handler) {
+    public void getFreaMarketDetails(String id, final Handler handler) {
         // 请求的URL
         String url = Services.mHost + "API/Resident/GetUnusedGoodsById/%s?residentId=%s";
         url = String.format(url, id, UserInformation.getUserInfo().UserId);
         OkHttpService.get(url)
-                .execute(new DataCallBack(mContext,handler) {
+                .execute(new DataCallBack(mContext, handler) {
 
                     @Override
                     public void onResponse(String s, int i) {
                         Log.e(tag, "FreaMarketDetails:" + s);
                         try {
                             JSONObject json = new JSONObject(s);
-                            if (checkJsonData(s,handler)){
+                            if (checkJsonData(s, handler)) {
                                 JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                                if (jsonObject.optBoolean("Valid")){
+                                if (jsonObject.optBoolean("Valid")) {
                                     Gson gson = new Gson();
                                     FreaMarketDetails details = gson.fromJson(jsonObject.getString("Obj"),
                                             FreaMarketDetails.class);
-                                    if (details!=null){
-                                        Message msg=handler.obtainMessage();
-                                        msg.what=DATA_SUCCESS;
-                                        msg.obj=details;
+                                    if (details != null) {
+                                        Message msg = handler.obtainMessage();
+                                        msg.what = DATA_SUCCESS;
+                                        msg.obj = details;
                                         handler.sendMessage(msg);
-                                    }else{
-                                        sendErrorMessage(handler,"暂无商品信息");
+                                    } else {
+                                        sendErrorMessage(handler, "暂无商品信息");
                                     }
-                                }else{
-                                    sendErrorMessage(handler,jsonObject);
+                                } else {
+                                    sendErrorMessage(handler, jsonObject);
                                 }
                             }
                         } catch (JSONException e) {
@@ -381,8 +389,8 @@ public class FindService extends BaseService  {
     }
 
     //修改闲置物品
-    public void updateUnUsedGoods(final String id,final String title,final String content,
-                                  final String imageIds,final String newPrice,final String thinkPrice,
+    public void updateUnUsedGoods(final String id, final String title, final String content,
+                                  final String imageIds, final String newPrice, final String thinkPrice,
                                   final Handler handler) {
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
@@ -425,19 +433,19 @@ public class FindService extends BaseService  {
                 .addParams("CityId", user.getCommuntiyCityId())
                 .addParams("ResidentId", user.getUserId())
                 .addParams("CommunityId", user.getCommunityId())
-                .build().execute(new DataCallBack(mContext,handler) {
+                .build().execute(new DataCallBack(mContext, handler) {
 
             @Override
             public void onResponse(String s, int i) {
                 Log.e(tag, "updateUnUsedGoods:" + s);
                 try {
                     JSONObject json = new JSONObject(s);
-                    if (checkJsonData(s,handler)){
+                    if (checkJsonData(s, handler)) {
                         JSONObject jsonObject = new JSONObject(json.getString("Data"));
                         if (jsonObject.getBoolean("Valid")) {
                             handler.sendEmptyMessage(DATA_SUCCESS);
                         } else {
-                            sendErrorMessage(handler,jsonObject);
+                            sendErrorMessage(handler, jsonObject);
                         }
                     }
                 } catch (JSONException e) {
@@ -446,8 +454,9 @@ public class FindService extends BaseService  {
             }
         });
     }
+
     //发布闲置物品
-    public void FreaMarketCreate(final String title,final String content,final String imageIds,final String newPrice,final String thinkPrice, final Handler handler) {
+    public void FreaMarketCreate(final String title, final String content, final String imageIds, final String newPrice, final String thinkPrice, final Handler handler) {
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
         // 请求的URL
@@ -485,20 +494,20 @@ public class FindService extends BaseService  {
                 .addParams("CityId", user.getCommuntiyCityId())
                 .addParams("ResidentId", user.getUserId())
                 .addParams("CommunityId", user.getCommunityId())
-                .build().execute(new DataCallBack(mContext,handler) {
+                .build().execute(new DataCallBack(mContext, handler) {
 
             @Override
             public void onResponse(String s, int i) {
-                Log.e(tag, "FreaMarketCreate---params:" +imageIds);
+                Log.e(tag, "FreaMarketCreate---params:" + imageIds);
                 Log.e(tag, "FreaMarketCreate：" + s);
                 try {
                     JSONObject json = new JSONObject(s);
-                    if (checkJsonData(s,handler)){
+                    if (checkJsonData(s, handler)) {
                         JSONObject jsonObject = new JSONObject(json.getString("Data"));
                         if (jsonObject.getBoolean("Valid")) {
                             handler.sendEmptyMessage(DATA_SUCCESS);
                         } else {
-                           sendErrorMessage(handler,jsonObject);
+                            sendErrorMessage(handler, jsonObject);
                         }
                     }
                 } catch (JSONException e) {
@@ -510,7 +519,7 @@ public class FindService extends BaseService  {
     }
 
     //删除闲置物品
-    public void deleteFreaMarket(final String id,final Handler handler){
+    public void deleteFreaMarket(final String id, final Handler handler) {
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
         // 请求的URL
@@ -530,7 +539,7 @@ public class FindService extends BaseService  {
                         (md5))
                 .addParams("id", id)
                 .build()
-                .execute(new DataCallBack(mContext,handler) {
+                .execute(new DataCallBack(mContext, handler) {
 
                     @Override
                     public void onResponse(String s, int i) {
@@ -553,7 +562,7 @@ public class FindService extends BaseService  {
     }
 
     //删除周边游
-    public void deleteWeekend(final String id,final Handler handler){
+    public void deleteWeekend(final String id, final Handler handler) {
         // 请求的URL
         String url = Services.mHost + "API/Resident/DeleteWeekendById/%s";
         url = String.format(url, id);
@@ -568,7 +577,7 @@ public class FindService extends BaseService  {
                 .addHeader("signature", Services.textToMD5L32(md5))
                 .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo())
                 .build()
-                .execute(new DataCallBack(mContext,handler) {
+                .execute(new DataCallBack(mContext, handler) {
 
                     @Override
                     public void onResponse(String s, int i) {
@@ -591,11 +600,11 @@ public class FindService extends BaseService  {
     }
 
     //获取资讯分类
-    public void getInfomationTypes(final Handler handler){
+    public void getInfomationTypes(final Handler handler) {
         //请求的URL
         String url = Services.mHost + "Information/Sel_TypeList";
         OkHttpService.get(url)
-                .execute(new DataCallBack(mContext,handler) {
+                .execute(new DataCallBack(mContext, handler) {
 
                     @Override
                     public void onResponse(String s, int i) {
@@ -603,23 +612,23 @@ public class FindService extends BaseService  {
                         Log.e(tag, "getInfomationTypes:" + s);
                         try {
                             JSONObject json = new JSONObject(s);
-                            if (checkJsonData(s,handler)){
+                            if (checkJsonData(s, handler)) {
                                 JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                                if (jsonObject.optBoolean("Valid")){
-                                    if (!jsonObject.opt("Obj").equals("null")){
+                                if (jsonObject.optBoolean("Valid")) {
+                                    if (!jsonObject.opt("Obj").equals("null")) {
                                         Gson gson = new Gson();
                                         Type type = new TypeToken<List<InformationType>>() {
                                         }.getType();
                                         List<InformationType> datas = gson.fromJson(jsonObject.getString("Obj"), type);
-                                        if (datas!=null&&datas.size()>0){
-                                            Message msg=handler.obtainMessage();
-                                            msg.obj=datas;
-                                            msg.what=DATA_SUCCESS;
+                                        if (datas != null && datas.size() > 0) {
+                                            Message msg = handler.obtainMessage();
+                                            msg.obj = datas;
+                                            msg.what = DATA_SUCCESS;
                                             handler.sendMessage(msg);
-                                        }else{
+                                        } else {
                                             handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
                                         }
-                                    }else{
+                                    } else {
                                         handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
                                     }
                                 }
@@ -632,52 +641,52 @@ public class FindService extends BaseService  {
     }
 
     //生活资讯 - 根据分类获取
-    public void getInformationsByType(final String typeId, final String lastId, final String uid, final String name, final String imageId ,final Handler handler) {
-            //请求的URL
-            String url = Services.mHost + "Information/Sel_PageList?LastID=%s&PageCnt=%s&TypeID=%s&UID=%s&UName=%s&UImgID=%s";
-            url = String.format(url, lastId, Services.PAGE_SIZE, typeId, uid, name, imageId);
-            String aa = Services.timeFormat();
-            String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
-            String aa2 = url;
-            String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + aa2 + Services.TOKEN;
-            OkHttpUtils.get().url(url)
-                    .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
-                    .addHeader("timestamp", aa)
-                    .addHeader("nonce", aa1)
-                    .addHeader("signature", Services.textToMD5L32(md5))
-                    .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo()).build()
-                    .execute(new DataCallBack(mContext,handler) {
+    public void getInformationsByType(final String typeId, final String lastId, final String uid, final String name, final String imageId, final Handler handler) {
+        //请求的URL
+        String url = Services.mHost + "Information/Sel_PageList?LastID=%s&PageCnt=%s&TypeID=%s&UID=%s&UName=%s&UImgID=%s";
+        url = String.format(url, lastId, Services.PAGE_SIZE, typeId, uid, name, imageId);
+        String aa = Services.timeFormat();
+        String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
+        String aa2 = url;
+        String md5 = UserInformation.getUserInfo().getUserPhone() + aa + aa1 + aa2 + Services.TOKEN;
+        OkHttpUtils.get().url(url)
+                .addHeader("phone", UserInformation.getUserInfo().getUserPhone())
+                .addHeader("timestamp", aa)
+                .addHeader("nonce", aa1)
+                .addHeader("signature", Services.textToMD5L32(md5))
+                .addHeader("Cookie", CookieInformation.getUserInfo().getCookieinfo()).build()
+                .execute(new DataCallBack(mContext, handler) {
 
-                        @Override
-                        public void onResponse(String s, int i) {
-                            super.onResponse(s, i);
-                            Log.e(tag, "F   GetInformationsByType:" + s);
-                            try {
-                                JSONObject json = new JSONObject(s);
-                                if (checkJsonData(s, handler)) {
-                                    JSONObject jsonObject = new JSONObject(json.getString("Data"));
-                                    if (jsonObject.getBoolean("Valid")) {
-                                        Gson gson = new Gson();
-                                        Type type = new TypeToken<List<Information>>() {
-                                        }.getType();
-                                        List<Information> datas = gson.fromJson(jsonObject.getString("Obj"), type);
-                                        if (datas != null && datas.size() > 0) {
-                                            Message msg = handler.obtainMessage();
-                                            msg.obj = datas;
-                                            msg.what = DATA_SUCCESS;
-                                            handler.sendMessage(msg);
-                                        } else {
-                                            handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
-                                        }
+                    @Override
+                    public void onResponse(String s, int i) {
+                        super.onResponse(s, i);
+                        Log.e(tag, "F   GetInformationsByType:" + s);
+                        try {
+                            JSONObject json = new JSONObject(s);
+                            if (checkJsonData(s, handler)) {
+                                JSONObject jsonObject = new JSONObject(json.getString("Data"));
+                                if (jsonObject.getBoolean("Valid")) {
+                                    Gson gson = new Gson();
+                                    Type type = new TypeToken<List<Information>>() {
+                                    }.getType();
+                                    List<Information> datas = gson.fromJson(jsonObject.getString("Obj"), type);
+                                    if (datas != null && datas.size() > 0) {
+                                        Message msg = handler.obtainMessage();
+                                        msg.obj = datas;
+                                        msg.what = DATA_SUCCESS;
+                                        handler.sendMessage(msg);
                                     } else {
-                                        sendErrorMessage(handler, jsonObject);
+                                        handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
                                     }
+                                } else {
+                                    sendErrorMessage(handler, jsonObject);
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    });
+                    }
+                });
     }
 
     //获取周边游报名信息
@@ -686,30 +695,30 @@ public class FindService extends BaseService  {
         String url = Services.mHost + "API/Resident/GetWeekendRecord/%s?lastId=%s";
         url = String.format(url, weekId, lastId);
         OkHttpService.get(url)
-                .execute(new DataCallBack(mContext,handler) {
+                .execute(new DataCallBack(mContext, handler) {
                     @Override
                     public void onResponse(String s, int o) {
                         super.onResponse(s, o);
                         Log.e(tag, "WeekendSignUpInformation:" + s);
                         try {
                             JSONObject json = new JSONObject(s);
-                            if (checkJsonData(s,handler)){
+                            if (checkJsonData(s, handler)) {
                                 JSONObject jsonObject = new JSONObject(json.getString("Data"));
                                 if (jsonObject.getBoolean("Valid")) {
                                     Gson gson = new Gson();
                                     Type type = new TypeToken<List<WeekendSignUp>>() {
                                     }.getType();
                                     List<WeekendSignUp> data = gson.fromJson(jsonObject.getString("Obj"), type);
-                                    if (data != null&&data.size()>0) {
-                                        Message msg=handler.obtainMessage();
-                                        msg.obj=data;
-                                        msg.what=DATA_SUCCESS;
+                                    if (data != null && data.size() > 0) {
+                                        Message msg = handler.obtainMessage();
+                                        msg.obj = data;
+                                        msg.what = DATA_SUCCESS;
                                         handler.sendMessage(msg);
                                     } else {
-                                        sendErrorMessage(handler,mContext.getResources().getString(R.string.weekend_signup_none));
+                                        sendErrorMessage(handler, mContext.getResources().getString(R.string.weekend_signup_none));
                                     }
-                                }else{
-                                    sendErrorMessage(handler,jsonObject);
+                                } else {
+                                    sendErrorMessage(handler, jsonObject);
                                 }
                             }
 
@@ -721,7 +730,7 @@ public class FindService extends BaseService  {
     }
 
     //周边游报名
-    public void WeekendSignUp(final String weekendId,final Handler handler) {
+    public void WeekendSignUp(final String weekendId, final Handler handler) {
         String aa = Services.timeFormat();
         String aa1 = (int) ((Math.random() * 9 + 1) * 100000) + "";
         // 请求的URL
@@ -746,7 +755,7 @@ public class FindService extends BaseService  {
                 .addParams("Name", user.getUserName())
                 .addParams("Tel", user.getUserPhone())
                 .addParams("ResidentId", user.getUserId())
-                .build().execute(new DataCallBack(mContext,handler) {
+                .build().execute(new DataCallBack(mContext, handler) {
             @Override
             public void onResponse(String s, int i) {
                 Log.e(tag, "WeekendSignUp:" + s);
@@ -756,8 +765,8 @@ public class FindService extends BaseService  {
                     if (json.getBoolean("Status")) {
                         if (jsonObject.getBoolean("Valid")) {
                             handler.sendEmptyMessage(DATA_SUCCESS);
-                        }else{
-                            sendErrorMessage(handler,jsonObject);
+                        } else {
+                            sendErrorMessage(handler, jsonObject);
                         }
                     }
                 } catch (JSONException e) {
@@ -773,7 +782,7 @@ public class FindService extends BaseService  {
         // 请求的URL
         String url = Services.mHost + "API/Resident/GetMyPublish2/%s?lastId=%s&type=%s";
         url = String.format(url, UserInformation.getUserInfo().UserId, lastId, type);
-        Log.e(tag,"getMyPublish2_url:"+url);
+        Log.e(tag, "getMyPublish2_url:" + url);
         OkHttpService.get(url).execute(new DataCallBack(mContext, handler) {
 
             @Override

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_coupon_value"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/coupon"
+    android:gravity="left|center_vertical"
+    android:paddingLeft="5dp"
+    android:text="¥ 5"
+    android:textColor="#FF6000">
+
+</TextView>

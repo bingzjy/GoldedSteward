@@ -109,6 +109,7 @@ public class Weekend_Details extends BaseActionBarActivity {
         DisplayMetrics dm = getResources().getDisplayMetrics();
         linearParams.height = dm.widthPixels / 16 * 9;
         vp_weekenimages.setLayoutParams(linearParams);
+
         mImageUrl = new ArrayList<String>();
         //标题
         tv_weekend_title = (TextView) findViewById(R.id.tv_weekend_title);

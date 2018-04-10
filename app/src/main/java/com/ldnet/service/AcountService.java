@@ -643,6 +643,7 @@ public class AcountService extends BaseService {
                     .execute(new DataCallBack(mContext,handler) {
                         @Override
                         public void onResponse(String s, int i) {
+
                             Log.e(tag, "setIntegralTip:" + s);
                             try {
                                 JSONObject json = new JSONObject(s);

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ldnet.activity.commen.Constant;
 import com.ldnet.entities.KeyChain;
+import com.ldnet.entities.KeyInfo;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -198,4 +199,37 @@ public class EntranceGuardService extends BaseService {
                 });
     }
 
+
+    public void getGateInfo(final Handler handler) {
+        String url = Services.mHost + "API/EntranceGuard/GetGateCommunity/%s?residentId=%s";
+        url = String.format(url, UserInformation.getUserInfo().CommunityId, UserInformation.getUserInfo().UserId);
+        OkHttpService.get(url).execute(new DataCallBack(mContext, handler) {
+            @Override
+            public void onResponse(String s, int i) {
+                super.onResponse(s, i);
+                Log.e(tag, "新门禁信息：" + s);
+                try {
+                    if (checkJsonDataSuccess(s, handler)) {
+                        JSONObject jsonObject = new JSONObject(s);
+                        JSONObject data = new JSONObject(jsonObject.getString("Data"));
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<List<KeyInfo>>() {
+                        }.getType();
+                        List<KeyInfo> list = gson.fromJson(data.getString("Obj"), type);
+                        if (list != null && list.size() > 0) {
+                            Message msg = handler.obtainMessage();
+                            msg.what = DATA_SUCCESS;
+                            msg.obj = list;
+                            handler.sendMessage(msg);
+
+                        } else {
+                            handler.sendEmptyMessage(DATA_SUCCESS_OTHER);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

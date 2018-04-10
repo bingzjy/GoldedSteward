@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_community_shop_main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <GridView
+        android:id="@+id/gridview_coupon_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:numColumns="5"
+        android:paddingLeft="@dimen/dimen_15dp"
+        android:paddingRight="@dimen/dimen_15dp"
+       />
+
+    <LinearLayout
+        android:id="@+id/ll_shop_distribution_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/distribution" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:text="配送范围："
+            android:textColor="#4a4a4a"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_distribute_community_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宸欣家园"
+            android:textColor="#4a4a4a"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_shop_money_off_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/money_off" />
+
+        <TextView
+            android:id="@+id/tv_money_off"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:text="满25免配送费"
+            android:textColor="#4a4a4a"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/iv_community_shop_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/arrow_down" />
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout_shop"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#ffffff"
+        android:fillViewport="false"
+        app:tabIndicatorColor="@color/green"
+        app:tabIndicatorHeight="5dp"
+        app:tabSelectedTextColor="#4A4A4A">
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tab_item_goods"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="商品" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tab_item_merchant"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="商家" />
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_community_shop_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+</LinearLayout>

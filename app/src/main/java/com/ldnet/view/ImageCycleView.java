@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.ldnet.entities.APPHomePage_Column;
 import com.ldnet.goldensteward.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 广告图片自动轮播控件</br>
@@ -118,6 +120,37 @@ public class ImageCycleView extends LinearLayout {
      * @param imageUrlList
      * @param imageCycleViewListener
      */
+    public void setImageResources(ArrayList<String> imageUrlList, ImageCycleViewListener imageCycleViewListener,List<APPHomePage_Column> mData) {
+        // 清除所有子视图
+        mGroup.removeAllViews();
+        // 图片广告数量
+        final int imageCount = imageUrlList.size();
+        mImageViews = new ImageView[imageCount];
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(15, 15);
+        lp.setMargins(5, 5, 5, 5);
+        for (int i = 0; i < imageCount; i++) {
+            mImageView = new ImageView(mContext);
+            int imageParams = (int) (mScale * 20 + 0.5f);// XP与DP转换，适应不同分辨率
+            int imagePadding = (int) (mScale * 20 + 0.5f);
+            mImageView.setLayoutParams(new LayoutParams(imageParams, imageParams));
+            mImageView.setLayoutParams(new LayoutParams(15, 15));
+            mImageView.setLayoutParams(lp);
+            mImageView.setPadding(imagePadding, imagePadding, imagePadding, imagePadding);
+            mImageViews[i] = mImageView;
+            if (i == 0) {
+                mImageViews[i].setBackgroundResource(R.drawable.dot_focus);
+            } else {
+                mImageViews[i].setBackgroundResource(R.drawable.dot_blur);
+            }
+            mGroup.addView(mImageViews[i]);
+        }
+        mAdvAdapter = new ImageCycleAdapter(mContext, imageUrlList, imageCycleViewListener,mData);
+        mAdvPager.setAdapter(mAdvAdapter);
+        mAdvAdapter.notifyDataSetChanged();
+        startImageTimerTask();
+    }
+
+
     public void setImageResources(ArrayList<String> imageUrlList, ImageCycleViewListener imageCycleViewListener) {
         // 清除所有子视图
         mGroup.removeAllViews();
@@ -144,6 +177,7 @@ public class ImageCycleView extends LinearLayout {
         }
         mAdvAdapter = new ImageCycleAdapter(mContext, imageUrlList, imageCycleViewListener);
         mAdvPager.setAdapter(mAdvAdapter);
+        mAdvAdapter.notifyDataSetChanged();
         startImageTimerTask();
     }
 
@@ -246,15 +280,25 @@ public class ImageCycleView extends LinearLayout {
          */
         private ImageCycleViewListener mImageCycleViewListener;
 
+        private List<APPHomePage_Column> columnList;
+
         private Context mContext;
+
+        public ImageCycleAdapter(Context context, ArrayList<String> adList, ImageCycleViewListener imageCycleViewListener,List<APPHomePage_Column> mData) {
+            mContext = context;
+            mAdList = adList;
+            mImageCycleViewListener = imageCycleViewListener;
+            mImageViewCacheList = new ArrayList<>();
+            columnList=mData;
+        }
 
         public ImageCycleAdapter(Context context, ArrayList<String> adList, ImageCycleViewListener imageCycleViewListener) {
             mContext = context;
             mAdList = adList;
             mImageCycleViewListener = imageCycleViewListener;
             mImageViewCacheList = new ArrayList<>();
-        }
 
+        }
         @Override
         public int getCount() {
             return mAdList.size();
@@ -282,7 +326,11 @@ public class ImageCycleView extends LinearLayout {
 
                 @Override
                 public void onClick(View v) {
-                    mImageCycleViewListener.onImageClick(position, v);
+                    if (columnList!=null){
+                        mImageCycleViewListener.onImageDataClick(position, v,columnList);
+                    }else{
+                        mImageCycleViewListener.onImageClick(position, v);
+                    }
                 }
             });
             imageView.setTag(imageUrl);
@@ -322,6 +370,10 @@ public class ImageCycleView extends LinearLayout {
          * @param imageView
          */
         public void onImageClick(int position, View imageView);
+
+        public void onImageDataClick(int position, View imageView,List<APPHomePage_Column> mData);
+
+
     }
 
 }

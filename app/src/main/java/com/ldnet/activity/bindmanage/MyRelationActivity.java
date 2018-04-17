@@ -58,7 +58,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.ldnet.goldensteward.R.id.lv_relation_detail;
 import static com.ldnet.goldensteward.R.id.slv_realtion_content;
 
-
+/*
+* 我的家属
+* */
 public class MyRelationActivity extends BaseActionBarActivity {
     @BindView(R.id.btn_back)
     ImageView btnBack;

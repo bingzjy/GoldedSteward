@@ -351,6 +351,7 @@ public class BaseActionBarActivity extends FinalActivity implements View.OnClick
                     .setCropSquare(false)
                     .setEnablePreview(true)
                     .build();
+            //拍照
             photograph.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -358,6 +359,7 @@ public class BaseActionBarActivity extends FinalActivity implements View.OnClick
                     GalleryFinal.openCamera(101, functionConfig, mOnHanlderResultCallback);
                 }
             });
+            //相册
             albums.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -365,6 +367,7 @@ public class BaseActionBarActivity extends FinalActivity implements View.OnClick
                     GalleryFinal.openGallerySingle(101, functionConfig, mOnHanlderResultCallback);
                 }
             });
+            //取消
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {

@@ -9,14 +9,21 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.*;
+
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.activity.yellowpage.YellowPages_Map;
 import com.ldnet.entities.APPHomePage_Column;
 import com.ldnet.entities.Item;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.CommunityService;
 import com.ldnet.utility.*;
-import com.ldnet.view.ImageCycleView;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.customview.ImageCycleView;
+import com.ldnet.view.dialog.BottomDialog;
+import com.ldnet.view.listview.MyListView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
@@ -42,7 +49,7 @@ public class CommunityServicesDetails extends BaseActionBarActivity {
     private ImageCycleView mImgHousekeeping;
     private TextView mTvHousekeepingTitle, mTvHousekeepingAddress, mTvHousekeepingMemo,mTvHousekeepingActivityTitle;
     private List<Item> itemList= new ArrayList<Item>();
-    private CustomListView2 mLvcommunityServices;
+    private MyListView mLvcommunityServices;
     private ListViewAdapter mAdapter;
     private ArrayList<String> mImageUrl = null;
     private ArrayList<String> mActivityImageUrl = new ArrayList<String>();
@@ -107,7 +114,7 @@ public class CommunityServicesDetails extends BaseActionBarActivity {
         //社区服务的介绍
         mTvHousekeepingMemo = (TextView) findViewById(R.id.tv_housekeeping_memo);
         //服务项目
-        mLvcommunityServices = (CustomListView2) findViewById(R.id.lv_housekeeping);
+        mLvcommunityServices = (MyListView) findViewById(R.id.lv_housekeeping);
         mLvcommunityServices.setFocusable(false);
         //拨打商家电话
         btnCall = (Button) findViewById(R.id.btn_phone_housekeeping);

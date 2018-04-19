@@ -6,14 +6,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,6 +24,8 @@ import android.widget.Toast;
 
 import com.ldnet.goldensteward.R;
 import com.ldnet.interfaze.PictureChoseListener;
+import com.ldnet.view.dialog.NormalLoadingDialog;
+import com.ldnet.view.dialog.LoadingDialog1;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -43,7 +41,7 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 public class BaseFragment extends Fragment {
 
-    protected LoadingDialog dialog;
+    protected NormalLoadingDialog dialog;
     protected LoadingDialog1 dialog1;
     Context context;
     protected FinalBitmap finalBitmap;
@@ -113,7 +111,7 @@ public class BaseFragment extends Fragment {
 
     public void showProgressDialog(String str) {
         if (dialog == null) {
-            dialog = new LoadingDialog(getActivity());
+            dialog = new NormalLoadingDialog(getActivity());
             dialog.setCanceledOnTouchOutside(false);
         }
         dialog.setText(str);

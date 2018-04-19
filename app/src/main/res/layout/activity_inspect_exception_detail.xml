@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ldnet.activity.homeInspectionManage.InspectExceptionDetailActivity">
+    tools:context="com.ldnet.activity.homeinspectionmanage.InspectExceptionDetailActivity">
 
     <include layout="@layout/title_white_theme" />
 
@@ -134,7 +134,8 @@
                     android:layout_alignParentLeft="true"
                     android:paddingLeft="@dimen/dimen_15dp"
                     android:text="异常单号：ddd223333dddddd33"
-                    android:textColor="@color/gray_text" />
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/font_size_12sp" />
 
                 <TextView
                     android:id="@+id/tv_date"
@@ -146,7 +147,20 @@
                     android:gravity="right|center_vertical"
                     android:paddingRight="@dimen/dimen_15dp"
                     android:text="2018-10-10"
-                    android:textColor="@color/gray_text" />
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/font_size_12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_order_id"
+                    android:paddingLeft="@dimen/dimen_15dp"
+                    android:paddingRight="@dimen/dimen_15dp"
+                    android:paddingTop="@dimen/dimen_2dp"
+                    android:text="房屋验收异常需地产开发商处理解决，请耐心等待。"
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/font_size_12sp" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -234,7 +248,7 @@
                 android:layout_height="1dp"
                 android:background="@color/gray_back" />
 
-            <com.ldnet.utility.MyListView
+            <com.ldnet.view.listview.MyListView
                 android:id="@+id/lv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

@@ -5,24 +5,20 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.MainActivity;
-import com.ldnet.activity.me.Community;
-import com.ldnet.activity.me.VisitorValidComplete;
 import com.ldnet.entities.Building;
 import com.ldnet.entities.EntranceGuard;
 import com.ldnet.entities.MyProperties;
 import com.ldnet.entities.PPhones;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -30,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 

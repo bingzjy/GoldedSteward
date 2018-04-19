@@ -8,26 +8,28 @@ import android.view.View;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.ConsumptionMessage;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.tendcloud.tenddata.TCAgent;
-import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
+
 import okhttp3.Call;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 

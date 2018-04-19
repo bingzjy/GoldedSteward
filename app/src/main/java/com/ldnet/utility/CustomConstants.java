@@ -7,5 +7,4 @@ public class CustomConstants
 	public static final int MAX_IMAGE_SIZE = 5;
 	//首选项:临时图片
 	public static final String PREF_TEMP_IMAGES = "pref_temp_images";
-
 }

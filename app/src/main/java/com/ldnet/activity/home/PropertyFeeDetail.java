@@ -11,8 +11,8 @@ import com.ldnet.entities.Fees;
 import com.ldnet.entities.User;
 import com.ldnet.entities.lstAPPFees;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.ListViewAdapter;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.activity.adapter.ListViewAdapter;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.ldnet.utility.ViewHolder;
 import com.tendcloud.tenddata.TCAgent;
 

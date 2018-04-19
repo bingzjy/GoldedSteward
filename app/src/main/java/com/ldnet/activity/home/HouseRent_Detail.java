@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.*;
 
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.APPHomePage_Column;
 import com.ldnet.entities.HouseProperties;
@@ -20,8 +21,7 @@ import com.ldnet.entities.HouseRent;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.HouseRentService;
-import com.ldnet.utility.*;
-import com.ldnet.view.ImageCycleView;
+import com.ldnet.view.customview.ImageCycleView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
 

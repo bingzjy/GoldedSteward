@@ -1,35 +1,28 @@
 package com.ldnet.utility;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.UpdateInformation;
 import com.ldnet.goldensteward.R;
-import com.ldnet.service.UpdateAppService;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,12 +32,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static android.R.attr.start;
 import static android.content.Context.DOWNLOAD_SERVICE;
-import static com.ldnet.goldensteward.R.id.dismiss;
-import static com.ldnet.goldensteward.R.id.tv;
-import static com.ldnet.goldensteward.R.id.view;
-import static com.ldnet.utility.Services.dialog;
 
 /**
  * Created by Alex on 2015/10/21.

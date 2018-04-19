@@ -5,39 +5,25 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.MainActivity;
+import com.ldnet.activity.main.MainActivity;
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
 import com.ldnet.entities.InformationType;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.FindService;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.MyPagerAdapter;
-import com.ldnet.utility.PagerSlidingTabStrip;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.activity.adapter.MyPagerAdapter;
+import com.ldnet.view.customview.PagerSlidingTabStrip;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.utility.Utility;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Request;
 
 /**
  * Created by zxs on 2016/3/29.

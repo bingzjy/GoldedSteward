@@ -6,9 +6,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
-import com.ldnet.activity.BindingHouse;
-import com.ldnet.activity.base.AppUtils;
+
+import com.ldnet.utility.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.EntranceGuard;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
@@ -18,18 +19,17 @@ import com.tendcloud.tenddata.TCAgent;
 
 import java.util.*;
 
-import static android.R.attr.tag;
-import static com.ldnet.utility.Services.CLASS_FROM;
-import static com.ldnet.utility.Services.COMMUNITY_ID;
-import static com.ldnet.utility.Services.COMMUNITY_NAME;
-import static com.ldnet.utility.Services.OWNER_FLAG;
-import static com.ldnet.utility.Services.OWNER_ID;
-import static com.ldnet.utility.Services.OWNER_TEL;
-import static com.ldnet.utility.Services.RESIDENT_DATE_END;
-import static com.ldnet.utility.Services.RESIDENT_DATE_START;
-import static com.ldnet.utility.Services.RESIDENT_TYPE;
-import static com.ldnet.utility.Services.ROOM_ID;
-import static com.ldnet.utility.Services.TO_APPLY;
+import static com.ldnet.activity.commen.Services.CLASS_FROM;
+import static com.ldnet.activity.commen.Services.COMMUNITY_ID;
+import static com.ldnet.activity.commen.Services.COMMUNITY_NAME;
+import static com.ldnet.activity.commen.Services.OWNER_FLAG;
+import static com.ldnet.activity.commen.Services.OWNER_ID;
+import static com.ldnet.activity.commen.Services.OWNER_TEL;
+import static com.ldnet.activity.commen.Services.RESIDENT_DATE_END;
+import static com.ldnet.activity.commen.Services.RESIDENT_DATE_START;
+import static com.ldnet.activity.commen.Services.RESIDENT_TYPE;
+import static com.ldnet.activity.commen.Services.ROOM_ID;
+import static com.ldnet.activity.commen.Services.TO_APPLY;
 
 /**
  * Created by lee on 2017/4/24.

@@ -15,19 +15,14 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.MainActivity;
+import com.ldnet.activity.main.MainActivity;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.Goods;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.GoodsService;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.ListViewAdapter;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.activity.adapter.ListViewAdapter;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.utility.ViewHolder;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
@@ -35,12 +30,7 @@ import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 

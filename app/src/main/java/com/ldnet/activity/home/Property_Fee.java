@@ -1,9 +1,7 @@
 package com.ldnet.activity.home;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -29,9 +27,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.chinaums.pppay.unify.UnifyPayListener;
-import com.chinaums.pppay.unify.UnifyPayPlugin;
-import com.chinaums.pppay.unify.UnifyPayRequest;
-import com.ldnet.activity.MainActivity;
+import com.ldnet.activity.main.MainActivity;
 import com.ldnet.activity.adapter.FeeListViewAdapter;
 import com.ldnet.activity.adapter.PayTypeAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
@@ -41,16 +37,12 @@ import com.ldnet.entities.lstAPPFees;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.PropertyFeeService;
-import com.ldnet.utility.AddPopWindow;
 import com.ldnet.utility.Arith;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.tendcloud.tenddata.TCAgent;
 
 import net.tsz.afinal.FinalDb;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

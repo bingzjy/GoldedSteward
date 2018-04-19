@@ -1,23 +1,18 @@
 package com.ldnet.activity.adapter;
 
 import android.content.Context;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.GSApplication;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
-import com.ldnet.utility.Utility;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.sql.Time;
 import java.util.List;
 
 /**

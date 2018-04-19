@@ -14,12 +14,18 @@ import android.widget.*;
 
 import android.widget.Toast;
 
-import com.ldnet.activity.BindingCommunity;
-import com.ldnet.activity.BindingHouse;
-import com.ldnet.activity.MainActivity;
-import com.ldnet.activity.adapter.CustomAlertDialog;
+import com.ldnet.activity.adapter.ListViewAdapter;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.activity.home.Property_Repair;
+import com.ldnet.activity.home.Property_Repair_Create;
+import com.ldnet.activity.home.Property_Complain;
+import com.ldnet.activity.home.Property_Complain_Create;
+import com.ldnet.activity.main.BindingCommunity;
+import com.ldnet.activity.main.BindingHouse;
+import com.ldnet.activity.main.MainActivity;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.dialog.CustomAlertDialog;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.home.*;
 import com.ldnet.entities.*;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AcountService;
@@ -27,18 +33,18 @@ import com.ldnet.service.BaseService;
 import com.ldnet.service.BindingService;
 import com.ldnet.service.EntranceGuardService;
 import com.ldnet.utility.*;
+import com.ldnet.view.listview.CustomListView;
 import com.tendcloud.tenddata.TCAgent;
 
 import java.util.*;
 
 import static com.ldnet.goldensteward.R.id.tv_house_name;
-import static com.ldnet.map.ChString.type;
-import static com.ldnet.utility.Services.CLASS_FROM;
-import static com.ldnet.utility.Services.COMMUNITY_ID;
-import static com.ldnet.utility.Services.COMMUNITY_NAME;
-import static com.ldnet.utility.Services.ROOM_ID;
-import static com.ldnet.utility.Services.ROOM_NAME;
-import static com.ldnet.utility.Services.TO_APPLY;
+import static com.ldnet.activity.commen.Services.CLASS_FROM;
+import static com.ldnet.activity.commen.Services.COMMUNITY_ID;
+import static com.ldnet.activity.commen.Services.COMMUNITY_NAME;
+import static com.ldnet.activity.commen.Services.ROOM_ID;
+import static com.ldnet.activity.commen.Services.ROOM_NAME;
+import static com.ldnet.activity.commen.Services.TO_APPLY;
 
 public class Community extends BaseActionBarActivity {
     private TextView tv_main_title;

@@ -14,7 +14,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.ldnet.entities.UpdateInformation;
-import com.ldnet.utility.Services;
+import com.ldnet.activity.commen.Services;
 
 import java.io.File;
 

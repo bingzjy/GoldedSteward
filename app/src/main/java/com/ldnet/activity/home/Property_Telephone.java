@@ -9,20 +9,21 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.entities.HouseRent;
-import com.ldnet.entities.MyProperties;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.PPhones;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
+
 import okhttp3.Call;
 import okhttp3.Request;
 import org.json.JSONException;

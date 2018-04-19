@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.ldnet.activity.decoratemanage.DecorateDetailActivity">
+
+    <include layout="@layout/title_white_theme" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:background="@drawable/back_border_line_gray3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="8"
+            android:minEms="8"
+            android:minLines="1"
+            android:minWidth="100dp"
+            android:padding="@dimen/dimen_15dp"
+            android:text="房号"
+            android:textColor="@color/gray_text" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            android:paddingRight="@dimen/dimen_15dp" />
+
+        <TextView
+            android:id="@+id/tv_room_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_15dp"
+            android:text="202文明家属院测试10-01"
+            android:textColor="@color/black_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:background="@drawable/back_border_line_gray3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="8"
+            android:minEms="8"
+            android:minLines="1"
+            android:minWidth="100dp"
+            android:padding="@dimen/dimen_15dp"
+            android:text="装修许可证"
+            android:textColor="@color/gray_text" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            android:paddingRight="@dimen/dimen_15dp" />
+
+        <TextView
+            android:id="@+id/tv_decorate_licence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_15dp"
+            android:text="202文明家属院测试10-01"
+            android:textColor="@color/black_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:background="@drawable/back_border_line_gray3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="8"
+            android:minEms="8"
+            android:minLines="1"
+            android:minWidth="100dp"
+            android:padding="@dimen/dimen_15dp"
+            android:text="装修单位"
+            android:textColor="@color/gray_text" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            android:paddingRight="@dimen/dimen_15dp" />
+
+        <TextView
+            android:id="@+id/tv_decorate_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_15dp"
+            android:text="202文明家属院测试10-01"
+            android:textColor="@color/black_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:background="@drawable/back_border_line_gray3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="8"
+            android:minEms="8"
+            android:minLines="1"
+            android:minWidth="100dp"
+            android:padding="@dimen/dimen_15dp"
+            android:text="负责人"
+            android:textColor="@color/gray_text" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            android:paddingRight="@dimen/dimen_15dp" />
+
+        <TextView
+            android:id="@+id/tv_decorate_man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_15dp"
+            android:text="202文明家属院测试10-01"
+            android:textColor="@color/black_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:background="@drawable/back_border_line_gray3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="8"
+            android:minEms="8"
+            android:minLines="1"
+            android:minWidth="100dp"
+            android:padding="@dimen/dimen_15dp"
+            android:text="联系电话"
+            android:textColor="@color/gray_text" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            android:paddingRight="@dimen/dimen_15dp" />
+
+        <TextView
+            android:id="@+id/tv_decorate_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_15dp"
+            android:text="202文明家属院测试10-01"
+            android:textColor="@color/black_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:background="@drawable/back_border_line_gray3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="8"
+            android:minEms="8"
+            android:minLines="1"
+            android:minWidth="100dp"
+            android:padding="@dimen/dimen_15dp"
+            android:text="提交时间"
+            android:textColor="@color/gray_text" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            android:paddingRight="@dimen/dimen_15dp" />
+
+        <TextView
+            android:id="@+id/tv_decorate_submit_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_15dp"
+            android:text="202文明家属院测试10-01"
+            android:textColor="@color/black_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:background="@drawable/back_border_line_gray3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="8"
+            android:minEms="8"
+            android:minLines="1"
+            android:minWidth="100dp"
+            android:padding="@dimen/dimen_15dp"
+            android:text="装修开始时间"
+            android:textColor="@color/gray_text" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            android:paddingRight="@dimen/dimen_15dp" />
+
+        <TextView
+            android:id="@+id/tv_decorate_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_15dp"
+            android:text="2018-01"
+            android:textColor="@color/black_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_marginRight="@dimen/dimen_15dp"
+        android:background="@drawable/back_border_line_gray3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="8"
+            android:minEms="8"
+            android:minLines="1"
+            android:minWidth="100dp"
+            android:padding="@dimen/dimen_15dp"
+            android:text="装修结束时间"
+            android:textColor="@color/gray_text" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            android:paddingRight="@dimen/dimen_15dp" />
+
+        <TextView
+            android:id="@+id/tv_decorate_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_15dp"
+            android:text="2018-11"
+            android:textColor="@color/black_text" />
+    </LinearLayout>
+
+</LinearLayout>

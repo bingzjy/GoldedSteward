@@ -10,16 +10,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.ldnet.activity.BindingHouse;
-import com.ldnet.activity.FragmentHome;
-import com.ldnet.activity.MainActivity;
-import com.ldnet.activity.base.AppUtils;
+import com.ldnet.activity.main.BindingHouse;
+import com.ldnet.utility.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.BindingService;
-import com.ldnet.utility.Services;
+import com.ldnet.activity.commen.Services;
 import com.tendcloud.tenddata.TCAgent;
 
 import java.text.SimpleDateFormat;
@@ -27,17 +25,17 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.ldnet.utility.Services.CLASS_FROM;
-import static com.ldnet.utility.Services.COMMUNITY_ID;
-import static com.ldnet.utility.Services.COMMUNITY_NAME;
-import static com.ldnet.utility.Services.OWNER_FLAG;
-import static com.ldnet.utility.Services.OWNER_ID;
-import static com.ldnet.utility.Services.OWNER_TEL;
-import static com.ldnet.utility.Services.RESIDENT_DATE_END;
-import static com.ldnet.utility.Services.RESIDENT_DATE_START;
-import static com.ldnet.utility.Services.RESIDENT_TYPE;
-import static com.ldnet.utility.Services.ROOM_ID;
-import static com.ldnet.utility.Services.TO_APPLY;
+import static com.ldnet.activity.commen.Services.CLASS_FROM;
+import static com.ldnet.activity.commen.Services.COMMUNITY_ID;
+import static com.ldnet.activity.commen.Services.COMMUNITY_NAME;
+import static com.ldnet.activity.commen.Services.OWNER_FLAG;
+import static com.ldnet.activity.commen.Services.OWNER_ID;
+import static com.ldnet.activity.commen.Services.OWNER_TEL;
+import static com.ldnet.activity.commen.Services.RESIDENT_DATE_END;
+import static com.ldnet.activity.commen.Services.RESIDENT_DATE_START;
+import static com.ldnet.activity.commen.Services.RESIDENT_TYPE;
+import static com.ldnet.activity.commen.Services.ROOM_ID;
+import static com.ldnet.activity.commen.Services.TO_APPLY;
 
 /**
  * Created by lee on 2017/4/24.

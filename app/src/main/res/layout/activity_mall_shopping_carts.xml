@@ -33,11 +33,11 @@
                 android:textColor="@color/gray_text"
                 android:visibility="gone" />
 
-            <com.ldnet.utility.MyListView
+            <com.ldnet.view.listview.MyListView
                 android:id="@+id/lv_shopping_carts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_top_bottom"></com.ldnet.utility.MyListView>
+                android:background="@drawable/border_top_bottom"></com.ldnet.view.listview.MyListView>
         </LinearLayout>
     </com.library.PullToRefreshScrollView>
 

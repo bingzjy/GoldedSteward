@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dimen_10dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@color/red"
+        android:scaleType="centerCrop"
+        />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_goods_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="3+2饼干2饼干2饼干2饼干2饼干2饼干2饼干"
+            android:textColor="@color/black_text"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_goods_sales_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_goods_name"
+            android:text="月售：100"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/font_size_12sp" />
+
+        <TextView
+            android:id="@+id/tv_goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_goods_sales_volume"
+            android:text="¥ 100.0"
+            android:textColor="@color/red"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_goods_sales_volume"
+            android:layout_marginRight="@dimen/dimen_15dp"
+            android:src="@drawable/ic_add_shop_cart" />
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -7,7 +7,7 @@
 
     <include layout="@layout/activity_second_titlebar" />
 
-    <com.ldnet.utility.PagerSlidingTabStrip
+    <com.ldnet.view.customview.PagerSlidingTabStrip
         android:id="@+id/tabs"
         app:pstsDividerColor="@android:color/transparent"
         app:pstsIndicatorColor="@color/green_light"

@@ -2,42 +2,33 @@ package com.ldnet.activity.home;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.*;
 import android.view.animation.*;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
 import com.ldnet.activity.adapter.GridViewAdapter;
 import com.ldnet.activity.adapter.LoopViewPager1;
-import com.ldnet.activity.adapter.MyDialog1;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.activity.adapter.TimeAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.Property;
 import com.ldnet.entities.Repair;
 import com.ldnet.entities.Score;
-import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.PropertyServeService;
-import com.ldnet.utility.*;
+import com.ldnet.view.listview.MyListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
-import okhttp3.Call;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.*;
 
 /**
@@ -73,7 +64,7 @@ public class Property_Complain_Details extends BaseActionBarActivity {
     private String[] pics;
     private String SCORE = "";
 
-    private MyDialog1 alertDialog;
+    private AlertDialog alertDialog;
     private TextView tv_socre;
     private EditText et_say;
     private RatingBar room_ratingbar, rb_score;
@@ -200,7 +191,7 @@ public class Property_Complain_Details extends BaseActionBarActivity {
     }
 
     public void ScoreDialog() {
-        alertDialog = new MyDialog1(this);
+        alertDialog= new AlertDialog.Builder(this).create();
         alertDialog.show();
         alertDialog.setCanceledOnTouchOutside(false);
         Window window = alertDialog.getWindow();
@@ -275,8 +266,6 @@ public class Property_Complain_Details extends BaseActionBarActivity {
                     R.anim.fade_in));
             ll_popup = (LinearLayout) view
                     .findViewById(R.id.ll_popup);
-//            ll_popup.startAnimation(AnimationUtils.loadAnimation(mContext,
-//                    R.anim.slide_in_from_left));
             setAnimationStyle(R.style.AnimationPreview);
             setWidth(getWindowManager().getDefaultDisplay().getWidth());
             setHeight(getWindowManager().getDefaultDisplay().getHeight());

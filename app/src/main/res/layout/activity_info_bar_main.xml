@@ -8,7 +8,7 @@
 
     <include layout="@layout/info_bar_header_layout"/>
 
-    <com.ldnet.utility.PagerSlidingTabStrip
+    <com.ldnet.view.customview.PagerSlidingTabStrip
         android:id="@+id/pager_sliding_tab_strip_infobar"
         app:pstsDividerColor="@android:color/transparent"
         app:pstsIndicatorColor="@color/green_light"

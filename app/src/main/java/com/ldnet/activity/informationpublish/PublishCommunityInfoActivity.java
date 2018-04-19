@@ -34,9 +34,8 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.interfaze.PictureChoseListener;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.InfoBarService;
-import com.ldnet.utility.GSApplication;
-import com.ldnet.utility.ListViewAdapter;
-import com.ldnet.utility.Services;
+import com.ldnet.activity.adapter.ListViewAdapter;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
 import com.nanchen.compresshelper.CompressHelper;
@@ -47,8 +46,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.ldnet.activity.informationpublish.CommunityInfoBarMainActivity.currentBigType;
 
 public class PublishCommunityInfoActivity extends BaseActionBarActivity {
 

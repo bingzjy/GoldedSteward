@@ -416,4 +416,5 @@
 
     <!--商家-->
     <string name="check_valid_goods">请选择有效的商品</string>
+    <string name="title_activity_ladder_control">LadderControlActivity</string>
 </resources>

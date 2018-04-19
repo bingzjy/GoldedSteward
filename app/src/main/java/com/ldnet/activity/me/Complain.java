@@ -9,24 +9,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.ldnet.activity.base.AppUtils;
+import com.ldnet.utility.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
+
 import okhttp3.Call;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by zxs on 2016/5/12.

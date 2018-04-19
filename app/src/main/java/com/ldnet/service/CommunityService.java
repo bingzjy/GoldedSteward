@@ -1,46 +1,26 @@
 package com.ldnet.service;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.BindingHouse;
-import com.ldnet.activity.home.CommunityServicesPageTabActivity;
-import com.ldnet.activity.home.YellowPages_Map;
-import com.ldnet.activity.me.Community;
 import com.ldnet.entities.CommunityServices;
 import com.ldnet.entities.CommunityServicesDetails;
 import com.ldnet.entities.CommunityServicesModel;
 import com.ldnet.entities.MyProperties;
-import com.ldnet.goldensteward.R;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.CustomListView;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.ListViewAdapter;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
-import com.ldnet.utility.ViewHolder;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
 import okhttp3.Call;
 import okhttp3.Request;

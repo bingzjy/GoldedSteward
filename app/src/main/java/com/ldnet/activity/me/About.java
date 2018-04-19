@@ -13,11 +13,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.ldnet.activity.Browser;
-import com.ldnet.activity.MainActivity;
+import com.ldnet.activity.main.Browser;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.Services;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.view.Rotate3dAnimation;
 import com.tendcloud.tenddata.TCAgent;
 

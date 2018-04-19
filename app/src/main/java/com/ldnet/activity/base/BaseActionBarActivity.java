@@ -21,12 +21,15 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.ldnet.activity.adapter.MyDialog;
+
+import com.ldnet.view.dialog.NormalLoadingDialog;
+import com.ldnet.view.dialog.LoadingDialog1;
+import com.ldnet.view.dialog.MyDialog;
 import com.ldnet.goldensteward.R;
 import com.ldnet.interfaze.PictureChoseListener;
 import com.ldnet.utility.ActivityUtil;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import net.tsz.afinal.FinalActivity;
@@ -45,7 +48,7 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 public class BaseActionBarActivity extends FinalActivity implements View.OnClickListener {
 
-    protected LoadingDialog dialog;
+    protected NormalLoadingDialog dialog;
     protected LoadingDialog1 dialog1;
     protected DisplayImageOptions imageOptions;
     protected FinalBitmap finalBitmap;
@@ -169,7 +172,7 @@ public class BaseActionBarActivity extends FinalActivity implements View.OnClick
 
     public void showProgressDialog(String str) {
         if (dialog == null) {
-            dialog = new LoadingDialog(this);
+            dialog = new NormalLoadingDialog(this);
             dialog.setCanceledOnTouchOutside(false);
         }
         dialog.setText(str);
@@ -178,7 +181,7 @@ public class BaseActionBarActivity extends FinalActivity implements View.OnClick
         }
     }
 
-    public LoadingDialog getDialog(){
+    public NormalLoadingDialog getDialog(){
         return dialog;
     }
 

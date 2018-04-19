@@ -5,10 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -24,10 +22,10 @@ import com.ldnet.entities.FreaMarketDetails;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.FindService;
-import com.ldnet.utility.BottomDialog;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
-import com.ldnet.view.ImageCycleView;
+import com.ldnet.view.dialog.BottomDialog;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.customview.ImageCycleView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
 
@@ -128,8 +126,8 @@ public class FreaMarket_Details extends BaseActionBarActivity {
     }
 
 
-    private com.ldnet.view.ImageCycleView.ImageCycleViewListener mAdCycleViewListener =
-            new com.ldnet.view.ImageCycleView.ImageCycleViewListener() {
+    private ImageCycleView.ImageCycleViewListener mAdCycleViewListener =
+            new ImageCycleView.ImageCycleViewListener() {
 
                 @Override
                 public void onImageClick(int position, View imageView) {

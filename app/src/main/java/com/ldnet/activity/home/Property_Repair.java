@@ -8,11 +8,14 @@ import android.support.v4.view.ViewPager;
 import android.view.*;
 import android.widget.*;
 
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.activity.me.Community;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.*;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.customview.BadgeView;
 import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 

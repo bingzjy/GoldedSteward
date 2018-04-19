@@ -1,40 +1,21 @@
 package com.ldnet.activity.home;
 
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.*;
-import android.view.animation.AnimationUtils;
 import android.widget.*;
-import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
-import com.ldnet.activity.adapter.*;
-import com.ldnet.activity.base.AppUtils;
+
+import com.ldnet.utility.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.find.FreaMarket_Create;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.activity.me.Community;
-import com.ldnet.entities.FileUpload;
-import com.ldnet.entities.HouseRent;
-import com.ldnet.entities.StatusBoolean;
+import com.ldnet.entities.ImageItem;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.interfaze.PictureChoseListener;
@@ -42,28 +23,16 @@ import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.PropertyServeService;
 import com.ldnet.utility.*;
-import com.ldnet.utility.Toast;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.dialog.MyDialog;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-import okhttp3.Call;
-import okhttp3.Request;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static com.ldnet.goldensteward.R.id.init;
-import static com.ldnet.goldensteward.R.id.ll_repair_picture_list;
 
 public class Property_Complain_Create extends BaseActionBarActivity {
     private TextView tv_main_title;

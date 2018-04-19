@@ -10,7 +10,7 @@
 
     <include layout="@layout/activity_second_titlebar" />
 
-    <com.ldnet.utility.PagerSlidingTabStrip
+    <com.ldnet.view.customview.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="40dp"

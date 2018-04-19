@@ -16,7 +16,7 @@
                 android:orientation="vertical">
 
             <!-- 广告开始 -->
-            <com.ldnet.view.ImageCycleView
+            <com.ldnet.view.customview.ImageCycleView
                     android:id="@+id/vp_find_ads"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_144dp"/>
@@ -158,7 +158,7 @@
             </LinearLayout>
 
             <!-- 发现分模块结束 -->
-            <com.ldnet.utility.MyListView
+            <com.ldnet.view.listview.MyListView
                     android:id="@+id/lv_find_informations"
                     android:layout_marginTop="@dimen/dimen_16dp"
                     android:background="@drawable/border_top"
@@ -166,7 +166,7 @@
                     android:divider="@null"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-            </com.ldnet.utility.MyListView>
+            </com.ldnet.view.listview.MyListView>
         </LinearLayout>
     </com.library.PullToRefreshScrollView>
 </LinearLayout>

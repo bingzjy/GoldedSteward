@@ -1,14 +1,12 @@
 package com.ldnet.service;
 
-import android.content.Context;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.GetBuilder;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.request.RequestCall;
-import okhttp3.OkHttpClient;
 
 import java.util.HashMap;
 

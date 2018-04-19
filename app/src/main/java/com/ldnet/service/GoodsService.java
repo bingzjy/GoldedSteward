@@ -8,9 +8,9 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ldnet.entities.*;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 
 import okhttp3.Call;
 import okhttp3.Request;

@@ -1,6 +1,5 @@
 package com.ldnet.activity.me;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -8,12 +7,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import com.ldnet.activity.MainActivity;
-import com.ldnet.activity.base.BaseActionBarActivity;
+
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.MyFrPagerAdapter;
-import com.ldnet.utility.PagerSlidingTabStrip;
+import com.ldnet.activity.adapter.MyFrPagerAdapter;
+import com.ldnet.view.customview.PagerSlidingTabStrip;
 import com.ldnet.utility.Utility;
 import com.tendcloud.tenddata.TCAgent;
 

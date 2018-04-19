@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.ldnet.activity.homeInspectionManage.CreateInspectExceptionActivity">
+    tools:context="com.ldnet.activity.homeinspectionmanage.AddInspectExceptionActivity">
 
     <include layout="@layout/title_white_theme" />
 
@@ -123,7 +123,9 @@
         android:layout_marginBottom="@dimen/dimen_10dp"
         android:layout_marginLeft="@dimen/dimen_15dp"
         android:layout_marginTop="@dimen/dimen_10dp"
-        android:text="添加照片（最多5张）" />
+        android:text="添加照片（最多5张）"
+        android:textColor="@color/black_text"
+        android:textSize="@dimen/font_size_14sp" />
 
 
     <HorizontalScrollView

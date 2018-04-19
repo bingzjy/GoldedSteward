@@ -3,27 +3,22 @@ package com.ldnet.activity.home;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.ChargingItem;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.PropertyServeService;
 import com.ldnet.utility.*;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
-import okhttp3.Call;
-import okhttp3.Request;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 

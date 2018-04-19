@@ -20,26 +20,22 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.Notifications;
-import com.ldnet.entities.PropertyServicesType;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.NotificationService;
 import com.ldnet.utility.*;
+import com.ldnet.utility.filedata.SDCardFileCache;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.dialog.BottomDialog;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-import okhttp3.Call;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.concurrent.ExecutionException;
 
 public class Notification_Details extends BaseActionBarActivity {

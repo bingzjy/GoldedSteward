@@ -4,13 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.*;
-import android.widget.RelativeLayout.LayoutParams;
+
 import com.ldnet.entities.Property;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.Services;
+import com.ldnet.activity.commen.Services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

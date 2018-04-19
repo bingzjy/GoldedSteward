@@ -11,11 +11,15 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.Coupon;
-import com.ldnet.entities.HouseRent;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;

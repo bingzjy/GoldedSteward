@@ -11,14 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.ldnet.activity.MainActivity;
+
+import com.ldnet.activity.adapter.ListViewAdapter;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.activity.main.MainActivity;
 import com.ldnet.activity.base.BaseFragment;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.CommunityService;
 import com.ldnet.utility.*;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
+import com.ldnet.view.listview.MyListView;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -37,7 +42,7 @@ public class CommunityServices extends BaseFragment implements View.OnClickListe
     private ImageButton btn_back;
     private Services services;
     private Handler mHandler;
-    private CustomListView2 mLvCommunityServices;
+    private MyListView mLvCommunityServices;
     private ListViewAdapter<com.ldnet.entities.CommunityServices> mAdapter;
     private List<com.ldnet.entities.CommunityServices> mDatas=new ArrayList<com.ldnet.entities.CommunityServices>();;
     private String mSortId;
@@ -97,7 +102,7 @@ public class CommunityServices extends BaseFragment implements View.OnClickListe
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setHeaderLayout(new HeaderLayout(getActivity()));
         mPullToRefreshScrollView.setFooterLayout(new FooterLayout(getActivity()));
-        mLvCommunityServices = (CustomListView2) view.findViewById(R.id.lv_community_services);
+        mLvCommunityServices = (MyListView) view.findViewById(R.id.lv_community_services);
         mLvCommunityServices.setFocusable(false);
         mLvCommunityServices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

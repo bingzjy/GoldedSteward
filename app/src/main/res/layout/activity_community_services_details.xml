@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.ldnet.view.ImageCycleView
+            <com.ldnet.view.customview.ImageCycleView
                     android:id="@+id/img_housekeeping"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_144dp"/>
@@ -144,7 +144,7 @@
                 android:textColor="@color/black_text"
                 />
         </LinearLayout>
-            <com.ldnet.utility.CustomListView2
+            <com.ldnet.view.listview.MyListView
                 android:id="@+id/lv_housekeeping"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

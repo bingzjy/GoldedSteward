@@ -16,10 +16,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.ldnet.activity.adapter.ImageChooseActivity;
-import com.ldnet.activity.adapter.ImageItem;
-import com.ldnet.activity.adapter.MyDialog;
-import com.ldnet.activity.base.AppUtils;
+
+import com.ldnet.entities.ImageItem;
+import com.ldnet.view.dialog.MyDialog;
+import com.ldnet.utility.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.FreaMarketDetails;
@@ -29,7 +29,7 @@ import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.FindService;
 import com.ldnet.utility.CashierInputFilter;
-import com.ldnet.utility.Services;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.utility.Utility;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -74,9 +74,6 @@ public class FreaMarket_Create extends BaseActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_fleamarket_create);
         AppUtils.setupUI(findViewById(R.id.ll_freamark_creat), this);
-        if (ImageChooseActivity.instance != null) {
-            ImageChooseActivity.instance.finish();
-        }
 
         initView();
         initEvent();

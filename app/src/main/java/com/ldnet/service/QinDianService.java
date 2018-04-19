@@ -9,9 +9,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ldnet.entities.AccountRecord;
 import com.ldnet.entities.ChargAmount;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import okhttp3.Call;

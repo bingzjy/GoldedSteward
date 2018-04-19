@@ -16,12 +16,12 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <com.ldnet.utility.CustomListView2
+            <com.ldnet.view.listview.MyListView
                     android:id="@+id/lv_property_notification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-            </com.ldnet.utility.CustomListView2>
+            </com.ldnet.view.listview.MyListView>
             <TextView
                     android:id="@+id/notification_empty"
                     android:layout_width="match_parent"

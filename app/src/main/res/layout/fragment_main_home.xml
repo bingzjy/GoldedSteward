@@ -191,7 +191,7 @@
                         android:orientation="vertical">
                     <!-- 发现分模块结束 -->
                 </LinearLayout>
-                <com.ldnet.utility.MyGridView
+                <com.ldnet.view.customview.MyGridView
                         android:id="@+id/grid_goods"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

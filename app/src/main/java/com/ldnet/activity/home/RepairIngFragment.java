@@ -2,8 +2,6 @@ package com.ldnet.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,17 +9,21 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseFragment;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.Repair;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.tendcloud.tenddata.TCAgent;
-import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -29,9 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

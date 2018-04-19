@@ -26,10 +26,10 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.FindService;
-import com.ldnet.utility.BottomDialog;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
-import com.ldnet.view.ImageCycleView;
+import com.ldnet.view.dialog.BottomDialog;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.customview.ImageCycleView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
 
@@ -131,8 +131,8 @@ public class Weekend_Details extends BaseActionBarActivity {
     }
 
 
-    private com.ldnet.view.ImageCycleView.ImageCycleViewListener mAdCycleViewListener =
-            new com.ldnet.view.ImageCycleView.ImageCycleViewListener() {
+    private ImageCycleView.ImageCycleViewListener mAdCycleViewListener =
+            new ImageCycleView.ImageCycleViewListener() {
 
                 @Override
                 public void onImageClick(int position, View imageView) {

@@ -9,17 +9,19 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
-import com.ldnet.activity.ChangePassword;
-import com.ldnet.activity.MainActivity;
-import com.ldnet.activity.base.AppUtils;
+
+import com.ldnet.activity.commen.Services;
+import com.ldnet.activity.main.ChangePassword;
+import com.ldnet.utility.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.*;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
+
 import okhttp3.Call;
 import org.json.JSONException;
 import org.json.JSONObject;

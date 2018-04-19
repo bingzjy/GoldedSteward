@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.ldnet.view.ImageCycleView
+            <com.ldnet.view.customview.ImageCycleView
                 android:id="@+id/img_housekeeping"
                 android:layout_width="match_parent"
                 android:layout_height="200dp" />
@@ -126,5 +126,5 @@
         </LinearLayout>
     </ScrollView>
 
-
+<include layout="@layout/shopping_cart_layout"/>
 </LinearLayout>

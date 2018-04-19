@@ -26,12 +26,12 @@
                     android:text="@string/response_data_isNull"
                     android:textColor="@color/gray_text"
                     android:visibility="gone" />
-            <com.ldnet.utility.CustomListView2
+            <com.ldnet.view.listview.MyListView
                     android:id="@+id/lv_find_fleamarket"
                     android:background="@drawable/border_top_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-            </com.ldnet.utility.CustomListView2>
+            </com.ldnet.view.listview.MyListView>
         </LinearLayout>
     </com.library.PullToRefreshScrollView>
 </LinearLayout>

@@ -5,18 +5,15 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.ldnet.activity.MainActivity;
+
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.BottomDialog;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.view.dialog.BottomDialog;
+import com.ldnet.activity.commen.Services;
 import com.tendcloud.tenddata.TCAgent;
 
 public class Invite extends BaseActionBarActivity {

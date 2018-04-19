@@ -1,41 +1,31 @@
 package com.ldnet.activity.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.MainActivity;
+
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.CommunityServicesModel;
-import com.ldnet.entities.YellowPageSort;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.CommunityService;
 import com.ldnet.utility.*;
+import com.ldnet.view.customview.PagerSlidingTabStrip;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
-import okhttp3.Call;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Type;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by zxs on 2016/3/30.
- * 黄页
+ * 周边惠
  */
 public class CommunityServicesPageTabActivity extends BaseActionBarFragmentActivity implements View.OnClickListener {
     private String mYellowPageSortID;

@@ -1,449 +1,469 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/ll_property_services"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/gray_light_2"
-              android:orientation="vertical">
+    android:id="@+id/ll_property_services"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_light_2"
+    android:orientation="vertical">
 
-    <include layout="@layout/activity_second_titlebar"/>
+    <include layout="@layout/activity_second_titlebar" />
 
     <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_2dp">
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@color/white"
-                    android:padding="@dimen/dimen_2dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/iv_property_thumbnail"
-                        android:layout_width="66dp"
-                        android:layout_height="66dp"
-                        android:layout_margin="@dimen/dimen_12dp"
-                        android:layout_marginRight="@dimen/dimen_8dp"
-                        android:src="@drawable/me_thumbnail_n"
-                        app:border_color="#00000000"
-                        app:border_width="2dp"/>
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/iv_property_thumbnail"
+                    android:layout_width="66dp"
+                    android:layout_height="66dp"
+                    android:layout_margin="@dimen/dimen_12dp"
+                    android:layout_marginRight="@dimen/dimen_8dp"
+                    android:src="@drawable/me_thumbnail_n"
+                    app:border_color="#00000000"
+                    app:border_width="2dp" />
 
                 <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="@dimen/dimen_0dp"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/dimen_0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
-                            android:id="@+id/tv_property_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:gravity="bottom"
-                            android:layout_weight="3"
-                            android:paddingLeft="@dimen/dimen_8dp"
-                            android:paddingRight="@dimen/dimen_2dp"
-                            android:text="百乐物业忆江南物业管理处"
-                            android:textColor="@color/gray_deep"
-                            android:textSize="@dimen/font_size_16sp"/>
-
-                    <TextView
-                            android:id="@+id/tv_property_address"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:layout_marginBottom="@dimen/dimen_4dp"
-                            android:layout_marginTop="@dimen/dimen_2dp"
-                            android:layout_weight="2"
-                            android:paddingLeft="@dimen/dimen_8dp"
-                            android:paddingRight="@dimen/dimen_2dp"
-                            android:text="PROPERTY_ADDRESS"
-                            android:textColor="@color/gray"
-                            android:textSize="@dimen/font_size_14sp"/>
-                </LinearLayout>
-            </LinearLayout>
-            <View android:layout_width="match_parent" android:layout_height="1dp"
-                  android:background="@color/gray_light_2"
-            />
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border_bottom"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/dimen_16dp">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/property_services_gas"
-                            android:textColor="@color/gray"
-                            android:textSize="@dimen/font_size_16sp"/>
-
-                    <TextView
-                            android:id="@+id/tv_house_information_gas"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_8dp"
-                            android:text="GAS_NO"
-                            android:textColor="@color/gray_deep"
-                            android:textSize="@dimen/font_size_14sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/dimen_16dp">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/property_services_water"
-                            android:textColor="@color/gray"
-                            android:textSize="@dimen/font_size_16sp"/>
-
-                    <TextView
-                            android:id="@+id/tv_house_information_water"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_8dp"
-                            android:text="WATER_NO"
-                            android:textColor="@color/gray_deep"
-                            android:textSize="@dimen/font_size_14sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/dimen_16dp">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/property_services_electric"
-                            android:textColor="@color/gray"
-                            android:textSize="@dimen/font_size_16sp"/>
-
-                    <TextView
-                            android:id="@+id/tv_house_information_electric"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_8dp"
-                            android:text="ELECTRIC_NO"
-                            android:textColor="@color/gray_deep"
-                            android:textSize="@dimen/font_size_14sp"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_48dp"
-                    android:background="@color/gray_light_3"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dimen_8dp">
-
-                <TextView
+                        android:id="@+id/tv_property_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fragment_home_property_houseinfo"
+                        android:layout_gravity="left"
+                        android:layout_weight="3"
+                        android:gravity="bottom"
+                        android:paddingLeft="@dimen/dimen_8dp"
+                        android:paddingRight="@dimen/dimen_2dp"
+                        android:text="百乐物业忆江南物业管理处"
+                        android:textColor="@color/gray_deep"
+                        android:textSize="@dimen/font_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_property_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="@dimen/dimen_4dp"
+                        android:layout_marginTop="@dimen/dimen_2dp"
+                        android:layout_weight="2"
+                        android:paddingLeft="@dimen/dimen_8dp"
+                        android:paddingRight="@dimen/dimen_2dp"
+                        android:text="PROPERTY_ADDRESS"
                         android:textColor="@color/gray"
-                        android:textSize="@dimen/font_size_16sp"/>
+                        android:textSize="@dimen/font_size_14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light_2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/property_services_gas"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/font_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_house_information_gas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:text="GAS_NO"
+                        android:textColor="@color/gray_deep"
+                        android:textSize="@dimen/font_size_14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/property_services_water"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/font_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_house_information_water"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:text="WATER_NO"
+                        android:textColor="@color/gray_deep"
+                        android:textSize="@dimen/font_size_14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/property_services_electric"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/font_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_house_information_electric"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:text="ELECTRIC_NO"
+                        android:textColor="@color/gray_deep"
+                        android:textSize="@dimen/font_size_14sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                    android:padding="@dimen/dimen_10dp"
-                    android:layout_width="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48dp"
+                android:background="@color/gray_light_3"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
+                    android:text="@string/fragment_home_property_houseinfo"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/font_size_16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_10dp">
 
                 <LinearLayout
-                        android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_house_information_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="HOUSE_NAME"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/font_size_16sp" />
 
                     <TextView
-                            android:id="@+id/tv_house_information_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="HOUSE_NAME"
-                            android:textColor="@color/orange"
-                            android:textSize="@dimen/font_size_16sp"/>
-
-                    <TextView
-                            android:id="@+id/tv_house_information_area"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:paddingRight="@dimen/dimen_12dp"
-                            android:text="@string/property_services_area"
-                            android:textColor="@color/green"
-                            android:textSize="@dimen/font_size_14sp"/>
+                        android:id="@+id/tv_house_information_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/dimen_12dp"
+                        android:text="@string/property_services_area"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/font_size_14sp" />
 
                     <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:contentDescription="@null"
-                            android:src="@mipmap/arrow_right_n"
-                            android:visibility="gone"/>
-                </LinearLayout>
-            </LinearLayout>
-            <View
-                    android:background="@color/gray_light_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_48dp"
-                    android:background="@color/gray_light_3"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dimen_8dp">
-
-                <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fragment_home_property_services"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/font_size_16sp"/>
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:src="@mipmap/arrow_right_n"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light_2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48dp"
+                android:background="@color/gray_light_3"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_home_property_services"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/font_size_16sp" />
             </LinearLayout>
             <!--物业服务-->
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border_top_bottom"
-                    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_top_bottom"
+                android:orientation="vertical">
 
                 <LinearLayout
-                        android:id="@+id/ll_home_fee"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_48dp"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                    <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:background="@null"
-                            android:contentDescription="@null"
-                            android:src="@mipmap/home_fee"/>
-
-                    <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/dimen_4dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/border_bottom">
-
-                        <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:text="@string/property_services_fee"
-                                android:textColor="@color/gray_deep"
-                                android:textSize="@dimen/font_size_16sp"/>
-
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/arrow_right_n"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                        android:id="@+id/ll_home_repair"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_48dp"
-                        android:orientation="horizontal">
-
-                    <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:layout_marginTop="2dp"
-                            android:background="@null"
-                            android:contentDescription="@null"
-                            android:src="@drawable/home_repair"/>
-
-                    <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/dimen_4dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/border_bottom">
-
-                        <TextView
-                                android:id="@+id/tx_home_repair"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:text="@string/property_services_repair"
-                                android:textColor="@color/gray_deep"
-                                android:textSize="@dimen/font_size_16sp"/>
-                        <ImageView
-                                android:visibility="gone"
-                                android:id="@+id/unread_baoxiu"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/red"
-                                android:layout_gravity="center"
-                                />
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/arrow_right_n"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                        android:id="@+id/ll_home_complaint"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_48dp"
-                        android:orientation="horizontal">
-
-                    <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:layout_marginTop="2dp"
-                            android:background="@null"
-                            android:contentDescription="@null"
-                            android:src="@drawable/home_complaint"/>
-
-                    <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/dimen_4dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/border_bottom">
-
-                        <TextView
-                                android:id="@+id/tx_home_complaint"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:text="@string/property_services_complain"
-                                android:textColor="@color/gray_deep"
-                                android:textSize="@dimen/font_size_16sp"/>
-                        <ImageView
-                                android:visibility="gone"
-                                android:id="@+id/unread_tousu"
-                                android:src="@mipmap/red"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                        />
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/arrow_right_n"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                        android:id="@+id/ll_home_communicate"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_48dp"
-                        android:orientation="horizontal">
-
-                    <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:layout_marginTop="2dp"
-                            android:background="@null"
-                            android:contentDescription="@null"
-                            android:src="@drawable/home_communicate"/>
-
-                    <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/dimen_4dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/border_bottom">
-
-                        <TextView
-                                android:id="@+id/tx_home_communicate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:text="@string/property_services_communicate"
-                                android:textColor="@color/gray_deep"
-                                android:textSize="@dimen/font_size_16sp"/>
-                        <ImageView
-                                android:visibility="gone"
-                                android:id="@+id/unread_goutong"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/red"
-                                android:layout_gravity="center"
-                        />
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/arrow_right_n"/>
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ll_home_inspection"
+                    android:id="@+id/ll_home_fee"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_48dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:layout_marginTop="2dp"
                         android:background="@null"
                         android:contentDescription="@null"
-                        android:src="@drawable/home_communicate"/>
+                        android:src="@mipmap/home_fee" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_4dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_bottom">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="@string/property_services_fee"
+                            android:textColor="@color/gray_deep"
+                            android:textSize="@dimen/font_size_16sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@mipmap/arrow_right_n" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_home_repair"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:contentDescription="@null"
+                        android:paddingBottom="13dp"
+                        android:paddingLeft="22dp"
+                        android:paddingRight="@dimen/dimen_15dp"
+                        android:paddingTop="@dimen/dimen_15dp"
+                        android:src="@drawable/ic_property_service_repair_icon" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_bottom">
+
+                        <TextView
+                            android:id="@+id/tx_home_repair"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingBottom="@dimen/dimen_15dp"
+                            android:paddingTop="@dimen/dimen_15dp"
+                            android:text="@string/property_services_repair"
+                            android:textColor="@color/black_text"
+                            android:textSize="17sp" />
+
+                        <ImageView
+                            android:id="@+id/unread_baoxiu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/red"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@mipmap/arrow_right_n" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_home_complaint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:contentDescription="@null"
+                        android:paddingBottom="13dp"
+                        android:paddingLeft="22dp"
+                        android:paddingRight="@dimen/dimen_15dp"
+                        android:paddingTop="@dimen/dimen_15dp"
+                        android:src="@drawable/ic_property_service_complain_icon" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_4dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_bottom">
+
+                        <TextView
+                            android:id="@+id/tx_home_complaint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingBottom="@dimen/dimen_15dp"
+                            android:paddingTop="@dimen/dimen_15dp"
+                            android:text="@string/property_services_complain"
+                            android:textColor="@color/black_text"
+                            android:textSize="17sp" />
+
+                        <ImageView
+                            android:id="@+id/unread_tousu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/red"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@mipmap/arrow_right_n" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_home_communicate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:contentDescription="@null"
+                        android:paddingBottom="13dp"
+                        android:paddingLeft="22dp"
+                        android:paddingRight="@dimen/dimen_15dp"
+                        android:paddingTop="@dimen/dimen_15dp"
+                        android:src="@drawable/ic_property_service_communicate_icon" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_4dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_bottom">
+
+                        <TextView
+                            android:id="@+id/tx_home_communicate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingBottom="@dimen/dimen_15dp"
+                            android:paddingTop="@dimen/dimen_15dp"
+                            android:text="@string/property_services_communicate"
+                            android:textColor="@color/black_text"
+                            android:textSize="17sp" />
+
+                        <ImageView
+                            android:id="@+id/unread_goutong"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/red"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@mipmap/arrow_right_n" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_home_inspection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:contentDescription="@null"
+                        android:paddingBottom="13dp"
+                        android:paddingLeft="22dp"
+                        android:paddingRight="@dimen/dimen_15dp"
+                        android:paddingTop="@dimen/dimen_15dp"
+                        android:src="@drawable/ic_property_service_home_check_icon" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -459,62 +479,125 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
+                            android:paddingBottom="@dimen/dimen_15dp"
+                            android:paddingTop="@dimen/dimen_15dp"
                             android:text="@string/inpspect_notice_title"
-                            android:textColor="@color/gray_deep"
-                            android:textSize="@dimen/font_size_16sp"/>
+                            android:textColor="@color/black_text"
+                            android:textSize="17sp" />
+
                         <ImageView
-                            android:visibility="gone"
                             android:id="@+id/unread_inspect"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/red"
                             android:layout_gravity="center"
-                            />
+                            android:src="@mipmap/red"
+                            android:visibility="gone" />
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:contentDescription="@null"
-                            android:src="@mipmap/arrow_right_n"/>
+                            android:src="@mipmap/arrow_right_n" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
-                        android:id="@+id/ll_home_telephone"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_48dp"
-                        android:orientation="horizontal">
+                    android:id="@+id/ll_home_decorate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:layout_marginTop="2dp"
-                            android:background="@null"
-                            android:contentDescription="@null"
-                            android:src="@drawable/home_telephone"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:contentDescription="@null"
+                        android:paddingBottom="13dp"
+                        android:paddingLeft="22dp"
+                        android:paddingRight="@dimen/dimen_15dp"
+                        android:paddingTop="@dimen/dimen_15dp"
+                        android:src="@drawable/ic_property_service_decorate_icon" />
 
                     <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/dimen_4dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_weight="1">
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_4dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_bottom">
 
                         <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:text="@string/property_services_telephone"
-                                android:textColor="@color/gray_deep"
-                                android:textSize="@dimen/font_size_16sp"/>
+                            android:id="@+id/tx_home_decorate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingBottom="@dimen/dimen_15dp"
+                            android:paddingTop="@dimen/dimen_15dp"
+                            android:text="装修管理"
+                            android:textColor="@color/black_text"
+                            android:textSize="17sp" />
 
                         <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:contentDescription="@null"
-                                android:src="@mipmap/arrow_right_n"/>
+                            android:id="@+id/unread_decorate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/red"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@mipmap/arrow_right_n" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_home_telephone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:contentDescription="@null"
+                        android:paddingBottom="13dp"
+                        android:paddingLeft="22dp"
+                        android:paddingRight="@dimen/dimen_15dp"
+                        android:paddingTop="@dimen/dimen_15dp"
+                        android:src="@drawable/ic_property_service_tel_icon" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_4dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingBottom="@dimen/dimen_15dp"
+                            android:paddingTop="@dimen/dimen_15dp"
+                            android:text="@string/property_services_telephone"
+                            android:textColor="@color/black_text"
+                            android:textSize="17sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@mipmap/arrow_right_n" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

@@ -6,61 +6,47 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.Browser;
+import com.ldnet.activity.main.Browser;
 import com.ldnet.activity.base.BaseFragment;
 import com.ldnet.entities.Information;
 import com.ldnet.entities.InformationType;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
-import com.ldnet.service.AcountService;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.FindService;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.CustomListView2;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.ListViewAdapter;
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.utility.ReadInfoIDs;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.ldnet.utility.ViewHolder;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
+import com.ldnet.view.listview.MyListView;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import okhttp3.Call;
 
 /**
  * Created by zxs on 2016/3/29.
  */
 public class InforFragmentContent extends BaseFragment {
     private Services services;
-    private CustomListView2 lv_find_informations;
+    private MyListView lv_find_informations;
     private ListViewAdapter mAdapter;
     private List<Information> mDatas;
     private List<InformationType> mTypeDatas;//类型集合
@@ -122,7 +108,7 @@ public class InforFragmentContent extends BaseFragment {
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setHeaderLayout(new HeaderLayout(getActivity()));
         mPullToRefreshScrollView.setFooterLayout(new FooterLayout(getActivity()));
-        lv_find_informations = (CustomListView2) view.findViewById(R.id.lv_find_informations);
+        lv_find_informations = (MyListView) view.findViewById(R.id.lv_find_informations);
         lv_find_informations.setFocusable(false);
         mDatas = new ArrayList<Information>();
         lv_find_informations.setOnItemClickListener(new AdapterView.OnItemClickListener() {

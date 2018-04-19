@@ -1,25 +1,20 @@
 package com.ldnet.service;
 
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.autonavi.rtbt.IFrameForRTBT;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ldnet.entities.InfoBarData;
 import com.ldnet.entities.InfoBarDetail;
 import com.ldnet.entities.InfoBarType;
 import com.ldnet.entities.User;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;

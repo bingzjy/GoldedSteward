@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.activity.mall.Order_Confirm;
 import com.ldnet.entities.Coupon;
 import com.ldnet.entities.Goods;
@@ -16,10 +18,13 @@ import com.ldnet.entities.RS;
 import com.ldnet.entities.SubOrders;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.tendcloud.tenddata.TCAgent;
 import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
+
 import okhttp3.Call;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +36,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zxs on 2016/4/23.

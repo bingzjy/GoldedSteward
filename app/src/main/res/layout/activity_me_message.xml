@@ -13,12 +13,12 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <com.ldnet.utility.MyListView
+            <com.ldnet.view.listview.MyListView
                     android:id="@+id/lv_message"
                     android:background="@drawable/border_top_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-            </com.ldnet.utility.MyListView>
+            </com.ldnet.view.listview.MyListView>
         </LinearLayout>
 
     </com.library.PullToRefreshScrollView>

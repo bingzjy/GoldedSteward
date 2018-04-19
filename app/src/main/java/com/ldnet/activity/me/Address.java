@@ -2,17 +2,15 @@ package com.ldnet.activity.me;
 
 import android.os.*;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.MainActivity;
+
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.AddressSimple;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AddressService;
@@ -21,14 +19,7 @@ import com.ldnet.utility.*;
 import com.tendcloud.tenddata.TCAgent;
 import com.third.SwipeListView.BaseSwipeListViewListener;
 import com.third.SwipeListView.SwipeListView;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-import okhttp3.Call;
-import okhttp3.Request;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

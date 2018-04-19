@@ -39,7 +39,7 @@
                 android:src="@mipmap/arrow_right_n" />
         </LinearLayout>
 
-        <com.ldnet.utility.MyGridView
+        <com.ldnet.view.customview.MyGridView
             android:id="@+id/gv_goods"
             android:layout_width="match_parent"
             android:layout_height="0dp"

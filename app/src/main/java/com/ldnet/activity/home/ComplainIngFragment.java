@@ -3,8 +3,6 @@ package com.ldnet.activity.home;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +13,22 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseFragment;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.Repair;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
+import com.ldnet.view.listview.MyListView;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.tendcloud.tenddata.TCAgent;
-import com.third.listviewshangxia.XListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -33,9 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -68,7 +69,7 @@ public class ComplainIngFragment extends BaseFragment implements View.OnClickLis
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setHeaderLayout(new HeaderLayout(getActivity()));
         mPullToRefreshScrollView.setFooterLayout(new FooterLayout(getActivity()));
-        listView = (ListView) view.findViewById(R.id.lv_home_repairs_ing);
+        listView = (MyListView) view.findViewById(R.id.lv_home_repairs_ing);
         listView.setFocusable(false);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -176,7 +177,6 @@ public class ComplainIngFragment extends BaseFragment implements View.OnClickLis
                                             }
                                         };
                                         listView.setAdapter(adapter);
-                                        Services.setListViewHeightBasedOnChildren(listView);
                                     } else {
                                         if (mDatas != null && mDatas.size() > 0) {
                                             showToast("沒有更多数据");

@@ -14,7 +14,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-            <com.ldnet.view.ImageCycleView
+            <com.ldnet.view.customview.ImageCycleView
                     android:id="@+id/vp_house_rent_images"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_144dp"/>

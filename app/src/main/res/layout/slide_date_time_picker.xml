@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.ldnet.view.SlidingTabLayout
+    <com.ldnet.view.dateview.SlidingTabLayout
         android:id="@+id/slidingTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.ldnet.view.CustomViewPager
+    <com.ldnet.view.customview.CustomViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

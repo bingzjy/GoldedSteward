@@ -26,12 +26,12 @@
                     android:text="@string/response_data_isNull"
                     android:textColor="@color/gray_text"
                     android:visibility="gone" />
-            <ListView
+            <com.ldnet.view.listview.MyListView
                     android:id="@+id/houserent_listview"
                     android:background="@drawable/border_top_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-            </ListView>
+            </com.ldnet.view.listview.MyListView>
         </LinearLayout>
 
     </com.library.PullToRefreshScrollView>

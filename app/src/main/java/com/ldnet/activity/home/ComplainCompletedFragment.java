@@ -13,13 +13,19 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseFragment;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.Repair;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.utility.*;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
+import com.ldnet.view.listview.MyListView;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.tendcloud.tenddata.TCAgent;
@@ -64,7 +70,7 @@ public class ComplainCompletedFragment extends BaseFragment implements View.OnCl
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setHeaderLayout(new HeaderLayout(getActivity()));
         mPullToRefreshScrollView.setFooterLayout(new FooterLayout(getActivity()));
-        listView = (ListView) view.findViewById(R.id.lv_home_repairs_comment);
+        listView = (MyListView) view.findViewById(R.id.lv_home_repairs_comment);
         listView.setFocusable(false);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -195,7 +201,6 @@ public class ComplainCompletedFragment extends BaseFragment implements View.OnCl
                                             }
                                         };
                                         listView.setAdapter(adapter);
-                                        Services.setListViewHeightBasedOnChildren(listView);
                                     } else {
                                         if (mDatas != null && mDatas.size() > 0) {
                                             showToast("沒有更多数据");

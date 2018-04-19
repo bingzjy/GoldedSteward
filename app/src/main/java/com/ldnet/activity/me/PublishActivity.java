@@ -1,19 +1,15 @@
 package com.ldnet.activity.me;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ldnet.activity.adapter.InfoBarPagerAdapter;
 import com.ldnet.activity.adapter.PublishPagerAdapter;
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
 import com.ldnet.entities.InfoBarType;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.NoScrollViewPager;
-import com.ldnet.utility.PagerSlidingTabStrip;
+import com.ldnet.view.customview.NoScrollViewPager;
+import com.ldnet.view.customview.PagerSlidingTabStrip;
 import com.ldnet.utility.Utility;
 import com.tendcloud.tenddata.TCAgent;
 

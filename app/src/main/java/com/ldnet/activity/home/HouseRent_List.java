@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.HouseProperties;
 import com.ldnet.entities.HouseRent;
 import com.ldnet.goldensteward.R;
@@ -20,22 +20,16 @@ import com.ldnet.service.HouseRentService;
 import com.ldnet.utility.*;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
+import com.ldnet.view.listview.MyListView;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
-import com.third.listviewshangxia.XListView;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-import okhttp3.Call;
-import okhttp3.Request;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -85,7 +79,7 @@ public class HouseRent_List extends BaseActionBarActivity {
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setHeaderLayout(new HeaderLayout(this));
         mPullToRefreshScrollView.setFooterLayout(new FooterLayout(this));
-        houserent_list = (ListView) findViewById(R.id.houserent_listview);
+        houserent_list = (MyListView) findViewById(R.id.houserent_listview);
         houserent_list.setFocusable(false);
         houserent_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -215,7 +209,6 @@ public class HouseRent_List extends BaseActionBarActivity {
                     datas=(List<HouseRent>)msg.obj;
                     mList.addAll(datas);
                     mListViewAdapter.notifyDataSetChanged();
-                    Services.setListViewHeightBasedOnChildren(houserent_list);
                     break;
                 case BaseService.DATA_SUCCESS_OTHER:
                     if (mList != null && mList.size() > 0) {
@@ -224,7 +217,6 @@ public class HouseRent_List extends BaseActionBarActivity {
                         tv_rent_list.setVisibility(View.VISIBLE);
                     }
                     mListViewAdapter.notifyDataSetChanged();
-                    Services.setListViewHeightBasedOnChildren(houserent_list);
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:

@@ -17,9 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ldnet.activity.adapter.CustomAlertDialog;
+import com.ldnet.view.dialog.CustomAlertDialog;
 import com.ldnet.activity.base.BaseFragment;
-import com.ldnet.activity.home.YellowPages_Map;
+import com.ldnet.activity.yellowpage.YellowPages_Map;
 import com.ldnet.goldensteward.R;
 
 import java.util.HashMap;

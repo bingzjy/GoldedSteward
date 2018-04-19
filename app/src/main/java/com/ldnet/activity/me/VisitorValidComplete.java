@@ -1,60 +1,37 @@
 package com.ldnet.activity.me;
 
-import android.Manifest;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 
-import com.google.gson.Gson;
-import com.ldnet.activity.BindingHouse;
-import com.ldnet.activity.FragmentHome;
-import com.ldnet.activity.MainActivity;
+import com.ldnet.activity.main.BindingHouse;
+import com.ldnet.activity.main.MainActivity;
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
-import com.ldnet.activity.bindmanage.AddRelationActivity;
-import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
 import com.ldnet.utility.Utility;
-import com.ldnet.view.SlideDateTimeListener;
-import com.ldnet.view.SlideDateTimePicker;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
-import okhttp3.Call;
-import okhttp3.Request;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import static com.alipay.sdk.authjs.a.c;
-import static com.ldnet.utility.Services.CLASS_FROM;
-import static com.ldnet.utility.Services.COMMUNITY_ID;
-import static com.ldnet.utility.Services.COMMUNITY_NAME;
-import static com.ldnet.utility.Services.OWNER_FLAG;
-import static com.ldnet.utility.Services.OWNER_ID;
-import static com.ldnet.utility.Services.OWNER_TEL;
-import static com.ldnet.utility.Services.RESIDENT_DATE_END;
-import static com.ldnet.utility.Services.RESIDENT_DATE_START;
-import static com.ldnet.utility.Services.RESIDENT_TYPE;
-import static com.ldnet.utility.Services.ROOM_ID;
-import static com.ldnet.utility.Services.ROOM_NAME;
-import static com.ldnet.utility.Services.TO_APPLY;
+import static com.ldnet.activity.commen.Services.CLASS_FROM;
+import static com.ldnet.activity.commen.Services.COMMUNITY_ID;
+import static com.ldnet.activity.commen.Services.COMMUNITY_NAME;
+import static com.ldnet.activity.commen.Services.OWNER_FLAG;
+import static com.ldnet.activity.commen.Services.OWNER_ID;
+import static com.ldnet.activity.commen.Services.OWNER_TEL;
+import static com.ldnet.activity.commen.Services.RESIDENT_DATE_END;
+import static com.ldnet.activity.commen.Services.RESIDENT_DATE_START;
+import static com.ldnet.activity.commen.Services.RESIDENT_TYPE;
+import static com.ldnet.activity.commen.Services.ROOM_ID;
+import static com.ldnet.activity.commen.Services.ROOM_NAME;
+import static com.ldnet.activity.commen.Services.TO_APPLY;
 
 /**
  * Created by lee on 2017/4/25.

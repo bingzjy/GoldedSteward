@@ -1,9 +1,7 @@
 package com.ldnet.activity.home;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.*;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -11,23 +9,20 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
-import com.google.gson.Gson;
-import com.ldnet.activity.adapter.*;
-import com.ldnet.activity.base.AppUtils;
+import com.ldnet.utility.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.*;
 import com.ldnet.goldensteward.R;
 import com.ldnet.interfaze.PictureChoseListener;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.HouseRentService;
-import com.ldnet.service.OkHttpService;
 import com.ldnet.utility.*;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.dialog.MyDialog;
 import com.nanchen.compresshelper.CompressHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
-
-import okhttp3.Call;
-import okhttp3.Request;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,8 +31,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.ldnet.goldensteward.R.id.et_weekend_cost;
 
 /**
  * Created by Murray on 2015/9/6.
@@ -81,9 +74,6 @@ public class HouseRent_Create extends BaseActionBarActivity {
         AppUtils.setupUI(findViewById(R.id.ll_house_rent), this);
         sp = getSharedPreferences(CustomConstants.APPLICATION_NAME, MODE_PRIVATE);
 
-        if (ImageChooseActivity.instance != null) {
-            ImageChooseActivity.instance.finish();
-        }
         //服务初始化
         service = new Services();
         houseRentService=new HouseRentService(this);

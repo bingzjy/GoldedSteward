@@ -5,62 +5,41 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.MainActivity;
+import com.ldnet.activity.main.MainActivity;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.FindService;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.CustomListView2;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.ListViewAdapter;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
-import com.ldnet.utility.Utility;
+import com.ldnet.activity.adapter.ListViewAdapter;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.utility.ViewHolder;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
+import com.ldnet.view.listview.MyListView;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Request;
-
-import static com.ldnet.goldensteward.R.id.close;
-import static com.ldnet.goldensteward.R.id.lv_find_fleamarket;
-import static com.ldnet.goldensteward.R.id.tv_find_fleamarket;
-import static com.ldnet.goldensteward.R.id.vp_frea_market_images;
 
 public class Weekend extends BaseActionBarActivity {
     private TextView tv_main_title;
     private ImageButton btn_back;
     private ImageButton btn_weekend_create;
     private Services services;
-    private CustomListView2 lv_find_weekend;
+    private MyListView lv_find_weekend;
     private ListViewAdapter<com.ldnet.entities.Weekend> mAdapter;
     private List<com.ldnet.entities.Weekend> mDatas = new ArrayList<com.ldnet.entities.Weekend>();
     private TextView tv_find_weekend;
@@ -97,7 +76,7 @@ public class Weekend extends BaseActionBarActivity {
         mPullToRefreshScrollView.setHeaderLayout(new HeaderLayout(this));
         mPullToRefreshScrollView.setFooterLayout(new FooterLayout(this));
         //ListView
-        lv_find_weekend = (CustomListView2) findViewById(R.id.lv_find_weekend);
+        lv_find_weekend = (MyListView) findViewById(R.id.lv_find_weekend);
         lv_find_weekend.setFocusable(false);
 
         mAdapter = new ListViewAdapter<com.ldnet.entities.Weekend>(Weekend.this, R.layout.item_weekend, mDatas) {

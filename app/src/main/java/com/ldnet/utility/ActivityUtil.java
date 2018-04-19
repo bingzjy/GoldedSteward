@@ -2,8 +2,6 @@ package com.ldnet.utility;
 
 import android.app.Activity;
 
-import com.ldnet.activity.MainActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 

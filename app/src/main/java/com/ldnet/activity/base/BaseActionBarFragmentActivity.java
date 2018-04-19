@@ -7,16 +7,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,15 +27,14 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.interfaze.PermissionListener;
 import com.ldnet.interfaze.PictureChoseListener;
 import com.ldnet.utility.ActivityUtil;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.dialog.NormalLoadingDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.tendcloud.tenddata.TCAgent;
 
 import net.tsz.afinal.FinalBitmap;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -54,7 +48,7 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 public class BaseActionBarFragmentActivity extends FragmentActivity {
 
-    protected LoadingDialog dialog;
+    protected NormalLoadingDialog dialog;
     Context context;
     protected FinalBitmap finalBitmap;
     private int flag;
@@ -132,7 +126,7 @@ public class BaseActionBarFragmentActivity extends FragmentActivity {
 
     public void showProgressDialog(String str) {
         if (dialog == null) {
-            dialog = new LoadingDialog(this);
+            dialog = new NormalLoadingDialog(this);
             dialog.setCanceledOnTouchOutside(false);
         }
         dialog.setText(str);

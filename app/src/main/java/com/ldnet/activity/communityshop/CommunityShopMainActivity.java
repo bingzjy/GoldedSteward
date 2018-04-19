@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.ldnet.activity.adapter.MainPagerAdapter;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.AppBarStateChangeListener;
+import com.ldnet.utility.listener.AppBarStateChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;

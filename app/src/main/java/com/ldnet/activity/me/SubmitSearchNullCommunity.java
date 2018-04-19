@@ -1,6 +1,5 @@
 package com.ldnet.activity.me;
 
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,12 +12,14 @@ import android.view.View;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.BindingCommunity;
-import com.ldnet.activity.BindingHouse;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.GSApplication;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.Areas;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.*;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import okhttp3.Call;

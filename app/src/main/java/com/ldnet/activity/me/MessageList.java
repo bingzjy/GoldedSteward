@@ -6,9 +6,9 @@ import android.os.Message;
 import android.view.View;
 import android.widget.*;
 
-import com.ldnet.activity.adapter.MyDialog;
+import com.ldnet.activity.adapter.ListViewAdapter;
+import com.ldnet.view.dialog.MyDialog;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.home.HouseRent_List;
 import com.ldnet.entities.MessageData;
 import com.ldnet.entities.MessageType;
 import com.ldnet.goldensteward.R;
@@ -17,6 +17,7 @@ import com.ldnet.service.MessageService;
 import com.ldnet.utility.*;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
+import com.ldnet.view.listview.MyListView;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.tendcloud.tenddata.TCAgent;
@@ -33,7 +34,7 @@ public class MessageList extends BaseActionBarActivity {
     private ImageButton btn_back;
     private MessageType messageType;
     private List<MessageData> list;
-    private CustomListView2 lv_message_detail;
+    private MyListView lv_message_detail;
     private ListViewAdapter<MessageData> mAdapter;
     private List<MessageData> mDatas= new ArrayList<MessageData>();
     private PullToRefreshScrollView mPullToRefreshScrollView;
@@ -80,7 +81,7 @@ public class MessageList extends BaseActionBarActivity {
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullToRefreshScrollView.setHeaderLayout(new HeaderLayout(this));
         mPullToRefreshScrollView.setFooterLayout(new FooterLayout(this));
-        lv_message_detail = (CustomListView2)findViewById(R.id.lv_message_detail);
+        lv_message_detail = (MyListView)findViewById(R.id.lv_message_detail);
         lv_message_detail.setFocusable(false);
 
         lv_message_detail.setOnItemClickListener(new AdapterView.OnItemClickListener() {

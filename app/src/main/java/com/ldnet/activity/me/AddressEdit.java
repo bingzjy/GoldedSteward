@@ -2,10 +2,7 @@ package com.ldnet.activity.me;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,19 +14,16 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.amap.api.maps.offlinemap.City;
-import com.amap.api.maps.offlinemap.Province;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.base.AppUtils;
+import com.ldnet.utility.AppUtils;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.Areas;
-import com.ldnet.entities.HouseRent;
 import com.ldnet.entities.User;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.AddressService;
 import com.ldnet.service.BaseService;
 import com.ldnet.utility.*;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.tendcloud.tenddata.TCAgent;
 
 import java.util.List;

@@ -18,7 +18,7 @@
             android:layout_marginRight="@dimen/dimen_8dp"
             android:background="@drawable/chk_custom"
             android:button="@null"/>
-        <com.ldnet.utility.CenterImage
+        <com.ldnet.view.customview.CenterImage
             android:id="@+id/iv_goods_image"
             android:layout_width="@dimen/dimen_104dp"
             android:layout_height="@dimen/dimen_104dp"

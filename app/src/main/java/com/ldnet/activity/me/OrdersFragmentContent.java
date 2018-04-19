@@ -5,21 +5,16 @@ import android.os.*;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
-import com.autonavi.rtbt.IFrameForRTBT;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.MainActivity;
+import com.ldnet.activity.adapter.ListViewAdapter;
 import com.ldnet.activity.base.BaseFragment;
-import com.ldnet.activity.mall.Goods_Details;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.activity.mall.Order_Details;
 import com.ldnet.activity.mall.Pay;
-import com.ldnet.entities.Goods;
 import com.ldnet.entities.OD;
 import com.ldnet.entities.OrderPay;
 import com.ldnet.entities.Orders;
@@ -29,6 +24,7 @@ import com.ldnet.service.OrderService;
 import com.ldnet.utility.*;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
+import com.ldnet.view.listview.MyListView;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -36,8 +32,6 @@ import com.tendcloud.tenddata.TCAgent;
 
 import java.math.BigDecimal;
 import java.util.*;
-
-import static com.ldnet.utility.Utility.imageOptions;
 
 /**
  *
@@ -56,7 +50,7 @@ public class OrdersFragmentContent extends BaseFragment implements View.OnClickL
     //订单列表
     private List<Orders> mDatas;
     private ListViewAdapter<Orders> mAdapter;
-    private CustomListView2 lv_mall_orders;
+    private MyListView lv_mall_orders;
     private Integer mCurrentTypeId = 1;
     private Integer mCurrentPageIndex = 1;
 
@@ -124,25 +118,32 @@ public class OrdersFragmentContent extends BaseFragment implements View.OnClickL
         //订单为空
         mOrderEmpty = (TextView) view.findViewById(R.id.order_empty);
         String title = getArguments().getString("title");
+        ll_goods_balance = (LinearLayout) view.findViewById(R.id.ll_goods_balance);
+
         if (title != null) {
             if (title.equals("待付款")) {
                 mOrderEmpty.setText("您没有未支付的订单！");
                 mCurrentTypeId = ORDERS_STATUS_NOTPAY;
+                ll_goods_balance.setVisibility(View.VISIBLE);
             } else if (title.equals("待发货")) {
                 mOrderEmpty.setText("您没有未发货的订单！");
                 mCurrentTypeId = ORDERS_STATUS_NOTSENDED;
+                ll_goods_balance.setVisibility(View.GONE);
             } else if (title.equals("待收货")) {
                 mOrderEmpty.setText("您没有未收货的订单！");
                 mCurrentTypeId = ORDERS_STATUS_SENDED;
+                ll_goods_balance.setVisibility(View.GONE);
             } else if (title.equals("已完成")) {
                 mOrderEmpty.setText("您没有已完成的订单！");
                 mCurrentTypeId = ORDERS_STATUS_SUCCESS;
+                ll_goods_balance.setVisibility(View.GONE);
             } else if (title.equals("已取消")) {
                 mOrderEmpty.setText("您没有已取消的订单！");
                 mCurrentTypeId = ORDERS_STATUS_CANCEL;
+                ll_goods_balance.setVisibility(View.GONE);
             }
         }
-        ll_goods_balance = (LinearLayout) view.findViewById(R.id.ll_goods_balance);
+
         tv_goods_prices = (TextView) view.findViewById(R.id.tv_goods_prices);
         btn_goods_balance = (Button) view.findViewById(R.id.btn_goods_balance);
 
@@ -153,7 +154,7 @@ public class OrdersFragmentContent extends BaseFragment implements View.OnClickL
         mPullToRefreshScrollView.setHeaderLayout(new HeaderLayout(getActivity()));
         mPullToRefreshScrollView.setFooterLayout(new FooterLayout(getActivity()));
         mDatas = new ArrayList<Orders>();
-        lv_mall_orders = (CustomListView2) view.findViewById(R.id.lv_mall_orders);
+        lv_mall_orders = (MyListView) view.findViewById(R.id.lv_mall_orders);
         lv_mall_orders.setFocusable(false);
         mCurrentPageIndex = 1;//重置为第一页
 
@@ -213,6 +214,7 @@ public class OrdersFragmentContent extends BaseFragment implements View.OnClickL
                     @Override
                     public void onClick(View view) {
                         if (mCurrentTypeId.equals(ORDERS_STATUS_NOTPAY)) {
+                            showProgressDialog();
                           orderService.orderCancel(orders.OID,handlerOrderCancel);
                         } else if (mCurrentTypeId.equals(ORDERS_STATUS_SENDED)) {
                             orderService.receiveComfirm(orders.OID,handlerReceiveComfirm);
@@ -357,7 +359,7 @@ public class OrdersFragmentContent extends BaseFragment implements View.OnClickL
     //更新订单状态
     private void updateBlanceStatus() {
         mAdapter.notifyDataSetChanged();
-        if (mCurrentTypeId.equals(ORDERS_STATUS_NOTPAY)) {
+        if (mCurrentTypeId.equals(ORDERS_STATUS_NOTPAY)&&mDatas!=null) {
             BigDecimal totalPrices = new BigDecimal("0.00");
             for (Orders orders : mDatas) {
                 if (orders.IsChecked) {
@@ -383,6 +385,7 @@ public class OrdersFragmentContent extends BaseFragment implements View.OnClickL
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             mPullToRefreshScrollView.onRefreshComplete();
+            closeProgressDialog();
             switch (msg.what){
                 case BaseService.DATA_SUCCESS:
                     lv_mall_orders.setVisibility(View.VISIBLE);
@@ -400,6 +403,7 @@ public class OrdersFragmentContent extends BaseFragment implements View.OnClickL
                         lv_mall_orders.setVisibility(View.GONE);
                         mOrderEmpty.setVisibility(View.VISIBLE);
                     }
+                    updateBlanceStatus();
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
@@ -497,6 +501,7 @@ public class OrdersFragmentContent extends BaseFragment implements View.OnClickL
                     break;
                 case BaseService.DATA_FAILURE:
                 case BaseService.DATA_REQUEST_ERROR:
+                    closeProgressDialog();
                     showToast("取消失败");
                     break;
             }

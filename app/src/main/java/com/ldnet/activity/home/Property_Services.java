@@ -12,14 +12,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.ldnet.activity.MainActivity;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.activity.main.MainActivity;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.homeInspectionManage.NoticeHomeInspectionActivity;
+import com.ldnet.activity.decoratemanage.DecorateExceptionActivity;
+import com.ldnet.activity.homeinspectionmanage.NoticeHomeInspectionActivity;
 import com.ldnet.entities.*;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.HomeService;
-import com.ldnet.utility.*;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.PushMessage;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.customview.BadgeView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -47,6 +53,7 @@ public class Property_Services extends BaseActionBarActivity {
     private LinearLayout ll_home_communicate;
     private LinearLayout ll_home_telephone;
     private LinearLayout ll_home_inspection;
+    private LinearLayout ll_home_decorate;
     private LinearLayout ll_property_services;
     private CircleImageView iv_property_thumbnail;
     private TextView tv_property_name;
@@ -120,6 +127,9 @@ public class Property_Services extends BaseActionBarActivity {
 
         //房屋验收
         ll_home_inspection = (LinearLayout) findViewById(R.id.ll_home_inspection);
+
+        //装修管理
+        ll_home_decorate=(LinearLayout)findViewById(R.id.ll_home_decorate);
 
         //物业电话
         ll_home_telephone = (LinearLayout) findViewById(R.id.ll_home_telephone);
@@ -210,7 +220,7 @@ public class Property_Services extends BaseActionBarActivity {
     //初始化事件
     public void initEvent() {
         btn_back.setOnClickListener(this);
-        //缴费
+        //房屋验收
         ll_home_inspection.setOnClickListener(this);
         //报修
         ll_home_repair.setOnClickListener(this);
@@ -220,6 +230,9 @@ public class Property_Services extends BaseActionBarActivity {
         ll_home_communicate.setOnClickListener(this);
         //物业电话
         ll_home_telephone.setOnClickListener(this);
+        //装修管理
+        ll_home_decorate.setOnClickListener(this);
+
     }
 
     //点击事件
@@ -286,7 +299,14 @@ public class Property_Services extends BaseActionBarActivity {
                 break;
             case R.id.ll_home_inspection:
                 try {
-                    gotoActivityAndFinish(NoticeHomeInspectionActivity.class.getName(), null);
+                    gotoActivity(NoticeHomeInspectionActivity.class.getName(), null);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.ll_home_decorate:
+                try {
+                    gotoActivity(DecorateExceptionActivity.class.getName(), null);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }

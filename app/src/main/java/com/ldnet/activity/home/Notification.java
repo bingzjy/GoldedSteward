@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.MainActivity;
+import com.ldnet.activity.adapter.ListViewAdapter;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.activity.main.MainActivity;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.entities.Notifications;
 import com.ldnet.entities.SurveyEntity;
@@ -20,19 +19,15 @@ import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.NotificationService;
 import com.ldnet.utility.*;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
+import com.ldnet.view.listview.MyListView;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
 
-import okhttp3.Call;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +36,7 @@ public class Notification extends BaseActionBarActivity {
     private TextView tv_main_title;
     private ImageButton btn_back;
     private Services services;
-    private CustomListView2 lv_property_notification;
+    private MyListView lv_property_notification;
     private ListViewAdapter mAdapter;
     private ListViewAdapter mSurveyAdapter;
     private List<Notifications> mDatas;
@@ -112,7 +107,7 @@ public class Notification extends BaseActionBarActivity {
         main_act_scrollview.setFooterLayout(new FooterLayout(this));
 
         //通知列表
-        lv_property_notification = (CustomListView2) findViewById(R.id.lv_property_notification);
+        lv_property_notification = (MyListView) findViewById(R.id.lv_property_notification);
         lv_property_notification.setFocusable(false);
         mDatas = new ArrayList<Notifications>();
         lv_property_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {

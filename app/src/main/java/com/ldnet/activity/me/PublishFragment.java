@@ -1,14 +1,9 @@
 package com.ldnet.activity.me;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,16 +21,14 @@ import com.ldnet.activity.find.Weekend_Details;
 import com.ldnet.activity.home.HouseRentUpdate;
 import com.ldnet.activity.home.HouseRent_Detail;
 import com.ldnet.activity.informationpublish.InfoPublishDetailActivity;
-import com.ldnet.activity.informationpublish.InfoShowContentFragment;
-import com.ldnet.entities.HouseRent;
 import com.ldnet.entities.PublishEntity;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.FindService;
 import com.ldnet.service.HouseRentService;
 import com.ldnet.service.InfoBarService;
-import com.ldnet.utility.ListViewAdapter;
-import com.ldnet.utility.Services;
+import com.ldnet.activity.adapter.ListViewAdapter;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
 import com.ldnet.view.FooterLayout;
@@ -44,8 +37,6 @@ import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
-import com.third.SwipeListView.BaseSwipeListViewListener;
-import com.third.SwipeListView.SwipeListView;
 import com.third.SwipeListView2.SwipeListViewWrap;
 
 import java.util.ArrayList;
@@ -55,10 +46,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static com.ldnet.goldensteward.R.drawable.btn;
-import static com.ldnet.goldensteward.R.id.init;
-import static com.ldnet.goldensteward.R.id.slv_me_publish;
 
 /**
  * @author zhangjinye

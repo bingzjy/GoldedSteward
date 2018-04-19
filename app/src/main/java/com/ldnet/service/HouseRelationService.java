@@ -3,7 +3,6 @@ package com.ldnet.service;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -11,10 +10,10 @@ import com.google.gson.reflect.TypeToken;
 import com.ldnet.entities.InfoBarType;
 import com.ldnet.entities.OwnerRoom;
 import com.ldnet.entities.OwnerRoomRelation;
-import com.ldnet.utility.CookieInformation;
-import com.ldnet.utility.DataCallBack;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.activity.commen.Services;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;
@@ -23,10 +22,6 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
-
-import static android.R.string.ok;
 
 /**
  * @author zhangjinye

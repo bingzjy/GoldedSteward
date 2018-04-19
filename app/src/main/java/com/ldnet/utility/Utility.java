@@ -7,7 +7,6 @@ import android.graphics.*;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +19,15 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.ldnet.activity.access.VisitorCardActivity;
+import com.ldnet.activity.adapter.ListViewAdapter;
+import com.ldnet.activity.commen.GSApplication;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.CommunityServicesModel;
 import com.ldnet.entities.PPhones;
 import com.ldnet.entities.Type;
 import com.ldnet.goldensteward.R;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.customview.PagerSlidingTabStrip;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import java.io.ByteArrayOutputStream;
@@ -129,7 +132,6 @@ public class Utility {
     }
 
 
-
     // 设置Margin
     public static void setMargins(View v, int l, int t, int r, int b) {
         if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
@@ -196,6 +198,7 @@ public class Utility {
         return UUID.randomUUID().toString().replace("-","").trim();
     }
 
+
     public static String getDate(String date) {
         String dateStr = "";
         if (date.contains("T")) {
@@ -212,13 +215,6 @@ public class Utility {
         return Pattern.matches(REGEX_MOBILE, phone);
     }
 
-
-    public static boolean isNull(String content) {
-        if (content == null || (content != null && content.trim().equals(""))) {
-            return true;
-        }
-        return false;
-    }
 
 
     public static boolean editIsNull(EditText editText) {
@@ -311,7 +307,7 @@ public class Utility {
     }
 
     //设置标题滑动
-    public static void setTabsValue(PagerSlidingTabStrip tab,Context mContext) {
+    public static void setTabsValue(PagerSlidingTabStrip tab, Context mContext) {
         //  tab.setShouldExpand(true);
         tab.setBackgroundResource(R.color.white);
         // 设置Tab的分割线的颜色
@@ -341,7 +337,8 @@ public class Utility {
         tab.setTabPaddingLeftRight(24);
     }
 
-    //倒序添加所有优惠
+
+    //“所有优惠”插入第一分类
     public static List<CommunityServicesModel> reverseModelList(List<CommunityServicesModel> list){
         List<CommunityServicesModel> list1=new ArrayList<>();
         CommunityServicesModel model=new CommunityServicesModel();

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ldnet.activity.homeInspectionManage.InspectExceptionHandleingFragment">
+    tools:context="com.ldnet.activity.homeinspectionmanage.InspectExceptionHandleingFragment">
     <com.library.PullToRefreshScrollView
         android:background="#EEEEEE"
         android:id="@+id/main_act_scrollview"
@@ -27,14 +27,14 @@
                 android:textColor="@color/gray_text"
                 android:visibility="gone" />
 
-            <com.ldnet.utility.CustomListView2
+            <com.ldnet.view.listview.MyListView
                 android:id="@+id/lv_find_informations"
                 android:background="@drawable/border_top_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="#00000000"
                 >
-            </com.ldnet.utility.CustomListView2>
+            </com.ldnet.view.listview.MyListView>
         </LinearLayout>
     </com.library.PullToRefreshScrollView>
 

@@ -1,37 +1,28 @@
 package com.ldnet.activity.home;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.*;
 import android.view.animation.*;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
 import com.ldnet.activity.adapter.*;
 import com.ldnet.activity.base.BaseActionBarActivity;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.*;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.PropertyServeService;
-import com.ldnet.utility.*;
+import com.ldnet.view.listview.MyListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
-import okhttp3.Call;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.*;
 
 import static com.ldnet.goldensteward.R.id.tv_share;
@@ -68,13 +59,13 @@ public class Property_Repair_Details extends BaseActionBarActivity {
 
     private String[] pics;
     private String SCORE = "";
-    private MyDialog1 alertDialog;
+    private AlertDialog alertDialog;
     private TextView tv_socre;
     private EditText et_say;
     private RatingBar room_ratingbar, rb_score;
     private Button btn_cancel, btn_confirm;
     private Score score;
-    private float s;
+    private float scoreValue;
     private boolean aaa = false;
     private float currentRate;
     private String appraiseContent;
@@ -193,8 +184,9 @@ public class Property_Repair_Details extends BaseActionBarActivity {
         }
     }
 
+    //评价对话框
     public void ScoreDialog() {
-        alertDialog = new MyDialog1(this);
+        alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.show();
         alertDialog.setCanceledOnTouchOutside(false);
         Window window = alertDialog.getWindow();
@@ -215,8 +207,8 @@ public class Property_Repair_Details extends BaseActionBarActivity {
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((int) s != 0) {
-                    currentRate=Math.abs(6 - s);
+                if ((int) scoreValue != 0) {
+                    currentRate=Math.abs(6 - scoreValue);
                     appraiseContent=et_say.getText().toString().trim();
                     propertyService.createRepireScore(mRepairId,currentRate, appraiseContent,handlerCreateScore);
                 } else {
@@ -239,7 +231,7 @@ public class Property_Repair_Details extends BaseActionBarActivity {
     private class RatingBarChangeListenerImpl implements RatingBar.OnRatingBarChangeListener {
         @Override
         public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-            s = rating;
+            scoreValue = rating;
             if (rating == 0) {
                 tv_socre.setText("评分");
             } else if (rating == 1) {

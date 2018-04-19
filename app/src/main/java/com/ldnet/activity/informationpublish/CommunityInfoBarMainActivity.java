@@ -12,14 +12,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import com.ldnet.activity.MainActivity;
+import com.ldnet.activity.main.MainActivity;
 import com.ldnet.activity.adapter.InfoBarPagerAdapter;
 import com.ldnet.activity.base.BaseActionBarFragmentActivity;
 import com.ldnet.entities.InfoBarType;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.InfoBarService;
-import com.ldnet.utility.PagerSlidingTabStrip;
+import com.ldnet.view.customview.PagerSlidingTabStrip;
 import com.ldnet.utility.Utility;
 import com.tendcloud.tenddata.TCAgent;
 

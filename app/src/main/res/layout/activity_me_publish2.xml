@@ -6,7 +6,7 @@
 
     <include layout="@layout/title_white_theme" />
 
-    <com.ldnet.utility.PagerSlidingTabStrip
+    <com.ldnet.view.customview.PagerSlidingTabStrip
         android:id="@+id/pager_sliding_tab_strip_publish"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -21,7 +21,7 @@
         app:pstsTextSelectedColor="@color/gray_deep"
         app:pstsUnderlineColor="@color/gray_light" />
 
-    <com.ldnet.utility.NoScrollViewPager
+    <com.ldnet.view.customview.NoScrollViewPager
         android:id="@+id/viewpager_my_publish"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

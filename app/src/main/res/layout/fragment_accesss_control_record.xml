@@ -28,7 +28,7 @@
                 android:textColor="@color/gray_deep_1"
                 android:visibility="gone" />
 
-            <com.ldnet.utility.CustomListView2
+            <com.ldnet.view.listview.MyListView
                 android:id="@+id/lv_account_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

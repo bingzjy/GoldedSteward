@@ -2,7 +2,6 @@ package com.ldnet.activity.me;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,7 +13,7 @@ import android.view.View;
 import android.widget.*;
 import com.ldnet.activity.base.BaseActionBarActivity;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.Services;
+import com.ldnet.activity.commen.Services;
 import com.tendcloud.tenddata.TCAgent;
 
 import java.io.File;

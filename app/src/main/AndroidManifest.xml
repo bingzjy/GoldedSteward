@@ -54,16 +54,18 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.autofocus" />
-
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.GET_TASKS" />
 
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.autofocus" />
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
     <application
-        android:name="com.ldnet.utility.GSApplication"
+        android:name="com.ldnet.activity.commen.GSApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -71,54 +73,63 @@
         android:theme="@style/AppBaseTheme"
         tools:replace="android:icon,android:theme,android:name">
 
-        <!--&lt;!&ndash; 银联开始 &ndash;&gt;-->
-        <!--<uses-library-->
-        <!--android:name="org.simalliance.openmobileapi"-->
-        <!--android:required="false" />-->
+        <!-- &lt;!&ndash; 银联开始 &ndash;&gt; -->
+        <!-- <uses-library -->
+        <!-- android:name="org.simalliance.openmobileapi" -->
+        <!-- android:required="false" /> -->
 
-        <!--<activity-->
-        <!--android:name="com.unionpay.uppay.PayActivity"-->
-        <!--android:configChanges="orientation|keyboardHidden"-->
-        <!--android:excludeFromRecents="true"-->
-        <!--android:label="@string/app_name"-->
-        <!--android:screenOrientation="portrait"-->
-        <!--android:windowSoftInputMode="adjustResize" />-->
-        <!--<activity-->
-        <!--android:name="com.unionpay.UPPayWapActivity"-->
-        <!--android:configChanges="orientation|keyboardHidden"-->
-        <!--android:screenOrientation="portrait"-->
-        <!--android:windowSoftInputMode="adjustResize" />-->
-        <!--&lt;!&ndash; 银联结束 &ndash;&gt;-->
 
-        <!-- talkingdata分析工具-->
+        <!-- <activity -->
+        <!-- android:name="com.unionpay.uppay.PayActivity" -->
+        <!-- android:configChanges="orientation|keyboardHidden" -->
+        <!-- android:excludeFromRecents="true" -->
+        <!-- android:label="@string/app_name" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:windowSoftInputMode="adjustResize" /> -->
+        <!-- <activity -->
+        <!-- android:name="com.unionpay.UPPayWapActivity" -->
+        <!-- android:configChanges="orientation|keyboardHidden" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:windowSoftInputMode="adjustResize" /> -->
+        <!-- &lt;!&ndash; 银联结束 &ndash;&gt; -->
+
+
+        <!-- 蓝牙梯控 -->
+        <service
+            android:name="com.intelligoo.sdk.BluetoothLeService"
+            android:enabled="true" />
+
+        <!-- talkingdata分析工具 -->
         <service
             android:name="com.talkingdata.sdk.TDAntiCheatingService"
-            android:process="com.talkingdata.sdk.TDAntiCheatingService">  <!--用户质量评估Service可以配置在主进程或者单独进程-->
+            android:process="com.talkingdata.sdk.TDAntiCheatingService"> <!-- 用户质量评估Service可以配置在主进程或者单独进程 -->
             <intent-filter>
                 <action android:name="com.talkingdata.sdk.TDAntiCheatingService" />
             </intent-filter>
         </service>
+
         <meta-data
             android:name="TD_APP_ID"
             android:value="388367EA2DF541E3B35C903DA652D871" />
-        <!-- talkingdata分析工具-->
+        <!-- talkingdata分析工具 -->
 
 
         <!-- 网络监听 -->
-        <receiver android:name="com.ldnet.utility.NetState">
+        <receiver android:name="com.ldnet.utility.broadcastreceiver.NetState">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <!-- 网络监听 -->
 
-        <!--高德地图-->
+
+        <!-- 高德地图 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="84db3ca84209501f58a7934b21653a62" />
 
         <service android:name="com.amap.api.location.APSService" />
-        <!--高德地图-->
+        <!-- 高德地图 -->
 
 
         <!-- 支付宝支付 sdk begin -->
@@ -130,7 +141,8 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!-- alipay sdk end -->
 
-        <!-- SDK核心功能 since 2.0.6-->
+
+        <!-- SDK核心功能 since 2.0.6 -->
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -161,7 +173,6 @@
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
             android:exported="false" />
-
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
@@ -173,17 +184,15 @@
                 <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
         </service>
-        <!-- since 3.0.9 Required SDK 核心功能-->
+        <!-- since 3.0.9 Required SDK 核心功能 -->
         <provider
-            android:authorities="com.ldnet.goldensteward.DataProvider"
             android:name="cn.jpush.android.service.DataProvider"
-            android:exported="false"
-            />
+            android:authorities="com.ldnet.goldensteward.DataProvider"
+            android:exported="false" />
         <provider
-            android:authorities="com.ldnet.goldensteward.DownloadProvider"
             android:name="cn.jpush.android.service.DownloadProvider"
-            android:exported="true"
-            />
+            android:authorities="com.ldnet.goldensteward.DownloadProvider"
+            android:exported="true" />
         <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
         <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
         <service
@@ -223,7 +232,7 @@
             android:name="cn.jpush.android.service.AlarmReceiver"
             android:exported="false" />
         <receiver
-            android:name="com.ldnet.utility.MyNetWorkBroadcastReceive"
+            android:name="com.ldnet.utility.broadcastreceiver.MyNetWorkBroadcastReceive"
             android:enabled="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
@@ -252,7 +261,7 @@
 
         <!-- 等待加载页面 -->
         <activity
-            android:name="com.ldnet.activity.Splash"
+            android:name="com.ldnet.activity.main.Splash"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -264,38 +273,20 @@
 
         <!-- 登录页面 -->
         <activity
-            android:name="com.ldnet.activity.Login"
+            android:name="com.ldnet.activity.main.Login"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <!-- 主页 -->
         <activity
-            android:name="com.ldnet.activity.MainActivity"
+            android:name="com.ldnet.activity.main.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/fragment_home_title"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.ldnet.activity.adapter.ImageBucketChooseActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop"
-            android:theme="@style/Transparent"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity
-            android:name="com.ldnet.activity.adapter.ImageChooseActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop"
-            android:theme="@style/Transparent"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity
-            android:name="com.ldnet.activity.adapter.ImageZoomActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop"
-            android:theme="@style/Transparent"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <!-- Web Browser -->
         <activity
-            android:name="com.ldnet.activity.Browser"
+            android:name="com.ldnet.activity.main.Browser"
             android:screenOrientation="portrait" />
         <!-- 物业通知 -->
         <activity
@@ -396,7 +387,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-
         <activity
             android:name="com.ldnet.activity.home.HouseRent_Detail"
             android:label="@string/fragment_home_yellow_lease_detail"
@@ -411,16 +401,16 @@
             android:screenOrientation="portrait" />
         <!-- 黄页功能 -->
         <activity
-            android:name="com.ldnet.activity.home.YellowPageTabActivity"
+            android:name="com.ldnet.activity.yellowpage.YellowPageTabActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.ldnet.activity.home.CommunityServicesPageTabActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ldnet.activity.home.YellowPages_Map"
+            android:name="com.ldnet.activity.yellowpage.YellowPages_Map"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ldnet.activity.home.YellowPages_Navi"
+            android:name="com.ldnet.activity.yellowpage.YellowPages_Navi"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.ldnet.activity.home.Property_Telephone"
@@ -436,7 +426,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Transparent"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-
         <activity
             android:name="com.ldnet.activity.home.Property_Complain"
             android:label="@string/property_services_complain"
@@ -447,34 +436,33 @@
             android:screenOrientation="portrait"
             android:theme="@style/Transparent"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-
         <activity
             android:name="com.ldnet.activity.home.Property_Communicate"
             android:label="@string/property_services_communicate"
             android:screenOrientation="portrait" />
         <!-- 忘记密码 -->
         <activity
-            android:name="com.ldnet.activity.Forgot"
+            android:name="com.ldnet.activity.main.Forgot"
             android:label="@string/activity_forgot_title"
             android:screenOrientation="portrait" />
         <!-- 修改密码 -->
         <activity
-            android:name="com.ldnet.activity.ChangePassword"
+            android:name="com.ldnet.activity.main.ChangePassword"
             android:label="@string/activity_change_password_title"
             android:screenOrientation="portrait" />
         <!-- 注册 -->
         <activity
-            android:name="com.ldnet.activity.Register"
+            android:name="com.ldnet.activity.main.Register"
             android:label="@string/activity_register_title"
             android:screenOrientation="portrait" />
         <!-- 绑定社区 -->
         <activity
-            android:name="com.ldnet.activity.BindingCommunity"
+            android:name="com.ldnet.activity.main.BindingCommunity"
             android:label="@string/activity_binding_community_title"
             android:screenOrientation="portrait" />
         <!-- 绑定房屋 -->
         <activity
-            android:name="com.ldnet.activity.BindingHouse"
+            android:name="com.ldnet.activity.main.BindingHouse"
             android:label="@string/activity_binding_community_title"
             android:screenOrientation="portrait" />
         <!-- 我 -->
@@ -641,70 +629,96 @@
             android:enabled="true" />
 
         <activity
-            android:name="com.ldnet.activity.EntranceGuardSplash"
+            android:name="com.ldnet.activity.main.EntranceGuardSplash"
             android:theme="@style/EntranceGuaraSplash">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ldnet.activity.qindian.QinDianMain"
+            android:name="com.ldnet.activity.chargeservice.QinDianMain"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ldnet.activity.qindian.ChargeMoneyActivity"
+            android:name="com.ldnet.activity.chargeservice.ChargeMoneyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ldnet.activity.qindian.ChargeBatteryActivity"
+            android:name="com.ldnet.activity.chargeservice.ChargeBatteryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ldnet.activity.qindian.ChargeMoneyComplete"
+            android:name="com.ldnet.activity.chargeservice.ChargeMoneyComplete"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ldnet.activity.qindian.QinDianAccount"
+            android:name="com.ldnet.activity.chargeservice.QinDianAccount"
             android:theme="@android:style/Theme.Holo.Light" />
         <activity
             android:name="com.ldnet.activity.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.ldnet.activity.access.AccessControlMain"
+            android:name="com.ldnet.activity.accessmanage.AccessControlMain"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ldnet.activity.access.AddVisitorInviteActivity"
+            android:name="com.ldnet.activity.accessmanage.AddVisitorInviteActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light" />
         <activity
-            android:name="com.ldnet.activity.access.AddGoodsApplyActivity"
+            android:name="com.ldnet.activity.accessmanage.AddGoodsApplyActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light" />
         <activity
-            android:name="com.ldnet.activity.access.VisitorCardActivity"
+            android:name="com.ldnet.activity.accessmanage.VisitorCardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ldnet.activity.access.GoodsCardActivity"
+            android:name="com.ldnet.activity.accessmanage.GoodsCardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ldnet.activity.access.GoodsRecordDetailActivity"
+            android:name="com.ldnet.activity.accessmanage.GoodsRecordDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.ldnet.activity.informationpublish.CommunityInfoBarMainActivity" />
         <activity android:name="com.ldnet.activity.informationpublish.PublishCommunityInfoActivity" />
         <activity android:name="com.ldnet.activity.informationpublish.SearchInfoByKeyWordsActivity" />
         <activity android:name="com.ldnet.activity.informationpublish.InfoPublishDetailActivity" />
-        <activity android:name="com.ldnet.activity.bindmanage.MyRelationActivity" />
+        <activity android:name="com.ldnet.activity.myhouserelation.MyRelationActivity" />
         <activity
-            android:name="com.ldnet.activity.bindmanage.AddRelationActivity"
+            android:name="com.ldnet.activity.myhouserelation.AddRelationActivity"
             android:theme="@android:style/Theme.Holo.Light" />
         <activity
-            android:name="com.ldnet.activity.bindmanage.ContractExtensionActivity"
+            android:name="com.ldnet.activity.myhouserelation.ContractExtensionActivity"
             android:theme="@android:style/Theme.Holo.Light" />
         <activity android:name="com.ldnet.activity.me.PublishActivity" />
         <activity android:name="com.ldnet.activity.home.PropertyFeeCreateCode" />
         <activity android:name="com.ldnet.activity.home.PropertyFeePayTypeActivity" />
-        <activity android:name="com.ldnet.activity.homeInspectionManage.MainHomeInspectionActivity" />
-        <activity android:name="com.ldnet.activity.homeInspectionManage.NoticeHomeInspectionActivity" />
-        <activity android:name="com.ldnet.activity.homeInspectionManage.InspectExceptionDetailActivity" />
-        <activity android:name="com.ldnet.activity.homeInspectionManage.CreateInspectExceptionActivity" />
-        <activity android:name="com.ldnet.activity.homeInspectionManage.ManInspectHomeActivity"></activity>
+        <activity android:name="com.ldnet.activity.homeinspectionmanage.MainHomeInspectionActivity" />
+        <activity android:name="com.ldnet.activity.homeinspectionmanage.NoticeHomeInspectionActivity" />
+        <activity android:name="com.ldnet.activity.homeinspectionmanage.InspectExceptionDetailActivity" />
+        <activity android:name="com.ldnet.activity.homeinspectionmanage.AddInspectExceptionActivity" />
+        <activity android:name="com.ldnet.activity.homeinspectionmanage.WriteInspectHomeManActivity" />
+        <activity
+            android:name="com.ldnet.goldsteward.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.ldnet.activity.communityshop.CommunityShopMainActivity"
+            android:theme="@style/CustomTheme" />
+        <activity
+            android:name="com.ldnet.activity.communityshop.BussinessQualificationActivity"
+            android:theme="@style/CustomTheme" />
+        <activity
+            android:name="com.ldnet.activity.communityshop.SearchShopActivity"
+            android:theme="@style/CustomTheme" />
+        <activity
+            android:name="com.ldnet.activity.communityshop.ShopInfoActivity"
+            android:theme="@style/CustomTheme" />
+        <activity
+            android:name="com.ldnet.activity.communityshop.ShopDetailActivity"
+            android:theme="@style/CustomTheme" />
+        <activity android:name="com.ldnet.activity.decoratemanage.DecorateExceptionActivity" />
+        <activity android:name="com.ldnet.activity.decoratemanage.DecorateInfoActivity" />
+        <activity android:name="com.ldnet.activity.decoratemanage.DecorateDetailActivity" />
+        <activity
+            android:name="com.ldnet.activity.main.LadderControlActivity"
+            android:label="@string/title_activity_ladder_control" />
+        <activity android:name="com.ldnet.activity.BLEActivity"></activity>
     </application>
 
 </manifest>

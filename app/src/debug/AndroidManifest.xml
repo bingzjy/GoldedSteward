@@ -62,7 +62,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
 
     <application
-        android:name="com.ldnet.utility.GSApplication"
+        android:name="com.ldnet.activity.commen.GSApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -91,7 +91,7 @@
         <!-- jpush -->
 
         <!-- Required SDK核心功能 -->
-        <receiver android:name="com.ldnet.utility.NetState">
+        <receiver android:name="com.ldnet.utility.broadcastreceiver.NetState">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
@@ -190,7 +190,7 @@
             android:name="cn.jpush.android.service.AlarmReceiver"
             android:exported="false"/>
         <receiver
-            android:name="com.ldnet.utility.MyNetWorkBroadcastReceive"
+            android:name="com.ldnet.utility.broadcastreceiver.MyNetWorkBroadcastReceive"
             android:enabled="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION"/>
@@ -218,7 +218,7 @@
             android:value="21a61331846f75d81f599658"/>
         <!-- 等待加载页面 -->
         <activity
-            android:name="com.ldnet.activity.Splash"
+            android:name="com.ldnet.activity.main.Splash"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -229,13 +229,13 @@
 
         <!-- 登录页面 -->
         <activity
-            android:name="com.ldnet.activity.Login"
+            android:name="com.ldnet.activity.main.Login"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <!-- 主页 -->
         <activity
-            android:name="com.ldnet.activity.MainActivity"
+            android:name="com.ldnet.activity.main.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/fragment_home_title"
             android:launchMode="singleTask"
@@ -264,7 +264,7 @@
         </activity>
         <!-- Web Browser-->
         <activity
-            android:name="com.ldnet.activity.Browser"
+            android:name="com.ldnet.activity.main.Browser"
             android:screenOrientation="portrait"></activity>
         <!--物业通知-->
         <activity
@@ -381,7 +381,7 @@
             android:screenOrientation="portrait"/>
         <!--黄页功能-->
         <activity
-            android:name="com.ldnet.activity.home.YellowPageTabActivity"
+            android:name="com.ldnet.activity.yellowpage.YellowPageTabActivity"
 
             android:screenOrientation="portrait"/>
         <activity
@@ -389,10 +389,10 @@
 
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ldnet.activity.home.YellowPages_Map"
+            android:name="com.ldnet.activity.yellowpage.YellowPages_Map"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ldnet.activity.home.YellowPages_Navi"
+            android:name="com.ldnet.activity.yellowpage.YellowPages_Navi"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.ldnet.activity.home.Property_Telephone"
@@ -426,31 +426,31 @@
             android:screenOrientation="portrait"></activity>
         <!-- 忘记密码 -->
         <activity
-            android:name="com.ldnet.activity.Forgot"
+            android:name="com.ldnet.activity.main.Forgot"
             android:label="@string/activity_forgot_title"
             android:screenOrientation="portrait"></activity>
         <!-- 修改密码 -->
         <activity
-            android:name="com.ldnet.activity.ChangePassword"
+            android:name="com.ldnet.activity.main.ChangePassword"
             android:label="@string/activity_change_password_title"
             android:screenOrientation="portrait"></activity>
         <!-- 注册 -->
         <activity
-            android:name="com.ldnet.activity.Register"
+            android:name="com.ldnet.activity.main.Register"
             android:label="@string/activity_register_title"
             android:screenOrientation="portrait">
 
         </activity>
         <!-- 绑定社区 -->
         <activity
-            android:name="com.ldnet.activity.BindingCommunity"
+            android:name="com.ldnet.activity.main.BindingCommunity"
             android:label="@string/activity_binding_community_title"
             android:screenOrientation="portrait">
 
         </activity>
         <!-- 绑定房屋 -->
         <activity
-            android:name="com.ldnet.activity.BindingHouse"
+            android:name="com.ldnet.activity.main.BindingHouse"
             android:label="@string/activity_binding_community_title"
             android:screenOrientation="portrait"></activity>
         <!--我-->
@@ -626,22 +626,22 @@
             android:name="com.dh.bluelock.service.BluetoothBoardService"
             android:enabled="true"/>
 
-        <activity android:name="com.ldnet.activity.EntranceGuardSplash"
+        <activity android:name="com.ldnet.activity.main.EntranceGuardSplash"
             android:theme="@style/EntranceGuaraSplash">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
             </intent-filter>
         </activity>
 
-        <activity android:name="com.ldnet.activity.qindian.QinDianMain"
+        <activity android:name="com.ldnet.activity.chargeservice.QinDianMain"
             android:screenOrientation="portrait"></activity>
-        <activity android:name="com.ldnet.activity.qindian.ChargeMoneyActivity"
+        <activity android:name="com.ldnet.activity.chargeservice.ChargeMoneyActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.ldnet.activity.qindian.ChargeBatteryActivity"
+        <activity android:name="com.ldnet.activity.chargeservice.ChargeBatteryActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.ldnet.activity.qindian.ChargeMoneyComplete"
+        <activity android:name="com.ldnet.activity.chargeservice.ChargeMoneyComplete"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.ldnet.activity.qindian.QinDianAccount"/>
+        <activity android:name="com.ldnet.activity.chargeservice.QinDianAccount"/>
 
     </application>
 

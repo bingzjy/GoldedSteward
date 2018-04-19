@@ -1,7 +1,6 @@
 package com.ldnet.entities;
 
-import android.util.Log;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 
 /**
  * Created by Alex on 2015/9/1.

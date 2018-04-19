@@ -15,12 +15,15 @@ import com.dh.bluelock.pub.BlueLockPub;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.commen.Constant;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.KeyChain;
 import com.ldnet.goldensteward.R;
-import com.ldnet.utility.*;
 //import com.tencent.mm.sdk.openapi.IWXAPI;
 //import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
+import com.ldnet.view.dialog.BottomDialog;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tendcloud.tenddata.TCAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -34,8 +37,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.ldnet.utility.Services.COMMUNITY_ID;
-import static com.ldnet.utility.Services.ROOM_ID;
+import static com.ldnet.activity.commen.Services.COMMUNITY_ID;
+import static com.ldnet.activity.commen.Services.ROOM_ID;
 
 /**
  * Created by lee on 2017/4/26.
@@ -76,11 +79,11 @@ public class VisitorKeyChain extends BaseActionBarActivity {
     Handler receFromServer =new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            if(msg.what== Constant.GetKeyChainOK){   //服务器请求成功，有返回data
+            if(msg.what== DataCallBack.DATA_SUCCESS){   //服务器请求成功，有返回data
                 makePass();
-            }else if (msg.what==Constant.GetKeyChainNull){    //服务器请求成功，返回data为null
+            }else if (msg.what==DataCallBack.DATA_SUCCESS_OTHER||msg.what==DataCallBack.DATA_FAILURE){    //服务器请求成功，返回data为null
                 showToast("密码获取失败");
-                Log.e("asdsdasd","userID"+UserInformation.getUserInfo().getUserId()+"houseid"+UserInformation.getUserInfo().getHouseId()+"cid"+UserInformation.getUserInfo().getCommunityId());
+                Log.e("asdsdasd", "userID" + UserInformation.getUserInfo().getUserId() + "houseid" + UserInformation.getUserInfo().getHouseId() + "cid" + UserInformation.getUserInfo().getCommunityId());
             }
         }
     };
@@ -351,16 +354,16 @@ public class VisitorKeyChain extends BaseActionBarActivity {
                                         }
                                         keyChains = gson.fromJson(jsonObject.getString("Obj"), listType);
                                         Message message=new Message();
-                                        message.what=Constant.GetKeyChainOK;
+                                        message.what = DATA_SUCCESS;
                                         receFromServer.sendMessage(message);
                                     } else {
                                         Message message=new Message();
-                                        message.what=Constant.GetKeyChainNull;
+                                        message.what=DATA_SUCCESS_OTHER;
                                         receFromServer.sendMessage(message);
                                     }
                                 } else {
                                     Message message=new Message();
-                                    message.what=Constant.GetKeyChainNull;
+                                    message.what = DATA_FAILURE;
                                     receFromServer.sendMessage(message);
                                 }
                             }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ldnet.activity.homeInspectionManage.MainHomeInspectionActivity">
+    tools:context="com.ldnet.activity.homeinspectionmanage.MainHomeInspectionActivity">
     <include layout="@layout/title_white_theme2"/>
     <View
         android:layout_width="match_parent"

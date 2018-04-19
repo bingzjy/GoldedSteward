@@ -7,11 +7,13 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ldnet.activity.commen.Constant;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.entities.KeyChain;
 import com.ldnet.entities.KeyInfo;
-import com.ldnet.goldensteward.R;
-import com.ldnet.utility.*;
+import com.ldnet.utility.http.DataCallBack;
+import com.ldnet.utility.sharepreferencedata.CookieInformation;
+import com.ldnet.utility.sharepreferencedata.KeyCache;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import okhttp3.Call;

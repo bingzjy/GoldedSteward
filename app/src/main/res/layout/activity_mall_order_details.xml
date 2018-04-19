@@ -183,7 +183,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dimen_8dp"
-                                android:lines="1"
                                 android:text="NAME"
                                 android:textColor="@color/gray"
                                 android:textSize="@dimen/font_size_14sp" />
@@ -208,13 +207,13 @@
                     android:textColor="@color/gray_deep"
                     android:textSize="@dimen/font_size_16sp" />
 
-                <com.ldnet.utility.CustomListView2
+                <com.ldnet.view.listview.MyListView
                     android:id="@+id/lv_order_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:divider="@null"
-                    android:scrollbars="none"></com.ldnet.utility.CustomListView2>
+                    android:scrollbars="none"></com.ldnet.view.listview.MyListView>
             </LinearLayout>
             <!--商家信息-->
             <LinearLayout

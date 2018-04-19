@@ -17,7 +17,7 @@
             android:layout_margin="1dp"
             android:background="@drawable/me_coupon" />
 
-        <com.ldnet.utility.JZADScoreTextView
+        <com.ldnet.view.customview.JZADScoreTextView
             android:id="@+id/jzad_score_textText"
             android:layout_width="@dimen/dimen_64dp"
             android:layout_height="wrap_content"

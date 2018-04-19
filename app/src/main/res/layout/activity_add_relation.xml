@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.ldnet.activity.bindmanage.AddRelationActivity">
+    tools:context="com.ldnet.activity.myhouserelation.AddRelationActivity">
 
     <include layout="@layout/title_white_theme"></include>
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_15dp"
+        android:paddingRight="@dimen/dimen_15dp"
+        android:paddingTop="13dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="异常信息："
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <TextView
+            android:id="@+id/tv_exception_info"
+            android:layout_width="@dimen/dimen_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="111111111111111111"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/font_size_14sp" />
+
+        <TextView
+            android:id="@+id/tv_exception_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="未处理"
+            android:textColor="@color/green"
+            android:textSize="@dimen/font_size_14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_exception_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="13dp"
+        android:paddingLeft="@dimen/dimen_15dp"
+        android:paddingRight="@dimen/dimen_15dp"
+        android:paddingTop="5dp"
+        android:text="2018-10-10"
+        android:textColor="@color/gray_text"
+        android:textSize="@dimen/font_size_14sp" />
+</LinearLayout>

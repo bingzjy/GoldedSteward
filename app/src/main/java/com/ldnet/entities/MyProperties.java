@@ -1,6 +1,6 @@
 package com.ldnet.entities;
 
-import com.ldnet.utility.UserInformation;
+import com.ldnet.utility.sharepreferencedata.UserInformation;
 
 import java.io.Serializable;
 import java.util.List;

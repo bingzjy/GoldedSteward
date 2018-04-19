@@ -3,6 +3,8 @@ package com.ldnet.utility;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ldnet.activity.commen.GSApplication;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

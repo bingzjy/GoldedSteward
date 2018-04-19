@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,17 +22,15 @@ import com.ldnet.entities.InfoBarData;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.InfoBarService;
-import com.ldnet.utility.CustomListView2;
-import com.ldnet.utility.ListViewAdapter;
-import com.ldnet.utility.Services;
-import com.ldnet.utility.UserInformation;
+import com.ldnet.activity.adapter.ListViewAdapter;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.utility.Utility;
 import com.ldnet.utility.ViewHolder;
 import com.ldnet.view.FooterLayout;
 import com.ldnet.view.HeaderLayout;
+import com.ldnet.view.listview.MyListView;
 import com.library.PullToRefreshBase;
 import com.library.PullToRefreshScrollView;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
 
@@ -41,12 +38,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.ldnet.utility.Utility.imageOptions;
-
 public class InfoShowContentFragment extends BaseFragment {
 
     private String littleType;
-    private CustomListView2 listView;
+    private MyListView listView;
     private PullToRefreshScrollView refreshScrollView;
     private List<InfoBarData> dataList=new ArrayList<>();
     private InfoBarService service;
@@ -115,7 +110,7 @@ public class InfoShowContentFragment extends BaseFragment {
     public void initView(View view){
         tvNull=(TextView)view.findViewById(R.id.tv_find_informations);
         littleType =String.valueOf(getArguments().getInt("value"));
-        listView=(CustomListView2)view.findViewById(R.id.lv_find_informations);
+        listView=(MyListView)view.findViewById(R.id.lv_find_informations);
         refreshScrollView=(PullToRefreshScrollView)view.findViewById(R.id.main_act_scrollview);
         refreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         refreshScrollView.setHeaderLayout(new HeaderLayout(getActivity()));

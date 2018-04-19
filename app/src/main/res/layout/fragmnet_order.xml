@@ -27,12 +27,12 @@
                     android:text="您没有未支付的订单!"
                     android:textColor="@color/green_light"
                     android:visibility="gone" />
-            <com.ldnet.utility.CustomListView2
+            <com.ldnet.view.listview.MyListView
                     android:id="@+id/lv_mall_orders"
                     android:background="@drawable/border_top_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-            </com.ldnet.utility.CustomListView2>
+            </com.ldnet.view.listview.MyListView>
         </LinearLayout>
 
     </com.library.PullToRefreshScrollView>

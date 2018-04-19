@@ -29,13 +29,13 @@
                 android:textColor="@color/green_light"
                 android:visibility="gone" />
 
-            <com.ldnet.utility.CustomListView2
+            <com.ldnet.view.listview.MyListView
                 android:id="@+id/lv_message_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/border_top_bottom"
                 android:divider="#00000000"
-                android:listSelector="#00000000"></com.ldnet.utility.CustomListView2>
+                android:listSelector="#00000000"></com.ldnet.view.listview.MyListView>
         </LinearLayout>
 
     </com.library.PullToRefreshScrollView>

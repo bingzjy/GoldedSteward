@@ -101,7 +101,7 @@
                             android:textSize="@dimen/font_size_14sp"/>
                 </LinearLayout>
 
-                <com.ldnet.utility.UISwitchButton
+                <com.ldnet.view.customview.UISwitchButton
                         xmlns:switch="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/chk_balance_pay_type_checked"
                         android:layout_width="wrap_content"
@@ -180,7 +180,9 @@
                         android:layout_gravity="center|right"
                         android:layout_marginRight="@dimen/dimen_8dp"
                         android:background="@drawable/chk_custom"
-                        android:button="@null"/>
+                        android:button="@null"
+                        android:checked="true"
+                    />
             </LinearLayout>
         </LinearLayout>
 

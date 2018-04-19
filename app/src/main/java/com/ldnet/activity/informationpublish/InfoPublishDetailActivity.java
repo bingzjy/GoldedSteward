@@ -6,33 +6,24 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ldnet.activity.base.BaseActionBarActivity;
-import com.ldnet.activity.find.FreaMarket_Create;
 import com.ldnet.activity.me.PublishActivity;
 import com.ldnet.entities.InfoBarDetail;
 import com.ldnet.goldensteward.R;
 import com.ldnet.service.BaseService;
 import com.ldnet.service.InfoBarService;
-import com.ldnet.utility.BottomDialog;
-import com.ldnet.utility.Services;
+import com.ldnet.view.dialog.BottomDialog;
+import com.ldnet.activity.commen.Services;
 import com.ldnet.utility.Utility;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tendcloud.tenddata.TCAgent;
-
-import static android.R.attr.data;
-import static android.R.attr.rowHeight;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-import static com.ldnet.goldensteward.R.id.slv_me_publish;
-import static com.ldnet.goldensteward.R.id.vp_frea_market_images;
 
 public class InfoPublishDetailActivity extends BaseActionBarActivity {
 

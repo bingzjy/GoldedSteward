@@ -1,5 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/ll_freamark_creat"
+    android:id="@+id/ll_freamark_creat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -32,10 +32,9 @@
             android:layout_weight="1"
             android:background="@drawable/back_edittext_login"
             android:hint="建议在50字以内"
-            android:paddingLeft="@dimen/dimen_8dp"
-            android:textSize="@dimen/font_size_14sp"
             android:maxLength="50"
-            />
+            android:paddingLeft="@dimen/dimen_8dp"
+            android:textSize="@dimen/font_size_14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,9 +62,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/back_edittext_login"
-            android:numeric="integer"
-            android:inputType="numberDecimal"
             android:hint="@string/frea_market_goods_new_price"
+            android:inputType="numberDecimal"
+            android:numeric="integer"
             android:paddingLeft="@dimen/dimen_8dp"
             android:textSize="@dimen/font_size_14sp" />
 
@@ -74,11 +73,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dimen_8dp"
-            android:numeric="integer"
-            android:inputType="numberDecimal"
             android:layout_weight="1"
             android:background="@drawable/back_edittext_login"
             android:hint="@string/frea_market_goods_think_price"
+            android:inputType="numberDecimal"
+            android:numeric="integer"
             android:paddingLeft="@dimen/dimen_8dp"
             android:textSize="@dimen/font_size_14sp" />
     </LinearLayout>
@@ -93,8 +92,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
             android:text="@string/frea_market_pictures"
+            android:textColor="@color/gray"
             android:textSize="@dimen/font_size_14sp" />
     </LinearLayout>
 
@@ -103,12 +102,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none">
+
         <LinearLayout
             android:id="@+id/ll_frea_market_picture_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="@dimen/dimen_4dp">
+
             <ImageButton
                 android:id="@+id/btn_picture_add"
                 android:layout_width="@dimen/dimen_64dp"
@@ -118,7 +119,6 @@
                 android:src="@drawable/picture_plus" />
         </LinearLayout>
     </HorizontalScrollView>
-
 
 
     <LinearLayout
@@ -143,15 +143,14 @@
         android:layout_weight="1"
         android:background="@drawable/back_edittext"
         android:gravity="top|left"
+        android:hint="@string/weekend_memo"
         android:lineSpacingExtra="@dimen/dimen_8dp"
+        android:maxLength="500"
         android:minHeight="@dimen/dimen_48dp"
         android:minLines="6"
         android:padding="@dimen/dimen_4dp"
         android:textColor="@color/gray_deep"
-        android:textSize="@dimen/dimen_14dp"
-        android:maxLength="500"
-        android:hint="@string/weekend_memo"
-        />
+        android:textSize="@dimen/dimen_14dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
